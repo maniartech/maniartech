@@ -1,0 +1,15 @@
+# The Taj Mahal Module
+
+name: site
+
+pages:
+  - home: /
+  # - home-new: /home-new/
+  # - about: /about/
+  # - services: /services/
+  # - golang-migration: /services/golang-migration/
+  # - lab: /lab/
+  # - careers: /careers/
+  # - blogs: /blogs/
+  # - post: /blogs/post/
+  # - contact: /contact/

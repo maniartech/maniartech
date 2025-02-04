@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% block script %}
+<!-- Include Mermaid.js for diagrams -->
+<script type="module">
+	import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+	mermaid.initialize({ startOnLoad: true });
+</script>
+
+{% endblock %}
+<!-- Banner Start -->
+<div class="rn-blog-details-area custom-story-banner">
+  <!-- Banner Start -->
+  <div class="post-page-banner rn-section-gapTop pt--180 pb--100">
+      <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+            <div class="content text-left">
+                <div class="page-title">
+                <h1>Best Corporate Tips You Will Read This Year.</h1>
+                </div>
+                <ul class="rn-meta-list">
+                    <li>
+                        <i class="feather-user"></i>
+                        <a href="#" target="_blank">Irin Pervin</a>
+                    </li>
+                    <li title="Last updated at {{ author.updatedAt }}">
+                        <i class="feather-calendar"></i>
+                        10 Dec 2021
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+      </div>
+  </div>
+  <!-- Banner End -->
+
+
+  <div class="rainbow-blog-details-area">
+    <div class="blog-details-content pt--60 rn-section-gapBottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+              <div class="content">
+									<blockquote class="blockquote">
+										<p class="">
+											There is only one thing stronger than all the armies of the world: and that is an idea whose time has come <span title="Source Title" class="author-name"> Victor Hugo</span>
+										</p>
+									</blockquote>
+
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                      Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                      unknown printer took a galley of type and scrambled it to make a type specimen
+                      book.There are many variations of passages of Lorem Ipsum available, but the
+                      majority have suffered alteration in some form, by injected humour, or
+                      randomised words which don't look even slightly believable. If you are going to
+                      use a passage of Lorem Ipsum, you need to be sure there isn't anything
+                      embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the
+                      Internet tend to repeat predefined chunks as necessary, making this the first
+                      true generator on the Internet. It uses a dictionary of over 200 Latin words,
+                      combined with a handful of model sentence structures, to generate Lorem Ipsum
+                      which looks reasonable.</p>
+
+                  <h3>Introduction to Marketing</h3>
+
+
+                  <p>It has survived not only five centuries, but also the leap into electronic
+                      typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                      with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                      recently with desktop publishing software like Aldus PageMaker including
+                      versions of Lorem Ipsum.</p>
+
+                  <h4>Marketing is the study and management of exchange relationships.</h4>
+
+                  <ul>
+                      <li>It is a long established fact that a reader will be distracted by the
+                          readable content of a page when looking at its layout.</li>
+                      <li>The point of using Lorem Ipsum is that it has a more-or-less normal
+                          distribution of letters, as opposed to using 'Content here, content here',
+                          making it look like readable English.</li>
+                      <li>Many desktop publishing packages and web page editors now use Lorem Ipsum as
+                          their default model text, and a search for 'lorem ipsum' will uncover many
+                          web sites still in their infancy.</li>
+                  </ul>
+
+
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots
+                      in a piece of classical Latin literature from 45 BC, making it over 2000 years
+                      old. Richard McClintock, a Latin professor at Hampden-Sydney College in
+                      Virginia, looked up one of the more obscure Latin words.</p>
+
+									<div class="mermaid">
+										sequenceDiagram
+										Alice ->> Bob: Hello Bob, how are you?
+										Bob-->>John: How about you John?
+										Bob--x Alice: I am good thanks!
+										Bob-x John: I am good thanks!
+										Note right of John: Bob thinks a long<br />long time, so long<br />that the text does<br />not fit on a row.
+
+										Bob-->Alice: Checking with John...
+										Alice->John: Yes... John, how are you?
+
+									</div>
+
+                  <p>There are many variations of passages of Lorem Ipsum available, but the majority
+                      have suffered alteration in some form, by injected humour, or randomised words
+                      which don't look even slightly believable.</p>
+
+									<figure>
+										<img src="{% assets 'images/blog-grid/dummy.jpg' %}" alt="Technology" />
+										<figcaption>A caption for the above image</figcaption>
+									</figure>
+
+                  <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
+                      anything embarrassing hidden in the middle of text. All the Lorem Ipsum
+                      generators on the Internet tend to repeat predefined chunks as necessary, making
+                      this the first true generator on the Internet.</p>
+
+                    <h3>Marketing is the study and management of exchange relationships.</h3>
+										<p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
+											anything embarrassing hidden in the middle of text. All the Lorem Ipsum
+											generators on the Internet tend to repeat predefined chunks as necessary, making
+											this the first true generator on the Internet.</p>
+<pre class="code-box">
+{
+  "count": 12342,
+  "currentPage": 2,
+  "pageSize": 100,
+  "nextPage": "https://example.com/api/v1/employees/?page=3"
+  "previousPage": "https://example.com/api/v1/employees/?page=1"
+  "employees": [{...}, {...}, …]
+}
+</pre>
+
+                  <p>There are many variations of passages of Lorem Ipsum available, but the majority
+                      have suffered alteration in some form, by injected humour, or randomised words
+                      which don't look even slightly believable. If you are going to use a passage of
+                      Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the
+                      middle of text. All the Lorem Ipsum generators on the Internet tend to repeat
+                      predefined chunks as necessary, making this the first true generator on the
+                      Internet. It uses a dictionary of over 200 Latin words, combined with a handful
+                      of model sentence structures, to generate Lorem Ipsum which looks reasonable.
+                  </p>
+
+									<div class="mermaid">
+										graph LR
+										A[Square Rect] -- Link text --> B((Circle))
+										A --> C(Round Rect)
+										B --> D{Rhombus}
+										C --> D
+									</div>
+
+                  <div class="category-meta">
+                      <span class="text">Tags:</span>
+                      <div class="tagcloud">
+                          <a href="#">Corporate</a>
+                          <a href="#">Agency</a>
+                          <a href="#">Creative</a>
+                          <a href="#">Design</a>
+                          <a href="#">Minimal</a>
+                          <a href="#">Company</a>
+                          <a href="#">Development</a>
+                          <a href="#">App Landing</a>
+                          <a href="#">Startup</a>
+                          <a href="#">App</a>
+                          <a href="#">Business</a>
+                          <a href="#">Software</a>
+                          <a href="#">Landing</a>
+                          <a href="#">Art</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

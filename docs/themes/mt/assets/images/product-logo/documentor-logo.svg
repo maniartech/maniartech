@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="124.99995mm"
+   viewBox="0 0 100 124.99996"
+   version="1.1"
+   id="svg636"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="documentor-ai-logo-white.svg"
+   inkscape:export-filename="Documentor.AI\documentor-ai-logo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview638"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.0444209"
+     inkscape:cx="-38.298735"
+     inkscape:cy="191.49367"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs633" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-42.30159,-78.761495)">
+    <path
+       id="path851"
+       style="fill:#ffffff;stroke:none;stroke-width:104.571;stroke-linecap:round;stroke-linejoin:round"
+       d="m 52.434396,78.761495 c -5.613385,0 -10.132806,4.51942 -10.132806,10.13279 V 193.63065 c 0,5.6134 4.519421,10.1308 10.132806,10.1308 h 79.734374 c 5.6134,0 10.13283,-4.51741 10.13282,-10.1308 V 105.56812 L 115.49495,78.761495 Z m 58.197274,7.13669 24.53515,24.533195 h -21.46094 c -1.70365,0 -3.07421,-1.37055 -3.07421,-3.07421 z m -8.70118,37.271505 2.73828,5.47654 5.47657,2.73831 -5.47657,2.73825 -2.73828,5.47659 -2.738281,-5.47659 -5.47656,-2.73825 5.47656,-2.73831 z m -21.058591,10.24219 6.16602,12.33201 12.33398,6.16799 -12.33398,6.16602 -6.16602,12.33206 -6.16406,-12.33206 -12.33399,-6.16602 12.33399,-6.16799 z m 27.099611,20.9297 4.75195,9.50388 9.50586,4.75194 -9.50586,4.752 -4.75195,9.50387 -4.75,-9.50387 -9.505861,-4.752 9.505861,-4.75194 z" />
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{ title }} - ManiarTech®️</title>
+  {% include "includes/head.html" %}
+  {% block css %}  {% endblock %}
+</head>
+
+<body class="active-dark-mode position-relative">
+  {% include "includes/background-slider.html" %}
+  <!-- Main -->
+  <main id="main" class="page-wrapper">
+    {% include "includes/effects.html" %}
+    {% include "includes/header.html" %}
+
+    {% block content %}  {% endblock %}
+
+    {% include "includes/footer.html" %}
+  </main>
+  <!-- Main -->
+
+  {% include "includes/back-to-top.html" %}
+  {% include "includes/scripts.html" %}
+
+</body>
+</html>

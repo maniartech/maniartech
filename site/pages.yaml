@@ -1,0 +1,43 @@
+
+# Pages
+
+pages:
+  - name: home
+    path: /
+    template: home.html
+    # By default Taj Mahal runtime will find content from the
+    # same name file by changing the extension to .md in the same directory.
+    content: index.md # File
+    title: Home
+
+  - name: about
+    path: /about/
+    template: about.html
+    title: About
+    content: about.md # File
+
+  - name: services
+    path: /services/
+    title: Services
+    template: services.html
+
+  - name: golang-migration
+    path: /services/golang-migration/
+    title: Golang Migration
+    template: golang-migration.html
+
+  - name: products
+    path: /products/
+    title: Products
+    template: products.html
+
+  - name: careers
+    path: /careers/
+    title: Careers
+    template: careers.html
+
+  - name: contact
+    path: /contact/
+    title: Contact
+    template: contact.html
+    content: contact.md # File

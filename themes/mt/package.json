@@ -1,0 +1,13 @@
+{
+  "name": "tajmahal-maniartech-theme",
+  "version": "1.0.0",
+  "description": "Very special theme for tajmahal",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aamir Maniar",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
+}

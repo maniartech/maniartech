@@ -1,0 +1,32 @@
+<!-- Start Banner Area  -->
+<div class="slider-area slider-style-6 height-750 custom-banner">
+  <div class="container">
+    <div class="row row--30 align-items-center">
+      <div class="order-1 order-md-1 order-lg-1 col-md-7 col-lg-7 mt_md--50 mt_sm--50 mt_lg--30">
+        <div class="inner text-left">
+          <h1 class="title theme-gradient">{{ banner.heading }}</h1>
+          <p class="description">
+            {{ banner.content | safe }}
+          </p>
+          <div class="button-groupd d-none d-sm-block d-lg-block mt--30 mt_sm--20">
+            <a class="btn-default btn-medium btn-icon" target="_blank" href="/contact/">Connect Now <i
+                class="icon feather-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="order-2 order-md-2 order-lg-2 col-md-5 col-lg-5">
+        <div class="thumbnail d-flex justify-content-center frame-image">
+          <img src="{% assets 'images/about/about.gif' %}" alt="Banner Images">
+        </div>
+
+        <div class="button-group d-sm-none d-lg-none mt--30 mt_sm--20">
+          <a class="btn-default btn-medium btn-icon" target="_blank" href="/contact/">Connect Now <i
+              class="icon feather-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Banner Area  -->

@@ -1,0 +1,25 @@
+<!-- Start Blog Area  -->
+<div id="latest-trends" class="blog-area rn-section-gap">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title text-center" data-sal="slide-up" data-sal-duration="400" data-sal-delay="100">
+          <h4 class="subtitle ">
+            <span class="theme-gradient">Latest Trends</span>
+          </h4>
+          <h2 class="title w-600 mb--20">Stay Ahead of the Curve</h2>
+          <p class="description b1">At ManiarTech, we keep on researching and reviewing the latest <br /> Technologies and Trends. </p>
+        </div>
+      </div>
+    </div>
+    <div class="row row--15">
+      {% for blog in blogs %}
+        <div class="col-lg-4 col-md-6 col-12 mt--30" data-sal="slide-up" data-sal-duration="{{sal-duration}}">
+          {% component blog_card heading=blog.heading date=blog.date description=blog.description author=blog.author src=blog.src%}{% endcomponent %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- End Blog Area  -->
+<!-- Start Seperator Area  -->

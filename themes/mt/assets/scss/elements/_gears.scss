@@ -1,0 +1,153 @@
+ .gear-wrapper{
+    background-image: url(../images/bg/texture.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+     @media only screen and (max-width: 767px) {
+      background-size: contain;
+      background-position: 0 50%;
+    }
+
+  .gear-svg {
+    position: relative;
+    width: 100%;
+    pointer-events: none;
+
+    @media only screen and (min-width: 768px) and (max-width: 1023px){
+      width: 75%;
+    }
+  }
+
+  #gr-1-16 {
+    animation: rrt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-2-16 {
+    animation: rt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-3-16 {
+    animation: rrt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+
+    g:first-child {
+      transform: translate(14px, -1px);
+    }
+  }
+  #gr-5-16 {
+    animation: rt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+    g:first-child {
+      transform: translate(0px, 16px);
+    }
+  }
+  #gr-4-16 {
+    animation: rrt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+    g:first-child {
+      transform: translate(-20px, 27px);
+    }
+  }
+  #gr-6-12 {
+    animation: rrt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-7-23 {
+    animation: rt 15.3333s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-8-12 {
+    animation: rt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-9-12 {
+    animation: rt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-10-15 {
+    animation: rrt 10s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-11-12 {
+    animation: rt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-12-12 {
+    animation: rrt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-13-12 {
+    animation: rt 8s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-14-23 {
+    animation: rrt 15.3333s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+  }
+  #gr-15-23 {
+    animation: rt 15.3333s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+    g:first-child {
+      transform: translate(24px, 35px);
+    }
+  }
+  #gr-16-23 {
+    animation: rrt 15.3333s infinite linear;
+    transform-origin: center center;
+    transform-box: fill-box;
+    g:first-child {
+      transform: translate(54px, -25px);
+    }
+  }
+  &:hover {
+    #gr-1-16, #gr-2-16, #gr-3-16,
+    #gr-5-16, #gr-4-16, #gr-6-12,
+    #gr-8-12, #gr-9-12, #gr-11-12,
+    #gr-12-12,#gr-13-12 {
+      animation-duration: 1s;
+    }
+    #gr-7-23, #gr-14-23,
+    #gr-15-23, #gr-16-23 {
+      animation-duration: 1.9167s;
+    }
+    #gr-10-15 {
+      animation-duration: 1.5s;
+    }
+  }
+}
+
+@keyframes rt {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes rrt {
+  from {
+    transform: rotate(-0deg);
+  }
+  to {
+    transform: rotate(-359deg);
+  }
+}

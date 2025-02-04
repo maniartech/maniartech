@@ -1,0 +1,276 @@
+ .custom-banner {
+  &.slider-style-6 {
+    background-color: transparent;
+
+    .about-text {
+      background-color: #bf62004f;
+      padding: 0 7px;
+      border-radius: 4px;
+      font-style: italic;
+      font-size: 1.4rem;
+    }
+
+    @media only screen and (max-width: 767px) {
+      height: auto;
+    }
+
+    @media #{$md-layout}{
+      padding-top: 110px;
+    }
+
+    @media #{$lg-layout}{
+      height: calc(100vh + 160px);
+    }
+
+    @media #{$extra-device}{
+      height: calc(100vh - 160px);
+    }
+
+    @media screen and (min-width: 1920px) {
+      height: calc(100vh - 160px);
+    }
+
+    .inner {
+      .title {
+        font-size: 5rem;
+
+        @media only screen and (max-width: 767px) {
+          font-size: 4.5rem;
+        }
+
+        @media #{$md-layout} {
+          margin-bottom: 0;
+        }
+
+        span {
+          white-space: nowrap;
+          @media only screen and (max-width: 767px) {
+            white-space: normal;
+          }
+        }
+      }
+      .description {
+        font-size: var(--font-size-b2);
+        line-height: 26px;
+
+        span {
+          color: #ffffff9e;
+          font-weight: 300;
+          background-color: #4c5e8a5c;
+          padding: 1px 5px;
+          white-space: nowrap;
+          font-size: 0.875em;
+          border-radius: 4px;
+        }
+      }
+    }
+    .gear-col{
+      @media only screen and (max-width: 767px) {
+        max-height: 230px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.custom-about-area {
+  p {
+    margin-bottom: 8px;
+  }
+  .thumbnail {
+    display: flex;
+    justify-content: center;
+    img {
+      border-radius: 30px;
+      @media only screen and (min-width: 767px) and (max-width: 1023px) {
+        width: 65%!important;
+      }
+
+      @media only screen and (min-width: 1327px) {
+        width: 65%!important;
+      }
+    }
+  }
+  .advance-brand {
+    .slick-track {
+      display: flex;
+      align-items: center;
+
+      .slick-slide {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.custom-values {
+  &.about-style-4 {
+    .title {
+      margin-bottom: 0px;
+    }
+  }
+
+  .thumbnail {
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.custom-core-pillars {
+  margin-top: -40px;
+  .timeline-style-two {
+    .heading {
+      font-size: 2rem;
+      color: var(--color-extra02);
+    }
+  }
+}
+
+.custom-certification {
+  &.about-style-6 {
+    .wrapper {
+      max-width: 999px;
+    }
+  }
+}
+
+.custom-services {
+ .content {
+   .title {
+      font-size: 2.4rem;
+    }
+ }
+
+ .service__style--1 {
+  display: flex;
+  flex-direction: column;
+
+  .subtitle {
+    // font-size: 1.6rem;
+  }
+
+  .content {
+    flex: 1;
+  }
+ }
+}
+
+.custom-product-section {
+  .service-wrapper {
+    .service {
+      .icon {
+        img {
+          max-height: 50px;
+        }
+      }
+    }
+  }
+}
+
+.product-list-carousal {
+  .slick-slide {
+    height: inherit;
+    display: flex;
+
+    .inner {
+      height: 100%;
+      .content {
+        display: flex;
+        flex-direction: column;
+        height: inherit;
+        padding-top: 50px;
+
+        .description {
+          flex: 1;
+        }
+
+        .title {
+          font-size: 20px;
+          font-weight: 500;
+          margin-bottom: 2px;
+          letter-spacing: 0.5px;
+        }
+      }
+      .thumbnail {
+        background-color: var(--color-lessdark);
+        max-width: 100px;
+        max-height: 100px;
+        min-width: 100px;
+        min-height: 100px;
+        top: -45px;
+        &::after {
+          content: none!important;
+        }
+        img {
+          object-fit: contain;
+          width: 56%;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+}
+
+.custom-testimonial {
+  .testimonial-style-two {
+    .content {
+      .description {
+        font-size: var(--font-size-b1);
+      }
+    }
+    .thumbnail-img {
+      img {
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.custom-contact-form {
+  .rn-address {
+    padding: 35px;
+    .inner {
+      p {
+        padding-bottom: 10px;
+      }
+    }
+  }
+  .form-control:not(:placeholder-shown)~label::after,
+  .form-floating>.form-control:focus~label::after,
+  .form-control:focus,
+  .form-group textarea {
+    background-color: transparent!important;
+    color: var(--color-body)!important;
+  }
+  .form-group textarea {
+    min-height: 192px;
+  }
+  .form-floating {
+    label {
+      padding: 1.1rem 2.2rem;
+      color: var(--color-body)!important;
+
+      ::after {
+        background-color: transparent!important;
+        color: var(--color-body);
+      }
+    }
+  }
+}
+
+.custom-career-section {
+  .inner {
+    .content {
+      .title {
+        font-size: 3.2rem;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        color: var(--color-body);
+      }
+    }
+  }
+}
