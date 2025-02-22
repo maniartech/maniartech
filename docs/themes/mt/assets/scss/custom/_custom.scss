@@ -1,0 +1,156 @@
+:root { scroll-behavior: smooth; }
+
+h2, .h2 {
+  font-size: 32px;
+  @media only screen and (max-width: 767px) {
+    font-size: 28px;
+  }
+}
+
+.rn-gradient-circle.theme-pink {
+  pointer-events: none;
+}
+
+.filter-invert {
+  filter: invert(0.2);
+  &:hover {
+    filter: invert(0.8);
+  }
+}
+
+.filter-grayscale {
+  filter: grayscale(0.5);
+  &:hover {
+    filter: grayscale(0);
+  }
+}
+
+.filter-brightness {
+  filter: brightness(0.5);
+  &:hover {
+    filter: brightness(1);
+  }
+}
+
+.filter-contrast {
+  filter: contrast(0.5);
+  &:hover {
+    filter: contrast(1);
+  }
+}
+
+.filter-saturate {
+  filter: saturate(0.5);
+  &:hover {
+    filter: saturate(1);
+  }
+}
+
+.filter-hue-rotate {
+  filter: hue-rotate(90deg);
+  &:hover {
+    filter: hue-rotate(0deg);
+  }
+}
+
+.filter-blur {
+  filter: blur(5px);
+  &:hover {
+    filter: blur(0px);
+  }
+}
+
+.header-default {
+  .logo {
+    a {
+      @media only screen and (max-width: 767px) {
+        height: 65px;
+      }
+
+      img {
+        margin-top: 26px;
+        max-height: 70px;
+        filter: drop-shadow(20px 20px 20px black);
+
+        @media only screen and (max-width: 767px) {
+          max-height: 55px;
+          margin-top: 25px;
+        }
+      }
+    }
+  }
+}
+
+.custom-banner {
+  &.slider-style-6 {
+    @media only screen and (max-width: 767px) {
+      height: auto;
+    }
+
+    @media #{$md-layout}{
+      padding-top: 110px;
+    }
+
+    @media #{$lg-layout}{
+      height: calc(100vh + 160px);
+    }
+
+    @media #{$extra-device}{
+      height: calc(100vh - 160px);
+    }
+
+    @media screen and (min-width: 1920px) {
+      height: calc(100vh - 160px);
+    }
+  }
+}
+
+.custom-values {
+  .counter-style-4 {
+    .count-number {
+      font-size: 20px;
+
+      &::after {
+        content: "";
+      }
+    }
+  }
+}
+
+.home-page-custom {
+  .about-style-6 {
+    .maintitle {
+      span {
+        display: table-cell;
+        padding-bottom: 14px;
+      }
+    }
+  }
+
+  .section-title, .cta-title-heading {
+    .subtitle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .custom-services {
+    .content {
+      span.subtitle {
+        display: table;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        width: fit-content;
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+  }
+
+}

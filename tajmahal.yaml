@@ -1,0 +1,31 @@
+version: 1.0
+
+# The site name
+name: ManiarTech
+
+author: Nomaan Maniar
+
+modules:
+  - site
+
+publicDir: public
+buildDir: docs
+
+404Page: ~/themes/standard/404.html
+
+#
+pageSize: 5
+
+themesDir: ~/themes
+
+tagLine: Creative, Innovaitve and Intelligent
+
+theme: mt
+
+dataDir: ~/data/
+
+languages:
+  - en
+  - hi
+
+goggleAnalytics: 982374763

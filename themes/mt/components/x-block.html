@@ -1,0 +1,48 @@
+---
+heading:
+  selector: "h2 span.heading"
+  default: Try Block
+  description: "The heading of the try-block"
+
+icon:
+  selector: .icon
+  default: right
+  template: "Icon {}"
+  description: "The icon of the try-block"
+
+border:
+  selector: :host
+  attribute: style
+  template: "border: {}px solid #ccc;"
+  default: 1
+
+--options--:
+  mode: open
+---
+<style>
+  :host{
+    padding: 1em;
+    margin: 1em 0;
+    display: block;
+    box-shadow: 5px 5px 5px #888888;
+    background-color: #eee;
+    color: rgb(26, 26, 26);
+  }
+
+  .heading {
+    color: var(--heading-color); /** Variable **/
+  }
+</style>
+<script>
+  onConnect() {
+    console.log("x-block connected!")
+  }
+</script>
+
+
+<section class="root">
+  <h2><span class="icon"></span> <span class="heading"></span></h2>
+  <div>
+    <slot name="details"></slot>
+  </div>
+</section>

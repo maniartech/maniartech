@@ -1,0 +1,75 @@
+.benefit-table-compare {
+  background-color: var(--color-blackest);
+  border: 2px solid var(--color-border);
+  border-radius: 5px;
+
+  table {
+    margin: 0;
+
+    .table-heading {
+      tr {
+        th {
+          border: 0;
+          background-color: var(--color-lessdark);
+        }
+      }
+    }
+
+    .table-body {
+      tr {
+        td {
+          text-align: center;
+        }
+      }
+    }
+
+    tr {
+      th {
+        border: 1px solid var(--color-border);
+        color: var(--color-body);
+        font-size: var(--font-size-b3);
+        padding: 0.5rem 1.4rem;
+        background-color: transparent;
+      }
+
+      td {
+        color: var(--color-body);
+        font-weight: var(--p-regular);
+        font-size: var(--font-size-b3);
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.comparison-table {
+  background-color: var(--color-blackest);
+  display: grid;
+
+  .table-header {
+    background-color: var(--color-lessdark);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .heading {
+    font-weight: bold;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 40% repeat(3, minmax(100px, 1fr));
+    grid-column: 1 / -1;
+    grid-auto-rows: minmax(50px, auto);
+  }
+
+  .label {
+    font-weight: bold;
+  }
+
+  .data {
+    padding: 0 10px;
+    border: 1px solid var(--color-border);
+  }
+}

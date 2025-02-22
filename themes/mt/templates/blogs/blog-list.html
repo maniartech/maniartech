@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title>
+    {{ title }} - Tajmahal {{ version }}
+  </title>
+</head>
+<body>
+  <h1>Tajmahal - {{ title }} </h1>
+<pre>{{ module }}</pre>
+  <aside>
+    {% include "./categories.html" %}
+  </aside>
+  {% for article in documents %}
+  <article>
+    <header>
+      <h1>{{ article.name }}</h1>
+      <a href="/blogs/{{article.name}}/">Permalink</a>
+      <p>{{ article.context.count|stringformat:"Count %v" }} - {{ article.context.date|date:"January 02, 2006" }}</p>
+      {{ article.content|safe }}
+    </header>
+  </article>
+  {% endfor %}
+</body>
+</html>

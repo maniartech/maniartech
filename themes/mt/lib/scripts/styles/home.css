@@ -1,0 +1,22 @@
+.green {
+  color: yellow;
+}
+.green:hover {
+  color:lightgreen;
+}
+.first {
+  background-color: black;
+  color: rgb(255, 138, 239);
+}
+
+.first div {
+  color:red;
+}
+
+.second {
+  --heading-color: green;
+}
+
+my-box {
+  --heading-color: red;
+}

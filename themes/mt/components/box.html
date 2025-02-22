@@ -1,0 +1,21 @@
+<style>
+  #{{ id }} {
+    background-color: {{color | default:"red"}};
+  }
+
+  #{{ id }} h1 {
+    color: {{ titleColor | default:"yellow" }};
+  }
+</style>
+
+<div id="{{ id }}" class="red {{ class }}" style="{{style}}; border:0;">
+  <h1>Parent Template Start {{test}}</h1>
+  <h3>{% slot title %}Dummy Title{% endslot %}</h3>
+  <p>Parent Template Middle</p>
+  <p>{% slot content %}Dummy Content{% endslot %}</p>
+  <img
+    src="{% slot image %}https://via.placeholder.com/150{% endslot %}"
+    alt="{{alt | default:'Dummy Alt Text'}}"
+    />
+  <p>Parent Template End</p>
+</div>

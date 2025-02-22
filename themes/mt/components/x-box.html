@@ -1,0 +1,26 @@
+---
+heading:
+  selector: h2
+  default: Default Heading
+---
+<style>
+  :host {
+    padding: 1em;
+    margin: 1em 0;
+    display: block;
+    box-shadow: 5px 5px 5px #888888;
+    border-radius: 5px;
+    background-color: lightblue;
+    color: rgb(26, 26, 26);
+  }
+
+  h2 {
+    color: var(--heading-color);
+  }
+
+</style>
+
+<div>
+  <h2></h2>
+  <slot name="details">asdfasd fas dfasdf asdf asdf</slot>
+</div>
