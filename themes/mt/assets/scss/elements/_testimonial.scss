@@ -1,5 +1,5 @@
 /*-------------------------
-    Testimonial Styles  
+    Testimonial Styles
 --------------------------*/
 
 .card-style-default {
@@ -40,7 +40,7 @@
                     letter-spacing: 0.5px;
                 }
             }
-        } 
+        }
         &.style-two {
             .inner {
                 .thumbnail {
@@ -59,7 +59,7 @@
 
 
 /*-----------------------------
-    Testimonial Style Two  
+    Testimonial Style Two
 -------------------------------*/
 
 .testimonial-style-two {
@@ -78,7 +78,7 @@
             top: 52px;
             z-index: -1;
         }
-      
+
         .form {
             display: block;
             font-size: 18px;
@@ -108,7 +108,8 @@
             .title {
                 font-size: 22px;
                 font-weight: 500;
-                margin-bottom: 8px;
+                margin-bottom: 0px;
+                color: var(--color-heading);
             }
             .subtitle {
                 font-size: 16px;
@@ -129,5 +130,3 @@
         }
     }
 }
-
-

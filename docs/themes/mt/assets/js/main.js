@@ -18,17 +18,14 @@
         methods: function (e) {
             doobJs.smothScroll();
             doobJs.backToTopInit();
+            doobJs.headerSticky();
+            doobJs.salActive();
             doobJs.counterUpActivation();
             doobJs.wowActivation();
             doobJs.headerTopActivation();
-            doobJs.headerSticky();
-            doobJs.salActive();
-            doobJs.popupMobileMenu();
-            doobJs.lightBoxJs();
-            doobJs.slickSliderActivation();
-            doobJs.contactForm();
-            doobJs.menuCurrentLink();
             doobJs.onePageNav();
+            doobJs.slickSliderActivation();
+            doobJs.menuCurrentLink();
         },
 
         menuCurrentLink: function () {
@@ -73,29 +70,6 @@
                 animateThumb: false,
                 showThumbByDefault: false,
                 cssEasing: 'linear'
-            });
-        },
-
-
-        popupMobileMenu: function (e) {
-            $('.hamberger-button').on('click', function (e) {
-                $('.popup-mobile-menu').addClass('active');
-            });
-
-            $('.close-menu').on('click', function (e) {
-                $('.popup-mobile-menu').removeClass('active');
-                $('.popup-mobile-menu .mainmenu .has-droupdown > a, .popup-mobile-menu .mainmenu .with-megamenu > a').siblings('.submenu, .rn-megamenu').removeClass('active').slideUp('400');
-                $('.popup-mobile-menu .mainmenu .has-droupdown > a, .popup-mobile-menu .mainmenu .with-megamenu > a').removeClass('open')
-            });
-
-            $('.popup-mobile-menu .mainmenu .has-droupdown > a, .popup-mobile-menu .mainmenu .with-megamenu > a').on('click', function (e) {
-                e.preventDefault();
-                $(this).siblings('.submenu, .rn-megamenu').toggleClass('active').slideToggle('400');
-                $(this).toggleClass('open')
-            })
-
-            $('.popup-mobile-menu, .popup-mobile-menu .mainmenu.onepagenav li a').on('click', function (e) {
-                e.target === this && $('.popup-mobile-menu').removeClass('active') && $('.popup-mobile-menu .mainmenu .has-droupdown > a, .popup-mobile-menu .mainmenu .with-megamenu > a').siblings('.submenu, .rn-megamenu').removeClass('active').slideUp('400') && $('.popup-mobile-menu .mainmenu .has-droupdown > a, .popup-mobile-menu .mainmenu .with-megamenu > a').removeClass('open');
             });
         },
 

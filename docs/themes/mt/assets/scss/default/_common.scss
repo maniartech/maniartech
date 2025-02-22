@@ -1,4 +1,4 @@
-/*======================== 
+/*========================
     Common Style Css
 ==========================*/
 
@@ -423,5 +423,46 @@
     box-shadow: var(--shadow-lighter);
 }
 
+.img-filter-hue-45 {
+    filter: hue-rotate(45deg);
+}
 
+.img-filter-hue-75 {
+    filter: hue-rotate(75deg);
+}
 
+.img-filter-invert {
+    filter: invert(1);
+}
+
+.img-documentor-ai {
+    width: 36px!important;
+}
+
+.img-tg {
+    width: 43%!important;
+}
+
+.strativity-color {
+    color: #00abd7;
+}
+
+.upsport-color {
+    color: #eb6626;
+}
+
+.digi-color {
+    color: #f9ac5c;
+}
+
+.tender-info {
+    color: #f08501;
+}
+
+.zendesigns-color {
+    color: #d0bc4a;
+}
+
+.zendesigns-logo {
+    height: 280px;
+}

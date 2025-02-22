@@ -1,42 +1,42 @@
 <!-- Start Banner Area  -->
-<section id="home" class="slider-area slider-style-6 shape-right height-750 custom-banner">
+<section id="home" class="slider-area slider-style-6 shape-right height-750 custom-bann">
   <div class="container">
     <div class="row row--30 align-items-center">
-      <div class="order-2 order-lg-1 col-lg mt_md--50 mt_sm--30 mt_lg--30">
-        <div class="pt-md-6 d-none d-md-none d-lg-block">
-          <div class="d-inline-block">
-            <p class="m-0 about-text">{{ banner.motto }}</p>
-          </div>
-        </div>
-        <div class="inner text-start">
-          <h1 class="title theme-gradient d-none d-lg-block">{{ banner.heading }}</h1>
-
-          <p class="description">{{ banner.content | safe }}</p>
-
-          <div class="button-group">
-            <a class="btn-default" href="#contact">Connect Now <i class="icon feather-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 d-md-block d-lg-none">
+      <div class="order-2 order-lg-1 col-lg mt_sm--20 mt_md--30 mt_lg--50 pt_lg--30">
         <div class="pt-md-6">
           <div class="d-inline-block">
-            <p class="m-0 about-text">
-              A <span class="theme-gradient">Creative, Innovaitve and Intelligent</span> Software Engineering Company.
-            </p>
+            <p class="m-0 about-text" role="doc-subtitle">{{ banner.motto }}</p>
           </div>
         </div>
         <div class="inner text-start">
           <h1 class="title theme-gradient">
-            <span>Software Engineering</span> & Innovations
+            <span class="visually-hidden">Maniar Technologies®</span>
+            {{ banner.title }}
           </h1>
+
+          <div class="thumbnail gear-wrapper d-md-flex d-lg-none" aria-hidden="true">
+            {% include "../gears.html" %}
+          </div>
+
+          <div class="description">
+            {{ banner.content | safe }}
+          </div>
+
+          <div class="button-group">
+            <a class="btn-default" href="#contact" role="button" aria-label="Connect with us">
+              Connect Now <i class="icon feather-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
       </div>
       <div class="col-lg order-1 order-lg-2 gear-col">
-        <div class="thumbnail gear-wrapper"> {% include "../gears.html" %} </div>
+        <div class="thumbnail gear-wrapper d-none d-lg-block" aria-hidden="true">
+          {% include "../gears.html" %}
+        </div>
       </div>
     </div>
   </div>
 </section>
 <!-- End Banner Area  -->
+
+<hr class="visually-hidden"/>

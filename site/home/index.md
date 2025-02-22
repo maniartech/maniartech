@@ -1,5 +1,5 @@
 ---
-title: Innovating Business Solutions with Technology Excellence
+title: Innovative Business Solutions
 
 blogs:
   - heading: "Best Corporate Tips You Will Read This Year."

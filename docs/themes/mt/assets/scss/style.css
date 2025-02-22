@@ -6654,7 +6654,7 @@ textarea:-ms-input-placeholder {
   padding-right: 100px !important;
 }
 
-/*======================== 
+/*========================
     Common Style Css
 ==========================*/
 /* Theme Gradient */
@@ -6886,6 +6886,50 @@ textarea:-ms-input-placeholder {
   padding: 7px 14px;
   background-color: var(--color-blackest);
   box-shadow: var(--shadow-lighter);
+}
+
+.img-filter-hue-45 {
+  filter: hue-rotate(45deg);
+}
+
+.img-filter-hue-75 {
+  filter: hue-rotate(75deg);
+}
+
+.img-filter-invert {
+  filter: invert(1);
+}
+
+.img-documentor-ai {
+  width: 36px !important;
+}
+
+.img-tg {
+  width: 43% !important;
+}
+
+.strativity-color {
+  color: #00abd7;
+}
+
+.upsport-color {
+  color: #eb6626;
+}
+
+.digi-color {
+  color: #f9ac5c;
+}
+
+.tender-info {
+  color: #f08501;
+}
+
+.zendesigns-color {
+  color: #d0bc4a;
+}
+
+.zendesigns-logo {
+  height: 280px;
 }
 
 /* ========= Forms Styles ========= */
@@ -8758,7 +8802,12 @@ xclip
   */
 #main {
   position: relative;
-  z-index: 999;
+  width: 100%;
+  overflow: auto;
+  inset: 0;
+  overflow-x: hidden;
+  transition: left 0.4s ease-in-out, top 0.4s ease-in-out;
+  background-color: var(--color-dark);
 }
 #main.slide {
   background-color: var(--color-dark);
@@ -8770,7 +8819,6 @@ xclip
   border-bottom-right-radius: 15px;
   z-index: 99;
   overflow-x: hidden;
-  overflow-y: auto;
   margin: 0;
   width: 100%;
   transition: 0.4s ease-in;
@@ -9176,7 +9224,7 @@ div.btn-default.rounded-player.sm-size {
 }
 
 /*--------------------
-    Service Styles  
+    Service Styles
 ----------------------*/
 .service.service__style--1 {
   padding: 50px 35px;
@@ -10274,7 +10322,7 @@ div.btn-default.rounded-player.sm-size {
 }
 
 /*-------------------------
-    Testimonial Styles  
+    Testimonial Styles
 --------------------------*/
 .card-style-default.testimonial-style-one .inner .thumbnail {
   overflow: visible;
@@ -10318,7 +10366,7 @@ div.btn-default.rounded-player.sm-size {
 }
 
 /*-----------------------------
-    Testimonial Style Two  
+    Testimonial Style Two
 -------------------------------*/
 .testimonial-style-two .content {
   position: relative;
@@ -10367,7 +10415,8 @@ div.btn-default.rounded-player.sm-size {
 .testimonial-style-two .content .client-info .title {
   font-size: 22px;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
+  color: var(--color-heading);
 }
 .testimonial-style-two .content .client-info .subtitle {
   font-size: 16px;
@@ -12141,7 +12190,7 @@ iframe {
 }
 
 /*--------------------------
-    About Styles  
+    About Styles
 ---------------------------*/
 .about-style-4 .title {
   font-weight: 400;
@@ -12283,7 +12332,7 @@ iframe {
   font-weight: 500;
 }
 .about-style-6 .maintitle {
-  font-size: 30px;
+  font-size: 32px;
   line-height: 1.3;
   margin-top: 17px;
   margin-bottom: 25px;
@@ -14870,10 +14919,10 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 /**************************************
             Custom
 ***************************************/
-.custom-banner.slider-style-6 {
+.custom-bann.slider-style-6 {
   background-color: transparent;
 }
-.custom-banner.slider-style-6 .about-text {
+.custom-bann.slider-style-6 .about-text {
   background-color: rgba(191, 98, 0, 0.3098039216);
   padding: 0 7px;
   border-radius: 4px;
@@ -14881,56 +14930,59 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   font-size: 1.4rem;
 }
 @media only screen and (max-width: 767px) {
-  .custom-banner.slider-style-6 {
+  .custom-bann.slider-style-6 {
     height: auto;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .custom-banner.slider-style-6 {
+  .custom-bann.slider-style-6 {
     padding-top: 110px;
   }
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .custom-banner.slider-style-6 {
+  .custom-bann.slider-style-6 {
     height: calc(100vh + 160px);
   }
 }
 @media only screen and (min-width: 1600px) and (max-width: 1919px) {
-  .custom-banner.slider-style-6 {
+  .custom-bann.slider-style-6 {
     height: calc(100vh - 160px);
   }
 }
 @media screen and (min-width: 1920px) {
-  .custom-banner.slider-style-6 {
+  .custom-bann.slider-style-6 {
     height: calc(100vh - 160px);
   }
 }
-.custom-banner.slider-style-6 .inner .title {
+.custom-bann.slider-style-6 .inner .title {
   font-size: 5rem;
+  margin-top: 10px;
 }
 @media only screen and (max-width: 767px) {
-  .custom-banner.slider-style-6 .inner .title {
-    font-size: 4.5rem;
+  .custom-bann.slider-style-6 .inner .title {
+    font-size: 4.2rem;
+    margin-top: 20px;
+    margin-bottom: 0px;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .custom-banner.slider-style-6 .inner .title {
+  .custom-bann.slider-style-6 .inner .title {
     margin-bottom: 0;
   }
 }
-.custom-banner.slider-style-6 .inner .title span {
+.custom-bann.slider-style-6 .inner .title span {
   white-space: nowrap;
 }
 @media only screen and (max-width: 767px) {
-  .custom-banner.slider-style-6 .inner .title span {
+  .custom-bann.slider-style-6 .inner .title span {
     white-space: normal;
   }
 }
-.custom-banner.slider-style-6 .inner .description {
+.custom-bann.slider-style-6 .inner .description {
   font-size: var(--font-size-b2);
   line-height: 26px;
 }
-.custom-banner.slider-style-6 .inner .description span {
+.custom-bann.slider-style-6 .inner .description span {
   color: rgba(255, 255, 255, 0.6196078431);
   font-weight: 300;
   background-color: rgba(76, 94, 138, 0.3607843137);
@@ -14940,7 +14992,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   border-radius: 4px;
 }
 @media only screen and (max-width: 767px) {
-  .custom-banner.slider-style-6 .gear-col {
+  .custom-bann.slider-style-6 .gear-col {
     max-height: 230px;
     display: flex;
     align-items: center;
@@ -15208,4 +15260,29 @@ h2, .h2 {
 }
 .custom-values .counter-style-4 .count-number::after {
   content: "";
+}
+
+.home-page-custom .about-style-6 .maintitle span {
+  display: table-cell;
+  padding-bottom: 14px;
+}
+.home-page-custom .section-title .subtitle, .home-page-custom .cta-title-heading .subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.home-page-custom .custom-services .content span.subtitle {
+  display: table;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 16px;
+  font-weight: normal;
 }/*# sourceMappingURL=style.css.map */

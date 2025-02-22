@@ -1,6 +1,6 @@
 ---
 motto: ✨ Striving to fix your business challenges with cutting-edge
-heading: Software Engineering & Innovations
+title: Software Engineering & Innovations
 ---
 At ManiarTech®, we harness the power of technology to improve lives, inspire joy, and overcome challenges. Our research and innovation services help materialize any ideas into reality, assisting our clients in meeting their vision with advanced technology, smart systems, and innovative solutions developed specifically for their needs.
 
