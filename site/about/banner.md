@@ -1,7 +1,6 @@
 ---
-heading: "The Cutting-Edge Technology Partner You Can Count On!"
+heading: "Empowering Innovation, Inspiring Impact"
 ---
-At ManiarTech, we pride ourselves on our ability to provide our clients with the best possible technology solutions. We are constantly looking for and developing new ways to improve our products and services and are continually innovating to stay ahead of the curve. <br/> <br/>
+ManiarTech®️, founded as Maniar Technologies Private Limited in 2010 by Mohamed Aamir Maniar, has evolved into a trusted global provider of innovative software solutions. Through a focus on consulting and referrals, we’ve delivered impactful projects worldwide. <br/> <br/>
 
-At ManiarTech, we pride ourselves on our ability to provide our clients with the best
-possible technology solutions. We are constantly looking for and developing new ways to improve our products and services and are continually innovating to stay ahead of the curve.
+Looking ahead to 2025, ManiarTech®️ aims to expand its reach through a strong online presence and targeted marketing. We’re investing in R&D to create innovative products, services, and open-source projects, with new offerings that highlight our expertise in advanced technologies.

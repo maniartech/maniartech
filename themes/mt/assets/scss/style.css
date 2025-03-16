@@ -14956,13 +14956,10 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 .custom-bann.slider-style-6 .inner .title {
   font-size: 5rem;
-  margin-top: 10px;
 }
 @media only screen and (max-width: 767px) {
   .custom-bann.slider-style-6 .inner .title {
-    font-size: 4.2rem;
-    margin-top: 20px;
-    margin-bottom: 0px;
+    font-size: 4.5rem;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -15035,9 +15032,6 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   width: 100%;
 }
 
-.custom-core-pillars {
-  margin-top: -40px;
-}
 .custom-core-pillars .timeline-style-two .heading {
   font-size: 2rem;
   color: var(--color-extra02);
@@ -15144,6 +15138,40 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 .custom-career-section .inner .content .subtitle {
   color: var(--color-body);
+}
+
+.custom-passionate .counter-style-4 {
+  margin-top: 0;
+}
+.custom-passionate .counter-style-4 .count-number {
+  font-size: 18px;
+}
+.custom-passionate .counter-style-4 .count-number::after {
+  content: "";
+}
+.custom-passionate .counter-style-4 .description {
+  font-size: 14px;
+}
+
+.custom-message .testimonial-style-two .content .description {
+  font-size: 16px;
+}
+
+.custom-tab .advance-tab-four {
+  padding: 50px;
+}
+.custom-tab .subtitle {
+  font-size: 18px;
+}
+.custom-tab .title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.custom-tab .description {
+  font-size: 14px;
+}
+.custom-tab .service.service__style--1 .title {
+  margin-bottom: 10px;
 }
 
 :root {

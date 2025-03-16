@@ -33,12 +33,9 @@
     .inner {
       .title {
         font-size: 5rem;
-        margin-top: 10px;
 
         @media only screen and (max-width: 767px) {
-          font-size: 4.2rem;
-          margin-top: 20px;
-          margin-bottom: 0px;
+          font-size: 4.5rem;
         }
 
         @media #{$md-layout} {
@@ -123,7 +120,6 @@
 }
 
 .custom-core-pillars {
-  margin-top: -40px;
   .timeline-style-two {
     .heading {
       font-size: 2rem;

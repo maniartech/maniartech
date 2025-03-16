@@ -1,8 +1,6 @@
 ---
-heading : To positively impact individuals and organizations via technology.
+heading : To empower people & businesses through technology.
+subheading : Our Vision.
 ---
 
-We see a world where technology is increasingly important in improving people's lives. We
-believe that at ManiarTech, we can use technical expertise to make the world a better place and enhance people's lives. <br/> <br/>
-
-As an organization that aims to impact individuals and organizations positively, our vision is to keep innovating and developing new technologies that bring positive change.
+By 2030, ManiarTech®️ aims to lead in intelligent software, transforming lives and empowering businesses. With 300+ professionals, we’re building a future of innovation, impact, and purpose.
