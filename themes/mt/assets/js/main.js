@@ -85,16 +85,18 @@
                 prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-arrow-left"></i></button>',
                 nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>'
             });
+
             $(".product-list-activation")
               .not(".slick-initialized")
               .slick({
                 infinite: true,
+
                 slidesToShow: 4,
                 slidesToScroll: 1,
                 dots: true,
                 arrows: true,
                 adaptiveHeight: true,
-                centerMode: false,
+                centerMode: true,
                 autoplay: true,
                 cssEase: "linear",
                 responsive: [
@@ -118,6 +120,7 @@
                 nextArrow:
                   '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>',
               });
+
             $('.slider-activation').not('.slick-initialized').slick({
                 infinite: true,
                 slidesToShow: 1,

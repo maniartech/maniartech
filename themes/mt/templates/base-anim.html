@@ -5,6 +5,40 @@
   {% include "includes/head.html" %}
   {% block css %}  {% endblock %}
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.2.3/dist/lenis.css">
+
+  <style>
+    .carousalWrapper-inner {
+      column-gap: 40px;
+    }
+    .carousalWrapper-inner img {
+      object-fit: contain;
+    }
+    #our-offering {
+      position: relative;
+    }
+
+    .layer {
+      margin-top: -50px; /* Creates a slight overlap */
+      width: 100%;
+      padding: 50px;
+      z-index: 1;
+    }
+
+    .section-1 {
+      z-index: 9;
+    }
+    .section-2 {
+      z-index: 8;
+    }
+
+    .product-carousal-wrapper {
+      /* width: 100%!important; */
+    }
+    .rn-slick-arrow {
+
+
+    }
+  </style>
 </head>
 
 <body id="smooth-wrapper" class="active-dark-mode">
@@ -92,6 +126,32 @@
         }
       });
 
+      const adcarousel = document.querySelector('.carousalWrapper-inner');
+      console.log(adcarousel.offsetWidth);
+
+      function getScrollAmount() {
+        let carwidth = adcarousel.scrollWidth;
+        return -(carwidth - window.innerWidth);
+      }
+
+      const tween = gsap.to(adcarousel, {
+        x: getScrollAmount(),
+        duration: 3,
+        ease: "none",
+      });
+
+      ScrollTrigger.create({
+        trigger: ".carousalWrapper",
+        start: "top 20%",
+        end: () => `+=${getScrollAmount() * -1}`, // animate to the end of the carousel
+        animation: tween,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        // markers: true,
+        invalidateOnRefresh: true
+      });
+
       // Banner animation timeline
         const bannerTL = gsap.timeline({
           defaults: { duration: 1, ease: 'power3.out' }
@@ -136,6 +196,32 @@
               }
             });
           });
+
+          const procarousel = document.querySelector('.product-list-carousal');
+            console.log(procarousel.offsetWidth);
+
+            function getScrollAmt() {
+              let carwidth = procarousel.scrollWidth;
+              return -(carwidth - window.innerWidth);
+            }
+
+            const twee = gsap.to(procarousel, {
+              x: getScrollAmount(),
+              duration: 3,
+              ease: "none",
+            });
+
+            ScrollTrigger.create({
+              trigger: ".product-carousal-wrapper",
+              start: "top 20%",
+              end: () => `+=${getScrollAmount() * -1}`, // animate to the end of the carousel
+              animation: twee,
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+              markers: true,
+              invalidateOnRefresh: true
+            });
 
   </script>
 
