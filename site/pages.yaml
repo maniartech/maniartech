@@ -23,8 +23,13 @@ pages:
 
   - name: golang-migration
     path: /services/golang-migration/
-    title: Golang Migration
+    title: Golang Migration Services
     template: golang-migration.html
+
+  - name: enterprise-digit-asset-management
+    path: /services/enterprise-digit-asset-management/
+    title: Enterprise Digital Asset Management
+    template: enterprise-dam.html
 
   - name: products
     path: /products/

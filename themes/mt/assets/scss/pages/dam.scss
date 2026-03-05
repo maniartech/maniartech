@@ -1,0 +1,12 @@
+.custom-counterup-area {
+  .count-number {
+    font-size: 24px;
+
+    &::after {
+      content: "";
+    }
+  }
+  .counter-title {
+    font-size: 20px;
+  }
+}

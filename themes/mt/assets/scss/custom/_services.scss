@@ -1,0 +1,19 @@
+.service-slider{
+
+  .inner {
+    .title {
+      @media screen and (min-width: 1200px){
+        font-size: 48px;
+      }
+    }
+  }
+
+}
+
+.service-split-custom {
+  .rn-splite-style {
+    .split-inner {
+      padding: 30px 30px;
+    }
+  }
+}

@@ -7,8 +7,12 @@ h2, .h2 {
   }
 }
 
-.rn-gradient-circle.theme-pink {
-  pointer-events: none;
+.rn-gradient-circle{
+   z-index: 0;
+
+   &.theme-pink {
+    pointer-events: none;
+   }
 }
 
 .filter-invert {

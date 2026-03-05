@@ -1,0 +1,9 @@
+.custom-counterup-area .count-number {
+  font-size: 24px;
+}
+.custom-counterup-area .count-number::after {
+  content: "";
+}
+.custom-counterup-area .counter-title {
+  font-size: 20px;
+}/*# sourceMappingURL=dam.css.map */
