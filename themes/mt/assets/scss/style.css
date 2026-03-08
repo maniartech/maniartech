@@ -15359,7 +15359,7 @@ h2, .h2 {
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 400px;
+  max-width: 400px;
   gap: 20px;
 }
 .stats .stat {
@@ -15391,4 +15391,142 @@ h2, .h2 {
 .custom-contact-form .form-header .description {
   font-size: 16px;
   color: var(--color-pink);
+}
+
+/* ── BULB WRAPPER ── */
+.bulb-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 420px;
+}
+
+/* Halo glow behind the bulb */
+.halo {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 80, 0.18) 0%, rgba(80, 120, 255, 0.1) 45%, transparent 70%);
+  animation: haloPulse 3s ease-in-out infinite;
+}
+
+@keyframes haloPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+/* SVG bulb */
+.bulb-svg {
+  position: relative;
+  z-index: 2;
+  width: 400px;
+  filter: drop-shadow(0 0 18px rgba(100, 160, 255, 0.5));
+  animation: bulbFloat 4s ease-in-out infinite;
+}
+
+@keyframes bulbFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+/* Glass shell glow */
+.bulb-glass {
+  fill: none;
+  stroke: url(#glassGrad);
+  stroke-width: 3;
+  animation: glassGlow 3s ease-in-out infinite;
+}
+
+@keyframes glassGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(80, 160, 255, 0.6));
+    stroke-width: 3;
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgb(120, 200, 255));
+    stroke-width: 4;
+  }
+}
+/* Filament flicker */
+.filament {
+  stroke: url(#filGrad);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  animation: filFlicker 0.12s steps(1) infinite;
+  transform-origin: center;
+}
+
+@keyframes filFlicker {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  20% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+/* Inner warm fill that pulses */
+.inner-glow {
+  fill: url(#innerGlowGrad);
+  opacity: 0.18;
+  animation: innerBreath 3s ease-in-out infinite;
+}
+
+@keyframes innerBreath {
+  0%, 100% {
+    opacity: 0.14;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+/* Spark rays */
+.rays {
+  stroke: rgba(255, 210, 80, 0.35);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  animation: raysFlash 3s ease-in-out infinite;
+}
+
+@keyframes raysFlash {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  40%, 60% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
 }/*# sourceMappingURL=style.css.map */

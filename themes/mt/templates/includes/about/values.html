@@ -3,8 +3,106 @@
   <div class="container">
     <div class="row row--30 align-items-center">
       <div class="col-lg-5 order-lg-2">
-        <div class="thumbnail d-flex justify-content-center" data-sal="slide-right" data-sal-duration="800">
+        <!-- <div class="thumbnail d-flex justify-content-center" data-sal="slide-right" data-sal-duration="800">
           <img src="{% assets 'images/about/about-home-2.png' %}" alt="About Images" style="width: 70%;">
+        </div> -->
+
+        <div class="bulb-wrap">
+          <div class="halo"></div>
+
+          <svg class="bulb-svg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- glass stroke gradient -->
+              <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#80b0ff" />
+                <stop offset="50%" stop-color="#c0d8ff" />
+                <stop offset="100%" stop-color="#6080dd" />
+              </linearGradient>
+
+              <!-- filament gradient -->
+              <linearGradient id="filGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffe080" />
+                <stop offset="100%" stop-color="#ffaa30" />
+              </linearGradient>
+
+              <!-- inner warm glow fill -->
+              <radialGradient id="innerGlowGrad" cx="50%" cy="45%" r="50%">
+                <stop offset="0%" stop-color="#ffe090" />
+                <stop offset="100%" stop-color="transparent" />
+              </radialGradient>
+
+              <!-- base gradient -->
+              <linearGradient id="baseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#2a3060" />
+                <stop offset="50%" stop-color="#4455aa" />
+                <stop offset="100%" stop-color="#2a3060" />
+              </linearGradient>
+            </defs>
+
+            <!-- inner warm fill -->
+            <ellipse class="inner-glow" cx="100" cy="105" rx="58" ry="62" />
+
+            <!-- bulb glass shell -->
+            <path class="bulb-glass" d="M100,18
+                   C60,18 32,50 32,88
+                   C32,115 46,136 64,152
+                   C70,158 74,166 74,175
+                   L74,195
+                   L126,195
+                   L126,175
+                   C126,166 130,158 136,152
+                   C154,136 168,115 168,88
+                   C168,50 140,18 100,18 Z" />
+
+            <!-- base collar -->
+            <rect x="74" y="195" width="52" height="8" rx="2" fill="url(#baseGrad)" />
+            <rect x="72" y="203" width="56" height="6" rx="2" fill="url(#baseGrad)" opacity="0.8" />
+            <rect x="74" y="209" width="52" height="6" rx="2" fill="url(#baseGrad)" opacity="0.6" />
+            <rect x="76" y="215" width="48" height="5" rx="2" fill="url(#baseGrad)" opacity="0.4" />
+
+            <!-- screw base ridges -->
+            <line x1="76" y1="198" x2="124" y2="198" stroke="#3a4a88" stroke-width="1" opacity="0.5" />
+            <line x1="76" y1="205" x2="124" y2="205" stroke="#3a4a88" stroke-width="1" opacity="0.5" />
+            <line x1="76" y1="211" x2="124" y2="211" stroke="#3a4a88" stroke-width="1" opacity="0.5" />
+
+            <!-- support wires -->
+            <line x1="100" y1="150" x2="84" y2="185" stroke="#5577cc" stroke-width="1.2" opacity="0.6" />
+            <line x1="100" y1="150" x2="116" y2="185" stroke="#5577cc" stroke-width="1.2" opacity="0.6" />
+            <line x1="100" y1="150" x2="100" y2="185" stroke="#5577cc" stroke-width="1.2" opacity="0.6" />
+
+            <!-- filament -->
+            <path class="filament" d="M84,185
+                   L84,160
+                   C84,155 88,150 93,148
+                   L100,144
+                   L107,148
+                   C112,150 116,155 116,160
+                   L116,185" />
+
+            <!-- filament inner squiggle -->
+            <path class="filament" d="M93,148 C94,143 98,140 100,136 C102,132 106,129 108,124 C106,120 102,118 100,114"
+              stroke-width="1.5" opacity="0.7" />
+
+            <!-- glow dot at filament top -->
+            <circle cx="100" cy="113" r="5" fill="#ffe090" opacity="0.9">
+              <animate attributeName="r" values="4;7;4" dur="1.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite" />
+            </circle>
+
+            <!-- spark rays around the filament tip -->
+            <g class="rays" transform="translate(100,113)">
+              <line x1="0" y1="-14" x2="0" y2="-22" />
+              <line x1="13" y1="-8" x2="19" y2="-12" />
+              <line x1="13" y1="8" x2="19" y2="12" />
+              <line x1="0" y1="14" x2="0" y2="22" />
+              <line x1="-13" y1="8" x2="-19" y2="12" />
+              <line x1="-13" y1="-8" x2="-19" y2="-12" />
+            </g>
+
+            <!-- glass reflections -->
+            <path d="M58,55 Q62,48 70,44" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25" />
+            <path d="M52,72 Q55,65 61,60" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.15" />
+          </svg>
         </div>
       </div>
       <div class="col-lg-7 mt_md--40 mt_sm--40 order-lg-1">
