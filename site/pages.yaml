@@ -31,6 +31,11 @@ pages:
     title: Enterprise Digital Asset Management
     template: enterprise-dam.html
 
+  - name: business-process-automation
+    path: /services/business-process-automation/
+    title: Business Process Automation
+    template: business-process-automation.html
+
   - name: products
     path: /products/
     title: Products

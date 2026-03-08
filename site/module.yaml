@@ -9,6 +9,7 @@ pages:
   - services: /services/
   - golang-migration: /services/golang-migration/
   - enterprise-digit-asset-management: /services/enterprise-digit-asset-management/
+  - business-process-automation: /services/business-process-automation/
   - lab: /lab/
   - careers: /careers/
   - blogs: /blogs/
