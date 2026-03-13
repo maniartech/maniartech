@@ -1,28 +1,27 @@
 <!-- Start Banner Area  -->
-<div class="slider-area slider-style-6 height-750 custom-bann">
+<div class="slider-area slider-style-2 variation-2 height-750 custom-bann rn-section-gap">
   <div class="container">
     <div class="row row--30 align-items-center">
-      <div class="order-1 order-md-1 order-lg-1 col-md-7 col-lg-7 mt_md--50 mt_sm--50 mt_lg--30">
+      <div class="order-1 order-md-1 order-lg-1 col-md-12 col-lg-7 mt_md--60 mt_sm--60 mt_lg--30">
         <div class="inner text-left">
+          <h6 class="tag-title mt-0">About Us</h6>
           <h1 class="title theme-gradient sal-animate" data-sal="slide-left" data-sal-duration="700">{{ banner.heading }}</h1>
+
+          <div class="thumbnail d-flex justify-content-center frame-image d-md-flex d-lg-none">
+            <img src="{% assets 'images/about/about.gif' %}" alt="Banner Images">
+          </div>
+
           <p class="description sal-animate" data-sal="slide-up" data-sal-duration="800">
             {{ banner.content | safe }}
           </p>
 
           {% include "../banner-cta.html" %}
+
         </div>
       </div>
-      <div class="order-2 order-md-2 order-lg-2 col-md-5 col-lg-5">
+      <div class="order-2 order-md-2 order-lg-2 col-md-12 col-lg-5 mb_sm--100 d-none d-lg-block">
         <div class="thumbnail d-flex justify-content-center frame-image">
           <img src="{% assets 'images/about/about.gif' %}" alt="Banner Images">
-        </div>
-
-        <div class="button-group d-sm-none d-lg-none mt--30 mt_sm--20">
-          <a class="btn-default" href="" role="button">
-            AI Project Calculator
-          </a>
-
-          <a class="btn-default btn-border" href="/contact/" aria-label="Connect with us">Work With Us <i class="icon feather-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
