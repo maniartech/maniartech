@@ -15264,6 +15264,12 @@ h2, .h2 {
   }
 }
 
+.copyright-area .company-logo img {
+  width: 26px;
+  margin-top: -7px;
+  margin-right: -7px;
+}
+
 .custom-bann.variation-2 {
   padding: 0;
 }
@@ -15394,11 +15400,11 @@ h2, .h2 {
   font-style: italic;
   line-height: 1;
   margin-bottom: 6px;
-  color: var(--bs-yellow);
+  color: var(--color-white);
 }
 .stats .stat-label {
   font-size: 1.4rem;
-  color: var(--color-pink);
+  color: var(--color-secondary);
 }
 
 .custom-contact-form .form-header {
@@ -15411,7 +15417,7 @@ h2, .h2 {
 }
 .custom-contact-form .form-header .description {
   font-size: 16px;
-  color: var(--color-pink);
+  color: var(--color-body);
 }
 
 /* ── BULB WRAPPER ── */
