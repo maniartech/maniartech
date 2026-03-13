@@ -1,5 +1,5 @@
 ---
-heading: We provide reliable business consulting help.
+heading: Transforming Challenges into Opportunities with Cutting-Edge Technology
 subheading: Enterprise Technology Partner.
-description: We help our clients succeed by creating brand identities, digital experiences, and print materials.
+description: At ManiarTech®, we deliver innovative technology solutions, strategic consulting, and creative services that help businesses grow, innovate, and succeed in a competitive digital landscape
 ---
