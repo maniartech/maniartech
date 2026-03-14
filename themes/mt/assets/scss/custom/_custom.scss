@@ -207,6 +207,22 @@ h2, .h2 {
   }
 }
 
+.custom-vision {
+  .section-title {
+    .subtitle {
+      margin-left: auto;
+
+      @media #{$lg-layout}{
+        margin-left: 0;
+      }
+
+      @media screen and (min-width: 1200px) {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 .custom-contact {
   .inner {
 
