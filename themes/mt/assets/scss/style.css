@@ -15264,10 +15264,19 @@ h2, .h2 {
   }
 }
 
+.copyright-area .company-logo img {
+  width: 26px;
+  margin-top: -7px;
+  margin-right: -7px;
+}
+
+.custom-bann.variation-2 {
+  padding: 0;
+}
 .custom-bann .title {
   font-size: 5rem !important;
   color: var(--color-white);
-  font-weight: 700;
+  font-weight: 700 !important;
   line-height: 1.2;
   margin-bottom: 20px;
 }
@@ -15346,6 +15355,15 @@ h2, .h2 {
   font-weight: normal;
 }
 
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .custom-contact .inner .title {
+    font-size: 46px;
+  }
+  .custom-contact .inner .description {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
 @media screen and (min-width: 1200px) {
   .custom-contact .inner .title {
     font-size: 64px;
@@ -15359,8 +15377,17 @@ h2, .h2 {
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  max-width: 400px;
   gap: 20px;
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .stats {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media screen and (min-width: 1199px) {
+  .stats {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 .stats .stat {
   background-color: #1a1a1d;
@@ -15368,16 +15395,16 @@ h2, .h2 {
   padding: 15px;
 }
 .stats .stat-num {
-  font-size: 3.2rem;
+  font-size: 2.5rem;
   font-weight: 600;
   font-style: italic;
   line-height: 1;
   margin-bottom: 6px;
-  color: var(--bs-yellow);
+  color: var(--color-white);
 }
 .stats .stat-label {
   font-size: 1.4rem;
-  color: var(--color-pink);
+  color: var(--color-secondary);
 }
 
 .custom-contact-form .form-header {
@@ -15390,7 +15417,7 @@ h2, .h2 {
 }
 .custom-contact-form .form-header .description {
   font-size: 16px;
-  color: var(--color-pink);
+  color: var(--color-body);
 }
 
 /* ── BULB WRAPPER ── */
