@@ -37,7 +37,7 @@ sequenceDiagram
     Database -->> App Server: Row inserted
     App Server -->> API Gateway: 201 Created
     API Gateway -->> Client: Response with article ID
-    Note right of Database: All writes go through<br />a serialisable transaction<br />to prevent race conditions.
+    Note right of Database: 'All writes go through<br />a serialisable transaction<br />to prevent race conditions.'
 ```
 
 There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.

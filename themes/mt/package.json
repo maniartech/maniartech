@@ -8,6 +8,11 @@
   "author": "Aamir Maniar",
   "license": "ISC",
   "dependencies": {
+    "highlight.js": "^11.11.1",
+    "mermaid": "^11.13.0",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "sass": "^1.98.0"
   }
 }

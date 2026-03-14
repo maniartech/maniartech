@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-{% block script %}
-<!-- Include Mermaid.js for diagrams -->
-<script type="module">
-	import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-	mermaid.initialize({ startOnLoad: true });
-</script>
-
-{% endblock %}
 <!-- Banner Start -->
 <div class="rn-blog-details-area custom-story-banner">
   <!-- Banner Start -->
@@ -17,7 +8,7 @@
       <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10 col-xl-9">
-            <div class="content text-left">
+            <header class="content text-left">
                 <div class="page-title">
                 <h1>{{ title }}</h1>
                 </div>
@@ -31,22 +22,21 @@
                         {{ date|date:"Jan 2006, 02" }}
                     </li>
                 </ul>
-            </div>
+            </header>
             </div>
         </div>
       </div>
   </div>
   <!-- Banner End -->
 
-
   <div class="rainbow-blog-details-area">
     <div class="blog-details-content pt--60 rn-section-gapBottom">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
-            <div class="content">
+            <article class="content">
               {{ content|safe }}
-            </div>
+            </article>
           </div>
         </div>
       </div>
@@ -54,4 +44,5 @@
   </div>
 
 </div>
+{% lib "scripts/articles.js" %}
 {% endblock %}
