@@ -1,0 +1,17 @@
+
+article {
+
+  // Inline code gets its own pill style in _blog-details.scss.
+  // pre > code must be transparent so highlight.js token colours
+  // render on a single background layer (the pre box).
+  pre > code {
+    background-color: transparent !important;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-body);
+  }
+}
