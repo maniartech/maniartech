@@ -15175,7 +15175,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .service-split-custom .rn-splite-style .split-inner {
-  padding: 30px 30px;
+  padding: 30px 60px;
 }
 
 :root {
@@ -15367,6 +15367,39 @@ h2, .h2 {
   .custom-vision .section-title .subtitle {
     margin-left: 0;
   }
+}
+
+.service-banner-custom.variation-2 .inner .title {
+  font-weight: bold;
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .service-banner-custom.variation-2 .inner .title {
+    font-size: 46px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .service-banner-custom.variation-2 .inner .title {
+    font-size: 48px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .service-banner-custom.variation-2 .inner .description {
+    font-size: 18px;
+    line-height: 36px;
+  }
+}
+
+.service-split-custom .rn-splite-style .split-inner {
+  padding: 30px 30px;
+}
+@media screen and (min-width: 1200px) {
+  .service-split-custom .rn-splite-style .split-inner {
+    padding: 30px 60px;
+  }
+}
+.service-split-custom .rn-splite-style .split-inner .split-list li {
+  font-size: 15px;
+  line-height: 24px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {

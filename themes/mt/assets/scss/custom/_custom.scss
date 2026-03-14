@@ -223,6 +223,48 @@ h2, .h2 {
   }
 }
 
+.service-banner-custom.variation-2 {
+  .inner {
+    .title {
+      font-weight: bold;
+
+      @media #{$lg-layout}{
+        font-size: 46px;
+      }
+
+      @media screen and (min-width: 1200px) {
+        font-size: 48px;
+      }
+    }
+
+    .description {
+      @media screen and (min-width: 1200px) {
+        font-size: 18px;
+        line-height: 36px;
+      }
+    }
+  }
+}
+
+.service-split-custom {
+  .rn-splite-style {
+    .split-inner {
+      padding: 30px 30px;
+
+      @media screen and (min-width: 1200px) {
+        padding: 30px 60px;
+      }
+
+      .split-list {
+        li {
+          font-size: 15px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}
+
 .custom-contact {
   .inner {
 
