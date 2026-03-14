@@ -19,16 +19,16 @@
             <div class="col-lg-10 col-xl-9">
             <div class="content text-left">
                 <div class="page-title">
-                <h1>Best Corporate Tips You Will Read This Year.</h1>
+                <h1>{{ title }}</h1>
                 </div>
                 <ul class="rn-meta-list">
                     <li>
                         <i class="feather-user"></i>
-                        <a href="#" target="_blank">Irin Pervin</a>
+                        <a href="#" target="_blank">{{ author }}</a>
                     </li>
-                    <li title="Last updated at {{ author.updatedAt }}">
+                    <li title="Last updated at {{ date }}">
                         <i class="feather-calendar"></i>
-                        10 Dec 2021
+                        {{ date|date:"Jan 2006, 02" }}
                     </li>
                 </ul>
             </div>
