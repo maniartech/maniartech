@@ -15355,6 +15355,20 @@ h2, .h2 {
   font-weight: normal;
 }
 
+.custom-vision .section-title .subtitle {
+  margin-left: auto;
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .custom-vision .section-title .subtitle {
+    margin-left: 0;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .custom-vision .section-title .subtitle {
+    margin-left: 0;
+  }
+}
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .custom-contact .inner .title {
     font-size: 46px;
