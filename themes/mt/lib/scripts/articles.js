@@ -20,5 +20,3 @@ document.querySelectorAll('pre > code.language-mermaid').forEach(code => {
 hljs.highlightAll();
 
 mermaid.initialize({ startOnLoad: true });
-
-
