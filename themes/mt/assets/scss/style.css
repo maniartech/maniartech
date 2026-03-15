@@ -15385,7 +15385,7 @@ h2, .h2 {
 @media screen and (min-width: 1200px) {
   .service-banner-custom.variation-2 .inner .description {
     font-size: 18px;
-    line-height: 36px;
+    line-height: 28px;
   }
 }
 
