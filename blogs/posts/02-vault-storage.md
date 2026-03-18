@@ -1,5 +1,5 @@
 ---
-title: From JSON to Internet Object - Comments, Object Structure and Types
+title: Vault Storage The Modern Alternative to LocalStorage
 description: Read our blogs to stay updated with the latest trends in technology, programming, and software development.
 date: 2024-06-01
 tags: [technology, programming, software development, web development, mobile app development, cloud computing]
