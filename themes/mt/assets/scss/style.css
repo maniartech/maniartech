@@ -15218,6 +15218,9 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   --radius-lg: 20px;
 }
 
+.custom-lab-banner {
+  position: relative;
+}
 .custom-lab-banner.variation-2 .inner .title {
   font-weight: bold;
 }
@@ -15235,6 +15238,17 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 .custom-lab .inner .split-list li {
   font-size: 16px;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 0%, black 20%, transparent 100%);
+          mask-image: radial-gradient(ellipse 100% 90% at 50% 0%, black 20%, transparent 100%);
 }
 
 .hero-mosaic {
