@@ -8131,7 +8131,7 @@ xclip
   }
 }
 /*--------------------------
-    Navigation Styles 
+    Navigation Styles
 ----------------------------*/
 .mainmenu-nav .mainmenu {
   display: flex;
@@ -8160,6 +8160,7 @@ xclip
 }
 .mainmenu-nav .mainmenu > li > a:hover, .mainmenu-nav .mainmenu > li > a.active {
   color: var(--color-primary) !important;
+  border-bottom: 3px solid var(--color-primary);
 }
 .mainmenu-nav .mainmenu > li.current > a {
   color: var(--color-primary) !important;

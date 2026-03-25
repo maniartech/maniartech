@@ -29,13 +29,20 @@
         },
 
         menuCurrentLink: function () {
-            var currentPage = location.pathname.split("/"),
-            current = currentPage[currentPage.length-1];
+            var pathname = location.pathname.replace(/\/$/, '') || '/';
+            var isHome = pathname === '';
+
             $('.mainmenu li a').each(function(){
                 var $this = $(this);
-                if($this.attr('href') === current){
+                var href = $this.attr('href').replace(/\/$/, '') || '/';
+                var isMatch = (isHome && href === '/') || (pathname === href);
+
+                if(isMatch){
                     $this.addClass('active');
-                    $this.parents('.has-menu-child-item').addClass('menu-item-open')
+                    $this.parents('.has-menu-child-item').addClass('menu-item-open');
+                } else {
+                    $this.removeClass('active');
+                    $this.parents('.has-menu-child-item').removeClass('menu-item-open');
                 }
             });
         },
