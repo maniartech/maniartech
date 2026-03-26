@@ -32,6 +32,11 @@
             var pathname = location.pathname.replace(/\/$/, '') || '/';
             var isHome = pathname === '';
 
+            // First pass: remove all active and menu-item-open classes
+            $('.mainmenu li a').removeClass('active');
+            $('.has-menu-child-item').removeClass('menu-item-open');
+
+            // Second pass: find matching links and add active class
             $('.mainmenu li a').each(function(){
                 var $this = $(this);
                 var href = $this.attr('href').replace(/\/$/, '') || '/';
@@ -39,10 +44,11 @@
 
                 if(isMatch){
                     $this.addClass('active');
-                    $this.parents('.has-menu-child-item').addClass('menu-item-open');
-                } else {
-                    $this.removeClass('active');
-                    $this.parents('.has-menu-child-item').removeClass('menu-item-open');
+                    // Add active to parent items and menu-item-open class
+                    $this.parents('li').each(function(){
+                        $(this).children('a').addClass('active');
+                        $(this).addClass('menu-item-open');
+                    });
                 }
             });
         },
