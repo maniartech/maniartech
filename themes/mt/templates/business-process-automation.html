@@ -2,6 +2,10 @@
 
 {% block title %}Business Process Automation{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{% assets 'scss/pages/dam.css' %}">
+{% endblock %}
+
 {% block content %}
 <!-- Start Slider Area  -->
 <div class="slider-area slider-style-5 height-750 service-slider">
@@ -23,4 +27,7 @@
   </div>
 </div>
 <!-- End Slider Area  -->
+
+{% include "includes/dam/dam-solution.html" %}
+
 {%endblock %}

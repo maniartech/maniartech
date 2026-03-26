@@ -7973,7 +7973,7 @@ xclip
     Header Styles
 ***************************************/
 /*--------------------------
-    Header Styles  
+    Header Styles
  --------------------------*/
 .logo-dark {
   display: none;
@@ -8119,7 +8119,7 @@ xclip
   width: 100%;
   height: 80px;
   animation: headerSticky 0.95s ease forwards;
-  z-index: 9;
+  z-index: 999;
 }
 
 @keyframes headerSticky {
@@ -15791,7 +15791,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 
 .oss-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
@@ -15810,12 +15810,12 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 @media only screen and (max-width: 767px) {
   .ocard {
-    grid-column: span 2;
+    grid-column: span 4;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .ocard {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 }
 

@@ -101,12 +101,18 @@
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 48px;
+  align-items: start;
+  border: 2px solid red;
 }
 
 .services-nav {
   position: sticky;
   top: 80px;
-  align-self: start;
+  height: -moz-fit-content;
+  height: fit-content;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  z-index: 10;
 }
 
 .services-nav-item {

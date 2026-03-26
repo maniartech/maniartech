@@ -321,7 +321,7 @@
 }
 .oss-grid {
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
 .ocard {
@@ -333,11 +333,11 @@
   position:relative;
 
   @media #{$sm-layout}{
-    grid-column: span 2;
+    grid-column: span 4;
   }
 
   @media #{$md-layout}{
-    grid-column: span 1;
+    grid-column: span 2;
   }
 }
 .ocard:hover {
