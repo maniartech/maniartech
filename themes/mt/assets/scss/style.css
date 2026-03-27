@@ -12630,8 +12630,17 @@ iframe {
             Blog
 ***************************************/
 /*----------------------
-    Blog Styles  
+    Blog Styles
 -----------------------*/
+.custom-blog-banner .title {
+  font-weight: bold;
+}
+@media screen and (min-width: 1200px) {
+  .custom-blog-banner .title {
+    font-size: 50px !important;
+  }
+}
+
 .rn-card {
   position: relative;
   display: flex;
@@ -15227,7 +15236,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 @media screen and (min-width: 1200px) {
   .custom-lab-banner.variation-2 .inner .title {
-    font-size: 64px;
+    font-size: 50px;
   }
 }
 
@@ -16111,7 +16120,7 @@ h2, .h2 {
 }
 @media screen and (min-width: 1200px) {
   .service-banner-custom.variation-2 .inner .title {
-    font-size: 48px;
+    font-size: 50px;
   }
 }
 @media screen and (min-width: 1200px) {
@@ -16145,7 +16154,7 @@ h2, .h2 {
 }
 @media screen and (min-width: 1200px) {
   .custom-contact .inner .title {
-    font-size: 64px;
+    font-size: 50px;
   }
   .custom-contact .inner .description {
     font-size: 18px;
