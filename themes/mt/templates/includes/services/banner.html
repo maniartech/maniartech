@@ -5,7 +5,7 @@
         <div class="col-lg-6">
           <div class="inner text-left">
             <h6 class="tag-title mt-0">{{ banner.subheading }}</h6>
-            <h1 class="title theme-gradient display-six">{{ banner.heading }}</h1>
+            <h1 class="title display-six">{{ banner.heading | safe }}</h1>
             <div class="description">
               {{ banner.description | safe }}
               <p></p>

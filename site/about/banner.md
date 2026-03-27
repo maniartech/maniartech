@@ -1,5 +1,5 @@
 ---
-heading: "Empowering Innovation, Inspiring Impact"
+heading: "Empowering <span class='theme-gradient fst-italic'>Innovation, Inspiring</span> Impact"
 ---
 ManiarTech®, founded as Maniar Technologies Private Limited in 2010 by Mohamed Aamir Maniar, has evolved into a trusted global provider of innovative software solutions. Through a focus on consulting and referrals, we’ve delivered impactful projects worldwide. <br/> <br/>
 

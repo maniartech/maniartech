@@ -5,9 +5,9 @@
     <div class="row row--30 align-items-center">
       <div class="col-12 col-lg-7">
         <div class="inner text-left">
-          <h6 class="tag-title mt-0">ManiarTech Lab — Products, Research & Open Source</h6>
-          <h1 class="title theme-gradient">Where Ideas Become Infrastructure.</h1>
-          <p class="description">22 projects — products shipping to real users, research pushing the edges of computing, and open source tools built entirely in the open. All from one team.</p>
+          <h6 class="tag-title mt-0">{{ banner.subheading | safe }}</h6>
+          <h1 class="title">{{ banner.heading | safe }}</h1>
+          <p class="description">{{ banner.description | safe }}</p>
         </div>
 
         {% include "../banner-cta.html" %}
