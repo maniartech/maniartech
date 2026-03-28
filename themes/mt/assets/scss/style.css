@@ -15269,7 +15269,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .mc {
-  background: #1a1a1d;
+  background: var(--color-blackest);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1.4rem;
   transition: border-color 0.25s, transform 0.22s, box-shadow 0.25s;
@@ -15342,9 +15343,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .mc-label {
-  font-size: 12px;
+  font-size: var(--font-size-b3);
   color: var(--text-3);
-  font-family: var(--mono);
   letter-spacing: 0.04em;
 }
 
@@ -15368,9 +15368,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .mc-mini .sm {
-  font-size: 11px;
+  font-size: var(--font-size-b3);
   color: var(--text-3);
-  font-family: var(--mono);
   margin-top: 5px;
 }
 
@@ -15394,7 +15393,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 .mc-bar-fill {
   height: 100%;
   border-radius: 2px;
-  background: linear-gradient(90deg, var(--green), var(--blue));
+  background: linear-gradient(95deg, var(--color-primary) 15%, var(--color-tertiary) 45%, var(--color-pink) 75%, var(--color-secondary) 100%) 95%/200% 100%;
   width: 0;
   transition: width 1.2s ease 0.5s;
 }
@@ -15406,18 +15405,17 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 .mc-bar-label {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 14px;
   color: var(--text-3);
-  font-family: var(--mono);
   margin-top: 5px;
 }
 
 /* ─── MARQUEE TICKER ─── */
 .ticker {
-  background: var(--bg1);
+  background: var(--color-blackest);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 14px 0;
+  padding: 20px 0;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -15445,9 +15443,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   align-items: center;
   gap: 10px;
   padding: 0 2.5rem;
-  font-size: 13px;
-  font-family: var(--mono);
-  color: var(--text-3);
+  font-size: var(--font-size-b3);
+  color: var(--colorbody);
   border-right: 1px solid var(--border);
 }
 
@@ -15470,8 +15467,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .pcard {
-  background: var(--bg2);
-  border: 1px solid var(--border);
+  background: var(--color-blackest);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.75rem 1.75rem 1.5rem;
   display: flex;
@@ -15588,7 +15585,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 32px;
   flex-shrink: 0;
 }
 
@@ -15600,14 +15597,14 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .pc-title {
-  font-size: 20px;
+  font-size: var(--h4);
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: var(--color-heading);
 }
 
 .pc-badge {
   font-size: 10px;
-  font-family: var(--mono);
   letter-spacing: 0.07em;
   text-transform: uppercase;
   padding: 3px 9px;
@@ -15619,8 +15616,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .pc-desc {
-  font-size: 14px;
-  color: var(--text-2);
+  font-size: var(--font-size-b3);
+  color: var(--color-body);
   line-height: 1.65;
   font-weight: 400;
   flex: 1;
@@ -15636,10 +15633,9 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .pc-link {
-  font-size: 14px;
+  font-size: var(--font-size-b3);
   font-weight: 600;
   color: var(--text-2);
-  font-family: var(--mono);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -15653,12 +15649,11 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .pc-tag {
-  font-size: 10px;
-  font-family: var(--mono);
+  font-size: var(--font-size-b4);
   padding: 3px 8px;
   border-radius: 5px;
-  background: var(--bg4);
-  color: var(--text-3);
+  background: var(--amber-dim);
+  color: var(--bs-gray);
   border: 1px solid var(--border);
 }
 
@@ -15687,8 +15682,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .rcard {
-  background: var(--bg2);
-  border: 1px solid var(--border);
+  background: var(--color-blackest);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.75rem;
   display: flex;
@@ -15722,10 +15717,11 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .rcard-num {
-  font-family: var(--mono);
   font-size: 18px;
-  color: var(--text-3);
-  padding-top: 3px;
+  color: var(--color-body);
+  font-family: var(--mono);
+  font-weight: bold;
+  padding-top: 4px;
   flex-shrink: 0;
   width: 22px;
 }
@@ -15743,20 +15739,21 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .rcard-title {
-  font-size: 20px;
+  font-size: var(--h4);
+  color: var(--color-heading);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .rcard-acronym {
-  font-size: 16px;
-  font-family: var(--mono);
-  color: var(--text-3);
+  font-size: var(--font-size-b3);
+  font-family: var(--font-primary);
+  color: var(--color-secondary);
 }
 
 .rcard-desc {
-  font-size: 14px;
-  color: var(--text-2);
+  font-size: var(--font-size-b3);
+  color: var(--color-body);
   line-height: 1.65;
   font-weight: 400;
 }
@@ -15765,10 +15762,9 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 14px;
+  font-size: var(--font-size-b3);
   font-weight: 600;
-  color: var(--text-3);
-  font-family: var(--mono);
+  color: var(--color-primary);
   margin-top: 0.5rem;
   transition: gap 0.2s, color 0.2s;
 }
@@ -15781,7 +15777,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 32px;
   align-self: flex-start;
   margin-top: 2px;
 }
@@ -15805,8 +15801,8 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .ocard {
-  background: var(--bg2);
-  border: 1px solid var(--border);
+  background: var(--color-blackest);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1.25rem 1.4rem;
   display: flex;
@@ -15852,7 +15848,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 18px;
   flex-shrink: 0;
 }
 
@@ -15863,15 +15859,15 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .ocard-name {
-  font-size: 16px;
+  font-size: var(--font-size-b2);
   font-weight: 600;
-  font-family: var(--mono);
   letter-spacing: -0.01em;
+  color: var(--color-heading);
 }
 
 .ocard-desc {
-  font-size: 14px;
-  color: var(--text-3);
+  font-size: var(--font-size-b3);
+  color: var(--color-body);
   line-height: 1.5;
 }
 
@@ -15880,7 +15876,6 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   align-items: center;
   gap: 4px;
   font-size: 10px;
-  font-family: var(--mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 2px 8px;
