@@ -39,11 +39,11 @@
   height: auto;
 
     @media #{$lg-layout}{
-      height: 555px;
+      height: calc(100vh - 55px);
     }
 
     @media screen and (min-width: 1200px){
-      height: 756px;
+      height: calc(100vh - 55px);
     }
 
   &.variation-2 {

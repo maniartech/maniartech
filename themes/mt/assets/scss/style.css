@@ -15234,12 +15234,12 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .custom-lab-banner {
-    height: 555px;
+    height: calc(100vh - 55px);
   }
 }
 @media screen and (min-width: 1200px) {
   .custom-lab-banner {
-    height: 756px;
+    height: calc(100vh - 55px);
   }
 }
 @media only screen and (max-width: 767px) {
