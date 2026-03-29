@@ -15230,9 +15230,35 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 
 .custom-lab-banner {
   position: relative;
+  height: auto;
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .custom-lab-banner {
+    height: 555px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .custom-lab-banner {
+    height: 756px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .custom-lab-banner.variation-2 {
+    padding-top: 140px;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .custom-lab-banner.variation-2 {
+    padding-top: 140px;
+  }
 }
 .custom-lab-banner.variation-2 .inner .title {
   font-weight: bold;
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .custom-lab-banner.variation-2 .inner .title {
+    font-size: 50px;
+  }
 }
 @media screen and (min-width: 1200px) {
   .custom-lab-banner.variation-2 .inner .title {
@@ -15415,7 +15441,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   background: var(--color-blackest);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 20px 0;
+  padding: 12px 0;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -15511,7 +15537,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 
 .pcard:hover::before {
-  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
 }
 
 /* Subtle inner shine */
@@ -15538,7 +15564,7 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 
 .pcard:hover .pc-link {
   gap: 9px;
-  color: var(--green);
+  color: var(--color-primary);
 }
 
 .pcard:hover .pc-arrow {
@@ -16138,6 +16164,11 @@ h2, .h2 {
   line-height: 24px;
 }
 
+@media screen and (min-width: 1200px) {
+  .custom-contact {
+    padding-top: 70px;
+  }
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .custom-contact .inner .title {
     font-size: 46px;
@@ -16173,7 +16204,8 @@ h2, .h2 {
   }
 }
 .stats .stat {
-  background-color: #1a1a1d;
+  background-color: var(--color-lessdark);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 15px;
 }
@@ -16187,7 +16219,7 @@ h2, .h2 {
 }
 .stats .stat-label {
   font-size: 1.4rem;
-  color: var(--color-secondary);
+  color: var(--color-body);
 }
 
 .custom-contact-form .form-header {
@@ -16196,7 +16228,7 @@ h2, .h2 {
 .custom-contact-form .form-header .title {
   font-size: 24px;
   margin-bottom: 10px;
-  color: var(--color-secondary);
+  color: var(--color-heading);
 }
 .custom-contact-form .form-header .description {
   font-size: 16px;
