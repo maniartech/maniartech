@@ -1,0 +1,659 @@
+{% extends "base.html" %}
+{% block title %} Price Estimator {% endblock %}
+
+{% block css %}
+<style>
+    .estimator-wrapper {
+        padding: 140px 20px 60px;
+        min-height: 100vh;
+        background-color: transparent;
+        /* Let body background show through */
+    }
+
+    .estimator-wrapper * {
+        box-sizing: border-box;
+    }
+
+    .estimator-wrapper .container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .estimator-wrapper .header {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 50px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .estimator-wrapper .header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: -1px;
+        background: linear-gradient(95deg, var(--color-primary) 15%, var(--color-tertiary) 45%, var(--color-pink) 75%, var(--color-secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    .estimator-wrapper .header p {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        color: #acacac;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .estimator-wrapper .wizard-card {
+        background: #101010;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .estimator-wrapper .wizard-steps {
+        display: flex;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .estimator-wrapper .step {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        position: relative;
+    }
+
+    .estimator-wrapper .step:not(:last-child)::after {
+        content: '→';
+        position: absolute;
+        right: -15px;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 1.5rem;
+    }
+
+    .estimator-wrapper .step-number {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        transition: all 0.3s;
+        font-size: 14px;
+    }
+
+    .estimator-wrapper .step.active .step-number {
+        background: var(--color-primary);
+        color: white;
+        box-shadow: 0 0 15px rgba(5, 157, 255, 0.4);
+    }
+
+    .estimator-wrapper .step.completed .step-number {
+        background: var(--color-light-green);
+        color: white;
+    }
+
+    .estimator-wrapper .step-label {
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.95rem;
+    }
+
+    .estimator-wrapper .step.active .step-label {
+        color: #fff;
+    }
+
+    .estimator-wrapper .wizard-content {
+        padding: 40px;
+    }
+
+    .estimator-wrapper .step-content {
+        display: none;
+    }
+
+    .estimator-wrapper .step-content.active {
+        display: block;
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .estimator-wrapper .form-group {
+        margin-bottom: 30px;
+        display: block;
+        width: 100%;
+    }
+
+    .estimator-wrapper label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 500;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    .estimator-wrapper textarea,
+    .estimator-wrapper input[type="text"] {
+        width: 100%;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        transition: all 0.2s ease;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+        line-height: 1.6;
+    }
+
+    .estimator-wrapper textarea:focus,
+    .estimator-wrapper input[type="text"]:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 4px rgba(5, 157, 255, 0.1);
+    }
+
+    .estimator-wrapper textarea {
+        resize: vertical;
+        min-height: 200px;
+    }
+
+    .estimator-wrapper .file-upload {
+        border: 2px dashed rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 50px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.02);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .estimator-wrapper .file-upload:hover {
+        border-color: var(--color-primary);
+        background: rgba(5, 157, 255, 0.05);
+        transform: translateY(-2px);
+    }
+
+    .estimator-wrapper .file-upload.drag-over {
+        border-color: var(--color-primary);
+        background: rgba(5, 157, 255, 0.1);
+        transform: scale(1.02);
+    }
+
+    .estimator-wrapper #fileInput {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    .estimator-wrapper .file-chips {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .estimator-wrapper .file-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        max-width: 100%;
+    }
+
+    .estimator-wrapper .file-chip-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 520px;
+    }
+
+    .estimator-wrapper .file-chip-remove {
+        appearance: none;
+        border: none;
+        background: rgba(251, 83, 67, 0.15);
+        color: #ffb4ac;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        font-size: 16px;
+    }
+
+    .estimator-wrapper .file-chip-remove:hover {
+        background: rgba(251, 83, 67, 0.25);
+    }
+
+    .estimator-wrapper .questions-list {
+        margin-top: 20px;
+    }
+
+    .estimator-wrapper .question-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-left: 4px solid var(--color-primary);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .estimator-wrapper .question-item label {
+        color: var(--color-primary);
+        font-size: 14px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .estimator-wrapper .question-item textarea {
+        min-height: 100px;
+        background: rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .estimator-wrapper .btn {
+        padding: 0 35px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        line-height: 50px;
+        height: 50px;
+        letter-spacing: 0.5px;
+    }
+
+    .estimator-wrapper .btn-primary {
+        background: linear-gradient(95deg, var(--color-primary) 15%, var(--color-tertiary) 45%, var(--color-pink) 75%, var(--color-secondary) 100%) 95%/200% 100%;
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .estimator-wrapper .btn-primary:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        filter: brightness(1.1);
+    }
+
+    .estimator-wrapper .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .estimator-wrapper .btn-secondary:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .estimator-wrapper .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        filter: grayscale(1);
+    }
+
+    .estimator-wrapper .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .estimator-wrapper .loading {
+        text-align: center;
+        padding: 60px 40px;
+    }
+
+    .estimator-wrapper .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-top: 4px solid var(--color-primary);
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 25px;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .estimator-wrapper .results {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 30px;
+        border-radius: 12px;
+        margin-top: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .estimator-wrapper .results h3 {
+        color: #fff;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+        background: linear-gradient(95deg, var(--color-primary) 15%, var(--color-tertiary) 45%, var(--color-pink) 75%, var(--color-secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    .estimator-wrapper .cost-summary {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    .estimator-wrapper .cost-total {
+        font-size: 3rem;
+        color: var(--color-light-green);
+        font-weight: 700;
+        margin-bottom: 5px;
+        text-shadow: 0 0 20px rgba(54, 198, 240, 0.3);
+    }
+
+    .estimator-wrapper .cost-hours {
+        color: #acacac;
+        font-size: 1.1rem;
+    }
+
+    .estimator-wrapper .section {
+        margin-bottom: 35px;
+    }
+
+    .estimator-wrapper .section h4 {
+        color: #fff;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+    }
+
+    .estimator-wrapper .cost-item {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.2s;
+    }
+
+    .estimator-wrapper .cost-item:hover {
+        transform: translateX(5px);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .estimator-wrapper .cost-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .estimator-wrapper .cost-item-name {
+        font-weight: 600;
+        color: #fff;
+        font-size: 1.1rem;
+    }
+
+    .estimator-wrapper .cost-item-total {
+        font-weight: bold;
+        color: var(--color-light-green);
+    }
+
+    .estimator-wrapper .cost-item-details {
+        color: #888;
+        font-size: 0.9rem;
+    }
+
+    .estimator-wrapper .cost-item-description {
+        color: #acacac;
+        font-size: 0.95rem;
+        margin-top: 8px;
+        line-height: 1.5;
+    }
+
+    .estimator-wrapper .insight-item,
+    .estimator-wrapper .action-item {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        color: #ddd;
+        line-height: 1.6;
+    }
+
+    .estimator-wrapper .alert {
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+    .estimator-wrapper .alert-info {
+        background: rgba(5, 157, 255, 0.1);
+        color: #fff;
+        border-left: 4px solid var(--color-primary);
+    }
+
+    .estimator-wrapper .alert-warning {
+        background: rgba(251, 83, 67, 0.1);
+        color: #fff;
+        border-left: 4px solid var(--color-secondary);
+    }
+
+    .estimator-wrapper .empty-state {
+        text-align: center;
+        padding: 60px;
+        color: #666;
+    }
+
+    .estimator-wrapper .empty-state-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        opacity: 0.3;
+        filter: grayscale(1);
+    }
+</style>
+<!-- Google reCAPTCHA (Enterprise-compatible) -->
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Lc3njYsAAAAAEgGUTwSZlLBxs3OI7MLK7IPv5Jx"></script>
+{% endblock %}
+
+{% block content %}
+<div class="estimator-wrapper">
+    <div class="container">
+        <div class="header">
+            <h1>Price Estimator</h1>
+            <p>AI-Powered Cost Analysis with Clarifying Questions</p>
+        </div>
+
+        <div class="wizard-card">
+            <div class="wizard-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Upload Document</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Answer Questions</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">View Estimate</div>
+                </div>
+            </div>
+
+            <div class="wizard-content">
+                <!-- Step 1: Document Upload -->
+                <div class="step-content active" data-step="1">
+                    <h2>Upload Documents & Context</h2>
+                    <p style="color: #666; margin-bottom: 25px;">Upload project documents and provide any specific focus
+                        areas.</p>
+
+                    <div class="form-group">
+                        <label>Your Name <span style="color: var(--color-secondary);">*</span></label>
+                        <input type="text" id="userName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address <span style="color: var(--color-secondary);">*</span></label>
+                        <input type="email" id="userEmail" placeholder="john@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company Name (Optional)</label>
+                        <input type="text" id="userCompany" placeholder="Acme Corporation">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Files (PDF, MD, or TXT)</label>
+                        <label class="file-upload" id="fileUpload" for="fileInput" role="button" tabindex="0">
+                            <div class="upload-icon" style="font-size: 3rem; margin-bottom: 10px;">📄</div>
+                            <div>Drag & drop files here or click to browse</div>
+                            <div style="color: #999; font-size: 0.9rem; margin-top: 5px;">Supports PDF, Markdown, and
+                                Text files (max 5MB each)</div>
+                        </label>
+                        <input type="file" id="fileInput" accept=".pdf,.md,.txt" multiple>
+                        <div id="fileList" class="file-chips"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Additional Instructions / Prompt</label>
+                        <textarea id="textInput"
+                            placeholder="E.g., Focus on timeline and risks, assume AWS hosting..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <div></div>
+                        <button class="btn btn-primary" id="generateQuestionsBtn">Generate Questions →</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Answer Questions -->
+                <div class="step-content" data-step="2">
+                    <div id="questionsContainer">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Analyzing your document and generating clarifying questions...</p>
+                        </div>
+                    </div>
+
+                    <div class="button-group" id="questionsButtons" style="display: none;">
+                        <button class="btn btn-secondary" id="backToUploadBtn">← Back</button>
+                        <button class="btn btn-primary" id="generateEstimateBtn">Generate Estimate →</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: View Results -->
+                <div class="step-content" data-step="3">
+                    <div id="resultsContainer">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Generating detailed cost estimation...</p>
+                        </div>
+                    </div>
+
+                    <div class="button-group" id="resultsButtons" style="display: none;">
+                        <button class="btn btn-secondary" id="startOverBtn">← Start Over</button>
+                        <button type="button" class="btn btn-primary" id="exportBtn">Print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="{% assets 'wasm/loader.js' %}"></script>
+<script>
+    window.wasmLoaded = false;
+    window.wasmModule = null;
+    window.wasmResult = null; // Store the full result from loadGoWasm
+
+    async function initializeWASM() {
+        try {
+            if (typeof window.loadGoWasm !== 'function') {
+                throw new Error('WASM loader (loadGoWasm) not found. Ensure assets/wasm/loader.js is loaded.');
+            }
+
+            const wasmPath = "{% assets 'wasm/pdf_extractor.wasm' %}";
+            console.log("Loading WASM from:", wasmPath);
+            const result = await window.loadGoWasm(wasmPath);
+
+            // Keep legacy flags used by estimator.js
+            window.wasmModule = result && result.instance ? result.instance : null;
+            window.wasmResult = result; // Store full result including extractPDF
+            window.wasmLoaded = true;
+            console.log("PDF Extractor WASM loaded successfully", {
+                hasInternalWrapper: typeof window.__wasmExtractPDF === 'function',
+                hasExtractPDFText: typeof window.extractPDFText === 'function',
+                hasExtractPDF: typeof window.extractPDF === 'function',
+                hasWasmModule: !!window.wasmModule,
+                result: result
+            });
+        } catch (err) {
+            console.error("Failed to load WASM module:", err);
+            console.error("Error stack:", err.stack);
+            window.wasmLoaded = false;
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeWASM);
+    } else {
+        initializeWASM();
+    }
+</script>
+<script src="{% assets 'js/estimator.js' %}"></script>
+{% endblock %}
