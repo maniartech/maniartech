@@ -15034,6 +15034,11 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 }
 .custom-values .thumbnail img {
   width: 100%;
+  max-width: 350px;
+}
+
+.custom-passionate .thumbnail img {
+  width: 100%;
 }
 
 .custom-core-pillars .timeline-style-two .heading {
@@ -15178,6 +15183,94 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   margin-bottom: 10px;
 }
 
+/* ─── STATS BAND ─── */
+.stats-wrap {
+  padding: 2.5rem 3rem;
+}
+
+.stats-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-blackest);
+  gap: 1px;
+}
+
+.stat-cell {
+  background: var(--color-blackest);
+  padding: 3rem;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.stat-cell:hover {
+  background: var(--color-blackest);
+}
+
+.stat-cell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.stat-cell:hover::before {
+  opacity: 1;
+}
+
+.sc1::before {
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+.sc2::before {
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+.sc3::before {
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+.sc4::before {
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+.stat-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.stat-num {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-lbl {
+  font-size: 16px;
+  color: var(--color-gray);
+}
+
 @media screen and (min-width: 1200px) {
   .service-slider .inner .title {
     font-size: 50px;
@@ -15186,6 +15279,10 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 
 .service-split-custom .rn-splite-style .split-inner {
   padding: 30px 60px;
+}
+
+.services-img {
+  background-image: url("../images/bg/services.jpg");
 }
 
 /* ─── RESET & ROOT ─── */
@@ -16036,7 +16133,7 @@ h2, .h2 {
   padding: 0;
 }
 .custom-bann .title {
-  font-size: 5rem !important;
+  font-size: 5rem;
   color: var(--color-white);
   font-weight: 700 !important;
   line-height: 1.2;
@@ -16045,6 +16142,11 @@ h2, .h2 {
 @media only screen and (max-width: 767px) {
   .custom-bann .title {
     font-size: 4rem;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .custom-bann .title {
+    font-size: 3.5rem;
   }
 }
 .custom-bann .description {
