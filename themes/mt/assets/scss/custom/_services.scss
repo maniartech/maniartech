@@ -14,10 +14,19 @@
   .rn-splite-style {
     .split-inner {
       padding: 30px 60px;
+
+      .title {
+        font-size: 24px;
+      }
     }
   }
 }
 
 .services-img {
   background-image: url('../images/bg/services.jpg');
+}
+
+.custom-brand-list {
+  align-items: center;
+  column-gap: 40px;
 }

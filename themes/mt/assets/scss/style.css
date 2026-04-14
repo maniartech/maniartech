@@ -15280,9 +15280,18 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
 .service-split-custom .rn-splite-style .split-inner {
   padding: 30px 60px;
 }
+.service-split-custom .rn-splite-style .split-inner .title {
+  font-size: 24px;
+}
 
 .services-img {
   background-image: url("../images/bg/services.jpg");
+}
+
+.custom-brand-list {
+  align-items: center;
+  -moz-column-gap: 40px;
+       column-gap: 40px;
 }
 
 /* ─── RESET & ROOT ─── */
@@ -16306,7 +16315,7 @@ h2, .h2 {
   }
 }
 .stats .stat {
-  background-color: var(--color-lessdark);
+  background-color: var(--color-blackest);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 15px;
