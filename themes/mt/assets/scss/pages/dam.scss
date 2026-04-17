@@ -46,19 +46,18 @@
     cursor: pointer;
   }
   .services-nav-item:hover { color: var(--ink); border-left-color: var(--color-border); }
-  .services-nav-item.active { border-left-color: var(--accent); color: var(--accent); background: var(--bg3); }
+  .services-nav-item.active { border-left-color: var(--color-border); color: var(--color-body); background: var(--color-darkest); }
   .services-nav-num { font-size: 10px; color: var(--color-body); width: 18px; }
   .services-list {
     display: flex;
-    flex-direction:
-    column; gap: 16px;
+    flex-direction: column;
+    gap: 16px;
 
     position: sticky;
     top: 180px;
     overflow-y: auto;
     height: fit-content;
     max-height: calc(100vh - 180px);
-    scroll-margin-top: 180px;
 
     &::-webkit-scrollbar {
       display: none;

@@ -376,7 +376,7 @@
                     $(this).addClass('active');
 
                     // Get the position of the card relative to the container
-                    var targetScrollTop = $targetCard.offset().top - $servicesList.offset().top + $servicesList.scrollTop() - 30;
+                    var targetScrollTop = $targetCard.offset().top - $servicesList.offset().top + $servicesList.scrollTop() - 45;
 
                     // Smooth scroll
                     $servicesList.animate({

@@ -49,9 +49,9 @@
 }
 
 .services-nav-item.active {
-  border-left-color: var(--accent);
-  color: var(--accent);
-  background: var(--bg3);
+  border-left-color: var(--color-border);
+  color: var(--color-body);
+  background: var(--color-darkest);
 }
 
 .services-nav-num {
@@ -70,7 +70,6 @@
   height: -moz-fit-content;
   height: fit-content;
   max-height: calc(100vh - 180px);
-  scroll-margin-top: 180px;
 }
 .services-list::-webkit-scrollbar {
   display: none;
