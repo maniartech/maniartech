@@ -135,13 +135,14 @@
 .mc-num {
   font-size:38px; font-weight:800; letter-spacing:-.045em; line-height:1;
   margin-bottom:.25rem;
+  color: var(--color-heading);
 }
 .mc-num sup { font-size:22px; vertical-align:super; }
 .mc-label { font-size: var(--font-size-b3); color:var(--text-3); letter-spacing:.04em; }
 
 .mc-row { display:flex; align-items:center; justify-content:space-around; padding:.2rem 0; }
 .mc-mini { text-align:center; flex:1; }
-.mc-mini .big { font-size:26px; font-weight:800; letter-spacing:-.03em; line-height:1; }
+.mc-mini .big { font-size:26px; font-weight:800; letter-spacing:-.03em; line-height:1; color: var(--color-heading); }
 .mc-mini .sm  { font-size: var(--font-size-b3); color:var(--text-3);  margin-top:5px; }
 .mc-div { width:1px; height:44px; background:var(--border-md); }
 
@@ -319,7 +320,7 @@
 }
 .rcard-body { flex:1; display:flex; flex-direction:column; gap:.5rem; }
 .rcard-title { font-size: var(--h4); color:var(--color-heading); font-weight:700; letter-spacing:-.02em; }
-.rcard-acronym { font-size: var(--font-size-b3); font-family: var(--font-primary);  color:var(--color-secondary); }
+.rcard-acronym { font-size: var(--font-size-b2); color:var(--color-secondary); }
 .rcard-desc { font-size: var(--font-size-b3); color:var(--color-body); line-height:1.65; font-weight:400; }
 .rl {
   display:inline-flex; align-items:center; gap:5px;
@@ -363,10 +364,11 @@
   }
 }
 .ocard:hover {
-  border-color:var(--border-hi); background:var(--bg3);
+  border-color:var(--color-border);
+  background:var(--color-lessdark);
   transform:translateY(-2px);
 }
-.ocard:hover .oa { color:var(--green); transform:translate(1px,-1px); }
+.ocard:hover .oa { color:var(--color-primary); transform:translate(1px,-1px); }
 .ocard-top { display:flex; align-items:center; justify-content:space-between; }
 .ocard-icon {
   width:32px; height:32px; border-radius:8px;
