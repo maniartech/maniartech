@@ -26,6 +26,7 @@
             doobJs.onePageNav();
             doobJs.slickSliderActivation();
             doobJs.menuCurrentLink();
+            doobJs.damServicesNavigation();
         },
 
         menuCurrentLink: function () {
@@ -357,6 +358,55 @@
             });
         },
 
+        damServicesNavigation: function () {
+            var $navItems = $('.services-nav-item');
+            var $servicesList = $('.services-list');
+            var $serviceCards = $('.service-card');
+
+            // Handle nav item clicks
+            $navItems.on('click', function (e) {
+                e.preventDefault();
+
+                var href = $(this).attr('href');
+                var $targetCard = $(href);
+
+                if ($targetCard.length) {
+                    // Update active state
+                    $navItems.removeClass('active');
+                    $(this).addClass('active');
+
+                    // Get the position of the card relative to the container
+                    var targetScrollTop = $targetCard.offset().top - $servicesList.offset().top + $servicesList.scrollTop() - 30;
+
+                    // Smooth scroll
+                    $servicesList.animate({
+                        scrollTop: targetScrollTop
+                    }, 500);
+                }
+            });
+
+            // Update active nav item when scrolling the services list
+            $servicesList.on('scroll', function () {
+                var found = false;
+                var containerOffset = $servicesList.offset().top;
+                var scrollTop = $servicesList.scrollTop();
+
+                $serviceCards.each(function () {
+                    var $card = $(this);
+                    var cardOffsetTop = $card.offset().top - containerOffset + scrollTop;
+
+                    // Check if card is in the visible range
+                    if (cardOffsetTop >= scrollTop - 20 && cardOffsetTop < scrollTop + 200 && !found) {
+                        var cardId = $card.attr('id');
+                        var $navItem = $('.services-nav-item[href="#' + cardId + '"]');
+
+                        $navItems.removeClass('active');
+                        $navItem.addClass('active');
+                        found = true;
+                    }
+                });
+            });
+        },
 
 
     }
