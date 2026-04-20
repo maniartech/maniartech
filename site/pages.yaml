@@ -1,4 +1,3 @@
-
 # Pages
 
 pages:
@@ -51,3 +50,8 @@ pages:
     title: Contact
     template: contact.html
     content: contact.md # File
+
+  - name: estimator
+    path: /estimator/
+    title: Estimator
+    template: estimator.html

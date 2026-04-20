@@ -140,11 +140,11 @@ function init() {
     setupEventListeners();
 
     // Restore previous session if available
-    // if (loadState()) {
-    //     restoreSession();
-    // } else {
-    //     updateFileListUI();
-    // }
+    if (loadState()) {
+        restoreSession();
+    } else {
+        updateFileListUI();
+    }
 
     // Initialize background particles
     if (typeof tsParticles !== 'undefined') {
@@ -656,7 +656,6 @@ function displayQuestions() {
                 <div style="color: #fff; margin-bottom: 10px;">${escapeHtml(question)}</div>
                 <textarea
                     id="answer-${index}"
-                    class="glass-input"
                     placeholder="Enter your answer here..."
                     data-question="${escapeHtml(question)}"
                 >${escapeHtml(state.answers[question] || '')}</textarea>
@@ -781,75 +780,97 @@ function displayResults(data) {
 
     // Format cost breakdown
     let costBreakdownHTML = '';
-    if (data.cost_breakdown && Array.isArray(data.cost_breakdown) && data.cost_breakdown.length > 0) {
+    if (data.cost_breakdown && data.cost_breakdown.length > 0) {
         costBreakdownHTML = data.cost_breakdown.map((item, index) => `
             <div class="cost-item">
-                <div>
-                    <div class="cost-item-title">${index + 1}. ${escapeHtml(item.item)}</div>
-                    <div style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted); margin-top: 5px;">${item.hours || 0} hours @ ${item.unit_price || 0} ${escapeHtml(data.currency || '')}/hr</div>
-                    ${item.description ? `<div style="font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-top: 10px;">${marked.parseInline(item.description || '')}</div>` : ''}
+                <div class="cost-item-header">
+                    <span class="cost-item-name">${index + 1}. ${escapeHtml(item.item)}</span>
+                    <span class="cost-item-total">${item.total.toLocaleString()} ${data.currency}</span>
                 </div>
-                <div class="cost-item-value">${Number(item.total || 0).toLocaleString()} ${escapeHtml(data.currency || '')}</div>
+                <div class="cost-item-details">
+                    ${item.hours} hours @ ${item.unit_price} ${data.currency}/hr
+                </div>
+                ${item.description ? `<div class="cost-item-description">${marked.parseInline(item.description)}</div>` : ''}
             </div>
         `).join('');
     }
 
     // Format key insights
     let insightsHTML = '';
-    if (data.key_insights && Array.isArray(data.key_insights) && data.key_insights.length > 0) {
-        insightsHTML = data.key_insights.map(insight => `<li>${marked.parseInline(insight || '')}</li>`).join('');
+    if (data.key_insights && data.key_insights.length > 0) {
+        insightsHTML = data.key_insights.map((insight, index) => `
+            <div class="insight-item">
+                <strong>${index + 1}.</strong> <span>${marked.parseInline(insight)}</span>
+            </div>
+        `).join('');
     }
 
     // Format action items
     let actionsHTML = '';
-    if (data.action_items && Array.isArray(data.action_items) && data.action_items.length > 0) {
-        actionsHTML = data.action_items.map(action => `<li>${marked.parseInline(action || '')}</li>`).join('');
+    if (data.action_items && data.action_items.length > 0) {
+        actionsHTML = data.action_items.map((action, index) => `
+            <div class="action-item">
+                <strong>${index + 1}.</strong> <span>${marked.parseInline(action)}</span>
+            </div>
+        `).join('');
     }
 
     container.innerHTML = `
-        <div class="results-dashboard">
-            <h2 style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 0;">Estimated Investment</h2>
-            <div class="price-display cost-total" id="costTotalAnim">${Number(data.total_cost || 0).toLocaleString()} ${escapeHtml(data.currency || '')}</div>
-            <p style="font-size: 1.2rem; color: var(--aurora-1);">Based on ${escapeHtml(String(data.total_hours || 0))} estimated hours.</p>
-            
-            <div class="cost-breakdown">${costBreakdownHTML}</div>
+        <div class="results">
+            <h3>📊 Cost Estimation Results</h3>
 
-            <div style="margin-top: 40px; text-align: left; background: rgba(255,255,255,0.03); border-radius: 16px; padding: 30px; backdrop-filter: blur(10px);">
-                <h4 style="color: var(--aurora-2); margin-bottom: 15px; font-size: 1.2rem;">📝 Executive Summary</h4>
-                <div style="line-height: 1.6; color: rgba(255,255,255,0.8);">${marked.parse(data.summary || 'Summary not available.')}</div>
+            <div class="cost-summary">
+                <div class="cost-total">${data.total_cost.toLocaleString()} ${data.currency}</div>
+                <div class="cost-hours">${data.total_hours} hours of effort</div>
+            </div>
+
+            ${costBreakdownHTML ? `
+                <div class="section">
+                    <h4>💰 Cost Breakdown</h4>
+                    ${costBreakdownHTML}
+                </div>
+            ` : ''}
+
+            <div class="section">
+                <h4>📝 Executive Summary</h4>
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 6px; line-height: 1.6; color: #ddd;" class="markdown-body">
+                    ${marked.parse(data.summary)}
+                </div>
             </div>
 
             ${insightsHTML ? `
-            <div style="margin-top: 20px; text-align: left; background: rgba(255,255,255,0.03); border-radius: 16px; padding: 30px; backdrop-filter: blur(10px);">
-                <h4 style="color: var(--aurora-3); margin-bottom: 15px; font-size: 1.2rem;">💡 Key Insights</h4>
-                <ul style="color: rgba(255,255,255,0.7); line-height: 1.6; padding-left: 20px;">${insightsHTML}</ul>
-            </div>` : ''}
+                <div class="section">
+                    <h4>💡 Key Insights</h4>
+                    ${insightsHTML}
+                </div>
+            ` : ''}
 
             ${actionsHTML ? `
-            <div style="margin-top: 20px; text-align: left; background: rgba(255,255,255,0.03); border-radius: 16px; padding: 30px; backdrop-filter: blur(10px);">
-                <h4 style="color: var(--aurora-1); margin-bottom: 15px; font-size: 1.2rem;">✅ Action Items</h4>
-                <ul style="color: rgba(255,255,255,0.7); line-height: 1.6; padding-left: 20px;">${actionsHTML}</ul>
-            </div>` : ''}
+                <div class="section">
+                    <h4>✅ Recommended Action Items</h4>
+                    ${actionsHTML}
+                </div>
+            ` : ''}
         </div>
     `;
 
     buttonsContainer.style.display = 'flex';
 
-    // Hook in GSAP safely for Dashboard result
     if (typeof gsap !== 'undefined') {
-        const totalNumber = document.getElementById('costTotalAnim');
+        gsap.from('.cost-item', {y: 20, opacity: 0, stagger: 0.1, duration: 0.5, ease: 'power2.out'});
+        
+        const totalNumber = document.querySelector('.cost-total');
         if (totalNumber && data.total_cost) {
             const costObj = { val: 0 };
             gsap.to(costObj, {
-                val: Number(data.total_cost || 0),
+                val: data.total_cost,
                 duration: 1.5,
                 ease: 'power2.out',
                 onUpdate: () => {
-                    totalNumber.innerHTML = Math.round(costObj.val).toLocaleString() + ' ' + escapeHtml(data.currency || '');
+                    totalNumber.innerHTML = Math.round(costObj.val).toLocaleString() + ' ' + data.currency;
                 }
             });
         }
-        gsap.from('.cost-item', { y: 20, opacity: 0, stagger: 0.1, duration: 0.5, ease: 'power2.out' });
     }
 }
 
@@ -878,8 +899,8 @@ function goToStep(step) {
     saveState();
 
     // Update step indicators
-    document.querySelectorAll('.step-indicator').forEach(stepEl => {
-        const stepNum = parseInt(stepEl.dataset.stepIndicator);
+    document.querySelectorAll('.step').forEach(stepEl => {
+        const stepNum = parseInt(stepEl.dataset.step);
         stepEl.classList.remove('active', 'completed');
 
         if (stepNum === step) {
@@ -897,7 +918,7 @@ function goToStep(step) {
     if (targetContent) {
         targetContent.classList.add('active');
         if (typeof gsap !== 'undefined') {
-            gsap.fromTo(targetContent, { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4 });
+            gsap.fromTo(targetContent, {x: 50, opacity: 0}, {x: 0, opacity: 1, duration: 0.4});
         }
     }
 }
