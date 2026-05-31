@@ -20,7 +20,8 @@
         background: var(--bg-color);
         color: var(--text-main);
         font-family: 'Inter', system-ui, sans-serif;
-        overflow: hidden; /* Stop body scrolling */
+        overflow: hidden;
+        /* Stop body scrolling */
         font-size: 16px;
         /* Increased base font size */
     }
@@ -92,6 +93,7 @@
         line-height: 1.1;
         letter-spacing: -2px;
         background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+        background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 2rem;
@@ -397,6 +399,7 @@
         font-size: 6rem;
         font-weight: 800;
         background: linear-gradient(to right, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+        background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: 20px 0;
@@ -583,8 +586,7 @@
             </div>
 
             <div class="action-bar">
-                <button id="generateQuestionsBtn" class="btn-premium btn-next"
-                    onclick="handleGenerateQuestions()">Generate Questions</button>
+                <button id="generateQuestionsBtn" class="btn-premium btn-next">Generate Questions</button>
             </div>
 
             <div class="loader-overlay" id="loadingOverlay1">
@@ -600,10 +602,9 @@
             </div>
 
             <div class="action-bar" id="questionsButtons" style="display:none;">
-                <button id="backToUploadBtn" class="btn-premium btn-prev" onclick="goToStep(1)"><span>←</span>
+                <button id="backToUploadBtn" class="btn-premium btn-prev"><span>←</span>
                     Back</button>
-                <button id="generateEstimateBtn" class="btn-premium btn-submit"
-                    onclick="handleGenerateEstimate()">Calculate Price <span>⚡</span></button>
+                <button id="generateEstimateBtn" class="btn-premium btn-submit">Calculate Price <span>⚡</span></button>
             </div>
 
             <div class="loader-overlay" id="loadingOverlay2">
@@ -620,12 +621,12 @@
 
             <div class="action-bar" id="resultsButtons"
                 style="justify-content: center; margin-top: 60px; display:none;">
-                <button id="startOverBtn" class="btn-premium btn-prev" onclick="handleStartOver()">Start Over</button>
+                <button id="startOverBtn" class="btn-premium btn-prev">Start Over</button>
                 <button id="exportBtn" class="btn-premium btn-submit"
-                    style="background: rgba(255,255,255,0.1); box-shadow: none;" onclick="window.print()">Export
+                    style="background: rgba(255,255,255,0.1); box-shadow: none;">Export
                     Summary</button>
-                <button class="btn-premium btn-submit" onclick="window.location.href='/contact/'">Discuss with an
-                    Expert</button>
+                <a class="btn-premium btn-submit" href="/contact/">Discuss with an
+                    Expert</a>
             </div>
         </div>
 
