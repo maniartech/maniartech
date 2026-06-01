@@ -107,14 +107,8 @@
     }
 
     .progress-tracker::before {
-        content: '';
-        position: absolute;
-        left: 24px;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: rgba(255, 255, 255, 0.1);
-        z-index: 0;
+        /* removed background connector line per design request */
+        display: none !important;
     }
 
     .step-indicator {
@@ -186,6 +180,7 @@
         height: 100vh;
         overflow-y: auto;
         position: relative;
+        /* Required for the loading overlay to position correctly */
     }
 
     .step-content {
@@ -405,6 +400,8 @@
         margin: 20px 0;
         letter-spacing: -2px;
         line-height: 1;
+        white-space: nowrap;
+        /* keep total price on one line */
     }
 
     .cost-breakdown {
@@ -422,7 +419,10 @@
         border-radius: 12px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
+        gap: 20px;
+        flex-wrap: nowrap;
+        /* prevent price from wrapping to next line */
     }
 
     .cost-item-title {
@@ -434,44 +434,188 @@
         font-size: 1.5rem;
         font-weight: 700;
         color: var(--aurora-3);
+        white-space: nowrap;
+        /* ensure amount and currency stay together */
+        flex: 0 0 auto;
+        /* do not shrink or wrap */
+        margin-left: 16px;
+        text-align: right;
     }
 
-    /* Submitting Loader */
-    .loader-overlay {
+    /* ── Global Loading Overlay ── */
+    .global-loader {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(10px);
+        inset: 0;
+        z-index: 200;
         display: none;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        z-index: 100;
-        border-radius: 20px;
         text-align: center;
+        background: rgba(3, 3, 5, 0.94);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        overflow: hidden;
     }
 
-    .loader-overlay.active {
+    .global-loader.active {
         display: flex;
+        opacity: 1;
+    }
+
+    /* ── Progress bar at top ── */
+    .loader-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0%;
+        background: linear-gradient(90deg, var(--aurora-1), var(--aurora-2), var(--aurora-3));
+        border-radius: 0 2px 2px 0;
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 12px rgba(200, 80, 192, 0.6);
+    }
+
+    /* ── Floating particles ── */
+    .loader-particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+        animation: particle-float linear infinite;
+    }
+
+    @keyframes particle-float {
+        0%   { transform: translateY(0) scale(0); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+    }
+
+    /* ── Spinner ── */
+    .spinner-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+
+    .spinner-glow {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(200, 80, 192, 0.2) 0%, rgba(65, 88, 208, 0.1) 40%, transparent 70%);
+        animation: pulse-glow 2.5s ease-in-out infinite;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    @keyframes pulse-glow {
+        0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+        50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.4); }
     }
 
     .spinner-ring {
-        width: 60px;
-        height: 60px;
-        border: 4px solid rgba(255, 255, 255, 0.1);
-        border-top-color: var(--aurora-2);
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+    .spinner-ring::before,
+    .spinner-ring::after {
+        content: '';
+        position: absolute;
+        inset: 0;
         border-radius: 50%;
+        border: 3px solid transparent;
+    }
+
+    .spinner-ring::before {
+        border-top-color: var(--aurora-2);
+        border-right-color: var(--aurora-2);
         animation: spin 1s linear infinite;
-        margin-bottom: 20px;
+    }
+
+    .spinner-ring::after {
+        inset: 8px;
+        border-bottom-color: var(--aurora-3);
+        border-left-color: var(--aurora-3);
+        animation: spin 1.8s linear infinite reverse;
     }
 
     @keyframes spin {
-        100% {
-            transform: rotate(360deg);
-        }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* ── Text ── */
+    .loader-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0 0 12px;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, #fff 40%, var(--aurora-3));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .loader-dots::after {
+        content: '';
+        animation: ellipsis 1.4s steps(4, end) infinite;
+    }
+
+    @keyframes ellipsis {
+        0%  { content: ''; }
+        25% { content: '.'; }
+        50% { content: '..'; }
+        75% { content: '...'; }
+    }
+
+    .loader-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin: 0 0 28px;
+        max-width: 380px;
+        line-height: 1.6;
+    }
+
+    /* ── Cycling status messages ── */
+    .loader-status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 999px;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.3px;
+        min-height: 40px;
+    }
+
+    .loader-status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--aurora-2);
+        animation: status-blink 1.2s ease-in-out infinite;
+        flex-shrink: 0;
+    }
+
+    @keyframes status-blink {
+        0%, 100% { opacity: 1; }
+        50%      { opacity: 0.3; }
+    }
+
+    .loader-status-text {
+        transition: opacity 0.3s ease;
     }
 
     /* Responsive */
@@ -497,11 +641,8 @@
         }
 
         .progress-tracker::before {
-            top: 24px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            width: auto;
+            /* hide horizontal connector on small screens as well */
+            display: none !important;
         }
 
         .step-label {
@@ -547,6 +688,31 @@
     <!-- Right Main Area: Forms -->
     <div class="estimator-main">
 
+        <!-- ── Global Loading Overlay (covers entire right panel) ── -->
+        <div class="global-loader" id="globalLoader">
+            <!-- Progress bar -->
+            <div class="loader-progress" id="loaderProgress"></div>
+
+            <!-- Floating particles (injected by JS) -->
+            <div id="loaderParticles"></div>
+
+            <!-- Spinner -->
+            <div class="spinner-wrapper">
+                <div class="spinner-glow"></div>
+                <div class="spinner-ring"></div>
+            </div>
+
+            <!-- Title & subtitle -->
+            <h3 class="loader-title" id="globalLoaderTitle">Processing<span class="loader-dots"></span></h3>
+            <p class="loader-subtitle" id="globalLoaderSubtitle">Please wait while we work on your request.</p>
+
+            <!-- Cycling status pill -->
+            <div class="loader-status">
+                <span class="loader-status-dot"></span>
+                <span class="loader-status-text" id="loaderStatusText">Initializing...</span>
+            </div>
+        </div>
+
         <!-- STEP 1: UPLOAD & CONTEXT -->
         <div class="step-content active" data-step="1">
             <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Let's outline your vision.</h2>
@@ -589,10 +755,6 @@
                 <button id="generateQuestionsBtn" class="btn-premium btn-next">Generate Questions</button>
             </div>
 
-            <div class="loader-overlay" id="loadingOverlay1">
-                <div class="spinner-ring"></div>
-                <h3 style="margin:0;">AI is analyzing your documents...</h3>
-            </div>
         </div>
 
         <!-- STEP 2: CLARIFYING QUESTIONS -->
@@ -605,11 +767,6 @@
                 <button id="backToUploadBtn" class="btn-premium btn-prev"><span>←</span>
                     Back</button>
                 <button id="generateEstimateBtn" class="btn-premium btn-submit">Calculate Price <span>⚡</span></button>
-            </div>
-
-            <div class="loader-overlay" id="loadingOverlay2">
-                <div class="spinner-ring"></div>
-                <h3 style="margin:0;">Crunching numbers...</h3>
             </div>
         </div>
 
@@ -635,6 +792,138 @@
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+    // Global loader helpers — defined inline so they're never stale from asset caching
+    (function() {
+        var _loaderInterval = null;
+        var _progressInterval = null;
+        var _particlesCreated = false;
+
+        // Default status messages (overridden per call)
+        var _defaultStatuses = [
+            'Initializing...',
+            'Connecting to AI engine...',
+            'Processing your request...',
+            'Almost there...'
+        ];
+
+        function _createParticles() {
+            var container = document.getElementById('loaderParticles');
+            if (!container || _particlesCreated) return;
+            _particlesCreated = true;
+
+            var colors = [
+                'rgba(200, 80, 192, 0.35)',
+                'rgba(65, 88, 208, 0.3)',
+                'rgba(255, 204, 112, 0.25)'
+            ];
+
+            for (var i = 0; i < 18; i++) {
+                var dot = document.createElement('div');
+                dot.className = 'loader-particle';
+                var size = 3 + Math.random() * 5;
+                dot.style.width = size + 'px';
+                dot.style.height = size + 'px';
+                dot.style.left = Math.random() * 100 + '%';
+                dot.style.bottom = '-10px';
+                dot.style.background = colors[i % colors.length];
+                dot.style.animationDuration = (6 + Math.random() * 8) + 's';
+                dot.style.animationDelay = (Math.random() * 6) + 's';
+                container.appendChild(dot);
+            }
+        }
+
+        function _startProgress() {
+            var bar = document.getElementById('loaderProgress');
+            if (!bar) return;
+            var progress = 0;
+            bar.style.width = '0%';
+
+            _progressInterval = setInterval(function() {
+                // Slow down as it approaches 85%
+                var increment = progress < 30 ? 2 : progress < 60 ? 1 : 0.3;
+                progress = Math.min(progress + increment + Math.random() * increment, 85);
+                bar.style.width = progress + '%';
+            }, 300);
+        }
+
+        function _stopProgress() {
+            if (_progressInterval) {
+                clearInterval(_progressInterval);
+                _progressInterval = null;
+            }
+            // Jump to 100% briefly
+            var bar = document.getElementById('loaderProgress');
+            if (bar) {
+                bar.style.width = '100%';
+            }
+        }
+
+        function _startStatusCycling(statuses) {
+            var textEl = document.getElementById('loaderStatusText');
+            if (!textEl) return;
+
+            var msgs = statuses || _defaultStatuses;
+            var idx = 0;
+            textEl.textContent = msgs[0];
+
+            _loaderInterval = setInterval(function() {
+                idx = (idx + 1) % msgs.length;
+                textEl.style.opacity = '0';
+                setTimeout(function() {
+                    textEl.textContent = msgs[idx];
+                    textEl.style.opacity = '1';
+                }, 300);
+            }, 2500);
+        }
+
+        function _stopStatusCycling() {
+            if (_loaderInterval) {
+                clearInterval(_loaderInterval);
+                _loaderInterval = null;
+            }
+        }
+
+        window.showGlobalLoader = function(title, subtitle, statusMessages) {
+            var el = document.getElementById('globalLoader');
+            if (!el) return;
+
+            var t = document.getElementById('globalLoaderTitle');
+            var s = document.getElementById('globalLoaderSubtitle');
+            if (t) t.innerHTML = (title || 'Processing') + '<span class="loader-dots"></span>';
+            if (s) s.textContent = subtitle || 'Please wait while we work on your request.';
+
+            _createParticles();
+            el.style.display = 'flex';
+            // Force reflow for transition
+            void el.offsetWidth;
+            el.classList.add('active');
+
+            _startProgress();
+            _startStatusCycling(statusMessages);
+        };
+
+        window.hideGlobalLoader = function() {
+            _stopStatusCycling();
+            _stopProgress();
+
+            var el = document.getElementById('globalLoader');
+            if (!el) return;
+
+            // Brief pause at 100% before hiding
+            setTimeout(function() {
+                el.classList.remove('active');
+                // Wait for opacity transition, then hide
+                setTimeout(function() {
+                    el.style.display = 'none';
+                    // Reset progress bar
+                    var bar = document.getElementById('loaderProgress');
+                    if (bar) bar.style.width = '0%';
+                }, 400);
+            }, 300);
+        };
+    })();
+</script>
 {% assets 'wasm/loader.js' %}
 <script>
     async function initializeWASM() {

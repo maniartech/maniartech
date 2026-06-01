@@ -27,6 +27,73 @@
 const API_BASE_URL = 'https://3t6owtcb63.execute-api.us-east-2.amazonaws.com';
 const RECAPTCHA_SITE_KEY = '6Lc3njYsAAAAAEgGUTwSZlLBxs3OI7MLK7IPv5Jx';
 
+// ── Debug / Simulation Mode ──
+// Activate via: ?debug in the URL  OR  window.ESTIMATOR_DEBUG = true in console
+// Configurable delay: ?debug=5000 sets a 5-second simulated delay (default 3000ms)
+window.ESTIMATOR_DEBUG = true;
+window.ESTIMATOR_DEBUG_DELAY = 5000;
+(function initDebugMode() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('debug')) {
+        window.ESTIMATOR_DEBUG = true;
+        const delayParam = parseInt(params.get('debug'), 10);
+        window.ESTIMATOR_DEBUG_DELAY = (delayParam > 0) ? delayParam : 3000;
+    }
+    if (window.ESTIMATOR_DEBUG) {
+        window.ESTIMATOR_DEBUG_DELAY = window.ESTIMATOR_DEBUG_DELAY || 3000;
+        console.log(
+            '%c🛠 ESTIMATOR DEBUG MODE ACTIVE %c Delay: ' + window.ESTIMATOR_DEBUG_DELAY + 'ms | No real API calls will be made.',
+            'background: #C850C0; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;',
+            'color: #FFCC70; font-weight: bold;'
+        );
+    }
+})();
+
+function _debugDelay() {
+    return new Promise(resolve => setTimeout(resolve, window.ESTIMATOR_DEBUG_DELAY || 3000));
+}
+
+function _mockQuestionsResponse() {
+    return {
+        questions: [
+            'What is the expected number of concurrent users at launch?',
+            'Do you need real-time features such as notifications, chat, or live updates?',
+            'Are there any third-party integrations required (payment gateways, CRMs, analytics)?',
+            'What level of accessibility compliance is required (WCAG AA, AAA)?',
+            'Is multi-language / i18n support needed from day one?'
+        ],
+        estimate_token: 'debug-token-' + Date.now()
+    };
+}
+
+function _mockEstimateResponse() {
+    return {
+        total_cost: 24500,
+        total_hours: 320,
+        currency: 'USD',
+        cost_breakdown: [
+            { item: 'UI/UX Design & Prototyping', hours: 60, unit_price: 75, total: 4500, description: 'Wireframes, high-fidelity mockups, and interactive prototype.' },
+            { item: 'Frontend Development', hours: 100, unit_price: 80, total: 8000, description: 'Responsive SPA with component library and state management.' },
+            { item: 'Backend API & Database', hours: 80, unit_price: 80, total: 6400, description: 'RESTful API, authentication, database schema and migrations.' },
+            { item: 'Testing & QA', hours: 40, unit_price: 70, total: 2800, description: 'Unit tests, integration tests, E2E testing, and bug fixes.' },
+            { item: 'DevOps & Deployment', hours: 20, unit_price: 75, total: 1500, description: 'CI/CD pipeline, cloud infrastructure, monitoring setup.' },
+            { item: 'Project Management', hours: 20, unit_price: 65, total: 1300, description: 'Sprint planning, stakeholder communication, documentation.' }
+        ],
+        summary: 'This project involves building a **full-stack web application** with a modern frontend, secure backend API, and cloud deployment. The estimate includes comprehensive testing and project management overhead. Timeline is approximately **8-10 weeks** with a team of 2-3 developers.',
+        key_insights: [
+            'The real-time features add ~15% to the overall cost due to WebSocket infrastructure.',
+            'Multi-language support is best implemented as a foundation layer early on to avoid costly retrofitting.',
+            'Consider a phased rollout — MVP first, then iterate based on user feedback.'
+        ],
+        action_items: [
+            'Finalize the feature priority list for MVP scope.',
+            'Provide brand guidelines and design assets.',
+            'Set up cloud accounts (AWS/GCP) for deployment.',
+            'Schedule a kickoff meeting to align on sprint cadence.'
+        ]
+    };
+}
+
 // State Management with Session Storage
 let state = {
     currentStep: 1,
@@ -521,27 +588,30 @@ function removeFile(index) {
 }
 
 async function handleGenerateQuestions() {
-    if (state.files.length === 0 && !state.prompt.trim()) {
-        showNotification('Please upload at least one file or provide instructions.', 'error');
-        return;
-    }
+    // Skip validation in debug mode
+    if (!window.ESTIMATOR_DEBUG) {
+        if (state.files.length === 0 && !state.prompt.trim()) {
+            showNotification('Please upload at least one file or provide instructions.', 'error');
+            return;
+        }
 
-    // Validate user information
-    if (!state.userName.trim()) {
-        showNotification('Please enter your name.', 'error');
-        return;
-    }
+        // Validate user information
+        if (!state.userName.trim()) {
+            showNotification('Please enter your name.', 'error');
+            return;
+        }
 
-    if (!state.userEmail.trim()) {
-        showNotification('Please enter your email address.', 'error');
-        return;
-    }
+        if (!state.userEmail.trim()) {
+            showNotification('Please enter your email address.', 'error');
+            return;
+        }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(state.userEmail.trim())) {
-        showNotification('Please enter a valid email address.', 'error');
-        return;
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(state.userEmail.trim())) {
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
     }
 
     saveState();
@@ -552,52 +622,71 @@ async function handleGenerateQuestions() {
     button.innerHTML = '⟳ Generating Questions...';
 
     // Move to step 2
-    goToStep(2);
+    goToStep(2, true);
+
+    // Show global loading overlay
+    if (window.showGlobalLoader) {
+        window.showGlobalLoader(
+            'Analyzing your project',
+            'Our AI is reading your documents and crafting the right questions to understand your vision.'
+        );
+    }
 
     try {
-        // Get reCAPTCHA token
-        const recaptchaToken = await getRecaptchaToken('questions');
+        let data;
 
-        // Defensive: never call the API without a token (backend treats missing/empty as absent)
-        if (!recaptchaToken || typeof recaptchaToken !== 'string' || recaptchaToken.trim().length === 0) {
-            throw new Error('reCAPTCHA returned an empty token. Please refresh and try again.');
+        // ── Debug mode: skip real API, simulate delay ──
+        if (window.ESTIMATOR_DEBUG) {
+            console.log('[DEBUG] Simulating /api/questions ...');
+            await _debugDelay();
+            data = _mockQuestionsResponse();
+            console.log('[DEBUG] Mock questions response:', data);
+        } else {
+            // Get reCAPTCHA token
+            const recaptchaToken = await getRecaptchaToken('questions');
+
+            // Defensive: never call the API without a token (backend treats missing/empty as absent)
+            if (!recaptchaToken || typeof recaptchaToken !== 'string' || recaptchaToken.trim().length === 0) {
+                throw new Error('reCAPTCHA returned an empty token. Please refresh and try again.');
+            }
+
+            const payload = {
+                prompt: state.prompt,
+                files: state.files.map(f => ({
+                    name: f.name,
+                    file_type: f.file_type,
+                    text: f.text,
+                    content: f.content
+                })),
+                recaptcha_token: recaptchaToken,
+                client_name: state.userName,
+                client_email: state.userEmail,
+                client_company: state.userCompany
+            };
+
+            console.log("Sending request to /api/questions with payload:", {
+                prompt: payload.prompt,
+                files: payload.files.map(f => ({ name: f.name, type: f.file_type, textLength: f.text ? f.text.length : 0, contentSize: f.content ? f.content.length : 0 })),
+                hasToken: !!recaptchaToken
+            });
+
+            // Call API to generate questions
+            const response = await fetch(`${API_BASE_URL}/api/questions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+                throw new Error(errorData.error || `API Error (${response.status})`);
+            }
+
+            data = await response.json();
         }
 
-        const payload = {
-            prompt: state.prompt,
-            files: state.files.map(f => ({
-                name: f.name,
-                file_type: f.file_type,
-                text: f.text,
-                content: f.content
-            })),
-            recaptcha_token: recaptchaToken,
-            client_name: state.userName,
-            client_email: state.userEmail,
-            client_company: state.userCompany
-        };
-
-        console.log("Sending request to /api/questions with payload:", {
-            prompt: payload.prompt,
-            files: payload.files.map(f => ({ name: f.name, type: f.file_type, textLength: f.text ? f.text.length : 0, contentSize: f.content ? f.content.length : 0 })),
-            hasToken: !!recaptchaToken
-        });
-
-        // Call API to generate questions
-        const response = await fetch(`${API_BASE_URL}/api/questions`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-            throw new Error(errorData.error || `API Error (${response.status})`);
-        }
-
-        const data = await response.json();
         state.questions = data.questions || [];
         state.estimateToken = data.estimate_token; // Save the token for the estimate call
         saveState();
@@ -608,6 +697,8 @@ async function handleGenerateQuestions() {
             showNotification(`Generated ${state.questions.length} question${state.questions.length > 1 ? 's' : ''}`, 'success');
         }
 
+        // Hide loader & show step 2 with the questions
+        if (window.hideGlobalLoader) window.hideGlobalLoader();
         displayQuestions();
     } catch (error) {
         console.error('Error generating questions:', error);
@@ -617,6 +708,10 @@ async function handleGenerateQuestions() {
         if (error.message.includes('reCAPTCHA')) {
             errorMessage = 'Security verification failed. Please refresh the page and try again.';
         }
+
+        // Go back to step 1 on error so the user can retry
+        if (window.hideGlobalLoader) window.hideGlobalLoader();
+        goToStep(1);
 
         showError('Failed to generate questions: ' + errorMessage + '. Your progress has been saved - you can try again.');
         showNotification('Error generating questions. ' + errorMessage, 'error');
@@ -698,8 +793,8 @@ async function handleGenerateEstimate() {
     });
     saveState();
 
-    // Validate that we have an estimate token
-    if (!state.estimateToken) {
+    // Validate that we have an estimate token (skip in debug mode)
+    if (!window.ESTIMATOR_DEBUG && !state.estimateToken) {
         showNotification('Session expired. Please upload documents again.', 'error');
         goToStep(1);
         return;
@@ -711,47 +806,69 @@ async function handleGenerateEstimate() {
     button.innerHTML = '⟳ Generating Estimate...';
 
     // Move to step 3
-    goToStep(3);
+    goToStep(3, true);
+
+    // Show global loading overlay
+    if (window.showGlobalLoader) {
+        window.showGlobalLoader(
+            'Crunching the numbers',
+            'Calculating costs, timelines, and recommendations based on your requirements.'
+        );
+    }
 
     try {
-        const payload = {
-            prompt: state.prompt,
-            answers: state.answers,
-            files: state.files.map(f => ({
-                name: f.name,
-                file_type: f.file_type,
-                text: f.text,
-                content: f.content
-            })),
-            client_name: state.userName,
-            client_email: state.userEmail,
-            client_company: state.userCompany
-        };
+        let data;
 
-        // Call API to generate estimate with Bearer token
-        const response = await fetch(`${API_BASE_URL}/api/estimate`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${state.estimateToken}`
-            },
-            body: JSON.stringify(payload)
-        });
+        // ── Debug mode: skip real API, simulate delay ──
+        if (window.ESTIMATOR_DEBUG) {
+            console.log('[DEBUG] Simulating /api/estimate ...');
+            await _debugDelay();
+            data = _mockEstimateResponse();
+            console.log('[DEBUG] Mock estimate response:', data);
+        } else {
+            const payload = {
+                prompt: state.prompt,
+                answers: state.answers,
+                files: state.files.map(f => ({
+                    name: f.name,
+                    file_type: f.file_type,
+                    text: f.text,
+                    content: f.content
+                })),
+                client_name: state.userName,
+                client_email: state.userEmail,
+                client_company: state.userCompany
+            };
 
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+            // Call API to generate estimate with Bearer token
+            const response = await fetch(`${API_BASE_URL}/api/estimate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${state.estimateToken}`
+                },
+                body: JSON.stringify(payload)
+            });
 
-            // Handle 401 specifically
-            if (response.status === 401) {
-                throw new Error('Session expired. Please upload documents again.');
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+
+                // Handle 401 specifically
+                if (response.status === 401) {
+                    throw new Error('Session expired. Please upload documents again.');
+                }
+
+                throw new Error(errorData.error || `API Error (${response.status})`);
             }
 
-            throw new Error(errorData.error || `API Error (${response.status})`);
+            data = await response.json();
         }
 
-        const data = await response.json();
         state.estimate = data;
         saveState();
+
+        // Hide loader & reveal results
+        if (window.hideGlobalLoader) window.hideGlobalLoader();
 
         showNotification('Estimate generated successfully!', 'success');
         displayResults(data);
@@ -764,7 +881,12 @@ async function handleGenerateEstimate() {
             // Clear the token and go back to step 1
             state.estimateToken = null;
             saveState();
+            if (window.hideGlobalLoader) window.hideGlobalLoader();
             setTimeout(() => goToStep(1), 2000);
+        } else {
+            // Go back to step 2 on other errors so the user can retry
+            if (window.hideGlobalLoader) window.hideGlobalLoader();
+            goToStep(2);
         }
 
         showError('Failed to generate estimate: ' + errorMessage + '. Your answers have been saved - you can try again.');
@@ -873,7 +995,7 @@ function showError(message) {
     }
 }
 
-function goToStep(step) {
+function goToStep(step, skipAnimation) {
     state.currentStep = step;
     saveState();
 
@@ -892,11 +1014,15 @@ function goToStep(step) {
     // Update content
     document.querySelectorAll('.step-content').forEach(content => {
         content.classList.remove('active');
+        // Clear any leftover GSAP inline styles so CSS classes take effect
+        if (typeof gsap !== 'undefined') {
+            gsap.set(content, { clearProps: 'all' });
+        }
     });
     const targetContent = document.querySelector(`.step-content[data-step="${step}"]`);
     if (targetContent) {
         targetContent.classList.add('active');
-        if (typeof gsap !== 'undefined') {
+        if (!skipAnimation && typeof gsap !== 'undefined') {
             gsap.fromTo(targetContent, { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4 });
         }
     }
