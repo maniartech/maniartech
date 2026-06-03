@@ -50,7 +50,7 @@ window.ESTIMATOR_DEBUG_DELAY = 5000;
 })();
 
 function _debugDelay() {
-    return new Promise(resolve => setTimeout(resolve, window.ESTIMATOR_DEBUG_DELAY || 3000));
+return new Promise(resolve => setTimeout(resolve, window.ESTIsMATOR_DEBUG_DELAY || 3000));
 }
 
 function _mockQuestionsResponse() {
