@@ -15200,6 +15200,11 @@ body.active-light-mode .slider-area.bg-transparent .inner button.btn-default.btn
   background-image: url("../images/bg/services.jpg");
 }
 
+.service-bg {
+  background-image: url("../images/services/5843.jpg");
+  filter: brightness(1);
+}
+
 .custom-brand-list {
   align-items: center;
   -moz-column-gap: 40px;
@@ -16402,7 +16407,7 @@ h2, .h2 {
 }
 
 .stats-grid {
-  max-width: 1300px;
+  max-width: 1000px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -16419,6 +16424,7 @@ h2, .h2 {
   border-right: 1px solid var(--color-border);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   position: relative;
   overflow: hidden;
@@ -16477,6 +16483,7 @@ h2, .h2 {
   letter-spacing: -0.04em;
   line-height: 1;
   margin-bottom: 4px;
+  text-align: center;
 }
 
 .stat-lbl {
