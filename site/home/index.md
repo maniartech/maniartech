@@ -1,25 +1,20 @@
 ---
-title: Innovative Business Solutions
-
-blogs:
-  - heading: "Best Corporate Tips You Will Read This Year."
-    date: "2024-03-01"
-    description: We have always known the power of digital we've.
-    author: Irin Pervin
-    sal-duration: 100
-
-
-  - heading: "Should Fixing Corporate Take 100 Steps."
-    date: "2024-03-01"
-    description: "Explore the journey, inspiration, and innovation"
-    author: Mohamed Aamir Maniar
-    sal-duration: 200
-
-  - heading: "The Next 100 Things To Immediately Do About."
-    date: "2023-08-08"
-    description: "Internet Object is a new data serialization format"
-    author: Nomaan Maniar
-    sal-duration: 300
+title: Senior Software Engineering, Built to Last
+description: ManiarTech designs, builds, and modernizes the systems companies depend on — senior engineers, an ISO-certified process, and mainstream technology your own team can maintain.
 ---
-asfasdfasf asdfasdf asdf
-asdf
+
+You're looking at the default starter. This page is rendered from
+`site/home/index.md` using the `home.html` template in the `default` theme — edit
+the file and it hot-reloads as you save.
+
+## Next steps
+
+1. **Make it yours** — edit this text in `site/home/index.md`, and the hero above
+   from its `title` / `description` frontmatter.
+2. **Add a page** — list it in `site/module.yaml` and drop a Markdown file in `site/`
+   (e.g. `site/contact/index.md` for a `contact: /contact/` page).
+3. **Restyle** — templates live in `themes/default/templates/`, and the CSS (with the
+   animation you're seeing) is `themes/default/lib/main.css`.
+4. **Ship it** — run `tajmahal build` to generate the static site into `build/`.
+
+Happy building!

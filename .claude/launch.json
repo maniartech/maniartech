@@ -1,0 +1,33 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tajmahal",
+      "runtimeExecutable": "tajmahal",
+      "runtimeArgs": ["start", "--port", "8085"],
+      "port": 8085,
+      "autoPort": false
+    },
+    {
+      "name": "static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8099", "--directory", "build"],
+      "port": 8099,
+      "autoPort": false
+    },
+    {
+      "name": "deck",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8090", "--directory", "_marketing/presentations/maniartech-pitch"],
+      "port": 8090,
+      "autoPort": false
+    },
+    {
+      "name": "booklet",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8091", "--directory", "_marketing/prospectus/maniartech-prospectus"],
+      "port": 8091,
+      "autoPort": false
+    }
+  ]
+}

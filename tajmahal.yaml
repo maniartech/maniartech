@@ -1,31 +1,33 @@
+# Taj Mahal site configuration.
+# See https://github.com/maniartech/tajmahal for the full reference.
+
 version: 1.0
 
-# The site name
-name: ManiarTech
+# Site identity (read in templates as {{ site.name }} / {{ site.author }}).
+name: "ManiarTech"
+author: "Aamir Maniar"
 
-author: Nomaan Maniar
-
+# Active modules — each maps to a directory at the project root.
 modules:
   - site
+  - labs
+  - insights
+  - white-papers
 
-publicDir: public
-buildDir: docs
+# Theme (a directory under themeDir).
+theme: maniartech
+themeDir: themes
 
-404Page: ~/themes/standard/404.html
+# Output directory for `tajmahal build` (generated site; safe to delete).
+buildDir: build
 
-#
-pageSize: 5
+# Default number of items per page on list pages.
+page_size: 10
 
-themesDir: ~/themes
+# Dev-server port (`tajmahal start`).
+port: 8080
 
-tagLine: Creative, Innovaitve and Intelligent
-
-theme: mt
-
-dataDir: ~/data/
-
-languages:
-  - en
-  - hi
-
-goggleAnalytics: 982374763
+# The canonical absolute origin, used only for sitemap / canonical / og: URLs.
+# Internal links and assets stay relative regardless, so the built site is
+# portable. Override for production, e.g. https://example.com.
+url: "http://localhost:8080"

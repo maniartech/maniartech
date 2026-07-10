@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% comment %} Shared case-study detail. Shims: chemo, rtl, sales-navigator,
+touchpoint, content-engine, upsport. Meta from frontmatter (collision-proof
+via pageContext). Live-proof URLs are optional and shown as proof chips. {% endcomment %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <a href="/case-studies/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Case Studies</a>
+                {% if pageContext.caseStatus %}
+                <div><span class="mt-badge {% if pageContext.caseStatus == "In production" %}is-live{% endif %} mt-15">{{ pageContext.caseStatus }}</span></div>
+                {% endif %}
+                <h1 class="fw-bold mt-20 mb-20 prod-h1">{{ title }}</h1>
+                <p class="lead-text prod-lead">{{ description }}</p>
+            </div>
+        </div>
+
+        {% if pageContext.client or pageContext.services or pageContext.tech %}
+        <div class="row mt-40">
+            {% if pageContext.client %}
+            <div class="col-lg-3 col-md-4 col-6 mb-20">
+                <span class="mt-eyebrow d-block">Client</span>
+                <p class="opacity-8" style="margin:0;">{{ pageContext.client }}</p>
+            </div>{% endif %}
+            {% if pageContext.services %}
+            <div class="col-lg-4 col-md-4 col-6 mb-20">
+                <span class="mt-eyebrow d-block">What we did</span>
+                <p class="opacity-8" style="margin:0;">{{ pageContext.services }}</p>
+            </div>{% endif %}
+            {% if pageContext.tech %}
+            <div class="col-lg-5 col-md-4 mb-20">
+                <span class="mt-eyebrow d-block">Built with</span>
+                <p class="opacity-8" style="margin:0;">{{ pageContext.tech }}</p>
+            </div>{% endif %}
+        </div>
+        {% endif %}
+
+        {% if pageContext.proof %}
+        <div class="mt-proof-chips mt-20">
+            {% for p in pageContext.proof %}
+            <a href="{{ p.url }}" target="_blank" rel="noopener" class="mt-proof-chip"><span class="ar">↗</span> {{ p.label }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mt-prose">
+                {{ content|safe }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="mt-actions mt-50 pt-40 bord-thin-top">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>See how we'd approach yours</span></a>
+                    <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>More case studies</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

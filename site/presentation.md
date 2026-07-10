@@ -1,2 +1,0 @@
-# ManiarTech Presentation
-

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% comment %} Foundry view: Languages. A language-site vibe — code-forward,
+before→after "compiles-to", a live-ish benchmark. Content is designed here;
+title/description come from labs/languages/index.md. {% endcomment %}
+
+{% block content %}
+<header class="main-header lang-hero">
+    <div class="container">
+        <a href="/foundry/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Foundry</a>
+        <h1 class="fw-bold lang-h1">We've built two <span class="main-color">languages.</span></h1>
+        <p class="lead-text lang-lead">A Go superset that compiles to idiomatic Go, and an embeddable expression engine. We build things like these when the work calls for them — patiently, over years, not as products to sell.</p>
+        <div class="lang-jump">
+            <a href="#indigo">Indigo <span class="j-tag">a Go superset</span></a>
+            <a href="#uexl">UExL <span class="j-tag">expression engine</span></a>
+        </div>
+    </div>
+</header>
+
+<!-- ============ Indigo ============ -->
+<section class="section-padding lang-block" id="indigo">
+    <div class="container">
+        <div class="lang-head">
+            <div class="lh-meta"><span class="mt-eyebrow" style="margin:0;">The language</span><span class="mt-badge">Research · in development</span></div>
+            <h2 class="lang-name">Indigo</h2>
+            <p class="lead-text">A <strong>Go superset</strong>. Every valid Go file is already valid Indigo, so you opt in feature by feature — and it compiles to clean, idiomatic Go you read in the diff.</p>
+        </div>
+
+        <div class="lang-diff">
+            <div class="lang-pane">
+                <div class="lp-bar"><span class="lp-dot"></span> you write · <b>main.indigo</b></div>
+<pre class="mt-code"><span class="k">func</span> load(id) {
+    user := fetch(id)<span class="op">!</span>
+    tier := user.Pro <span class="op">?</span> <span class="s">"pro"</span> : <span class="s">"free"</span>
+    names := users <span class="op">|filter:</span> $.Active <span class="op">|map:</span> $.Name
+    <span class="k">return</span> render(tier, names)
+}</pre>
+            </div>
+            <div class="lang-arrow" aria-hidden="true">→</div>
+            <div class="lang-pane">
+                <div class="lp-bar"><span class="lp-dot ok"></span> it ships · <b>main.go</b> <span class="lp-idiom">idiomatic</span></div>
+<pre class="mt-code"><span class="k">func</span> load(id <span class="k">int</span>) (<span class="k">string</span>, <span class="k">error</span>) {
+    user, err := fetch(id)
+    <span class="k">if</span> err != <span class="k">nil</span> {
+        <span class="k">return</span> <span class="s">""</span>, err
+    }
+    tier := <span class="s">"free"</span>
+    <span class="k">if</span> user.Pro {
+        tier = <span class="s">"pro"</span>
+    }
+    <span class="k">var</span> names []<span class="k">string</span>
+    <span class="k">for</span> _, u := <span class="k">range</span> users {
+        <span class="k">if</span> u.Active {
+            names = append(names, u.Name)
+        }
+    }
+    <span class="k">return</span> render(tier, names), <span class="k">nil</span>
+}</pre>
+            </div>
+        </div>
+
+        <div class="lang-principle">
+            <span class="lp-mark">“</span>
+            <p>One contract: <strong>no output is better than wrong output.</strong> If a feature can't preserve Go's exact behaviour — side effects, short-circuiting, defer ordering, panic timing — it's <em>rejected, not faked</em>. So you read the diff and ship it, or throw Indigo away and keep the Go. No runtime, no lock-in.</p>
+        </div>
+
+        <div class="mt-actions">
+            <a href="/foundry/indigo/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Go deeper on Indigo</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ UExL ============ -->
+<section class="section-padding bg-soft lang-block" id="uexl">
+    <div class="container">
+        <div class="lang-head">
+            <div class="lh-meta"><span class="mt-eyebrow" style="margin:0;">The engine</span><span class="mt-badge is-live">Publish-ready</span></div>
+            <h2 class="lang-name">UExL</h2>
+            <p class="lead-text">An embeddable expression engine — <em>the regex of expression evaluation</em>. A real parser → compiler → VM, not a tree-walker: compile once, evaluate thousands of times, same semantics everywhere it's embedded.</p>
+        </div>
+
+        <div class="lang-split">
+            <div class="lang-pane">
+                <div class="lp-bar"><span class="lp-dot"></span> expressions</div>
+<pre class="mt-code"><span class="c"># pipes instead of nested calls</span>
+orders <span class="op">|filter:</span> $.paid <span class="op">|sum:</span> $.qty * $.price
+
+<span class="c"># explicit, safe semantics</span>
+user.plan <span class="op">??</span> <span class="s">"free"</span>      <span class="c"># null/absent only</span>
+account<span class="op">?.</span>owner<span class="op">?.</span>email   <span class="c"># no panic on nil</span>
+
+<span class="c"># Excel-familiar, embeddable anywhere</span>
+price > 100 <span class="k">and</span> status <span class="k">in</span> [<span class="s">"paid"</span>, <span class="s">"trial"</span>]</pre>
+            </div>
+            <div class="lang-bench">
+                <div class="lb-title">Zero allocations on the hot path</div>
+                <p class="lb-sub">String-match path, same hardware. Timings vary run to run — the allocation count doesn't, and that's the moat.</p>
+                <div class="lb-row"><span class="lb-name">UExL</span><span class="lb-bar mint" style="width:31%;"></span><span class="lb-val"><b>0 allocs</b> · ~108 ns</span></div>
+                <div class="lb-row"><span class="lb-name">expr</span><span class="lb-bar" style="width:93%;"></span><span class="lb-val">~325 ns</span></div>
+                <div class="lb-row"><span class="lb-name">cel-go</span><span class="lb-bar" style="width:100%;"></span><span class="lb-val">~348 ns</span></div>
+                <p class="lb-foot">The only one of the three with zero allocations on the boolean &amp; string paths — reproduce it from the repo.</p>
+            </div>
+        </div>
+
+        <div class="mt-actions">
+            <a href="https://github.com/maniartech/uexl-go" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>View the repo &amp; run the benchmark</span></a>
+            <a href="/foundry/uexl/" class="butn butn-md butn-rounded butn-bord text-light"><span>Go deeper on UExL</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ Closer ============ -->
+<section class="section-padding text-md-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow">Why it's here</span>
+                <h2 class="fw-600 mb-20">Building a compiler that won't emit wrong output takes a certain discipline. It's the same one we bring to your code.</h2>
+                <p class="opacity-8 mb-30">You'll likely never write a line of Indigo or embed UExL — your project runs on mainstream, hireable technology. We mention this work only because it's where that discipline comes from.</p>
+                <div class="mt-actions justify-center">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get that rigor on your project</span></a>
+                    <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>Explore the Foundry</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

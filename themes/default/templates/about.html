@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="wrap">
+  <section class="prose reveal reveal-1">
+    <h1>{{ title }}</h1>
+    {{ content|safe }}
+  </section>
+</div>
+{% endblock %}

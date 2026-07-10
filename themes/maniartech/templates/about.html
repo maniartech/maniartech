@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% comment %} About — content-directory pattern. Each section is its own
+markdown file in site/about/ (founder.md, work.md, team.md, drivers.md),
+composed here. Edit a section by editing its file. {% endcomment %}
+
+{% block content %}
+<header class="main-header viz-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <span class="mt-eyebrow">About ManiarTech</span>
+                <h1 class="fw-bold prod-h1">{{ title }}</h1>
+                <p class="lead-text mt-20 prod-lead">{{ description }}</p>
+            </div>
+            <div class="col-lg-6">
+                <figure class="foundry-viz cube-fig">
+                    <canvas id="cubeViz" role="img" tabindex="0"
+                        aria-label="An interactive cube that loads scrambled and solves itself — a metaphor for turning a complex, many-sided problem into a clean, ordered solution. Drag or use arrow keys to turn it; press Enter to scramble it and watch it resolve."></canvas>
+                    <figcaption class="foundry-viz-cap" id="cubeVizCap" aria-live="polite">
+                        <span class="fv-name">Complexity, solved.</span>
+                        <span class="fv-desc">Twenty-seven years of turning tangled problems into simple, solid software.</span>
+                    </figcaption>
+                    {% comment %} Fallback for no-JS, mobile, and screen readers {% endcomment %}
+                    <ul class="foundry-viz-fallback">
+                        <li>Senior engineers who make hard problems look simple.</li>
+                        <li>Method over luck — the discipline behind software that lasts.</li>
+                        <li>And we'll tell you the truth about the problem, not just the pretty version.</li>
+                    </ul>
+                </figure>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 md-mb30">
+                <span class="mt-eyebrow">The founder</span>
+                <h2 class="fw-600">{{ founder.heading }}</h2>
+            </div>
+            <div class="col-lg-7 offset-lg-1 mt-prose">{{ founder.content|safe }}</div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding bg-soft how-we-work">
+    <div class="container">
+        <div class="sec-head mb-50">
+            <span class="mt-eyebrow">How we work</span>
+            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ work.heading }}</h2></div>
+        </div>
+        <div class="how-showcase" id="howShowcase">
+            <div class="hw-index" id="hwIndex" role="tablist" aria-label="How we work">
+                {% for p in work.principles %}
+                <button class="hw-item" type="button" role="tab">
+                    <span class="hw-num" aria-hidden="true"></span>
+                    <span class="hw-title">{{ p.title }}</span>
+                    <span class="hw-progress" aria-hidden="true"></span>
+                </button>
+                {% endfor %}
+            </div>
+            <div class="hw-stage" id="hwStage">
+                {% for p in work.principles %}
+                <div class="hw-panel" role="tabpanel">
+                    <span class="hw-ghost" aria-hidden="true"></span>
+                    <span class="hw-panel-icon" aria-hidden="true">
+                        {% if p.icon == "team" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M4 19a5 5 0 0 1 10 0"/><path d="M15.5 5.2a3 3 0 0 1 0 5.6"/><path d="M17 19a5 5 0 0 0-2.5-4.3"/></svg>
+                        {% elif p.icon == "unlock" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/><circle cx="12" cy="15.5" r="1.2"/></svg>
+                        {% elif p.icon == "review" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.2 3 7.2 7 8.7 4-1.5 7-4.5 7-8.7V6l-7-3z"/><path d="m8.8 11.8 2.2 2.2 4-4.2"/></svg>
+                        {% elif p.icon == "trend" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="5" y="6" width="3" height="12" rx="1"/><rect x="10.5" y="10" width="3" height="8" rx="1"/><rect x="16" y="14" width="3" height="4" rx="1"/></svg>
+                        {% elif p.icon == "seal" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m8.5 13-1 6 4.5-2.2L16.5 19l-1-6"/><path d="m9.9 9 1.4 1.4 2.8-2.9"/></svg>
+                        {% else %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3v4l5-4h8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/><path d="m9 9.5 2 2 4-4"/></svg>{% endif %}
+                    </span>
+                    <h3 class="hw-panel-title">{{ p.title }}</h3>
+                    <p class="hw-panel-body">{{ p.body|safe }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding team-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 md-mb30">
+                <span class="mt-eyebrow">The team</span>
+                <h2 class="fw-600 mb-20">{{ team.heading }}</h2>
+                <div class="mt-prose">{{ team.content|safe }}</div>
+            </div>
+            <div class="col-lg-6 offset-lg-1">
+                <div class="team-roster">
+                    <span class="tr-head">Senior core</span>
+                    <div class="tr-lead">
+                        <span class="tr-avatar" aria-hidden="true">AM</span>
+                        <div class="tr-who">
+                            <strong>Aamir Maniar</strong>
+                            <span>Managing Director &middot; Engineering Head &middot; 27 years building software</span>
+                        </div>
+                    </div>
+                    <div class="tr-lead">
+                        <span class="tr-avatar" aria-hidden="true">OM</span>
+                        <div class="tr-who">
+                            <strong>Oomera Maniar</strong>
+                            <span>Operations &middot; keeps the process honest</span>
+                        </div>
+                    </div>
+                    <div class="tr-divider"><span>+ vetted specialists, per engagement</span></div>
+                    <div class="tr-chips">
+                        <span class="tr-chip">Security</span>
+                        <span class="tr-chip">Data &amp; ML</span>
+                        <span class="tr-chip">Cloud / DevOps</span>
+                        <span class="tr-chip">Frontend</span>
+                        <span class="tr-chip">Mobile</span>
+                        <span class="tr-chip">QA</span>
+                    </div>
+                    <div class="tr-stats">
+                        <div class="tr-stat"><b>0</b><span>juniors on your project</span></div>
+                        <div class="tr-stat"><b>ISO</b><span>9001 &amp; 27001 process</span></div>
+                        <div class="tr-stat"><b>+1</b><span>only when the work justifies it</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding bg-soft drives-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <span class="mt-eyebrow">What drives us</span>
+                <h2 class="fw-600 mb-20 mt-10">{{ drivers.heading }}</h2>
+                <div class="mt-prose">{{ drivers.content|safe }}</div>
+                <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light mt-30"><span>Explore what we've built</span></a>
+            </div>
+            <div class="col-lg-6">
+                <figure class="term-proof">
+                    <div class="term-win">
+                        <div class="term-bar" aria-hidden="true">
+                            <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+                            <em>verify-it-yourself &mdash; bash</em>
+                        </div>
+                        <pre class="term-body" id="termProof" aria-label="Real commands: npm install vault-storage; go get github.com/maniartech/signals; go get github.com/maniartech/uexl-go; open github.com/maniartech — every public repo."></pre>
+                    </div>
+                    <figcaption class="term-cap">Every line above runs today &mdash; that's the point.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding text-md-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="fw-600 mb-20">Let's talk about what you're building.</h2>
+                <div class="mt-actions justify-center">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "cube-viz/cube-viz.js" %}
+{% lib "how-showcase/how-showcase.js" %}
+{% lib "term-proof/term-proof.js" %}
+{% endblock %}

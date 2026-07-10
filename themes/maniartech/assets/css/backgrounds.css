@@ -1,0 +1,13 @@
+/* Decorative background images, kept out of the lib/ SCSS so the esbuild
+ * pipeline never sees a url() it can't resolve (see tajmahal ERRATA: a single
+ * url(...) in a {% lib %} stylesheet breaks the whole render). The SCSS uses
+ * var(--mt-bg-*); the actual image URLs live here and resolve relative to this
+ * file (themes/maniartech/assets/css/ -> ../imgs/...). */
+:root {
+  --mt-bg-texture: url(../imgs/bg/texture.png);
+  --mt-bg-noise:   url(../imgs/noise.png);
+  --mt-bg-map:     url(../imgs/map.png);
+  --mt-bg-lines:   url(../imgs/patterns/lines1.png);
+  --mt-bg-dots:    url(../imgs/patterns/dots.png);
+  --mt-bg-dots2:   url(../imgs/patterns/dots2.png);
+}

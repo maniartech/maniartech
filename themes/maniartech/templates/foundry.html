@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% comment %} The Foundry hub — one honest showcase of everything we've built.
+Projects render from pageContext.sections (content in labs/foundry/index.md);
+each card carries a status badge + facet tags (a project can be several things).
+Understated voice — see brand guide §4. {% endcomment %}
+
+{% block content %}
+<header class="main-header viz-hero foundry-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <span class="mt-eyebrow">The Foundry</span>
+                <h1 class="fw-bold prod-h1">The technology we've built.</h1>
+                <p class="lead-text prod-lead">Over the years we've built our own libraries, standards, tools, a couple of languages, and the products we run on. It's a matter-of-fact part of the work here — patient, and mostly in the open. None of it is something we make you adopt; but it's where our engineering discipline comes from, and most of it you can read and run yourself.</p>
+                <nav class="foundry-nav" aria-label="Browse the Foundry — hover a category to light it up in the map">
+                    {% for s in pageContext.sections %}<a href="#{{ s.anchor }}" data-viz-cat="{{ s.anchor }}">{{ s.name }}</a>{% endfor %}
+                    <a href="#open-source">Open Source</a>
+                </nav>
+            </div>
+            <div class="col-lg-6">
+                <figure class="foundry-viz">
+                    <canvas id="foundryViz" role="img" tabindex="0"
+                        aria-label="Interactive map of ManiarTech's authored languages, standards, libraries, tools and products, and how they connect. Use arrow keys to move between them, Enter to open."></canvas>
+                    <figcaption class="foundry-viz-cap" id="foundryVizCap" aria-live="polite">
+                        <span class="fv-name">The ManiarTech Foundry</span>
+                        <span class="fv-desc">Everything we've authored — hover a node, or a category, to trace what it's built on.</span>
+                    </figcaption>
+                    {% comment %} Fallback for no-JS, mobile, and screen readers {% endcomment %}
+                    <ul class="foundry-viz-fallback">
+                        {% for s in pageContext.sections %}<li><a href="{{ s.view }}">{{ s.name }} &rarr;</a></li>{% endfor %}
+                        <li><a href="https://github.com/maniartech" target="_blank" rel="noopener" class="fv-fallback-more">Open source &nearr;</a></li>
+                    </ul>
+                </figure>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% for s in pageContext.sections %}
+<section class="section-padding foundry-sec" id="{{ s.anchor }}">
+    <div class="container">
+        <div class="foundry-sec-head">
+            <div>
+                <span class="mt-eyebrow">{{ s.name }}</span>
+                <p class="opacity-7">{{ s.blurb }}</p>
+            </div>
+            <a href="{{ s.view }}" class="main-color">{{ s.viewLabel }} &rarr;</a>
+        </div>
+        <div class="row">
+            {% for it in s.items %}
+            <div class="col-lg-6 mb-30">
+                <a href="{{ it.url }}" class="fcard">
+                    <div class="fcard-top">
+                        <h5>{{ it.name }}</h5>
+                        <span class="mt-badge {% if it.live %}is-live{% endif %}">{{ it.status }}</span>
+                    </div>
+                    <p>{{ it.desc }}</p>
+                    <div class="fcard-tags">
+                        {% for t in it.tags %}<span class="f-tag">{{ t }}</span>{% endfor %}
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endfor %}
+
+<section class="section-padding bg-soft" id="open-source">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow">Open source</span>
+                <h2 class="fw-600 mb-20">Not a category — a habit.</h2>
+                <p class="opacity-8">Most of what we build, we open. That's why "open source" isn't a separate shelf above — it's a tag on the things that carry it. Every public repository lives on our GitHub: read it, run it, or reproduce a benchmark yourself. The point isn't to be admired for it; it's that you don't have to take our word for the engineering — you can check it.</p>
+                <div class="mt-actions mt-30">
+                    <a href="https://github.com/maniartech" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Browse the repositories &nearr;</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding text-md-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow">Why it's here</span>
+                <h2 class="fw-600 mb-20">You'll never have to adopt any of it. It's still why your software is better.</h2>
+                <p class="opacity-8 mb-30">Your project runs on mainstream, hireable technology. But the discipline it takes to author a standard or make a compiler that won't emit wrong output is the same discipline we bring to your codebase.</p>
+                <div class="mt-actions justify-center">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get that rigor on your project</span></a>
+                    <a href="/services/" class="butn butn-md butn-rounded butn-bord text-light"><span>See our services</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "foundry-viz/foundry-viz.js" %}
+{% endblock %}

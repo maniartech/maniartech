@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Case Studies — {{ site.name }}{% endblock %}
+
+{% comment %} Case-studies hub. Cards render from pageContext.studies
+(content in site/case-studies/index.md). Bespoke child pages live at
+/case-studies/<slug>/. {% endcomment %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <span class="mt-eyebrow">Case Studies</span>
+                <h1 class="fw-bold prod-h1">{{ title }}</h1>
+                <p class="lead-text mt-20 prod-lead">{{ description }}</p>
+                <div class="mt-actions">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            {% for s in pageContext.studies %}
+            <div class="col-lg-6 mb-30">
+                <a href="{{ s.url }}" class="mt-card d-block">
+                    <span class="mt-badge {% if s.caseStatus == "In production" %}is-live{% endif %} mb-15 d-inline-block">{{ s.caseStatus }}</span>
+                    <h5 class="mb-10">{{ s.title }}</h5>
+                    <p>{{ s.body }}</p>
+                    <span class="main-color d-inline-block mt-15" style="font-weight:600;font-size:14px;">Read the full case →</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-md-center mt-40">
+            <span class="mt-eyebrow d-block">See how we'd approach yours</span>
+            <div class="mt-actions justify-center">
+                <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

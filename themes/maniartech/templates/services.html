@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Services — {{ site.name }}{% endblock %}
+
+{% comment %} Services hub. Cards render from the page's own frontmatter
+(pageContext.categories / pageContext.capabilities) — content lives in
+site/services/index.md, layout lives here. {% endcomment %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <span class="mt-eyebrow">Services</span>
+                <h1 class="fw-bold prod-h1">{{ title }}</h1>
+                <p class="lead-text mt-20 prod-lead">{{ description }}</p>
+                <div class="mt-actions">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Not sure? Get a free estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                </div>
+                <p class="hero-note opacity-7">
+                    Experienced engineers — <a href="/about/" class="main-color">see who you'd be working with</a>.
+                    Mainstream, hireable technology (Go, Python, React, PostgreSQL) — nothing proprietary to lock you in.
+                    27 years building software; founder previously at JP&nbsp;Morgan.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="sec-head mb-60">
+            <span class="mt-eyebrow">Pick your starting point</span>
+            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600">Three ways we help. Start with the one that fits.</h2></div>
+        </div>
+        <div class="row">
+            {% for c in pageContext.categories %}
+            <div class="col-lg-4 col-md-6 mb-30">
+                <a href="{{ c.url }}" class="mt-cap">
+                    {% if c.featured %}<span class="mt-badge is-live mb-15 d-inline-block">Flagship</span>{% endif %}
+                    <h5>{{ c.title }}</h5>
+                    <p style="color:#fff;font-weight:600;margin-bottom:8px;">{{ c.tag }}</p>
+                    <p>{{ c.body }}</p>
+                    <span class="go">Explore →</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding bg-soft">
+    <div class="container">
+        <div class="sec-head mb-60">
+            <span class="mt-eyebrow">Brought to every engagement</span>
+            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600">Two capabilities we bring to all of the above.</h2></div>
+        </div>
+        <div class="row">
+            {% for cap in pageContext.capabilities %}
+            <div class="col-lg-6 mb-30">
+                <a href="{{ cap.url }}" class="mt-cap">
+                    <h5>{{ cap.title }}</h5>
+                    <p>{{ cap.body }}</p>
+                    <span class="go">Explore →</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding text-md-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow">Still not sure which one?</span>
+                <h2 class="fw-600 mb-20">That's normal. Most real problems cross a line or two.</h2>
+                <p class="opacity-8 mb-30">Tell us what's going on in plain words, and we'll tell you honestly which kind of work it is — including if the answer is "you don't need to build this."</p>
+                <div class="mt-actions justify-center">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

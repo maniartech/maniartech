@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% comment %} Inferred article page for /insights/:slug/. {% endcomment %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <a href="/insights/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Insights</a>
+                <div class="mt-15">
+                    {% if pageContext.postStatus %}<span class="mt-badge">{{ pageContext.postStatus }}</span>{% endif %}
+                    {% if pageContext.date %}<span class="opacity-6 ml-15" style="font-size:13px;">{{ pageContext.date }}</span>{% endif %}
+                </div>
+                <h1 class="fw-bold mt-20 mb-20 prod-h1">{{ title }}</h1>
+                {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mt-prose">
+                {{ content|safe }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="mt-actions mt-50 pt-40 bord-thin-top">
+                    <a href="/insights/" class="butn butn-md butn-rounded butn-bord text-light"><span>← All insights</span></a>
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

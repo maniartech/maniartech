@@ -1,0 +1,540 @@
+<title>ManiarTech — Engineering Prospectus</title>
+<style>
+/* ===================== ManiarTech prospectus booklet (A4) ===================== */
+@font-face{font-family:'Satoshi';src:url(__SATOSHI__) format('woff2');font-weight:300 900;font-style:normal;font-display:swap;}
+:root{
+  --ink:#1a1a1a; --ink-2:#141414; --card:#1d1d1d; --card-2:#212121;
+  --line:rgba(255,255,255,.10); --line-soft:rgba(255,255,255,.06);
+  --mint:#14cf93; --mint-dim:rgba(20,207,147,.14); --mint-line:rgba(20,207,147,.45);
+  --white:#fff; --fog:rgba(255,255,255,.68); --faint:rgba(255,255,255,.42);
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,monospace;
+}
+*{box-sizing:border-box;}
+.book{
+  font-family:'Satoshi',system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--white); background:#0e0e0e; margin:0; padding:24px 0;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; line-height:1.5;
+  counter-reset:pg;
+}
+.book img{max-width:100%;display:block;}
+.book a{color:var(--mint);text-decoration:none;}
+.book em{font-style:normal;color:var(--mint);}
+
+/* A4 page */
+.page{
+  position:relative; width:210mm; min-height:297mm; margin:0 auto 20px; overflow:hidden;
+  background:var(--ink); padding:20mm 18mm 18mm;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+}
+.page.pg{counter-increment:pg;}
+.page.dark{background:var(--ink-2);}
+.pg-head{position:absolute;top:11mm;left:18mm;right:18mm;display:flex;justify-content:space-between;
+  align-items:center;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);}
+.pg-head img{height:14px;width:auto;opacity:.85;}
+.pg-foot{position:absolute;bottom:11mm;left:18mm;right:18mm;display:flex;justify-content:space-between;
+  align-items:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+  border-top:1px solid var(--line-soft);padding-top:8px;}
+.pg-foot .pn::before{content:counter(pg,decimal-leading-zero);color:var(--mint);font-weight:600;}
+.body{padding-top:16mm;}
+
+/* type */
+.eyebrow{display:inline-block;color:var(--mint);text-transform:uppercase;letter-spacing:.22em;font-size:11px;font-weight:600;margin-bottom:16px;}
+h1{font-size:40px;font-weight:800;line-height:1.04;letter-spacing:-.02em;margin:0;text-wrap:balance;}
+h2{font-size:30px;font-weight:800;line-height:1.08;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance;}
+h3{font-size:19px;font-weight:700;margin:0 0 7px;}
+.accent{color:var(--mint);}
+p{color:var(--fog);font-size:14px;line-height:1.62;margin:0 0 13px;}
+p.lead{font-size:17px;line-height:1.6;color:rgba(255,255,255,.82);}
+.big{font-size:15px;line-height:1.65;}
+.rule{height:1px;background:var(--line);margin:22px 0;}
+strong{color:#fff;}
+
+/* layout helpers */
+.grid{display:grid;gap:16px;}
+.g2{grid-template-columns:1fr 1fr;}
+.g3{grid-template-columns:repeat(3,1fr);}
+.two{display:grid;grid-template-columns:1.3fr .7fr;gap:26px;}
+
+/* components */
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px;}
+.card h3{font-size:16px;}
+.card p{font-size:12.5px;margin:0;line-height:1.5;}
+.card .l{display:block;color:var(--mint);text-transform:uppercase;letter-spacing:.13em;font-size:10px;font-weight:600;margin-bottom:9px;}
+.card .tag{display:block;color:#fff;font-weight:600;font-size:12.5px;margin:1px 0 7px;}
+.badge{display:inline-block;padding:4px 11px;border-radius:40px;font-size:9.5px;letter-spacing:.13em;
+  text-transform:uppercase;font-weight:600;color:var(--mint);border:1px solid var(--mint-line);background:var(--mint-dim);}
+.badge.live{color:var(--mint);}
+.badge.muted{color:var(--faint);border-color:var(--line);background:transparent;}
+
+.rows{display:flex;flex-direction:column;}
+.rw{display:flex;gap:18px;align-items:baseline;padding:13px 0;border-top:1px solid var(--line);}
+.rw .n{flex:0 0 auto;min-width:2.2ch;font-size:24px;font-weight:800;color:var(--mint);font-variant-numeric:tabular-nums;line-height:1;}
+.rw h3{margin:0 0 3px;font-size:16px;}
+.rw p{margin:0;font-size:13px;}
+
+.chk{display:flex;gap:12px;align-items:flex-start;padding:9px 0;}
+.chk .b{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--mint-dim);display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.chk .b svg{width:12px;height:12px;fill:none;stroke:var(--mint);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+.chk strong{display:block;font-size:14px;margin-bottom:2px;}
+.chk p{margin:0;font-size:12.5px;}
+
+.pill{border-top:2px solid var(--line);padding-top:14px;}
+.pill .l{display:block;color:var(--mint);text-transform:uppercase;letter-spacing:.13em;font-size:10px;font-weight:600;margin-bottom:8px;}
+.pill h3{font-size:15px;margin:0 0 6px;}
+.pill p{font-size:12.5px;margin:0;line-height:1.5;}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid var(--line);border-radius:40px;font-family:var(--mono);font-size:11.5px;color:var(--fog);}
+.chip .d{width:6px;height:6px;border-radius:50%;background:var(--mint);}
+
+.quote{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:17px;break-inside:avoid;}
+.quote p{font-size:13px;line-height:1.5;color:rgba(255,255,255,.9);margin:0 0 13px;}
+.quote b{display:block;font-size:13px;color:#fff;}
+.quote span{color:var(--mint);font-size:11.5px;}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.stat .n{font-size:44px;font-weight:800;line-height:1;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
+.stat .n .u{color:var(--mint);}
+.stat .n.stroke{-webkit-text-stroke:1.4px var(--mint-line);-webkit-text-fill-color:transparent;color:transparent;}
+.stat .l{display:block;margin-top:8px;font-size:11px;color:var(--faint);line-height:1.35;}
+
+.facts{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px;}
+.facts .row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line);font-size:12.5px;}
+.facts .row:first-child{border-top:0;}
+.facts .k{color:var(--faint);} .facts .v{color:#fff;font-weight:600;text-align:right;}
+
+.shot{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#0d0d0d;box-shadow:0 20px 50px rgba(0,0,0,.5);}
+.shot .bar{display:flex;gap:6px;padding:11px 14px;border-bottom:1px solid var(--line);background:#161616;}
+.shot .bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.16);}
+
+/* contents */
+.toc{display:flex;flex-direction:column;}
+.toc a{display:flex;align-items:baseline;gap:12px;padding:13px 0;border-top:1px solid var(--line);color:#fff;font-size:16px;font-weight:600;}
+.toc a .no{color:var(--mint);font-variant-numeric:tabular-nums;font-size:13px;min-width:2.4ch;}
+.toc a .dots{flex:1;border-bottom:1px dotted rgba(255,255,255,.2);transform:translateY(-4px);}
+.toc a .pg{color:var(--faint);font-variant-numeric:tabular-nums;}
+
+/* dot-grid + gear motif */
+.dotgrid{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(120% 80% at 85% 12%,#000,transparent 68%);mask-image:radial-gradient(120% 80% at 85% 12%,#000,transparent 68%);}
+.gears{position:absolute;pointer-events:none;color:var(--mint);opacity:.16;}
+.gears svg{display:block;}
+
+/* cover */
+.cover{display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(120% 90% at 82% 8%,#20241f,var(--ink) 55%);}
+.cover .top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2;}
+.cover .logo{height:30px;width:auto;}
+.cover .mid{position:relative;z-index:2;}
+.cover .kick{color:var(--mint);text-transform:uppercase;letter-spacing:.28em;font-size:12px;font-weight:600;margin-bottom:20px;}
+.cover h1{font-size:58px;line-height:1;}
+.cover .sub{color:var(--fog);font-size:16px;line-height:1.6;max-width:150mm;margin-top:22px;}
+.cover .foot{display:flex;align-items:center;gap:16px;position:relative;z-index:2;color:var(--faint);font-size:12px;letter-spacing:.04em;}
+.cover .foot .ln{height:1px;width:44px;background:var(--mint);}
+
+/* back cover */
+.back{background:radial-gradient(120% 90% at 20% 90%,#20241f,var(--ink) 55%);display:flex;flex-direction:column;justify-content:space-between;}
+.back .contact .k{color:var(--mint);text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:600;margin-bottom:5px;}
+.back .contact .v{color:#fff;font-size:14px;margin-bottom:16px;}
+.back .iso{height:56px;width:auto;opacity:.9;}
+
+/* print */
+@media print{
+  @page{size:A4;margin:0;}
+  .book{background:#fff;padding:0;}
+  .page{margin:0;box-shadow:none;page-break-after:always;break-after:page;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+@media (max-width:760px){
+  .page{width:100%;min-height:0;padding:34px 22px 48px;}
+  .g2,.g3,.two,.stats{grid-template-columns:1fr;}
+  .stats{grid-template-columns:1fr 1fr;}
+  .cover h1{font-size:40px;} h1{font-size:30px;} h2{font-size:24px;}
+}
+</style>
+
+<div class="book" id="book">
+
+  <!-- ============ COVER ============ -->
+  <section class="page cover">
+    <div class="dotgrid"></div>
+    <div class="gears" style="top:-40mm;right:-40mm;">
+      <svg width="440" height="440" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    <div class="gears" style="top:44mm;right:34mm;opacity:.10;">
+      <svg width="210" height="210" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    <div class="top">
+      <img class="logo" src="__LOGO__" alt="ManiarTech">
+      <span style="color:var(--faint);font-size:11px;letter-spacing:.16em;text-transform:uppercase;">Prospectus · 2026</span>
+    </div>
+    <div class="mid">
+      <div class="kick">Maniar Technologies Pvt. Ltd.</div>
+      <h1>We make<br><span class="accent">technology.</span></h1>
+      <p class="sub">A senior software-engineering lab that builds and modernizes the systems companies run on — and builds the foundations underneath them. This is who we are, how we work, and the proof.</p>
+    </div>
+    <div class="foot"><span class="ln"></span> Engineering since 1999 · Founded 2010 · ISO 9001 &amp; 27001 certified</div>
+  </section>
+
+  <!-- ============ 1 · OPENING STATEMENT ============ -->
+  <section class="page pg dark">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>Engineering Prospectus</span></div>
+    <div class="body">
+      <span class="eyebrow">A note before we begin</span>
+      <h1>Most software teams use technology.<br>We <span class="accent">make</span> it.</h1>
+      <div class="rule"></div>
+      <p class="lead">Over the years we've built and published our own libraries, frameworks, even data and language standards — the kind of foundational work most software companies only ever consume. We build it.</p>
+      <p class="big">You will never be asked to adopt any of it. Your project is built on mainstream, hireable technology your own team can maintain. But that depth is <em>why</em> our engineering runs deeper than most — and, unlike most claims in our industry, you can verify every word of it yourself.</p>
+      <p class="big">This prospectus is our full introduction: the company, the way we work, the services, the products and research, and the proof that it all ships. We've written it the way we build — honestly, with nothing exaggerated, and every claim true, sourced, and calibrated.</p>
+      <p class="big" style="color:#fff;">If that's the kind of engineering partner you're looking for, read on.</p>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 2 · CONTENTS ============ -->
+  <section class="page pg">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>Contents</span></div>
+    <div class="body">
+      <span class="eyebrow">Inside this prospectus</span>
+      <h2>What you'll find.</h2>
+      <div class="toc" style="margin-top:20px;">
+        <a href="#s1"><span class="no">01</span> Who we are <span class="dots"></span><span class="pg-no">03</span></a>
+        <a href="#s2"><span class="no">02</span> The maker's edge <span class="dots"></span><span class="pg-no">04</span></a>
+        <a href="#s3"><span class="no">03</span> What you can count on <span class="dots"></span><span class="pg-no">05</span></a>
+        <a href="#s4"><span class="no">04</span> What we do — services <span class="dots"></span><span class="pg-no">06</span></a>
+        <a href="#s5"><span class="no">05</span> Products <span class="dots"></span><span class="pg-no">09</span></a>
+        <a href="#s6"><span class="no">06</span> Labs &amp; standards <span class="dots"></span><span class="pg-no">10</span></a>
+        <a href="#s7"><span class="no">07</span> Proof &amp; case studies <span class="dots"></span><span class="pg-no">11</span></a>
+        <a href="#s8"><span class="no">08</span> In their words <span class="dots"></span><span class="pg-no">13</span></a>
+        <a href="#s9"><span class="no">09</span> The people behind it <span class="dots"></span><span class="pg-no">14</span></a>
+        <a href="#s10"><span class="no">10</span> How we start <span class="dots"></span><span class="pg-no">15</span></a>
+        <a href="#s11"><span class="no">11</span> Trust &amp; certifications <span class="dots"></span><span class="pg-no">16</span></a>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 3 · WHO WE ARE ============ -->
+  <section class="page pg dark" id="s1">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>01 · Who we are</span></div>
+    <div class="body">
+      <span class="eyebrow">Who we are</span>
+      <h2>A deliberately different kind of software company.</h2>
+      <div class="two" style="margin-top:8px;">
+        <div>
+          <p class="lead">Founded in 2010, ManiarTech is a senior software-engineering lab — deliberately small, deeply experienced, ISO-certified, and known for telling clients the truth even when it isn't what they hoped to hear.</p>
+          <p>Everything about how we work is a direct answer to why custom software usually disappoints: juniors learning on your project, vendors who vanish, lock-in you can't escape, and rewrites that stall half-finished. We built the opposite.</p>
+          <div class="grid g3" style="margin-top:6px;">
+            <div class="card"><span class="l">Depth</span><h3>Makers, not assemblers</h3><p>We build our own libraries, standards, and platforms. That depth is what your project inherits.</p></div>
+            <div class="card"><span class="l">People</span><h3>Senior-only</h3><p>Experienced engineers do your work. No juniors learning on your dime.</p></div>
+            <div class="card"><span class="l">Honesty</span><h3>Honest by default</h3><p>Tech you own outright, claims you can verify, and the truth — even when it costs us the project.</p></div>
+          </div>
+        </div>
+        <div class="facts" style="align-self:start;">
+          <div class="row"><span class="k">Founded</span><span class="v">2010</span></div>
+          <div class="row"><span class="k">Entity</span><span class="v">Maniar Technologies Pvt. Ltd.</span></div>
+          <div class="row"><span class="k">Base</span><span class="v">Thane, Maharashtra, India</span></div>
+          <div class="row"><span class="k">Founder</span><span class="v">Aamir Maniar · ex-JP Morgan</span></div>
+          <div class="row"><span class="k">Experience</span><span class="v">27 years</span></div>
+          <div class="row"><span class="k">Certified</span><span class="v">ISO 9001:2015 · 27001:2022</span></div>
+          <div class="row"><span class="k">Team</span><span class="v">Senior core + vetted network</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 4 · THE MAKER'S EDGE ============ -->
+  <section class="page pg" id="s2">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>02 · The maker's edge</span></div>
+    <div class="body">
+      <span class="eyebrow">Makers, not assemblers</span>
+      <h2>We make technology — libraries, standards, even a language.</h2>
+      <p class="lead">We've authored our own data, time, expression, and API standards, published open-source Go libraries, and built the platforms our client systems run on. Most software companies only ever <em>consume</em> this layer.</p>
+      <div class="grid g3" style="margin:18px 0 6px;">
+        <div class="pill"><span class="l">A data format</span><h3>Internet Object</h3><p>~40% smaller than minified JSON, ~30% fewer LLM tokens — with a live playground you can try against JSON yourself.</p></div>
+        <div class="pill"><span class="l">A language</span><h3>Indigo &amp; UExL</h3><p>A Go superset in development, and an expression engine with zero allocations on the hot paths. Yes — we build languages.</p></div>
+        <div class="pill"><span class="l">Open source</span><h3>Public Go libraries</h3><p>signals, gotime, vault-storage on our GitHub — and Taj Mahal, the framework this company's website runs on.</p></div>
+      </div>
+      <div class="rule"></div>
+      <h3 style="font-size:16px;">Why that matters to you</h3>
+      <div class="grid g2" style="margin-top:10px;">
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>We can go deeper when it counts.</strong><p>When off-the-shelf isn't enough, we build what's missing — instead of forcing your problem into a bad fit.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>No lock-in, ever.</strong><p>You adopt none of our tech. Your project runs on Go, Python, React, PostgreSQL. You own the code and can walk.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>Claims you can check.</strong><p>We ship runnable benchmarks and public repositories. Don't take our word for it — run it yourself.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>A refusal to fake it.</strong><p>The discipline of "no output is better than wrong output" in a compiler is the same discipline we bring to your codebase.</p></div></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 5 · WHAT YOU CAN COUNT ON ============ -->
+  <section class="page pg dark" id="s3">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>03 · What you can count on</span></div>
+    <div class="body">
+      <span class="eyebrow">Senior-only · honest by default</span>
+      <h2>The safeguards that make working with us low-risk.</h2>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>Senior engineers do your work.</strong><p>We don't learn on your project.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>Predictable by process.</strong><p>ISO 9001:2015 &amp; ISO/IEC 27001:2022 certified. Delivery from process, not heroics.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>No lock-in.</strong><p>Mainstream tech you own outright — Go, Python, React, PostgreSQL. You can hire for it, and you can walk.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>Quality before it reaches you.</strong><p>Every deliverable reviewed for quality, design, and fit for your real users first.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>Right-sized, never over-engineered.</strong><p>We solve your problem at the right scale — no science experiments.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>Fixes that stay fixed.</strong><p>When we fix a defect, it doesn't spawn three more. Bug counts fall as a project matures.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>Straight talk.</strong><p>We'll tell you the truth — including when something isn't the right fit, or shouldn't be built at all.</p></div></div>
+        <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span><div><strong>The work lives in systems.</strong><p>Documented process means delivery doesn't depend on one person's head.</p></div></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 6 · SERVICES — ENTERPRISE ============ -->
+  <section class="page pg" id="s4">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>04 · What we do</span></div>
+    <div class="body">
+      <span class="eyebrow">What we do</span>
+      <h2>Three kinds of engineering work — and two capabilities we bring to all of them.</h2>
+      <p class="lead">Tell us which one sounds like you, and we'll point you straight to it — no maze, no sales runaround.</p>
+      <div class="rule"></div>
+      <span class="badge live">Flagship</span>
+      <h3 style="font-size:22px;margin-top:12px;">Enterprise Software Engineering</h3>
+      <p style="color:#fff;font-weight:600;margin-bottom:8px;">The systems your operations run on.</p>
+      <p class="big">If your business runs on spreadsheets, manual handoffs, and tools that don't talk to each other, we build the systems that automate and connect it — built around the way your team already works.</p>
+      <div class="grid g3" style="margin-top:8px;">
+        <div class="card"><h3>Process automation &amp; integration</h3><p>Automate and connect the workflows your operation depends on. Powered by our own Processious platform.</p></div>
+        <div class="card"><h3>Digital asset management</h3><p>Organize, version, and deliver large libraries of media and documents with real access control and search.</p></div>
+        <div class="card"><h3>Business analytics</h3><p>Turn the data your systems produce into decisions — a capability backed by the systems work itself.</p></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 7 · SERVICES — APPLICATION + AI ============ -->
+  <section class="page pg dark">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>04 · What we do</span></div>
+    <div class="body">
+      <h3 style="font-size:22px;">Application Software Engineering</h3>
+      <p style="color:#fff;font-weight:600;margin-bottom:8px;">Your software itself — built or advised.</p>
+      <p class="big">Need a custom application built properly the first time, or an expert eye on one you already have? We build bespoke applications end to end, and we review and advise on architecture you've already got.</p>
+      <div class="grid g2" style="margin:8px 0 4px;">
+        <div class="card"><h3>Custom application development</h3><p>Bespoke, end-to-end product engineering — from a blank page to something running in production.</p></div>
+        <div class="card"><h3>Architecture review &amp; advisory</h3><p>An expert audit of the system you already have, with clear, honest recommendations.</p></div>
+      </div>
+      <div class="rule"></div>
+      <span class="eyebrow" style="margin-bottom:10px;">Brought to every engagement</span>
+      <div class="grid g2">
+        <div class="card"><span class="l">Capability</span><h3>AI, Applied</h3><p>When AI genuinely helps your problem — and only then — we build it in: applied across operations and applications, grounded in your own knowledge, not bolted on as a gimmick.</p></div>
+        <div class="card"><span class="l">Capability</span><h3>Modernization &amp; Migration</h3><p>Aging systems brought onto modern, maintainable, mainstream stacks — including Go — without a risky big-bang rewrite or trapping you in anything you can't hire for.</p></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 8 · SERVICES — PARTNERSHIP + ROUTING ============ -->
+  <section class="page pg">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>04 · What we do</span></div>
+    <div class="body">
+      <h3 style="font-size:22px;">Technology Partnership</h3>
+      <p style="color:#fff;font-weight:600;margin-bottom:8px;">We build it <em>with</em> you.</p>
+      <p class="big">If you're a founder or a product team and you want an engineering partner in it with you — not a vendor you manage at arm's length — we take on a small number of partnerships where we share the build. Selective by design.</p>
+      <div class="rule"></div>
+      <div class="two">
+        <div>
+          <span class="eyebrow">Still not sure which one?</span>
+          <h3 style="font-size:20px;">That's normal. Most real problems cross a line or two.</h3>
+          <p class="big">You don't have to diagnose yourself. Tell us what's going on in plain words, and we'll tell you honestly which kind of work it is — including if the answer is "you don't need to build this."</p>
+        </div>
+        <div class="facts" style="align-self:start;">
+          <div class="row"><span class="k">Systems</span><span class="v">Enterprise engineering</span></div>
+          <div class="row"><span class="k">Products</span><span class="v">Application engineering</span></div>
+          <div class="row"><span class="k">Together</span><span class="v">Technology partnership</span></div>
+          <div class="row"><span class="k">Woven in</span><span class="v">AI, applied</span></div>
+          <div class="row"><span class="k">Woven in</span><span class="v">Modernization</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 9 · PRODUCTS ============ -->
+  <section class="page pg dark" id="s5">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>05 · Products</span></div>
+    <div class="body">
+      <span class="eyebrow">Products we build &amp; run ourselves</span>
+      <h2>We ship our own products before we ship yours.</h2>
+      <p class="lead">Each is labelled exactly as it stands — one in production, the rest maturing honestly. You're looking at work at every stage of a maker's pipeline.</p>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="card"><span class="badge live">In production</span><h3 style="margin-top:10px;">Processious</h3><span class="tag">Process-automation &amp; application platform</span><p>Runs a client's laboratory operations in production today — sample intake, multi-stage review, and secure, recipient-verified delivery.</p></div>
+        <div class="card"><span class="badge muted">In development</span><h3 style="margin-top:10px;">Ordin</h3><span class="tag">Workflow-automation engine</span><p>YAML-defined workflows and pluggable activities, run durably with an audit trail. Fair-code / source-available.</p></div>
+        <div class="card"><span class="badge muted">Early-stage</span><h3 style="margin-top:10px;">Documentor.AI</h3><span class="tag">AI document platform</span><p>Drafts from your own knowledge, so it cites your facts — not the internet's. Every claim traces to a source you control.</p></div>
+        <div class="card"><span class="badge muted">Early-stage</span><h3 style="margin-top:10px;">Enterprise DAM</h3><span class="tag">Digital asset management</span><p>Turn a shared drive into an asset system a team can run on — structure, versioning, access control, and search.</p></div>
+        <div class="card"><span class="badge muted">Internal · in production</span><h3 style="margin-top:10px;">Booster</h3><span class="tag">Dev-environment orchestrator</span><p>One config brings up a whole local stack. It runs across many of our own projects — the strongest test we can give it.</p></div>
+        <div class="card" style="border-style:dashed;background:transparent;display:flex;align-items:center;"><p style="margin:0;">The same engineering behind these products is exactly what we bring to your system.</p></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 10 · LABS & STANDARDS ============ -->
+  <section class="page pg" id="s6">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>06 · Labs &amp; standards</span></div>
+    <div class="body">
+      <span class="eyebrow">The depth behind the work</span>
+      <h2>Standards we've authored — and open source anyone can run.</h2>
+      <p class="lead">Some is published and in use; some is still maturing in the open. We label honestly what's finished and what isn't — and we call these standards we've authored, never "industry standards."</p>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="card"><span class="badge live">Published</span><h3 style="margin-top:9px;">Internet Object</h3><p>A compact, schema-first data format — over 40% smaller than minified JSON, ~30% fewer LLM tokens, with a live playground.</p></div>
+        <div class="card"><span class="badge muted">Publish-ready · pre-1.0</span><h3 style="margin-top:9px;">UExL</h3><p>An embeddable expression engine — the only one of cel-go / expr / UExL with zero allocations on the boolean and string paths.</p></div>
+        <div class="card"><span class="badge muted">Research · in development</span><h3 style="margin-top:9px;">Indigo</h3><p>A Go superset that compiles to clean, idiomatic Go you read in the diff — "no output is better than wrong output."</p></div>
+        <div class="card"><span class="badge live">Published</span><h3 style="margin-top:9px;">signals · gotime · vault-storage</h3><p>Open-source Go and TypeScript libraries — a type-safe event library, intuitive date/time (100% coverage), and browser storage with IndexedDB power.</p></div>
+        <div class="card"><span class="badge muted">Research</span><h3 style="margin-top:9px;">NITES · FUSE · IQL</h3><p>Authored specifications for time, real-time APIs, and URL-native queries — maturing in the open, spec-first.</p></div>
+        <div class="card"><span class="badge muted">Internal · OSS planned</span><h3 style="margin-top:9px;">Taj Mahal SSG</h3><p>The Go static-site framework that powers this company's website and live client sites — including Chemo's.</p></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 11 · PROOF: CHEMO (screenshot) ============ -->
+  <section class="page pg dark" id="s7">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>07 · Proof</span></div>
+    <div class="body">
+      <span class="eyebrow">Proof, not slideware</span>
+      <h2>A 35-year accredited lab runs its daily work on what we built.</h2>
+      <div class="shot" style="margin:16px 0;">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <img src="__CHEMO__" alt="Chemo Test Laboratory — sample management on the Processious platform (demo data)">
+      </div>
+      <div class="two">
+        <div>
+          <p class="big"><strong>Chemo Test Laboratory</strong> — a laboratory information system live in production on our own <strong>Processious</strong> platform: sample intake, multi-stage technical review and authorization, and recipient-bound, OTP-gated report delivery. Their public site runs on our Taj Mahal framework too.</p>
+        </div>
+        <div>
+          <span class="badge live">In production</span>
+          <p class="big" style="margin-top:10px;">You don't have to take our word for it — it's running live:</p>
+          <div class="chips"><span class="chip"><span class="d"></span>chemotestlaboratory.com</span><span class="chip"><span class="d"></span>reports.chemotestlaboratory.com</span></div>
+        </div>
+      </div>
+      <p style="color:var(--faint);font-size:11px;margin-top:10px;">Screenshot shows demo data. Built on Go · MongoDB · React · AWS.</p>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 12 · PROOF: TRACK RECORD ============ -->
+  <section class="page pg">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>07 · Proof</span></div>
+    <div class="body">
+      <span class="eyebrow">A track record to match</span>
+      <h2>Real engagements — told straight.</h2>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="card"><span class="badge">Delivered · long-running</span><h3 style="margin-top:10px;">600 forms became one</h3><p>For Reliable Analytical Labs we replaced a 600-form legacy system with a single workflow screen — still running, by the lab's account, ~15 years on.</p></div>
+        <div class="card"><span class="badge">In progress · live 2026</span><h3 style="margin-top:10px;">A real-estate presales platform</h3><p>End-to-end — showcase, interactive floor plans, an estimation-and-payment-plan engine, and a digital asset library.</p></div>
+        <div class="card"><span class="badge">Delivered · 2012–2018</span><h3 style="margin-top:10px;">Touchpoint Dashboard</h3><p>Principal-architect engineering on a customer-journey platform used by Fortune-500 teams; cited in O'Reilly's <em>Mapping Experiences</em>.</p></div>
+        <div class="card"><span class="badge">Delivered · 2010–2011</span><h3 style="margin-top:10px;">Content Engine — Euclid Infotech</h3><p>Production natural-language paraphrasing with context-aware word-sense disambiguation — applied NLP a decade before the AI wave.</p></div>
+        <div class="card"><span class="badge">Delivered · 2019</span><h3 style="margin-top:10px;">UpSport — live draw-on-video</h3><p>A returning founder came back for his next venture: an in-browser video-review studio on WebRTC and our own WebDoodling.</p></div>
+        <div class="card" style="border-style:dashed;background:transparent;display:flex;align-items:center;"><p style="margin:0;">No invented numbers. No logos we can't stand behind. Where you can check it yourself, we link it.</p></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 13 · TESTIMONIALS ============ -->
+  <section class="page pg dark" id="s8">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>08 · In their words</span></div>
+    <div class="body">
+      <span class="eyebrow">In their words</span>
+      <h2>What clients say.</h2>
+      <div class="grid g2" style="margin-top:16px;">
+        <div class="quote"><p>“ManiarTech is a loyal and trustworthy partner… a great track record being transparent about both time and issues that arise.”</p><b>Peter Haid</b><span>Chief Product Officer, Strativity Group</span></div>
+        <div class="quote"><p>“…a top-notch professional firm… their work is on time, high quality, and fairly priced… excellent communicators throughout the project lifecycle.”</p><b>Jeff Hines</b><span>Founder, UpSport IO</span></div>
+        <div class="quote"><p>“Maniar Technologies is one of the best in the web development space… it's been about 2 years, and absolutely no complaints.”</p><b>Ashish Singh</b><span>Owner, Digi Mind Media</span></div>
+        <div class="quote"><p>“I would HIGHLY recommend the firm… my deadline was met and the work exceeded my expectations.”</p><b>Dimple Karnani</b><span>Founder, zehn design studio</span></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 14 · THE PEOPLE ============ -->
+  <section class="page pg" id="s9">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>09 · The people behind it</span></div>
+    <div class="body">
+      <span class="eyebrow">The people behind it</span>
+      <h2>Led by an engineer who's built serious software for 27 years.</h2>
+      <p class="lead">ManiarTech was founded in 2010 by <strong>Aamir Maniar</strong> — Managing Director &amp; Engineering Head. Earlier in his career he built financial-technology systems at <strong>JP Morgan</strong>, and worked as a technology architect at firms including Countrywide Financial, Patni (now iGATE), and Oakton.</p>
+      <p class="big">Across 27 years he has specialized in the part most engineers avoid: the architecture and the foundational systems everything else depends on. Today he leads a small senior team — with <strong>Oomera Maniar</strong> running operations and a vetted network of specialist engineers — backed by a documented, ISO-certified process, so the work lives in systems, not in one person's head.</p>
+      <div class="rule"></div>
+      <div class="stats">
+        <div class="stat"><div class="n">27</div><span class="l">Years engineering software</span></div>
+        <div class="stat"><div class="n">100<span class="u">%</span></div><span class="l">Senior engineers on your project</span></div>
+        <div class="stat"><div class="n stroke">2</div><span class="l">ISO certifications (9001 &amp; 27001)</span></div>
+        <div class="stat"><div class="n">2010</div><span class="l">Building for clients since</span></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 15 · HOW WE START ============ -->
+  <section class="page pg dark" id="s10">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>10 · How we start</span></div>
+    <div class="body">
+      <span class="eyebrow">How we start</span>
+      <h2>A free estimate that shows its work.</h2>
+      <p class="lead">The fastest way to see how we think is a free, no-obligation estimate. It's an estimate, not a quote — and it shows its assumptions, so you can check the thinking, not just the number.</p>
+      <div class="rows" style="margin-top:14px;">
+        <div class="rw"><span class="n">01</span><div><h3>Tell us what you're building</h3><p>In plain words — the problem, rough scope, timeline, any constraints. No RFP required.</p></div></div>
+        <div class="rw"><span class="n">02</span><div><h3>A senior engineer reads it back</h3><p>You get a ballpark and an honest take — with the assumptions shown, so you can check the reasoning.</p></div></div>
+        <div class="rw"><span class="n">03</span><div><h3>You decide</h3><p>No obligation. We'll even tell you when a project needs a real conversation instead — or shouldn't be built at all.</p></div></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ 16 · TRUST & CERTIFICATIONS ============ -->
+  <section class="page pg" id="s11">
+    <div class="pg-head"><img src="__LOGO__" alt=""><span>11 · Trust &amp; certifications</span></div>
+    <div class="body">
+      <span class="eyebrow">Trust &amp; certifications</span>
+      <h2>Predictable by process — independently audited.</h2>
+      <div class="two" style="margin-top:8px;">
+        <div>
+          <p class="big">Our delivery comes from a documented, audited process, not heroics. We're certified to <strong>ISO 9001:2015</strong> (a real, audited quality-management standard) and <strong>ISO/IEC 27001:2022</strong> (a real information-security standard for your data), audited by <strong>URS</strong> under <strong>UKAS</strong> accreditation.</p>
+          <p class="big">We operate as <strong>Maniar Technologies Pvt. Ltd.</strong>, a company incorporated in India since 2010, based in Thane, Maharashtra — a clear legal entity and jurisdiction for procurement, with a plain, honest engagement process from the first estimate onward.</p>
+        </div>
+        <div style="text-align:center;">
+          <img src="__ISO__" alt="ISO 9001:2015 &amp; ISO/IEC 27001:2022 certified" style="max-width:150px;margin:0 auto 12px;">
+          <p style="font-size:11px;color:var(--faint);">ISO 9001:2015 &amp; ISO/IEC 27001:2022<br>URS · under UKAS accreditation</p>
+        </div>
+      </div>
+      <div class="facts" style="margin-top:14px;">
+        <div class="row"><span class="k">Quality management</span><span class="v">ISO 9001:2015</span></div>
+        <div class="row"><span class="k">Information security</span><span class="v">ISO/IEC 27001:2022</span></div>
+        <div class="row"><span class="k">Registrar</span><span class="v">URS · UKAS accreditation</span></div>
+        <div class="row"><span class="k">Legal entity</span><span class="v">Maniar Technologies Pvt. Ltd.</span></div>
+        <div class="row"><span class="k">Jurisdiction</span><span class="v">India (est. 2010)</span></div>
+      </div>
+    </div>
+    <div class="pg-foot"><span>ManiarTech — Engineering Prospectus</span><span class="pn"></span></div>
+  </section>
+
+  <!-- ============ BACK COVER ============ -->
+  <section class="page back">
+    <div class="dotgrid" style="-webkit-mask-image:radial-gradient(120% 80% at 15% 90%,#000,transparent 68%);mask-image:radial-gradient(120% 80% at 15% 90%,#000,transparent 68%);"></div>
+    <div style="position:relative;z-index:2;">
+      <img src="__LOGO__" alt="ManiarTech" style="height:30px;width:auto;margin-bottom:34px;">
+      <span class="eyebrow">Let's build something that lasts</span>
+      <h1 style="font-size:44px;">Tell us what you're<br><span class="accent">building.</span></h1>
+      <p class="lead" style="max-width:150mm;margin-top:16px;">Start with a free, no-obligation estimate — an honest ballpark and a straight take from a senior engineer.</p>
+    </div>
+    <div style="position:relative;z-index:2;">
+      <div class="grid g3" style="margin-bottom:26px;">
+        <div class="contact"><div class="k">Email</div><div class="v">contact@maniartech.com</div><div class="k">Phone</div><div class="v">+91 89768 97675</div></div>
+        <div class="contact"><div class="k">Online</div><div class="v">linkedin.com/in/aamironline</div><div class="k">&nbsp;</div><div class="v">github.com/maniartech</div></div>
+        <div class="contact"><div class="k">Address</div><div class="v" style="font-weight:400;font-size:12.5px;line-height:1.5;">Maniar Technologies Pvt. Ltd.<br>344/1301, Kalpataru Srishti, Mira Road (E), Thane, Maharashtra 401107, India</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px;border-top:1px solid var(--line);padding-top:20px;">
+        <img class="iso" src="__ISO__" alt="ISO certified">
+        <div style="color:var(--faint);font-size:11px;line-height:1.5;">ISO 9001:2015 &amp; ISO/IEC 27001:2022 certified · URS under UKAS accreditation<br>© 2026 Maniar Technologies Pvt. Ltd. · Engineering since 1999. · Built with our own Taj Mahal framework.</div>
+      </div>
+    </div>
+  </section>
+
+</div>

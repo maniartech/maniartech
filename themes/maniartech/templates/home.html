@@ -1,0 +1,566 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ============ 1 · Hero + marquee — one "first screen"; marquee trails at the bottom ============ -->
+<div class="hero-screen">
+<header class="main-header bg-img">
+    <div class="container">
+        <div class="hero-grid">
+            <h1 class="hero-title fw-bold">The software your business runs on — engineered right, and built to last.</h1>
+
+            <div class="hero-visual">
+                <div class="gear-wrapper hover-this">
+                    <div class="hover-anim">
+                        {% include "includes/gears.html" %}
+                    </div>
+                </div>
+                <p class="gear-caption">One machine, many gears — we engineer the systems your business runs on: <span class="gc-word" id="gcWord">sales</span></p>
+            </div>
+
+            <div class="hero-copy">
+                <p class="hero-lead">
+                    ManiarTech is a senior software engineering team. We design, build, and modernize the
+                    systems companies depend on — led by a founder who built software at
+                    <span class="main-color">JP&nbsp;Morgan</span>, delivered on an
+                    <span class="main-color">ISO-certified process</span>, using mainstream technology your
+                    own people can maintain.
+                </p>
+                <div class="hero-actions">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg">
+                        <span>Get a free project estimate</span>
+                    </a>
+                    <a href="/services/" class="butn butn-md butn-rounded butn-bord text-light">
+                        <span>See how we work</span>
+                    </a>
+                </div>
+                <p class="hero-note opacity-7">
+                    No junior engineers learning on your project. No lock-in. An honest estimate before you commit.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ==================== 2 · Marquee band ==================== -->
+<div class="mt-marquee">
+    <div class="mt-track">
+        <span class="mt-item">Custom Software Engineering <span class="star">&#10038;</span></span>
+        <span class="mt-item">Legacy Modernization <span class="star">&#10038;</span></span>
+        <span class="mt-item">AI, Applied <span class="star">&#10038;</span></span>
+        <span class="mt-item">Enterprise Engineering <span class="star">&#10038;</span></span>
+        <span class="mt-item">Custom Software Engineering <span class="star">&#10038;</span></span>
+        <span class="mt-item">Legacy Modernization <span class="star">&#10038;</span></span>
+        <span class="mt-item">AI, Applied <span class="star">&#10038;</span></span>
+        <span class="mt-item">Enterprise Engineering <span class="star">&#10038;</span></span>
+    </div>
+</div>
+</div><!-- /hero-screen -->
+
+<!-- ==================== 3 · Is this you? ==================== -->
+<section class="services section-padding">
+    <div class="container">
+        <div class="sec-head mb-60">
+            <span class="mt-eyebrow">Is this you?</span>
+            <div class="bord pt-25 bord-thin-top">
+                <h2 class="fw-600">You probably found us because one of these is true.</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mt-diag-col">
+                <div class="mt-diag-list">
+                    <div class="mt-diag">
+                        <span class="num">01</span>
+                        <div class="d">
+                            <h5>Manual, disconnected operations</h5>
+                            <p>Your work runs on spreadsheets and manual steps — and you need it automated and connected.</p>
+                        </div>
+                    </div>
+                    <div class="mt-diag">
+                        <span class="num">02</span>
+                        <div class="d">
+                            <h5>A custom system to build</h5>
+                            <p>You need a custom application or platform built — properly, the first time.</p>
+                        </div>
+                    </div>
+                    <div class="mt-diag">
+                        <span class="num">03</span>
+                        <div class="d">
+                            <h5>An aging system to modernize</h5>
+                            <p>Something slow, fragile, or costly to maintain that needs bringing up to date — without a risky big-bang rewrite.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-diag-col">
+                <div class="mt-diag-list">
+                    <div class="mt-diag">
+                        <span class="num">04</span>
+                        <div class="d">
+                            <h5>AI, used usefully</h5>
+                            <p>You want to put AI to work in your business — for real outcomes, not as a gimmick.</p>
+                        </div>
+                    </div>
+                    <div class="mt-diag">
+                        <span class="num">05</span>
+                        <div class="d">
+                            <h5>Burned before</h5>
+                            <p>Past vendors over-promised, staffed juniors, or vanished — and you need a partner you can trust.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-diag-foot">
+                    We're built for exactly these — and we work with small and mid-sized businesses as
+                    readily as larger enterprises. <a href="/contact/" class="main-color underline">Tell us what you need →</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 4 · What we do — Capabilities ==================== -->
+<section class="section-padding bg-soft">
+    <div class="container">
+        <div class="sec-head mb-60">
+            <span class="mt-eyebrow">What we do</span>
+            <div class="bord pt-25 bord-thin-top">
+                <h2 class="fw-600">Four ways we build and modernize the systems you run on.</h2>
+            </div>
+        </div>
+        {% comment %} Expanding-panel stage: hover/tab a service to open it — its
+        vignette (a small SVG "machine" embodying that service's metaphor) runs,
+        and the proof line appears. Pure CSS state; first panel open at rest. {% endcomment %}
+        <div class="svc-stage">
+
+            <a class="svc-panel" href="/services/application-software-engineering/">
+                <div class="svc-viz svc-viz-build" aria-hidden="true">
+                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+                        <g class="bp-grid">
+                            <path d="M6 22 H126 M6 44 H126 M6 66 H126"/>
+                            <path d="M26 6 V82 M66 6 V82 M106 6 V82"/>
+                        </g>
+                        <path class="bp-path" d="M18 76 V40 H48 V24 H84 V40 H114 V76 Z"/>
+                        <path class="bp-path bp-door" d="M58 76 V60 H74 V76"/>
+                        <line class="bp-path bp-ant" x1="66" y1="24" x2="66" y2="12"/>
+                        <circle class="bp-tip" cx="66" cy="9" r="2.5"/>
+                    </svg>
+                </div>
+                <div class="svc-head"><i class="svc-num">01</i><h3>Custom Software Engineering</h3></div>
+                <p class="svc-tag">Applications and platforms built for you — properly, the first time.</p>
+                <div class="svc-more">
+                    <p>From blueprint to production <em>once</em> — scoped honestly, engineered by senior hands, reviewed before hand-off. The client platforms in our case studies were built exactly this way.</p>
+                    <span class="go">Explore →</span>
+                </div>
+            </a>
+
+            <a class="svc-panel" href="/services/modernization/">
+                <div class="svc-viz svc-viz-modern" aria-hidden="true">
+                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+                        <line class="md-base" x1="10" y1="76" x2="122" y2="76"/>
+                        <rect class="md-b md-b1" x="14" y="50" width="18" height="26" rx="3"/>
+                        <rect class="md-b md-b2" x="36" y="38" width="18" height="38" rx="3"/>
+                        <rect class="md-b md-b3" x="58" y="46" width="18" height="30" rx="3"/>
+                        <rect class="md-b md-b4" x="80" y="34" width="18" height="42" rx="3"/>
+                        <rect class="md-b md-b5" x="102" y="52" width="18" height="24" rx="3"/>
+                        <circle class="md-pulse" cx="116" cy="14" r="4"/>
+                        <text class="md-up" x="108" y="18" text-anchor="end">live</text>
+                    </svg>
+                </div>
+                <div class="svc-head"><i class="svc-num">02</i><h3>Legacy Modernization</h3></div>
+                <p class="svc-tag">Bring an aging system up to date — without a risky big-bang rewrite.</p>
+                <div class="svc-more">
+                    <p>We swap the parts <em>while the system keeps running</em> — piece by piece, in production, uptime intact. Your operations never stop for our work.</p>
+                    <span class="go">Explore →</span>
+                </div>
+            </a>
+
+            <a class="svc-panel" href="/services/ai/">
+                <div class="svc-viz svc-viz-ai" aria-hidden="true">
+                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="ai-d" cx="18"  cy="44" r="3" style="--sx:-4px;  --sy:-26px"/>
+                        <circle class="ai-d" cx="32"  cy="44" r="3" style="--sx:6px;   --sy:22px"/>
+                        <circle class="ai-d" cx="46"  cy="44" r="3" style="--sx:-10px; --sy:14px"/>
+                        <circle class="ai-d" cx="60"  cy="44" r="3" style="--sx:8px;   --sy:-18px"/>
+                        <circle class="ai-d" cx="74"  cy="44" r="3" style="--sx:-6px;  --sy:28px"/>
+                        <circle class="ai-d" cx="88"  cy="44" r="3" style="--sx:12px;  --sy:-12px"/>
+                        <circle class="ai-d" cx="102" cy="44" r="3" style="--sx:-8px;  --sy:-30px"/>
+                        <path class="ai-arrow" d="M108 44 h12 m-5 -5 l5 5 -5 5"/>
+                    </svg>
+                </div>
+                <div class="svc-head"><i class="svc-num">03</i><h3>AI, Applied</h3></div>
+                <p class="svc-tag">AI put to work for real outcomes in your operations — not a gimmick.</p>
+                <div class="svc-more">
+                    <p>Noise in, <em>decisions out</em>. We build our own AI products, so we know what ships versus what demos — and we'll tell you when AI isn't the answer.</p>
+                    <span class="go">Explore →</span>
+                </div>
+            </a>
+
+            <a class="svc-panel" href="/services/enterprise-software-engineering/">
+                <div class="svc-viz svc-viz-scale" aria-hidden="true">
+                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+                        <line class="sc-line" x1="12" y1="22" x2="120" y2="22"/>
+                        <rect class="sc-b sc-b1" x="16"  y="52" width="12" height="24" rx="2"/>
+                        <rect class="sc-b sc-b2" x="33"  y="44" width="12" height="32" rx="2"/>
+                        <rect class="sc-b sc-b3" x="50"  y="56" width="12" height="20" rx="2"/>
+                        <rect class="sc-b sc-b4" x="67"  y="38" width="12" height="38" rx="2"/>
+                        <rect class="sc-b sc-b5" x="84"  y="48" width="12" height="28" rx="2"/>
+                        <rect class="sc-b sc-b6" x="101" y="32" width="12" height="44" rx="2"/>
+                    </svg>
+                </div>
+                <div class="svc-head"><i class="svc-num">04</i><h3>Enterprise Engineering</h3></div>
+                <p class="svc-tag">Systems your operations depend on — dependable at any scale.</p>
+                <div class="svc-more">
+                    <p>The load grows; <em>the line holds</em>. Engineered under our ISO 9001 / 27001 process — the same discipline keeping a client's operations running today.</p>
+                    <span class="go">Explore →</span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 5 · See it in action — not slideware ==================== -->
+<section class="section-padding">
+    <div class="container">
+        <div class="sec-head mb-60">
+            <span class="mt-eyebrow">See it in action</span>
+            <div class="bord pt-25 bord-thin-top">
+                <h2 class="fw-600">Real software we've shipped — not slideware.</h2>
+            </div>
+        </div>
+
+        <!-- Featured: Chemo (the one live-in-production screenshot) -->
+        <div class="row align-items-center mb-60">
+            <div class="col-lg-7 md-mb50">
+                <div class="mt-shot">
+                    <img src="{% assets "imgs/projects/chemo.png" %}" alt="Chemo Test Laboratory — sample management on the Processious platform (demo data)">
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+                <span class="mt-eyebrow">Processious · Live in production</span>
+                <h3 class="fw-600 mb-20">Chemo Test Laboratory</h3>
+                <p class="opacity-8">A laboratory management system built on our own <strong>Processious</strong> platform — sample intake, multi-stage technical review and authorization, and secure, recipient-verified report delivery. Their public website runs on our <strong>Taj Mahal</strong> framework too.</p>
+                <p class="opacity-6 mt-15" style="font-size:13px;">Screenshot shows demo data.</p>
+                <a href="/case-studies/" class="butn butn-md butn-rounded butn-bg main-colorbg mt-25"><span>See the case</span></a>
+            </div>
+        </div>
+
+        <!-- The other two proofs -->
+        <div class="row">
+            <div class="col-lg-6 mb-40">
+                <div class="mt-card">
+                    <span class="mt-eyebrow">Real estate · Launching 2026</span>
+                    <h5 class="mb-15 mt-10">Shantee Homes</h5>
+                    <p class="opacity-8">An end-to-end real-estate presales platform: project showcase, interactive floor plans, an estimation-and-payment-plan engine, and a digital asset library. Going live for its clients in 2026.</p>
+                    <a href="/case-studies/" class="main-color underline mt-15 d-inline-block">See the case →</a>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-40">
+                <div class="mt-card">
+                    <span class="mt-eyebrow">Offshore delivery · Strativity (US)</span>
+                    <h5 class="mb-15 mt-10">Touchpoint Dashboard</h5>
+                    <p class="opacity-8">A customer-journey analytics product with a Fortune-500 user base, which ManiarTech built and then ran for years as a managed offshore team — our founder as principal architect. Proof we deliver, and keep delivering, across an ocean.</p>
+                    <a href="/case-studies/" class="main-color underline mt-15 d-inline-block">See the case →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-md-center mt-20">
+            <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>See all case studies</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 5b · In their words (testimonials) ==================== -->
+<section class="testimonials section-padding bg-soft">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="sec-head md-mb50">
+                    <span class="mt-eyebrow">In their words</span>
+                    <h2 class="fw-600">What clients <span class="fw-200">say.</span></h2>
+                    <div class="swiper-arrow-control">
+                        <div class="swiper-button-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+                        <div class="swiper-button-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 position-re">
+                <div class="testim-swiper" data-carousel="swiper" data-loop="true" data-space="30">
+                    <div id="testim-carousel" class="swiper-container" data-swiper="container">
+                        <div class="swiper-wrapper">
+
+                            <div class="swiper-slide">
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="text">
+                                            <p class="fz-30">"ManiarTech is a loyal and trustworthy partner… a great track record being transparent about both time and issues that arise."</p>
+                                        </div>
+                                        <div class="info d-flex align-items-center pt-40 mt-40 bord-thin-top">
+                                            <div class="q-avatar">PH</div>
+                                            <div class="ml-20">
+                                                <h5>Peter Haid</h5>
+                                                <span class="sub-title main-color">Chief Product Officer, Strativity Group</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="text">
+                                            <p class="fz-30">"Maniar Technologies is one of the best in the web development space… it's been about 2 years, and absolutely no complaints."</p>
+                                        </div>
+                                        <div class="info d-flex align-items-center pt-40 mt-40 bord-thin-top">
+                                            <div class="q-avatar">AS</div>
+                                            <div class="ml-20">
+                                                <h5>Ashish Singh</h5>
+                                                <span class="sub-title main-color">Owner, Digi Mind Media</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="text">
+                                            <p class="fz-30">"I would HIGHLY recommend the firm… my deadline was met and the work exceeded my expectations."</p>
+                                        </div>
+                                        <div class="info d-flex align-items-center pt-40 mt-40 bord-thin-top">
+                                            <div class="q-avatar">DK</div>
+                                            <div class="ml-20">
+                                                <h5>Dimple Karnani</h5>
+                                                <span class="sub-title main-color">Founder, zehn design studio</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="text">
+                                            <p class="fz-30">"MANIAR TECHNOLOGIES PVT. LTD. is a top-notch professional firm… their work is on time, high quality, and fairly priced."</p>
+                                        </div>
+                                        <div class="info d-flex align-items-center pt-40 mt-40 bord-thin-top">
+                                            <div class="q-avatar">JH</div>
+                                            <div class="ml-20">
+                                                <h5>Jeff Hines</h5>
+                                                <span class="sub-title main-color">Founder, UpSport IO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 6 · What you can count on ==================== -->
+<section class="section-padding">
+    <div class="container">
+        <div class="sec-head mb-50">
+            <span class="mt-eyebrow">What you can count on</span>
+            <div class="bord pt-25 bord-thin-top">
+                <h2 class="fw-600">Senior engineers, a documented process, and technology you own outright.</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mt-check">
+                    <span class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                    <div class="ct"><strong>Experienced engineers do your work.</strong><p>We don't learn on your project.</p></div>
+                </div>
+                <div class="mt-check">
+                    <span class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                    <div class="ct"><strong>No lock-in.</strong><p>We build on mainstream technology — Go, Python, React, PostgreSQL — that your own team can hire for and maintain. You own the code, and you can walk.</p></div>
+                </div>
+                <div class="mt-check">
+                    <span class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                    <div class="ct"><strong>Right-sized, never over-engineered.</strong><p>We solve your problem at the right scale — no science experiments.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="mt-check">
+                    <span class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                    <div class="ct"><strong>Predictable by process.</strong><p>ISO 9001:2015 and ISO/IEC 27001:2022 certified — independently audited by URS under UKAS accreditation. Delivery comes from process, not heroics.</p></div>
+                </div>
+                <div class="mt-check">
+                    <span class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                    <div class="ct"><strong>Quality before it reaches you.</strong><p>We review every deliverable for quality, design, and fit before it ever reaches you.</p></div>
+                </div>
+                <div class="mt-check">
+                    <span class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                    <div class="ct"><strong>Straight talk.</strong><p>We'll tell you the truth — including when something isn't the right fit, or shouldn't be built at all.</p></div>
+                </div>
+            </div>
+        </div>
+        <a href="/about/" class="butn butn-md butn-rounded butn-bord text-light mt-50"><span>See how we work</span></a>
+    </div>
+</section>
+
+<!-- ==================== 7 · Led by an engineer (credibility + stats) ==================== -->
+<section class="section-padding bg-soft">
+    <div class="container">
+        <div class="row justify-content-center text-md-center mb-60">
+            <div class="col-lg-9">
+                <span class="mt-eyebrow">The people behind it</span>
+                <h2 class="fw-600 mb-30">Led by an engineer who's built serious software for 27 years.</h2>
+                <p class="lead-text">
+                    ManiarTech was founded in 2010 by
+                    <a href="https://www.linkedin.com/in/aamironline" class="main-color" target="_blank" rel="noopener">Aamir Maniar</a>
+                    — Managing Director and Engineering Head. Earlier in his career he built financial-technology
+                    systems at <strong>JP&nbsp;Morgan</strong>, and worked as a technology architect at firms
+                    including Countrywide Financial, Patni (now iGATE), and Oakton. Today he leads a small senior
+                    team — with <strong>Oomera Maniar</strong> running operations and a vetted network of
+                    specialist engineers — backed by a documented, ISO-certified process, so the work lives in
+                    systems, not in one person's head.
+                </p>
+                <a href="/about/" class="butn butn-md butn-rounded butn-bg main-colorbg mt-30"><span>Meet the team &amp; our story</span></a>
+            </div>
+        </div>
+
+        <div class="bord-thin-top pt-80">
+            <div class="row mt-stats text-center">
+                <div class="col-lg-3 col-6 mb-40">
+                    <div class="item">
+                        <div class="stat-num fz-70 main-color line-height-1">27</div>
+                        <span class="lbl sub-title opacity-7">Years engineering software</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6 mb-40">
+                    <div class="item">
+                        <div class="stat-num fz-70 line-height-1">100<span class="fz-50">%</span></div>
+                        <span class="lbl sub-title opacity-7">Senior engineers on your project</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6 mb-40">
+                    <div class="item">
+                        <div class="stat-num fz-70 txt-stroke line-height-1">2</div>
+                        <span class="lbl sub-title opacity-7">ISO certifications (9001 &amp; 27001)</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6 mb-40">
+                    <div class="item">
+                        <div class="stat-num fz-70 line-height-1">1999</div>
+                        <span class="lbl sub-title opacity-7">Building software since</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 8 · And we go deeper than most (depth — the closer) ==================== -->
+<section class="section-padding">
+    <div class="container">
+        <div class="sec-head mb-50">
+            <span class="mt-eyebrow">And we go deeper than most</span>
+            <div class="bord pt-25 bord-thin-top">
+                <h2 class="fw-600">We don't just use technology — we make it. Which is the rigor your project inherits.</h2>
+            </div>
+        </div>
+        <div class="row mb-50">
+            <div class="col-lg-9">
+                <p class="opacity-8">Most software firms assemble tools. Over the years we've built and published our own — libraries, frameworks, even data and language standards. <strong>We don't make you adopt any of it; we build on mainstream technology.</strong> But it's <em>why</em> our engineering runs deep — and you can check all of it yourself.</p>
+            </div>
+        </div>
+        <div class="row mb-50">
+            <div class="col-lg-4 col-md-6 mb-30">
+                <div class="mt-pillar">
+                    <span class="lbl">Internet Object</span>
+                    <h5>A compact data format</h5>
+                    <p>Roughly 40% smaller than minified JSON, with ~30% fewer LLM tokens — and a live playground you can try against JSON yourself.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-30">
+                <div class="mt-pillar">
+                    <span class="lbl">UExL</span>
+                    <h5>Our expression engine</h5>
+                    <p>Zero allocations on the boolean and string paths, and fastest in the scenarios we measured — reproduce the benchmark yourself.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-30">
+                <div class="mt-pillar">
+                    <span class="lbl">Open source</span>
+                    <h5>Public Go libraries</h5>
+                    <p>Open-source Go libraries on our GitHub — including <strong>signals</strong>, our event library — open for anyone to read and run. Taj Mahal (this very site) and Processious are ours too.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- What we're building now — the live pulse -->
+        <div class="mt-now mb-50">
+            <div class="now-body">
+                <span class="now-lbl"><span class="now-dot"></span> What we're building now</span>
+                <h4>Indigo — a Go superset language</h4>
+                <p>Being built right now: a statically-typed superset of Go that compiles to clean, idiomatic Go. Early and unreleased — the kind of foundational work most companies only consume.</p>
+            </div>
+            <div class="now-cta">
+                <a href="/foundry/indigo/" class="butn butn-md butn-rounded butn-bord text-light"><span>See Indigo</span></a>
+            </div>
+        </div>
+
+        <a href="/foundry/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Explore the Foundry</span></a>
+    </div>
+</section>
+
+<!-- ==================== 9 · Thinking & writing ==================== -->
+<section class="section-padding bg-soft">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 md-mb30">
+                <span class="mt-eyebrow">Thinking &amp; writing</span>
+                <h2 class="fw-600 mb-20">We work in the open.</h2>
+                <p class="opacity-8">We publish what we learn — engineering notes, applied white papers, and reproducible benchmarks. Read how we build, and check our claims for yourself.</p>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+                <div class="mt-actions">
+                    <a href="/insights/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Read our notes</span></a>
+                    <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>Follow the Foundry</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 10 · Closing CTA ==================== -->
+<section class="section-padding text-md-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="fw-600 mb-20">Tell us what you're building.</h2>
+                <p class="opacity-8 mb-30">
+                    Start with a free, no-obligation estimate. Tell us what you're building and a senior
+                    engineer reads it back with a ballpark and an honest take — and tells you when your
+                    project needs a real conversation instead.
+                </p>
+                <div class="mt-actions">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                </div>
+                <p class="opacity-6 mt-30" style="font-size:14px;">
+                    We're a small senior team and we grow slowly. If you build for the long term,
+                    <a href="/careers/" class="main-color underline">say hello</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "js/gear-caption.js" %}
+{% endblock %}

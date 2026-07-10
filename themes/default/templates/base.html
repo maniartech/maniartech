@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ title }} — {{ site.name }}{% endblock %}</title>
+  <meta name="description" content="{{ description }}">
+  {% lib "main.css" %}
+</head>
+<body>
+  {% include "includes/header.html" %}
+
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "includes/footer.html" %}
+</body>
+</html>

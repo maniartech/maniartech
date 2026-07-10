@@ -1,0 +1,236 @@
+<!-- ==================== Navbar (lean) ==================== -->
+<nav class="navbar navbar-expand-lg bord blur">
+    <div class="container">
+
+        <a class="logo icon-img-200 logo-header" href="/" aria-label="{{ site.name }} home">
+            <img src="{% assets "imgs/mt-imgs/logo-white.png" %}" alt="{{ site.name }}">
+        </a>
+
+        <div class="collapse navbar-collapse justify-content-center d-none d-lg-flex" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/services/"><span class="rolling-text">Services</span></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/services/enterprise-software-engineering/">Enterprise Software Engineering</a>
+                        <a class="dropdown-item" href="/services/application-software-engineering/">Application Software Engineering</a>
+                        <a class="dropdown-item" href="/services/ai/">AI, Applied</a>
+                        <a class="dropdown-item" href="/services/modernization/">Modernization &amp; Migration</a>
+                        <a class="dropdown-item" href="/partnerships/">Technology Partnership</a>
+                        <a class="dropdown-item is-more" href="/services/">All services &rarr;</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/case-studies/"><span class="rolling-text">Work</span></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/case-studies/chemo/">Chemo Test Laboratory <span class="dd-badge">Live</span></a>
+                        <a class="dropdown-item" href="/case-studies/sales-navigator/">Real-estate presales platform <span class="dd-badge">Live</span></a>
+                        <a class="dropdown-item" href="/case-studies/touchpoint/">Touchpoint Dashboard</a>
+                        <a class="dropdown-item" href="/case-studies/content-engine/">Content Engine</a>
+                        <a class="dropdown-item" href="/case-studies/upsport/">UpSport</a>
+                        <a class="dropdown-item is-more" href="/case-studies/">All case studies &rarr;</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown has-mega">
+                    <a class="nav-link dropdown-toggle" href="/foundry/"><span class="rolling-text">Foundry</span></a>
+                    <div class="dropdown-menu foundry-mega">
+                        <div class="mega-col">
+                            <h6>Products</h6>
+                            <a class="mega-item" href="/products/processious/"><span class="mi-name">Processious <em class="mi-badge live">Live</em></span><span class="mi-desc">Process-automation platform</span></a>
+                            <a class="mega-item" href="/products/ordin/"><span class="mi-name">Ordin</span><span class="mi-desc">Durable workflow engine</span></a>
+                            <a class="mega-item" href="/products/documentor/"><span class="mi-name">Documentor.AI</span><span class="mi-desc">AI document platform</span></a>
+                            <a class="mega-item" href="/products/tallery-gallery/"><span class="mi-name">Enterprise DAM</span><span class="mi-desc">Digital asset management</span></a>
+                            <a class="mega-more" href="/products/">All products &rarr;</a>
+                        </div>
+                        <div class="mega-col">
+                            <h6>Languages</h6>
+                            <a class="mega-item" href="/foundry/indigo/"><span class="mi-name">Indigo</span><span class="mi-desc">A Go superset language</span></a>
+                            <a class="mega-item" href="/foundry/uexl/"><span class="mi-name">UExL</span><span class="mi-desc">Embeddable expression engine</span></a>
+                            <a class="mega-item" href="/foundry/languages/"><span class="mi-name">AddressQL</span><span class="mi-desc">URL-native query language</span></a>
+                            <a class="mega-item" href="/foundry/languages/"><span class="mi-name">PressML <em class="mi-badge">Soon</em></span><span class="mi-desc">HTML/CSS-style markup for print</span></a>
+                            <a class="mega-more" href="/foundry/languages/">All languages &rarr;</a>
+                        </div>
+                        <div class="mega-col">
+                            <h6>Libraries &amp; Frameworks</h6>
+                            <a class="mega-item" href="/foundry/signals/"><span class="mi-name">signals</span><span class="mi-desc">Type-safe Go events</span></a>
+                            <a class="mega-item" href="/foundry/gotime/"><span class="mi-name">gotime</span><span class="mi-desc">Intuitive Go date/time</span></a>
+                            <a class="mega-item" href="/foundry/vault-storage/"><span class="mi-name">vault-storage</span><span class="mi-desc">Browser storage, upgraded</span></a>
+                            <a class="mega-item" href="/foundry/#libraries"><span class="mi-name">gocurl</span><span class="mi-desc">curl &rarr; Go HTTP code</span></a>
+                            <a class="mega-more" href="/foundry/#libraries">All libraries &rarr;</a>
+                        </div>
+                        <div class="mega-col">
+                            <h6>Developer Tools</h6>
+                            <a class="mega-item" href="/products/booster/"><span class="mi-name">Booster</span><span class="mi-desc">Dev-environment orchestrator</span></a>
+                            <a class="mega-item" href="/foundry/tajmahal-ssg/"><span class="mi-name">Taj Mahal SSG</span><span class="mi-desc">Static-site generator</span></a>
+                            <a class="mega-item" href="/foundry/#tools"><span class="mi-name">gowork</span><span class="mi-desc">Go workspace management</span></a>
+                            <a class="mega-more" href="/foundry/#tools">All tools &rarr;</a>
+                        </div>
+                        <div class="mega-foot">
+                            <a class="mega-foot-link" href="https://github.com/maniartech" target="_blank" rel="noopener"><strong>Open source</strong> — every public repo &nearr;</a>
+                            <a class="mega-foot-link" href="/standards/"><strong>Standards &amp; specifications</strong> — Internet Object, NITES, FUSE &rarr;</a>
+                            <a class="mega-foot-link accent" href="/foundry/">Explore the Foundry &rarr;</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/about/"><span class="rolling-text">About</span></a></li>
+            </ul>
+        </div>
+
+        <div class="topnav d-flex align-items-center">
+            <a href="/estimate/" class="butn butn-sm butn-rounded main-colorbg d-none d-lg-inline-block">
+                <span>Estimate a project</span>
+            </a>
+            <button class="menu-icon" type="button" aria-label="Open menu" aria-controls="mtHamenu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ==================== Big navigator (fullscreen) ==================== -->
+<div class="hamenu" id="mtHamenu">
+    <a class="logo" href="/" aria-label="{{ site.name }} home">
+        <img src="{% assets "imgs/mt-imgs/logo-white.png" %}" alt="{{ site.name }}" style="height:30px;width:auto;">
+    </a>
+    <button class="close-menu cursor-pointer" type="button" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 d-none d-lg-block">
+                <div class="menu-text"><div class="text"><h2>Menu</h2></div></div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="menu-links">
+                    <ul class="main-menu rest">
+
+                        <li><a class="link" href="/"><span class="fill-text" data-text="Home">Home</span></a></li>
+
+                        <li>
+                            <div class="o-hidden"><div class="link cursor-pointer dmenu"><span class="fill-text" data-text="Services">Services</span> <i></i></div></div>
+                            <div class="sub-menu">
+                                <ul>
+                                    <li><a href="/services/" class="sub-link">Overview</a></li>
+                                    <li>
+                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Enterprise Software Engineering">Enterprise Software Engineering</span> <i></i></div></div>
+                                        <div class="sub-menu2"><ul>
+                                            <li><a href="/services/enterprise-software-engineering/" class="sub-link">Overview</a></li>
+                                            <li><a href="/services/enterprise-software-engineering/#process-automation" class="sub-link">Process Automation &amp; Integration</a></li>
+                                            <li><a href="/services/enterprise-software-engineering/#digital-asset-management" class="sub-link">Digital Asset Management</a></li>
+                                            <li><a href="/services/enterprise-software-engineering/#business-analytics" class="sub-link">Business Analytics</a></li>
+                                        </ul></div>
+                                    </li>
+                                    <li>
+                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Application Software Engineering">Application Software Engineering</span> <i></i></div></div>
+                                        <div class="sub-menu2"><ul>
+                                            <li><a href="/services/application-software-engineering/" class="sub-link">Overview</a></li>
+                                            <li><a href="/services/application-software-engineering/#custom-development" class="sub-link">Custom Development</a></li>
+                                            <li><a href="/services/application-software-engineering/#architecture-advisory" class="sub-link">Architecture Review &amp; Advisory</a></li>
+                                        </ul></div>
+                                    </li>
+                                    <li><a href="/services/ai/" class="sub-link">AI, Applied</a></li>
+                                    <li><a href="/services/modernization/" class="sub-link">Modernization &amp; Migration</a></li>
+                                    <li><a href="/partnerships/" class="sub-link">Technology Partnership</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="o-hidden"><div class="link cursor-pointer dmenu"><span class="fill-text" data-text="Work">Work</span> <i></i></div></div>
+                            <div class="sub-menu">
+                                <ul>
+                                    <li><a href="/case-studies/" class="sub-link">All case studies</a></li>
+                                    <li><a href="/case-studies/chemo/" class="sub-link">Chemo Test Laboratory</a></li>
+                                    <li><a href="/case-studies/sales-navigator/" class="sub-link">Real-estate presales platform</a></li>
+                                    <li><a href="/case-studies/touchpoint/" class="sub-link">Touchpoint Dashboard</a></li>
+                                    <li><a href="/case-studies/content-engine/" class="sub-link">Content Engine</a></li>
+                                    <li><a href="/case-studies/upsport/" class="sub-link">UpSport</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="o-hidden"><div class="link cursor-pointer dmenu"><span class="fill-text" data-text="Foundry">Foundry</span> <i></i></div></div>
+                            <div class="sub-menu">
+                                <ul>
+                                    <li><a href="/foundry/" class="sub-link">Explore the Foundry</a></li>
+                                    <li>
+                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Products">Products</span> <i></i></div></div>
+                                        <div class="sub-menu2"><ul>
+                                            <li><a href="/products/" class="sub-link">All products</a></li>
+                                            <li><a href="/products/processious/" class="sub-link">Processious</a></li>
+                                            <li><a href="/products/ordin/" class="sub-link">Ordin</a></li>
+                                            <li><a href="/products/documentor/" class="sub-link">Documentor.AI</a></li>
+                                            <li><a href="/products/tallery-gallery/" class="sub-link">Enterprise DAM</a></li>
+                                        </ul></div>
+                                    </li>
+                                    <li>
+                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Languages">Languages</span> <i></i></div></div>
+                                        <div class="sub-menu2"><ul>
+                                            <li><a href="/foundry/indigo/" class="sub-link">Indigo</a></li>
+                                            <li><a href="/foundry/uexl/" class="sub-link">UExL</a></li>
+                                            <li><a href="/foundry/languages/" class="sub-link">AddressQL</a></li>
+                                            <li><a href="/foundry/languages/" class="sub-link">PressML</a></li>
+                                            <li><a href="/foundry/languages/" class="sub-link">All languages</a></li>
+                                        </ul></div>
+                                    </li>
+                                    <li>
+                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Libraries &amp; Frameworks">Libraries &amp; Frameworks</span> <i></i></div></div>
+                                        <div class="sub-menu2"><ul>
+                                            <li><a href="/foundry/signals/" class="sub-link">signals</a></li>
+                                            <li><a href="/foundry/gotime/" class="sub-link">gotime</a></li>
+                                            <li><a href="/foundry/vault-storage/" class="sub-link">vault-storage</a></li>
+                                            <li><a href="/foundry/#libraries" class="sub-link">gocurl &amp; more</a></li>
+                                        </ul></div>
+                                    </li>
+                                    <li>
+                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Developer Tools">Developer Tools</span> <i></i></div></div>
+                                        <div class="sub-menu2"><ul>
+                                            <li><a href="/foundry/tajmahal-ssg/" class="sub-link">Taj Mahal SSG</a></li>
+                                            <li><a href="/products/booster/" class="sub-link">Booster</a></li>
+                                            <li><a href="/foundry/#tools" class="sub-link">gowork &amp; more</a></li>
+                                        </ul></div>
+                                    </li>
+                                    <li><a href="/standards/" class="sub-link">Standards &amp; specifications</a></li>
+                                    <li><a href="https://github.com/maniartech" class="sub-link" target="_blank" rel="noopener">Open source &nearr;</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li><a class="link" href="/insights/"><span class="fill-text" data-text="Insights">Insights</span></a></li>
+                        <li><a class="link" href="/about/"><span class="fill-text" data-text="About">About</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="cont-info">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg mb-40 item"><span>Estimate a project</span></a>
+                    <div class="item mb-30">
+                        <h6 class="sub-title opacity-6 mb-10">Get in touch</h6>
+                        <p class="mb-5"><a href="mailto:contact@maniartech.com">contact@maniartech.com</a></p>
+                        <p><a href="tel:+918976897675" class="main-color">+91&nbsp;89768&nbsp;97675</a></p>
+                    </div>
+                    <div class="item mb-30">
+                        <h6 class="sub-title opacity-6 mb-10">Elsewhere</h6>
+                        <ul class="rest">
+                            <li class="mb-5"><a href="https://www.linkedin.com/in/aamironline" target="_blank" rel="noopener">LinkedIn</a></li>
+                            <li><a href="https://github.com/maniartech" target="_blank" rel="noopener">GitHub</a></li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <h6 class="sub-title opacity-6 mb-10">More</h6>
+                        <ul class="rest">
+                            <li class="mb-5"><a href="/contact/">Contact</a></li>
+                            <li class="mb-5"><a href="/careers/">Careers</a></li>
+                            <li class="mb-5"><a href="/partnerships/">Partnerships</a></li>
+                            <li><a href="/insights/">Insights</a></li>
+                        </ul>
+                    </div>
+                    <p class="opacity-6 mt-30" style="font-size:12px;">ISO 9001:2015 &amp; ISO/IEC&nbsp;27001:2022 certified</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

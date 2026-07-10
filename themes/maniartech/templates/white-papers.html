@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}White Papers — {{ site.name }}{% endblock %}
+
+{% comment %} List page for /white-papers/*. {% endcomment %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <span class="mt-eyebrow">White Papers</span>
+                <h1 class="fw-bold prod-h1">Applied papers, written to be useful.</h1>
+                <p class="lead-text mt-20 prod-lead">A small set of quality-first papers on the problems we work in — motivation and gamification, the consumer journey in systems, and the real cost drivers of custom software. Quality over quantity; each is released when it's genuinely worth your time.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            {% for a in articles %}
+            <div class="col-lg-4 col-md-6 mb-30">
+                <a href="{{ a.url }}" class="mt-card d-block">
+                    {% if a.paperStatus %}<span class="mt-badge mb-15 d-inline-block">{{ a.paperStatus }}</span>{% endif %}
+                    <h5 class="mb-10">{{ a.title }}</h5>
+                    <p>{{ a.description }}</p>
+                    <span class="main-color d-inline-block mt-15" style="font-weight:600;font-size:14px;">Read the outline →</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if pagination.pages > 1 %}
+        <nav class="d-flex mt-40" style="gap:10px;" aria-label="Pagination">
+            {% for p in pagination.items %}
+            <a href="{{ p.url }}" class="butn butn-sm butn-rounded {% if p.isCurrent %}butn-bg main-colorbg{% else %}butn-bord text-light{% endif %}"><span>{{ p.number }}</span></a>
+            {% endfor %}
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

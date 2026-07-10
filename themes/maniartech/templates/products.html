@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Products — {{ site.name }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero / intro -->
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <span class="mt-eyebrow">Products</span>
+                <h1 class="fw-bold mb-25 prod-h1">The engineering behind our products is what we bring to your system.</h1>
+                <p class="lead-text prod-lead">
+                    You need software that ships, runs in production, and that your own team can own and
+                    maintain afterwards — not a science experiment, and not lock-in to one vendor's private
+                    tech. Everything below is built on <strong>mainstream technology you can hire for</strong>.
+                    We've put that same engineering into our own products — so before you trust it on your
+                    system, you can see it running on ours.
+                </p>
+                <div class="mt-actions">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Product spotlights (alternating) -->
+<section class="section-padding pt-0">
+    <div class="container">
+
+        <!-- 1 · Processious — in production (real screenshot) -->
+        <div class="mt-spot">
+            <div class="spot-text">
+                <span class="mt-badge is-live">In production</span>
+                <h3>Processious</h3>
+                <span class="spot-tag">Process-automation &amp; application platform</span>
+                <p>In production today, running a client's operations — sample intake, multi-stage technical review, and secure, recipient-verified report delivery. You don't have to take our word for it; it's running live:</p>
+                <div class="mt-proof-chips">
+                    <a href="https://www.chemotestlaboratory.com" target="_blank" rel="noopener" class="mt-proof-chip"><span class="ar">↗</span> chemotestlaboratory.com</a>
+                    <a href="https://reports.chemotestlaboratory.com" target="_blank" rel="noopener" class="mt-proof-chip"><span class="ar">↗</span> reports.chemotestlaboratory.com</a>
+                </div>
+                <a href="/products/processious/" class="go">See the product →</a>
+            </div>
+            <div class="spot-visual">
+                <div class="mt-frame">
+                    <div class="bar"><i></i><i></i><i></i></div>
+                    <img src="{% assets "imgs/projects/chemo.png" %}" alt="Processious in production — laboratory sample management (demo data)">
+                </div>
+            </div>
+        </div>
+
+        <!-- 2 · Ordin — in development (YAML) -->
+        <div class="mt-spot rev">
+            <div class="spot-text">
+                <span class="mt-badge">In development</span>
+                <h3>Ordin</h3>
+                <span class="spot-tag">Workflow-automation engine</span>
+                <p>YAML-defined workflows and pluggable activities, run durably with an audit trail of what happened. Fair-code / source-available.</p>
+                <a href="/products/ordin/" class="go">See the product →</a>
+            </div>
+            <div class="spot-visual">
+                <div class="mt-frame">
+                    <div class="bar"><i></i><i></i><i></i></div>
+<pre class="mt-code"><span class="c"># order-fulfilment.yaml</span>
+<span class="k">workflow:</span> order-fulfilment
+<span class="k">on:</span> [ order.created ]
+<span class="k">steps:</span>
+  - <span class="k">activity:</span> <span class="s">reserve-stock</span>
+    <span class="k">retry:</span> 3
+  - <span class="k">activity:</span> <span class="s">charge-card</span>
+  - <span class="k">activity:</span> <span class="s">notify-customer</span>
+    <span class="k">on-fail:</span> <span class="s">escalate</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 · Documentor.AI — early-stage (document motif) -->
+        <div class="mt-spot">
+            <div class="spot-text">
+                <span class="mt-badge">Early-stage</span>
+                <h3>Documentor.AI</h3>
+                <span class="spot-tag">AI document platform</span>
+                <p>Describe the document you want, and it drafts from your own knowledge — so it cites your facts, not the internet's. Every claim traces back to a source you control.</p>
+                <a href="/products/documentor/" class="go">See the product →</a>
+            </div>
+            <div class="spot-visual">
+                <div class="mt-frame">
+                    <div class="bar"><i></i><i></i><i></i></div>
+                    <div class="mt-doc-motif">
+                        <div class="doc-prompt"><span class="p">&rsaquo;</span> Draft the Q3 compliance summary</div>
+                        <div class="line w1"></div>
+                        <div class="line w2"></div>
+                        <div><span class="line short"></span><span class="cite"></span></div>
+                        <div class="line w1"></div>
+                        <div><span class="line short"></span><span class="cite"></span></div>
+                        <div class="line w2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 · Enterprise DAM — early-stage (asset grid) -->
+        <div class="mt-spot rev">
+            <div class="spot-text">
+                <span class="mt-badge">Early-stage</span>
+                <h3>Enterprise Digital Asset Management</h3>
+                <span class="spot-tag">Offered today as a managed Enterprise DAM service</span>
+                <p>Organize, version, and deliver large libraries of media and documents — with the access control, structure, and search that turn a shared drive into an asset system a team can run on.</p>
+                <a href="/products/tallery-gallery/" class="go">See the product →</a>
+            </div>
+            <div class="spot-visual">
+                <div class="mt-frame">
+                    <div class="bar"><i></i><i></i><i></i></div>
+                    <div class="mt-asset-grid">
+                        <div class="tile"></div><div class="tile mint"></div><div class="tile"></div>
+                        <div class="tile"></div><div class="tile"></div><div class="tile mint"></div>
+                        <div class="tile mint"></div><div class="tile"></div><div class="tile"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5 · Booster — internal · in production (terminal) -->
+        <div class="mt-spot">
+            <div class="spot-text">
+                <span class="mt-badge">Internal · in production</span>
+                <h3>Booster</h3>
+                <span class="spot-tag">Dev-environment orchestrator</span>
+                <p>One config brings up a whole local stack, so every engineer runs the same environment and a new machine is productive in minutes. It runs in production across many of our own projects — the strongest test we can give it.</p>
+                <a href="/products/booster/" class="go">See the product →</a>
+            </div>
+            <div class="spot-visual">
+                <div class="mt-frame">
+                    <div class="bar"><i></i><i></i><i></i></div>
+<pre class="mt-code"><span class="p">$</span> booster up
+<span class="ok">&check;</span> postgres   ready :5432
+<span class="ok">&check;</span> redis      ready :6379
+<span class="ok">&check;</span> api        ready :8080
+<span class="ok">&check;</span> web        ready :3000
+<span class="s">stack ready in 12s</span></pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Why the list looks this way -->
+<section class="section-padding bg-soft">
+    <div class="container">
+        <div class="row justify-content-center text-md-center">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow">Honestly labelled</span>
+                <h2 class="fw-600 mb-20">One is in production. The rest are labelled exactly as they stand.</h2>
+                <p class="opacity-8">
+                    That's deliberate, and it's the point: we ship our own products before we ship yours, and
+                    we mature them rather than abandon them. You're not betting on a roadmap promise — you're
+                    looking at work at every stage of a maker's pipeline, labelled exactly as it stands.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Depth closer + CTA -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 md-mb30">
+                <span class="mt-eyebrow">Why we build our own</span>
+                <h2 class="fw-600 mb-20">We don't just use technology — we make it. Which is the rigor your project inherits.</h2>
+                <p class="opacity-8">Most software firms assemble tools. We build our own — products, engines, even the foundations underneath them. You never have to adopt any of it: your project is built on mainstream technology your own team can hire for and maintain. Building at that depth is simply <em>why</em> our engineering is as rigorous as it is — and you can check it yourself.</p>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+                <div class="mt-actions">
+                    <a href="/foundry/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Explore the Foundry</span></a>
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bord text-light"><span>Get an estimate</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

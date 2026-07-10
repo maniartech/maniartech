@@ -1,3 +1,4 @@
-
-
-.dist/
+# Paths Taj Mahal should not watch or treat as content.
+public/
+build/
+node_modules/

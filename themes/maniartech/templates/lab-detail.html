@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% comment %} Shared labs detail. Shims: indigo, internet-object, uexl, signals,
+gotime, vault-storage, tajmahal-ssg. Links are LINK-DARK by default: a repo /
+playground / spec button renders ONLY when the frontmatter field is non-empty,
+so unpublished work shows no dead links. {% endcomment %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <a href="/foundry/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Foundry</a>
+                <div class="mt-15">
+                    {% if pageContext.category %}<span class="mt-eyebrow" style="margin:0 14px 0 0;">{{ pageContext.category }}</span>{% endif %}
+                    {% if pageContext.labStatus %}<span class="mt-badge {% if pageContext.labStatus == "Published" %}is-live{% endif %}">{{ pageContext.labStatus }}</span>{% endif %}
+                </div>
+                <h1 class="fw-bold mt-20 mb-20 prod-h1">{{ title }}</h1>
+                <p class="lead-text prod-lead">{{ description }}</p>
+
+                <div class="mt-actions">
+                    {% if pageContext.playground %}<a href="{{ pageContext.playground }}" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Try the playground</span></a>{% endif %}
+                    {% if pageContext.repo %}<a href="{{ pageContext.repo }}" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bord text-light"><span>View the repository</span></a>{% endif %}
+                    {% if pageContext.spec %}<a href="{{ pageContext.spec }}" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bord text-light"><span>Read the spec</span></a>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mt-prose">
+                {{ content|safe }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="mt-actions mt-50 pt-40 bord-thin-top">
+                    <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>← Back to the Foundry</span></a>
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get this rigor on your project</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

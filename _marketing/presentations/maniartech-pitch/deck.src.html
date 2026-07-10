@@ -1,0 +1,444 @@
+<title>ManiarTech — Engineering Prospectus</title>
+<style>
+/* ================= ManiarTech pitch deck — self-contained ================= */
+@font-face{
+  font-family:'Satoshi';
+  src:url(__SATOSHI__) format('woff2');
+  font-weight:300 900; font-style:normal; font-display:swap;
+}
+:root{
+  --ink:#1a1a1a; --ink-2:#141414; --card:#1d1d1d; --card-2:#212121;
+  --line:rgba(255,255,255,.10); --line-soft:rgba(255,255,255,.06);
+  --mint:#14cf93; --mint-dim:rgba(20,207,147,.14); --mint-line:rgba(20,207,147,.45);
+  --white:#fff; --fog:rgba(255,255,255,.66); --faint:rgba(255,255,255,.42);
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Consolas,monospace;
+  --maxw:1120px;
+}
+*{box-sizing:border-box;}
+.mt{
+  font-family:'Satoshi',system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--white); background:var(--ink);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  line-height:1.5; margin:0;
+}
+.mt img{max-width:100%;display:block;}
+.mt a{color:var(--mint);text-decoration:none;}
+.mt em{font-style:normal;color:var(--mint);}
+
+/* ---- deck mechanics: scroll-story by default, enhanced to deck on wide JS ---- */
+.deck{position:relative;}
+.slide{
+  position:relative; min-height:100vh; width:100%;
+  display:flex; align-items:center;
+  padding:clamp(28px,6vw,84px);
+  border-bottom:1px solid var(--line-soft);
+}
+.slide-in{width:100%;max-width:var(--maxw);margin:0 auto;}
+
+/* Deck mode (added by JS on wide screens) */
+.mt.is-deck{height:100vh;overflow:hidden;}
+.mt.is-deck .slide{
+  position:fixed; inset:0; min-height:0; height:100vh;
+  opacity:0; visibility:hidden; transform:translateY(14px);
+  transition:opacity .5s ease, transform .5s ease, visibility .5s;
+  border-bottom:0;
+}
+.mt.is-deck .slide.active{opacity:1;visibility:visible;transform:none;z-index:2;}
+@media (prefers-reduced-motion:reduce){
+  .mt.is-deck .slide{transition:opacity .001s;transform:none;}
+}
+
+/* ---- chrome (deck mode only) ---- */
+.chrome{position:fixed;inset:0;pointer-events:none;z-index:10;display:none;}
+.mt.is-deck .chrome{display:block;}
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--mint);width:0;transition:width .5s ease;z-index:11;}
+.wordmark{position:fixed;top:26px;left:clamp(28px,6vw,84px);height:26px;opacity:.92;z-index:11;}
+.wordmark img{height:100%;width:auto;}
+.counter{position:fixed;bottom:24px;right:clamp(28px,6vw,84px);font-size:13px;color:var(--faint);
+  font-variant-numeric:tabular-nums;letter-spacing:.06em;z-index:11;}
+.counter b{color:var(--white);font-weight:600;}
+.nav{position:fixed;bottom:20px;left:clamp(28px,6vw,84px);display:flex;gap:10px;z-index:11;pointer-events:auto;}
+.nav button{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .25s,border-color .25s,color .25s;
+}
+.nav button:hover{background:var(--mint);border-color:var(--mint);color:#0d0d0d;}
+.nav button:focus-visible{outline:2px solid var(--mint);outline-offset:3px;}
+.nav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--faint);
+  letter-spacing:.08em;text-transform:uppercase;z-index:11;transition:opacity .4s;}
+
+/* ---- type + components ---- */
+.eyebrow{display:inline-block;color:var(--mint);text-transform:uppercase;letter-spacing:.22em;
+  font-size:12px;font-weight:600;margin-bottom:22px;}
+h1.head{font-size:clamp(34px,6vw,74px);font-weight:800;line-height:1.02;letter-spacing:-.02em;
+  text-wrap:balance;margin:0;}
+h2.head{font-size:clamp(27px,4.4vw,50px);font-weight:800;line-height:1.06;letter-spacing:-.015em;
+  text-wrap:balance;margin:0 0 8px;}
+.head .accent{color:var(--mint);}
+.lead{font-size:clamp(16px,1.55vw,20px);color:var(--fog);line-height:1.6;max-width:60ch;margin:20px 0 0;}
+.kicker{font-size:clamp(15px,1.4vw,18px);color:var(--fog);max-width:62ch;}
+.rule{height:1px;background:var(--line);margin:26px 0;}
+
+.grid{display:grid;gap:clamp(16px,2vw,26px);}
+.g-2{grid-template-columns:repeat(2,1fr);}
+.g-3{grid-template-columns:repeat(3,1fr);}
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,70px);align-items:center;}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(20px,2.2vw,28px);}
+.card h3{margin:0 0 8px;font-size:19px;font-weight:700;}
+.card p{margin:0;color:var(--fog);font-size:15px;line-height:1.55;}
+.card .tag{display:block;color:var(--white);font-weight:600;font-size:14px;margin:2px 0 8px;}
+.card .l{display:block;color:var(--mint);text-transform:uppercase;letter-spacing:.14em;font-size:11px;margin-bottom:12px;font-weight:600;}
+
+/* rows (sequences use mint numerals; negatives use a faint ✕) */
+.rows{display:flex;flex-direction:column;}
+.rw{display:flex;gap:clamp(16px,2.4vw,30px);align-items:baseline;padding:clamp(13px,1.7vw,19px) 0;border-top:1px solid var(--line);}
+.rw .n{flex:0 0 auto;min-width:2.4ch;font-size:clamp(20px,2.4vw,30px);font-weight:800;color:var(--mint);
+  font-variant-numeric:tabular-nums;line-height:1;}
+.rw.neg .n{color:var(--faint);font-weight:400;}
+.rw h4{margin:0 0 3px;font-size:clamp(16px,1.45vw,20px);font-weight:700;}
+.rw p{margin:0;color:var(--fog);font-size:15px;line-height:1.5;}
+
+/* check list */
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,26px);}
+.chk{display:flex;gap:14px;align-items:flex-start;}
+.chk .b{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--mint-dim);display:flex;
+  align-items:center;justify-content:center;margin-top:2px;}
+.chk .b svg{width:14px;height:14px;fill:none;stroke:var(--mint);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+.chk strong{display:block;font-size:16px;margin-bottom:3px;}
+.chk p{margin:0;color:var(--fog);font-size:14.5px;line-height:1.5;}
+
+/* proof chips (live urls) */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border:1px solid var(--line);
+  border-radius:50px;font-family:var(--mono);font-size:13px;color:var(--fog);}
+.chip .d{width:7px;height:7px;border-radius:50%;background:var(--mint);}
+.badge{display:inline-block;padding:5px 13px;border-radius:50px;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:600;color:var(--mint);border:1px solid var(--mint-line);background:var(--mint-dim);}
+
+/* quotes */
+.quote{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,2vw,26px);
+  display:flex;flex-direction:column;}
+.quote p{font-size:clamp(14.5px,1.3vw,16.5px);line-height:1.55;color:rgba(255,255,255,.9);margin:0 0 auto;}
+.quote .who{margin-top:18px;padding-top:15px;border-top:1px solid var(--line);}
+.quote .who b{display:block;font-size:14.5px;}
+.quote .who span{color:var(--mint);font-size:12.5px;}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,26px);margin-top:6px;}
+.stat .n{font-size:clamp(38px,5vw,64px);font-weight:800;line-height:1;color:var(--white);
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
+.stat .n .u{color:var(--mint);}
+.stat .n.stroke{-webkit-text-stroke:1.4px var(--mint-line);-webkit-text-fill-color:transparent;color:transparent;}
+.stat .l{display:block;margin-top:10px;font-size:13.5px;color:var(--faint);max-width:20ch;line-height:1.4;}
+
+/* depth pillars */
+.pills{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px);}
+.pill{border-top:2px solid var(--line);padding-top:18px;}
+.pill .l{display:block;color:var(--mint);text-transform:uppercase;letter-spacing:.14em;font-size:11px;margin-bottom:10px;font-weight:600;}
+.pill h4{margin:0 0 8px;font-size:17px;font-weight:700;}
+.pill p{margin:0;color:var(--fog);font-size:14px;line-height:1.5;}
+
+/* cta / footer */
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:50px;font-weight:600;font-size:15px;
+  border:1px solid transparent;transition:transform .2s,background .2s,color .2s,border-color .2s;}
+.btn.p{background:var(--mint);color:#0d0d0d;}
+.btn.p:hover{transform:translateY(-2px);}
+.btn.s{border-color:var(--line);color:var(--white);}
+.btn.s:hover{border-color:var(--mint);color:var(--mint);}
+.meta{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:22px 40px;
+  align-items:center;color:var(--faint);font-size:13px;line-height:1.5;}
+.meta .iso{height:52px;width:auto;opacity:.9;}
+.meta b{color:var(--fog);font-weight:600;}
+
+/* dot-grid motif (cover + close) */
+.dotgrid{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);
+  background-size:26px 26px;-webkit-mask-image:radial-gradient(120% 90% at 82% 12%,#000,transparent 70%);
+          mask-image:radial-gradient(120% 90% at 82% 12%,#000,transparent 70%);}
+.cover-tag{display:flex;align-items:center;gap:14px;margin-top:34px;color:var(--faint);font-size:13px;letter-spacing:.04em;}
+.cover-tag .ln{height:1px;width:46px;background:var(--mint);}
+
+/* ---------- responsive ---------- */
+@media (max-width:820px){
+  .g-2,.g-3,.split,.checks,.stats,.pills{grid-template-columns:1fr;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .split{gap:26px;}
+  .wordmark{height:22px;}
+}
+@media (max-width:520px){
+  .stats{grid-template-columns:1fr;}
+  .cta{flex-direction:column;}
+  .btn{justify-content:center;}
+}
+
+/* ---------- print → PDF (one slide per landscape page) ---------- */
+@media print{
+  @page{size:1280px 720px;margin:0;}
+  .mt,.mt.is-deck{height:auto;overflow:visible;background:var(--ink);}
+  .chrome,.nav,.progress,.hint,.counter,.wordmark{display:none!important;}
+  .mt.is-deck .slide,.slide{position:relative!important;inset:auto!important;height:720px!important;
+    min-height:720px!important;opacity:1!important;visibility:visible!important;transform:none!important;
+    page-break-after:always;break-after:page;border-bottom:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+
+<div class="mt" id="mt">
+  <div class="deck" id="deck">
+
+    <!-- 1 · Cover — the maker thesis -->
+    <section class="slide" data-label="Cover">
+      <div class="dotgrid"></div>
+      <div class="slide-in">
+        <img src="__LOGO__" alt="ManiarTech" style="height:34px;width:auto;margin-bottom:44px;">
+        <h1 class="head">Most software teams use technology.<br><span class="accent">We make it.</span></h1>
+        <p class="lead">A senior software-engineering lab. We build and modernize the systems companies run on — and we build the foundations underneath them. Founded 2010 · ISO-certified · led by a founder who engineered systems at JP&nbsp;Morgan.</p>
+        <div class="cover-tag"><span class="ln"></span> An engineering prospectus · 2026</div>
+      </div>
+    </section>
+
+    <!-- 2 · The problem (tension) -->
+    <section class="slide" data-label="The problem">
+      <div class="slide-in">
+        <span class="eyebrow">Let's be honest about our industry</span>
+        <h2 class="head">Custom software usually disappoints. Almost always for the same reasons.</h2>
+        <div class="rows" style="margin-top:24px;">
+          <div class="rw neg"><span class="n">✕</span><div><h4>Juniors learning on your project</h4><p>You pay for their education, and it ships in your product.</p></div></div>
+          <div class="rw neg"><span class="n">✕</span><div><h4>Vendors who vanish</h4><p>They get acquired, lose the people who knew your system, or simply move on.</p></div></div>
+          <div class="rw neg"><span class="n">✕</span><div><h4>Lock-in by design</h4><p>Proprietary tech you can't hire for — so leaving is never really an option.</p></div></div>
+          <div class="rw neg"><span class="n">✕</span><div><h4>Big-bang rewrites</h4><p>All-or-nothing, high-risk, and abandoned half-finished more often than anyone admits.</p></div></div>
+          <div class="rw neg"><span class="n">✕</span><div><h4>Over-engineering</h4><p>A science experiment when what you needed was a solution.</p></div></div>
+        </div>
+        <p class="kicker" style="margin-top:22px;">None of these are accidents. They're what happens when software is <em>assembled</em> by people who don't build deeply.</p>
+      </div>
+    </section>
+
+    <!-- 3 · So we built the opposite (antidote pivot) -->
+    <section class="slide" data-label="The antidote">
+      <div class="slide-in">
+        <span class="eyebrow">So we built the opposite</span>
+        <h2 class="head">A deliberately different kind of software company.</h2>
+        <p class="lead" style="margin-bottom:8px;">Everything about how we work is a direct answer to why software usually goes wrong.</p>
+        <div class="grid g-3" style="margin-top:26px;">
+          <div class="card"><span class="l">01 — Depth</span><h3>Makers, not assemblers</h3><p>We build our own libraries, frameworks, and standards. That depth is exactly what your project inherits.</p></div>
+          <div class="card"><span class="l">02 — People</span><h3>Senior-only, always</h3><p>Experienced engineers do your work. No juniors learning on your dime, no bait-and-switch team.</p></div>
+          <div class="card"><span class="l">03 — Honesty</span><h3>Honest by default</h3><p>Mainstream tech you own outright, claims you can verify, and the truth — even when it costs us the project.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · We make technology (depth — the core wedge) -->
+    <section class="slide" data-label="Makers, not assemblers">
+      <div class="slide-in">
+        <span class="eyebrow">Makers, not assemblers</span>
+        <h2 class="head">Most teams use technology. We make it — libraries, standards, even a language.</h2>
+        <p class="lead">Over the years we've authored our own data, time, expression, and API standards, published open-source Go libraries, and built the platforms our client systems run on. Most software companies only ever <em>consume</em> this layer. We build it.</p>
+        <div class="pills" style="margin-top:26px;">
+          <div class="pill"><span class="l">A data format</span><h4>Internet Object</h4><p>~40% smaller than minified JSON, ~30% fewer LLM tokens — with a live playground you can try against JSON yourself.</p></div>
+          <div class="pill"><span class="l">A language</span><h4>Indigo &amp; UExL</h4><p>A Go superset in development, and an expression engine with zero allocations on the hot paths. Yes — we build languages.</p></div>
+          <div class="pill"><span class="l">Open source</span><h4>Public Go libraries</h4><p>signals, gotime, vault-storage on our GitHub — and Taj Mahal, the framework this very prospectus is built on.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · What that means for you (depth → buyer benefit) -->
+    <section class="slide" data-label="Why it matters to you">
+      <div class="slide-in">
+        <span class="eyebrow">Why that matters to you</span>
+        <h2 class="head">You'll never write a line of it. It's still why your software is better.</h2>
+        <div class="checks" style="margin-top:26px;">
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>We can go deeper when it counts.</strong><p>When off-the-shelf isn't enough, we build what's missing — instead of forcing your problem into a bad fit.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>No lock-in, ever.</strong><p>You don't adopt any of our tech. Your project runs on mainstream, hireable stacks — Go, Python, React, PostgreSQL. You own the code and can walk.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>Claims you can check.</strong><p>We ship runnable benchmarks and public repositories. Don't take our word for it — run it yourself.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>A refusal to fake it.</strong><p>The team that insists "no output is better than wrong output" in a compiler brings that same discipline to your codebase.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · Senior + honest (de-risk) -->
+    <section class="slide" data-label="Low-risk by design">
+      <div class="slide-in">
+        <span class="eyebrow">Senior-only · honest by default</span>
+        <h2 class="head">The safeguards that make working with us low-risk.</h2>
+        <div class="checks" style="margin-top:26px;">
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>Senior engineers do your work.</strong><p>We don't learn on your project.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>Predictable by process.</strong><p>ISO 9001:2015 &amp; ISO/IEC 27001:2022 certified. Delivery from process, not heroics.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>Quality before it reaches you.</strong><p>Every deliverable reviewed for quality, design, and fit first.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>Right-sized, never over-engineered.</strong><p>We solve your problem at the right scale — no science experiments.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>Fixes that stay fixed.</strong><p>When we fix a defect, it doesn't spawn three more. Bug counts fall as a project matures.</p></div></div>
+          <div class="chk"><span class="b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div><strong>Straight talk.</strong><p>We'll tell you the truth — including when something shouldn't be built at all.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · Proof: in production -->
+    <section class="slide" data-label="In production">
+      <div class="slide-in">
+        <div class="split">
+          <div>
+            <span class="eyebrow">Proof, not slideware</span>
+            <h2 class="head">A 35-year accredited lab runs its daily work on what we built.</h2>
+            <p class="lead">A laboratory information system for <b style="color:#fff">Chemo Test Laboratory</b>, live in production on our own <b style="color:#fff">Processious</b> platform: sample intake, multi-stage technical review and authorization, and recipient-bound, OTP-gated report delivery.</p>
+            <p class="kicker" style="margin-top:18px;">You don't have to take our word for it — it's running live:</p>
+            <div class="chips">
+              <span class="chip"><span class="d"></span>chemotestlaboratory.com</span>
+              <span class="chip"><span class="d"></span>reports.chemotestlaboratory.com</span>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="padding:0;overflow:hidden;">
+              <div style="display:flex;gap:7px;padding:14px 16px;border-bottom:1px solid var(--line);background:#161616;">
+                <i style="width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.16);"></i>
+                <i style="width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.16);"></i>
+                <i style="width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.16);"></i>
+              </div>
+              <div style="padding:26px;">
+                <span class="badge">In production</span>
+                <h3 style="margin:16px 0 6px;font-size:22px;">Chemo Test Laboratory</h3>
+                <p style="color:var(--fog);font-size:14.5px;line-height:1.6;margin:0;">NABL / US-FDA / ISO-accredited. Every sample tracked intake → review → authorization → recipient-verified delivery. Their public site runs on our Taj&nbsp;Mahal framework too.</p>
+                <div class="rule"></div>
+                <p style="color:var(--faint);font-size:13px;margin:0;font-family:var(--mono);">Go · MongoDB · React · AWS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · Proof: track record + a voice -->
+    <section class="slide" data-label="Track record">
+      <div class="slide-in">
+        <span class="eyebrow">And a track record to match</span>
+        <h2 class="head">Real engagements — told straight.</h2>
+        <div class="grid g-3" style="margin-top:24px;">
+          <div class="card"><span class="badge">Long-running</span><h3 style="margin-top:12px;">600 forms became one</h3><p>For Reliable Analytical Labs we replaced a 600-form legacy system with a single workflow screen — still running, by the lab's account, ~15 years on.</p></div>
+          <div class="card"><span class="badge">Live 2026</span><h3 style="margin-top:12px;">A real-estate presales platform</h3><p>End-to-end — showcase, interactive floor plans, an estimation-and-payment-plan engine, and a digital asset library.</p></div>
+          <div class="card"><span class="badge">2012–2018</span><h3 style="margin-top:12px;">Touchpoint Dashboard</h3><p>Principal-architect engineering on a customer-journey platform used by Fortune-500 teams; cited in O'Reilly's <em>Mapping Experiences</em>.</p></div>
+        </div>
+        <div class="grid g-2" style="margin-top:20px;">
+          <div class="quote"><p>“ManiarTech is a loyal and trustworthy partner… a great track record being transparent about both time and issues that arise.”</p><div class="who"><b>Peter Haid</b><span>Chief Product Officer, Strativity Group</span></div></div>
+          <div class="quote"><p>“…a top-notch professional firm… their work is on time, high quality, and fairly priced… excellent communicators throughout the project lifecycle.”</p><div class="who"><b>Jeff Hines</b><span>Founder, UpSport&nbsp;IO</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 · The people -->
+    <section class="slide" data-label="The people">
+      <div class="slide-in">
+        <span class="eyebrow">The people behind it</span>
+        <h2 class="head">Led by an engineer who's built serious software for 27 years.</h2>
+        <p class="lead">Founded in 2010 by <b style="color:#fff">Aamir Maniar</b> — Managing Director &amp; Engineering Head, who earlier built financial-technology systems at <b style="color:#fff">JP&nbsp;Morgan</b>. With <b style="color:#fff">Oomera Maniar</b> on operations and a vetted network of specialist engineers, backed by a documented, ISO-certified process — so the work lives in systems, not in one person's head.</p>
+        <div class="stats">
+          <div class="stat"><div class="n">27</div><span class="l">Years engineering software</span></div>
+          <div class="stat"><div class="n">100<span class="u">%</span></div><span class="l">Senior engineers on your project</span></div>
+          <div class="stat"><div class="n stroke">2</div><span class="l">ISO certifications (9001 &amp; 27001)</span></div>
+          <div class="stat"><div class="n">2010</div><span class="l">Building for clients since</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · Where we help (capability map, brief) -->
+    <section class="slide" data-label="Where we help">
+      <div class="slide-in">
+        <span class="eyebrow">Where we put it to work</span>
+        <h2 class="head">Five ways that engineering becomes your advantage.</h2>
+        <div class="grid g-3" style="margin-top:24px;">
+          <div class="card"><span class="l">Systems</span><h3>Enterprise engineering</h3><p>Automate and connect the operations your business runs on — process automation, DAM, analytics.</p></div>
+          <div class="card"><span class="l">Products</span><h3>Application engineering</h3><p>Bespoke applications built end to end — or an expert eye on architecture you already have.</p></div>
+          <div class="card"><span class="l">Intelligence</span><h3>AI, applied</h3><p>AI built in where it genuinely helps — across operations and applications, not as a gimmick.</p></div>
+          <div class="card"><span class="l">Renewal</span><h3>Modernization</h3><p>Aging systems brought onto modern, maintainable, mainstream stacks — no risky big-bang rewrite.</p></div>
+          <div class="card"><span class="l">Together</span><h3>Technology partnership</h3><p>For founders and product teams — we share the build, not just staff it. Selective by design.</p></div>
+          <div class="card" style="display:flex;align-items:center;background:transparent;border-style:dashed;"><p style="color:var(--fog);">Not sure which fits? That's normal — most real problems cross a line or two. We'll tell you honestly.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 · How we start -->
+    <section class="slide" data-label="How we start">
+      <div class="slide-in">
+        <span class="eyebrow">How we start</span>
+        <h2 class="head">A free estimate that shows its work.</h2>
+        <div class="rows" style="margin-top:24px;">
+          <div class="rw"><span class="n">01</span><div><h4>Tell us what you're building</h4><p>In plain words — the problem, rough scope, timeline, any constraints. No RFP required.</p></div></div>
+          <div class="rw"><span class="n">02</span><div><h4>A senior engineer reads it back</h4><p>You get a ballpark and an honest take — with the assumptions shown, so you can check the thinking, not just the number.</p></div></div>
+          <div class="rw"><span class="n">03</span><div><h4>You decide</h4><p>No obligation. We'll even tell you when a project needs a real conversation instead — or shouldn't be built at all.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 · Close -->
+    <section class="slide" data-label="Let's make yours">
+      <div class="dotgrid"></div>
+      <div class="slide-in">
+        <span class="eyebrow">Let's build something that lasts</span>
+        <h1 class="head">We make technology.<br><span class="accent">Let's make yours.</span></h1>
+        <p class="lead">Start with a free, no-obligation estimate — an honest ballpark and a straight take from a senior engineer.</p>
+        <div class="cta">
+          <a class="btn p" href="mailto:contact@maniartech.com">Estimate your project →</a>
+          <a class="btn s" href="mailto:contact@maniartech.com">Talk to a human</a>
+        </div>
+        <div class="meta">
+          <img class="iso" src="__ISO__" alt="ISO 9001:2015 &amp; ISO/IEC 27001:2022 certified">
+          <div><b>Maniar Technologies Pvt. Ltd.</b> · Engineering since 1999 · Mira Road (E), Thane, Maharashtra, India<br>
+          contact@maniartech.com · +91&nbsp;89768&nbsp;97675 · linkedin.com/in/aamironline · github.com/maniartech</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- deck chrome -->
+  <div class="progress" id="progress"></div>
+  <a class="wordmark" href="#" id="wordmark"><img src="__LOGO__" alt="ManiarTech"></a>
+  <div class="counter" id="counter"><b>01</b> / 12</div>
+  <div class="nav">
+    <button id="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+    <button id="next" aria-label="Next slide"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+  </div>
+  <div class="hint" id="hint">Use ← → to navigate</div>
+</div>
+
+<script>
+(function(){
+  var mt=document.getElementById('mt');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total=slides.length, i=0;
+  var progress=document.getElementById('progress');
+  var counter=document.getElementById('counter');
+  var hint=document.getElementById('hint');
+  var mq=window.matchMedia('(min-width:821px)');
+  function pad(n){return (n<10?'0':'')+n;}
+  function render(){
+    slides.forEach(function(s,x){s.classList.toggle('active',x===i);});
+    progress.style.width=((i+1)/total*100)+'%';
+    counter.innerHTML='<b>'+pad(i+1)+'</b> / '+pad(total);
+  }
+  function go(n){i=Math.max(0,Math.min(total-1,n));render();if(hint&&i>0){hint.style.opacity='0';}}
+  function next(){go(i+1);} function prev(){go(i-1);}
+  document.getElementById('next').addEventListener('click',next);
+  document.getElementById('prev').addEventListener('click',prev);
+  document.getElementById('wordmark').addEventListener('click',function(e){e.preventDefault();go(0);});
+  function enhance(){
+    if(mq.matches){ mt.classList.add('is-deck'); render(); }
+    else{ mt.classList.remove('is-deck'); slides.forEach(function(s){s.classList.remove('active');}); }
+  }
+  window.addEventListener('keydown',function(e){
+    if(!mt.classList.contains('is-deck'))return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(total-1);}
+  });
+  var sx=0;
+  window.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX;},{passive:true});
+  window.addEventListener('touchend',function(e){
+    if(!mt.classList.contains('is-deck'))return;
+    var dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60){dx<0?next():prev();}
+  },{passive:true});
+  if(mq.addEventListener)mq.addEventListener('change',enhance);else mq.addListener(enhance);
+  enhance();
+})();
+</script>

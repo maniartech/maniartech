@@ -1,0 +1,25 @@
+/* Custom Header Styles
+-----------------------------------------------------------------*/
+.icon-img-200 {
+  width: 200px;
+}
+
+.logo-header {
+  margin-bottom: -20px;
+}
+
+/* Custom Banner Styles
+-----------------------------------------------------------------*/
+.home-banner {
+  h1 {
+    font-size: 62px;
+    line-height: 1.1;
+  }
+}
+
+/* Utilites
+-----------------------------------------------------------------*/
+.stroke {
+    color: transparent;
+  -webkit-text-stroke: 0.5px #fff;
+}

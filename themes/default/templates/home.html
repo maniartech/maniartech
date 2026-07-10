@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <span class="badge reveal reveal-1">✦ Built with Taj Mahal</span>
+    <h1 class="hero-title reveal reveal-1">{{ title }}</h1>
+    <p class="hero-sub reveal reveal-2">{{ description }}</p>
+    <div class="hero-actions reveal reveal-3">
+      <a class="btn btn-primary" href="#start">Get started</a>
+      <a class="btn btn-ghost" href="https://github.com/maniartech/tajmahal" rel="noopener">View on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="features">
+    <article class="card">
+      <div class="icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <h3>Modular by design</h3>
+      <p>Compose your site from independent modules — each with its own pages, content, and even its own theme.</p>
+    </article>
+
+    <article class="card">
+      <div class="icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h3>Fast &amp; portable</h3>
+      <p>A Go-native build emits a static site with page-relative links and content-hashed assets — copy it anywhere.</p>
+    </article>
+
+    <article class="card">
+      <div class="icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7v10l8 4 8-4V7l-8-4-8 4z"/><path d="M4 7l8 4 8-4"/><path d="M12 21V11"/></svg>
+      </div>
+      <h3>Batteries included</h3>
+      <p>Django-style templates, components &amp; slots, an esbuild asset pipeline, and live reload — no config required.</p>
+    </article>
+  </section>
+
+  <section id="start" class="prose reveal reveal-3">
+    {{ content|safe }}
+  </section>
+</div>
+{% endblock %}

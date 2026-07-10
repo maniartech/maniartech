@@ -1,0 +1,1050 @@
+/* ===========================================================================
+   ManiarTech design layer — on top of the Infolio theme.
+   Uses the theme's variables ($main_color mint, $sub_bg, etc.).
+
+   PHILOSOPHY (read before editing): spacing and type are a SYSTEM, not
+   per-section values. Everything below is FLUID (clamp), so any section on
+   any page scales smoothly mobile → desktop with NO per-breakpoint patches.
+   Media queries here are for LAYOUT ONLY (stacking, menu). If a section looks
+   wrong, fix the token/component — never add a one-off !important override.
+   =========================================================================== */
+
+/* ---- Design tokens -------------------------------------------------------- */
+:root {
+  --sp-section: clamp(54px, 8vw, 104px);   /* section top/bottom padding      */
+  --sp-head:    clamp(30px, 4.5vw, 54px);  /* gap under a .sec-head           */
+  --sp-card:    clamp(22px, 2.8vw, 34px);  /* interior padding of cards       */
+  --sp-gap:     clamp(20px, 3vw, 30px);    /* grid gutters / block gaps       */
+  --fs-h2:      clamp(24px, 3.4vw, 40px);  /* section headings                */
+  --fs-h3:      clamp(21px, 2.6vw, 30px);
+  --fs-body:    16px;
+}
+
+/* ---- Section rhythm (one source of truth for every page) ------------------ */
+.section-padding { padding-top: var(--sp-section); padding-bottom: var(--sp-section); }
+.section-padding.pt-0 { padding-top: 0; }
+.section-padding.pb-0 { padding-bottom: 0; }
+.sec-head { margin-bottom: var(--sp-head); }
+.sec-head h2, .sec-head h3, section h2.fw-600, section h3.fw-600 { font-size: var(--fs-h2); line-height: 1.14; text-wrap: balance; }
+
+/* Theme spacing utilities, made fluid so they self-scale (no media queries) */
+.mb-80 { margin-bottom: clamp(32px, 5vw, 80px); }
+.mb-60 { margin-bottom: clamp(24px, 4vw, 60px); }
+.mb-50 { margin-bottom: clamp(22px, 3.5vw, 50px); }
+.mb-40 { margin-bottom: clamp(18px, 3vw, 40px); }
+.mb-30 { margin-bottom: clamp(14px, 2.4vw, 30px); }
+.mb-20 { margin-bottom: clamp(10px, 2vw, 20px); }
+.mt-80 { margin-top: clamp(32px, 5vw, 80px); }
+.mt-60 { margin-top: clamp(24px, 4vw, 60px); }
+.mt-50 { margin-top: clamp(22px, 3.5vw, 50px); }
+.mt-40 { margin-top: clamp(18px, 3vw, 40px); }
+.mt-30 { margin-top: clamp(14px, 2.4vw, 30px); }
+.pt-80 { padding-top: clamp(30px, 5vw, 80px); }
+.pb-80 { padding-bottom: clamp(30px, 5vw, 80px); }
+.pt-40 { padding-top: clamp(22px, 3vw, 40px); }
+.fz-70 { font-size: clamp(40px, 5.5vw, 70px); }
+
+/* ---- Buttons -------------------------------------------------------------- */
+.butn {
+  &.butn-sm { padding: 11px 26px; }
+  &.butn-rounded { border-radius: 50px; }
+}
+/* Mint-filled buttons: dark text; on hover the fill flips transparent → white.
+   No !important — _mt.scss is imported last, and the :hover selector below is more
+   specific than the default, so the cascade resolves this correctly on its own. */
+.butn.main-colorbg,
+.butn.main-colorbg span { color: #101010; }
+.butn.butn-bg.main-colorbg:hover,
+.butn.butn-bg.main-colorbg:hover span { color: #fff; }
+
+/* ===========================================================================
+   Hero — one grid, correct across desktop / tablet / mobile.
+   >=1200 : title top-left, copy bottom-left, gears span the right column.
+   <1200  : single column, ordered  title -> gears -> copy.
+   =========================================================================== */
+.main-header { padding-top: 100px; padding-bottom: 55px; }   /* clears the absolute navbar */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-areas: "title visual" "copy visual";
+  align-items: center;
+  column-gap: 50px;
+}
+.hero-title { grid-area: title; margin: 0 0 26px; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.08; }
+.hero-visual { grid-area: visual; }
+.hero-copy  { grid-area: copy; }
+.hero-lead  { max-width: 560px; margin-bottom: 0; }
+/* Action rows (hero + any CTA): flex with a real gap, stacked full-width <576.
+   Use .mt-actions anywhere two buttons sit together — never bare inline buttons. */
+.hero-actions, .mt-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px; }
+.text-center .mt-actions, .mt-actions.justify-center { justify-content: center; }
+@media (min-width: 768px) {
+  .text-md-center .mt-actions { justify-content: center; }
+}
+.hero-note  { margin-top: 26px; font-size: 14px; max-width: 560px; }
+
+/* The gear SVG ships with a fixed height="100.78mm" (~381px) that squished the
+   gears into a tall box. Force aspect-ratio scaling so it hugs the artwork. */
+.hero-visual .gear-wrapper { max-width: 520px; margin-left: auto; }
+.hero-visual .gear-svg { width: 100%; height: auto; display: block; }
+
+@media (max-width: 1199px) {
+  .hero-grid { grid-template-columns: 1fr; grid-template-areas: "title" "visual" "copy"; column-gap: 0; }
+  .hero-title { margin-bottom: 18px; }
+  .hero-visual { margin: 4px 0 22px; }
+  .hero-visual .gear-wrapper { max-width: 340px; margin: 0 auto; }
+}
+@media (max-width: 575px) {
+  .main-header { padding-top: 74px; padding-bottom: 34px; }
+  .hero-visual .gear-wrapper { max-width: 290px; }
+  .hero-actions, .mt-actions { flex-direction: column; }
+  /* ONE button policy on phones: every button is a full-width block, no matter
+     which section it sits in — never a mix of left / centered / full-width. */
+  section .butn, .main-header .butn { display: block; width: 100%; text-align: center; }
+  /* let the "building now" band's CTA fill too (its flex cell would otherwise shrink) */
+  .mt-now { flex-direction: column; align-items: stretch; }
+  .mt-now .now-cta { width: 100%; }
+}
+
+/* ===========================================================================
+   Cards & content components — all use the --sp-card token for consistency.
+   =========================================================================== */
+.mt-card {
+  height: 100%;
+  padding: var(--sp-card);
+  background: $sub_bg;
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 14px;
+  transition: transform .4s ease, border-color .4s ease;
+  h5 { color: #fff; }
+  p  { color: rgba(255, 255, 255, .70); margin-bottom: 0; }
+  &:hover { transform: translateY(-6px); border-color: rgba($main_color, .55); }
+}
+
+.mt-feature {
+  height: 100%;
+  padding: var(--sp-card);
+  background: $sub_bg;
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 14px;
+  transition: transform .4s ease, border-color .4s ease;
+  .num { display: block; margin-bottom: 16px; font-size: 30px; font-weight: 800; line-height: 1; color: $main_color; letter-spacing: 1px; }
+  .icon { display: block; margin-bottom: 20px; line-height: 1; span { font-size: 46px; color: $main_color; line-height: 1; } }
+  h5 { color: #fff; font-size: 20px; margin-bottom: 12px; }
+  p  { color: rgba(255, 255, 255, .68); font-size: var(--fs-body); line-height: 1.65; margin-bottom: 0; }
+  strong { color: #fff; }
+  &:hover { transform: translateY(-6px); border-color: rgba($main_color, .5); }
+}
+
+.mt-quote {
+  position: relative;
+  height: 100%;
+  padding: var(--sp-card);
+  background: $sub_bg;
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 14px;
+  overflow: hidden;
+  &:before { content: '\201C'; position: absolute; top: 6px; right: 22px; font-family: Georgia, serif; font-size: 90px; line-height: 1; color: rgba($main_color, .16); }
+  .quote-text { color: rgba(255, 255, 255, .85); font-size: 17px; line-height: 1.7; }
+  .q-name { display: block; margin-top: 18px; color: $main_color; font-weight: 600; }
+  .q-role { color: rgba(255, 255, 255, .50); font-size: 14px; }
+}
+
+/* Diagnostic numbered list (§ "Is this you?") — editorial rows, NOT boxes.
+   Deliberately unlike .mt-check (tick badges, 2-col) and .mt-cap (tiles) so three
+   adjacent sections never share a treatment. Big numeral is the visual anchor. */
+/* Rows carry a top rule only (no trailing bottom border) so the two stacked
+   columns never double-line at the seam on mobile, and unequal columns don't
+   leave a floating bottom line on desktop. */
+.mt-diag {
+  display: flex; align-items: baseline;
+  gap: clamp(16px, 3vw, 34px);
+  padding: clamp(18px, 2.6vw, 30px) 0;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+  transition: padding-left .3s ease;
+  .num { flex: 0 0 auto; min-width: 2.2ch; font-size: clamp(26px, 3.6vw, 46px); font-weight: 800; line-height: 1; color: rgba($main_color, .9); font-variant-numeric: tabular-nums; }
+  .d { flex: 1 1 auto; }
+  h5 { color: #fff; margin: 0 0 6px; font-size: clamp(18px, 2vw, 22px); }
+  p  { color: rgba(255, 255, 255, .66); margin: 0; font-size: var(--fs-body); line-height: 1.65; max-width: 60ch; }
+  &:hover { padding-left: 10px; .num { color: $main_color; } }
+}
+.mt-diag-foot { margin-top: clamp(22px, 3vw, 34px); color: rgba(255, 255, 255, .8); max-width: 70ch; }
+
+/* Checklist row */
+.mt-check {
+  display: flex;
+  align-items: flex-start;
+  padding: clamp(14px, 2vw, 22px) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  .tick { flex: 0 0 auto; width: 28px; height: 28px; margin: 2px 18px 0 0; border-radius: 50%; background: rgba($main_color, .14); display: flex; align-items: center; justify-content: center;
+    svg { width: 15px; height: 15px; stroke: $main_color; stroke-width: 3; fill: none; } }
+  .ct strong { color: #fff; }
+  .ct p { color: rgba(255, 255, 255, .66); margin: 6px 0 0; font-size: 15.5px; line-height: 1.6; }
+}
+
+/* Pillar column */
+.mt-pillar {
+  height: 100%;
+  padding-top: 24px;
+  border-top: 2px solid rgba(255, 255, 255, .12);
+  transition: border-color .4s ease;
+  .lbl { display: block; margin-bottom: 14px; color: $main_color; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
+  h5 { color: #fff; margin-bottom: 12px; }
+  p  { color: rgba(255, 255, 255, .66); font-size: 15.5px; line-height: 1.65; }
+  &:hover { border-color: $main_color; }
+}
+
+/* Capability card (§ What we do) — a whole-card link into a service page */
+.mt-cap {
+  display: block;
+  height: 100%;
+  padding: var(--sp-card);
+  background: $sub_bg;
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 14px;
+  transition: transform .4s ease, border-color .4s ease;
+  h5 { color: #fff; margin-bottom: 10px; }
+  p  { color: rgba(255, 255, 255, .68); font-size: var(--fs-body); line-height: 1.6; margin-bottom: 16px; }
+  .go { color: $main_color; font-weight: 600; font-size: 14px; }
+  &:hover { transform: translateY(-6px); border-color: rgba($main_color, .5); }
+}
+
+/* "What we're building now" — the live-lab pulse (closer zone) */
+.mt-now {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: clamp(16px, 3vw, 34px);
+  padding: var(--sp-card);
+  background: linear-gradient(120deg, rgba($main_color, .10), rgba($main_color, .02));
+  border: 1px solid rgba($main_color, .28);
+  border-radius: 16px;
+  .now-body { flex: 1 1 300px; }
+  .now-lbl { display: inline-flex; align-items: center; gap: 9px; color: $main_color; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
+  .now-dot { width: 8px; height: 8px; border-radius: 50%; background: $main_color; animation: mt-pulse 2s infinite; }
+  h4 { color: #fff; margin: 12px 0 8px; }
+  p  { color: rgba(255, 255, 255, .72); margin: 0; }
+  .now-cta { flex: 0 0 auto; }
+}
+@keyframes mt-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba($main_color, .5); }
+  70%  { box-shadow: 0 0 0 11px rgba($main_color, 0); }
+  100% { box-shadow: 0 0 0 0 rgba($main_color, 0); }
+}
+
+.mt-list p { color: rgba(255, 255, 255, .72); }
+.mt-list strong { color: #fff; }
+.bg-soft { background: #161616; }
+.lead-text { font-size: clamp(16px, 1.5vw, 19px); line-height: 1.75; color: rgba(255, 255, 255, .78); }
+.mt-eyebrow { display: inline-block; margin-bottom: 14px; color: $main_color; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
+.sec-head .sub-title { display: inline-block; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; }
+
+/* ===========================================================================
+   Products — hub cards, status badge, detail hero, prose body
+   =========================================================================== */
+.prod-h1   { font-size: clamp(30px, 4.4vw, 54px); line-height: 1.1; }
+.prod-lead { max-width: 720px; }
+
+.mt-badge {
+  display: inline-block; padding: 5px 13px; border-radius: 50px;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+  color: rgba(255, 255, 255, .6); border: 1px solid rgba(255, 255, 255, .16);
+  &.is-live { color: $main_color; border-color: rgba($main_color, .5); background: rgba($main_color, .1); }
+}
+
+/* clickable "see it live" proof chips */
+.mt-proof-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 2px 0 24px; }
+.mt-proof-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 15px; border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, .16); color: rgba(255, 255, 255, .8); font-size: 13.5px;
+  transition: border-color .3s ease, color .3s ease;
+  .ar { color: $main_color; }
+  &:hover { border-color: rgba($main_color, .5); color: #fff; }
+}
+
+/* ---------------------------------------------------------------------------
+   Product spotlights — alternating left/right text + framed visual.
+   The in-production flagship shows a real screenshot; dev tools show
+   code/terminal; the rest show clean CSS motifs. Consistent frame, varied
+   content — interesting without needing screenshots we don't have.
+   --------------------------------------------------------------------------- */
+.mt-spot {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  padding: clamp(38px, 6vw, 78px) 0;
+  & + .mt-spot { border-top: 1px solid rgba(255, 255, 255, .07); }
+  &.rev .spot-text   { order: 2; }
+  &.rev .spot-visual { order: 1; }
+  .spot-text {
+    h3 { color: #fff; font-size: clamp(26px, 3vw, 40px); font-weight: 800; line-height: 1.08; margin: 14px 0 6px; }
+    .spot-tag { color: rgba(255, 255, 255, .6); font-size: 15px; }
+    p { color: rgba(255, 255, 255, .8); font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; margin: 16px 0 22px; }
+    .go { color: $main_color; font-weight: 600; }
+    &:hover .go, .go:hover { text-decoration: underline; }
+  }
+}
+@media (max-width: 767px) {
+  .mt-spot { grid-template-columns: 1fr; gap: clamp(22px, 5vw, 32px); padding: clamp(34px, 8vw, 50px) 0; }
+  .mt-spot .spot-text,   .mt-spot.rev .spot-text   { order: 1; }
+  .mt-spot .spot-visual, .mt-spot.rev .spot-visual { order: 2; }
+}
+
+/* Framed "window" visual (reused: screenshot / code / motif) */
+.mt-frame {
+  border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .10);
+  background: #0d0d0d; box-shadow: 0 30px 70px rgba(0, 0, 0, .5);
+  .bar { display: flex; align-items: center; height: 38px; padding: 0 15px; background: #1c1c1c; border-bottom: 1px solid rgba(255, 255, 255, .07);
+    i { width: 11px; height: 11px; border-radius: 50%; margin-right: 8px; background: rgba(255, 255, 255, .18); display: inline-block; } }
+  img { display: block; width: 100%; height: auto; }
+}
+
+/* Code / terminal panel */
+.mt-code {
+  margin: 0; padding: clamp(16px, 2vw, 24px); overflow-x: auto;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 13px; line-height: 1.75; color: rgba(255, 255, 255, .82); white-space: pre;
+  .k  { color: $main_color; }               // key / keyword
+  .s  { color: $main_color2; }              // string (lime)
+  .c  { color: rgba(255, 255, 255, .4); }   // comment
+  .ok { color: $main_color; }               // success tick
+  .p  { color: #7fb0ff; }                   // prompt
+}
+
+/* Document motif (Documentor) — lines with mint "citation" marks */
+.mt-doc-motif {
+  padding: clamp(20px, 2.6vw, 30px);
+  .doc-prompt { font-family: monospace; font-size: 13px; color: rgba(255, 255, 255, .55); margin-bottom: 22px;
+    .p { color: $main_color; } }
+  .line { height: 9px; border-radius: 4px; background: rgba(255, 255, 255, .12); margin-bottom: 13px; }
+  .line.w1 { width: 92%; } .line.w2 { width: 78%; } .line.short { width: 46%; display: inline-block; vertical-align: middle; }
+  .cite { display: inline-block; height: 9px; width: 54px; border-radius: 4px; background: rgba($main_color, .55); vertical-align: middle; margin-left: 8px; }
+}
+
+/* Asset-grid motif (Enterprise DAM) */
+.mt-asset-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: clamp(16px, 2vw, 22px);
+  .tile { aspect-ratio: 4 / 3; border-radius: 8px; border: 1px solid rgba(255, 255, 255, .06);
+    background: linear-gradient(135deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .03)); }
+  .tile.mint { background: linear-gradient(135deg, rgba($main_color, .28), rgba($main_color, .05)); border-color: rgba($main_color, .2); }
+}
+
+/* Rendered-markdown body (product detail, and any content-driven page) */
+.mt-prose {
+  color: rgba(255, 255, 255, .78);
+  font-size: clamp(16px, 1.4vw, 18px);
+  line-height: 1.75;
+  h2 { color: #fff; font-size: var(--fs-h3); margin: clamp(30px, 3.5vw, 48px) 0 16px; }
+  h3 { color: #fff; font-size: clamp(18px, 1.8vw, 22px); margin: 30px 0 12px; }
+  > h2:first-child, > h3:first-child, > p:first-child { margin-top: 0; }
+  p  { margin: 0 0 18px; }
+  ul { margin: 0 0 18px; padding-left: 0; list-style: none; }
+  li { position: relative; padding-left: 26px; margin-bottom: 12px; }
+  li:before { content: ''; position: absolute; left: 6px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: $main_color; }
+  strong { color: #fff; }
+  em { color: rgba(255, 255, 255, .92); }
+  a { color: $main_color; text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: mix(#fff, $main_color, 18%); }
+  blockquote { margin: 24px 0; padding: 4px 0 4px 22px; border-left: 2px solid rgba($main_color, .5); color: rgba(255, 255, 255, .7); font-style: italic; }
+  /* Fenced code + inline code */
+  code { font-family: "SFMono-Regular", Consolas, Menlo, monospace; font-size: .88em; background: rgba(255, 255, 255, .07); padding: 2px 6px; border-radius: 5px; color: $main_color2; }
+  pre { margin: 0 0 22px; padding: clamp(16px, 2vw, 22px); overflow-x: auto; background: #0d0d0d; border: 1px solid rgba(255, 255, 255, .10); border-radius: 12px;
+    code { background: none; padding: 0; color: rgba(255, 255, 255, .82); font-size: 13px; line-height: 1.7; } }
+  /* Tables (comparison / benchmark tables from markdown) */
+  .table-wrap, & > table { display: block; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 24px; font-size: 15px; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid rgba(255, 255, 255, .10); vertical-align: top; }
+  thead th { color: #fff; font-weight: 600; border-bottom-color: rgba($main_color, .5); white-space: nowrap; }
+  tbody td { color: rgba(255, 255, 255, .74); }
+  tbody tr:last-child td { border-bottom: 0; }
+}
+
+/* ===========================================================================
+   Marquee band (fluid; no JS)
+   =========================================================================== */
+.mt-marquee {
+  overflow: hidden;
+  padding: clamp(16px, 3vw, 30px) 0;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+  border-bottom: 1px solid rgba(255, 255, 255, .09);
+  /* fade both edges so words dissolve instead of hard-clipping mid-word (esp. mobile) */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  .mt-track { display: flex; align-items: center; width: max-content; animation: mt-marq 34s linear infinite; }
+  &:hover .mt-track { animation-play-state: paused; }
+  /* smaller floor on the type so it's calmer on phones (reviewer: noisy on mobile) */
+  .mt-item { display: inline-flex; align-items: center; font-size: clamp(16px, 3.4vw, 42px); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #fff; padding: 0 clamp(14px, 2.4vw, 34px); white-space: nowrap; }
+  .mt-item .star { color: $main_color; margin-left: clamp(20px, 4.6vw, 68px); font-size: clamp(14px, 2.4vw, 34px); }
+}
+@keyframes mt-marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Home first screen: hero + marquee fill one viewport; the marquee trails at the
+   bottom, always fully visible above the fold. The hero centers in the space above
+   it and shrinks its padding on short viewports so the marquee never gets clipped. */
+.hero-screen { min-height: 100vh; display: flex; flex-direction: column; }
+.hero-screen .main-header { flex: 1 1 auto; min-height: 0; display: flex; align-items: center; padding-top: 92px; padding-bottom: 28px; }
+.hero-screen .main-header > .container { width: 100%; }
+.hero-screen .mt-marquee { flex: 0 0 auto; }
+@media (max-width: 991px) {
+  /* stack normally on tablet/phone — the tall stacked hero shouldn't be forced into 100vh */
+  .hero-screen { display: block; min-height: 0; }
+  .hero-screen .main-header { display: block; padding-top: 84px; padding-bottom: 22px; }
+}
+
+/* ===========================================================================
+   Foundry mega-menu — a crafted, multi-column directory of everything we make.
+   Own class (`.foundry-mega`, not the theme's !important-laden `.mega-menu`) so
+   the cascade stays clean; the theme's dropdown-hover JS still drives `.show`.
+   =========================================================================== */
+/* The theme puts backdrop-filter on the navbar itself (`.navbar.blur`). A
+   backdrop-filter nested inside another backdrop-filter ancestor can't blur the
+   page — the inner one samples the parent's flattened (empty) backdrop. Since our
+   dropdowns are children of the navbar, that killed their frost. Drop the navbar's
+   own blur (it's transparent over the dark hero, so it was barely visible) so the
+   real frosted glass lands on the panels. */
+nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+.navbar .navbar-nav .nav-item.dropdown.has-mega { position: static; }   /* let the panel span, not hug the item */
+.navbar .navbar-nav .nav-item.dropdown.has-mega > .foundry-mega {
+  top: 100%; left: 50%; transform: translate(-50%, 12px); margin-top: 0; min-width: 0;
+  width: min(980px, 95vw); padding: 26px 28px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px 20px;
+  background: rgba(16, 16, 16, .82); border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 16px; box-shadow: 0 34px 80px rgba(0, 0, 0, .55);
+  -webkit-backdrop-filter: blur(26px) saturate(150%); backdrop-filter: blur(26px) saturate(150%);
+}
+.navbar .navbar-nav .nav-item.dropdown.has-mega > .foundry-mega.show { transform: translate(-50%, 0); }
+
+.foundry-mega .mega-col h6 {
+  color: $main_color; text-transform: uppercase; letter-spacing: .13em; font-size: 11px; font-weight: 600;
+  margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, .09);
+}
+.foundry-mega .mega-item { display: block; padding: 7px 0; border-radius: 8px; transition: padding-left .25s ease; }
+.foundry-mega .mega-item:hover { padding-left: 6px; }
+.foundry-mega .mega-item .mi-name { display: flex; align-items: center; gap: 7px; color: #fff; font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; transition: color .25s ease; }
+.foundry-mega .mega-item .mi-desc { display: block; color: rgba(255, 255, 255, .5); font-size: 12px; line-height: 1.35; margin-top: 1px; }
+.foundry-mega .mega-item:hover .mi-name { color: $main_color; }
+.foundry-mega .mi-badge {
+  font-style: normal; font-size: 9px; letter-spacing: .07em; text-transform: uppercase; font-weight: 600;
+  color: rgba(255, 255, 255, .5); border: 1px solid rgba(255, 255, 255, .16); border-radius: 40px; padding: 1px 7px;
+}
+.foundry-mega .mi-badge.live { color: $main_color; border-color: rgba($main_color, .5); background: rgba($main_color, .1); }
+.foundry-mega .mega-more { display: inline-block; margin-top: 9px; color: $main_color; font-size: 12.5px; font-weight: 600; }
+.foundry-mega .mega-more:hover { text-decoration: underline; }
+.foundry-mega .mega-foot {
+  grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center;
+  margin-top: 4px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .10);
+}
+.foundry-mega .mega-foot-link { color: rgba(255, 255, 255, .68); font-size: 13px; transition: color .25s ease; }
+.foundry-mega .mega-foot-link strong { color: #fff; font-weight: 600; }
+.foundry-mega .mega-foot-link:hover { color: $main_color; }
+.foundry-mega .mega-foot-link.accent { color: $main_color; font-weight: 600; margin-left: auto; }
+
+/* ===========================================================================
+   Foundry · Languages view — a language-site vibe (code-forward, before→after).
+   =========================================================================== */
+.mt-code .op { color: #a6b4ff; }   /* Indigo's special operators (! ? | ?? ?.) pop */
+
+.lang-h1 { font-size: clamp(34px, 6vw, 66px); line-height: 1.03; letter-spacing: -.02em; }
+.lang-lead { max-width: 62ch; margin-top: 20px; }
+.lang-jump { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.lang-jump a { display: inline-flex; align-items: baseline; gap: 9px; padding: 11px 20px; border: 1px solid rgba(255,255,255,.14); border-radius: 50px; color: #fff; font-weight: 600; transition: border-color .3s ease, color .3s ease; }
+.lang-jump a:hover { border-color: rgba($main_color,.55); color: $main_color; }
+.lang-jump .j-tag { color: rgba(255,255,255,.5); font-weight: 400; font-size: 13px; }
+
+.lang-block { scroll-margin-top: 88px; }
+.lang-head { max-width: 780px; margin-bottom: clamp(24px,4vw,42px); }
+.lang-head .lh-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+.lang-name { font-size: clamp(40px, 6.5vw, 76px); font-weight: 800; line-height: 1; letter-spacing: -.02em; margin: 0 0 16px; color: #fff; }
+
+.lang-diff { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: clamp(14px,2vw,24px); }
+.lang-arrow { color: $main_color; font-size: 28px; font-weight: 700; }
+.lang-pane { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,.10); background: #0d0d0d; box-shadow: 0 24px 60px rgba(0,0,0,.45); }
+.lp-bar { display: flex; align-items: center; gap: 9px; padding: 12px 16px; background: #171717; border-bottom: 1px solid rgba(255,255,255,.07); font-family: var(--mono); font-size: 12px; color: rgba(255,255,255,.55); }
+.lp-bar b { color: #fff; font-weight: 600; }
+.lp-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.22); flex: 0 0 auto; }
+.lp-dot.ok { background: $main_color; }
+.lp-idiom { margin-left: auto; color: $main_color; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
+.lang-pane .mt-code { font-size: 12.5px; line-height: 1.7; }
+
+.lang-principle { display: flex; gap: 14px; margin: clamp(26px,4vw,40px) 0; max-width: 900px; }
+.lang-principle .lp-mark { font-family: Georgia, serif; font-size: 56px; line-height: .7; color: rgba($main_color,.45); flex: 0 0 auto; }
+.lang-principle p { color: rgba(255,255,255,.8); font-size: clamp(16px,1.5vw,19px); line-height: 1.7; margin: 6px 0 0; }
+.lang-principle strong { color: #fff; }
+
+.lang-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px,3vw,30px); align-items: stretch; }
+.lang-split .lang-pane { align-self: start; }
+.lang-bench { background: $sub_bg; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: clamp(20px,2.5vw,28px); display: flex; flex-direction: column; }
+.lb-title { color: #fff; font-size: 19px; font-weight: 700; }
+.lb-sub { color: rgba(255,255,255,.55); font-size: 12.5px; line-height: 1.5; margin: 6px 0 20px; }
+.lb-row { display: grid; grid-template-columns: 54px 1fr auto; align-items: center; gap: 12px; margin-bottom: 13px; }
+.lb-name { font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,.82); }
+.lb-bar { height: 10px; border-radius: 6px; background: rgba(255,255,255,.13); }
+.lb-bar.mint { background: $main_color; }
+.lb-val { font-size: 12.5px; color: rgba(255,255,255,.6); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lb-val b { color: $main_color; }
+.lb-foot { color: rgba(255,255,255,.5); font-size: 12.5px; line-height: 1.5; margin: auto 0 0; padding-top: 16px; }
+
+@media (max-width: 767px) {
+  .lang-diff { grid-template-columns: 1fr; }
+  .lang-arrow { transform: rotate(90deg); justify-self: center; }
+  .lang-split { grid-template-columns: 1fr; }
+}
+
+/* ===========================================================================
+   The Foundry hub — the honest, tagged showcase of everything we've built.
+   =========================================================================== */
+.foundry-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.foundry-nav a { padding: 8px 16px; border: 1px solid rgba(255,255,255,.14); border-radius: 50px; color: rgba(255,255,255,.8); font-size: 13.5px; font-weight: 600; transition: border-color .3s ease, color .3s ease; }
+.foundry-nav a:hover { border-color: rgba($main_color,.5); color: $main_color; }
+
+.foundry-sec { scroll-margin-top: 86px; }
+.foundry-sec + .foundry-sec { border-top: 1px solid rgba(255,255,255,.06); }
+#open-source { scroll-margin-top: 86px; }
+.foundry-sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-bottom: clamp(20px,3vw,32px); }
+.foundry-sec-head .mt-eyebrow { margin-bottom: 6px; }
+.foundry-sec-head p { margin: 0; font-size: 14px; }
+.foundry-sec-head a { font-weight: 600; white-space: nowrap; }
+
+.fcard { display: block; height: 100%; padding: var(--sp-card); background: $sub_bg; border: 1px solid rgba(255,255,255,.07); border-radius: 14px; transition: transform .4s ease, border-color .4s ease; }
+.fcard:hover { transform: translateY(-5px); border-color: rgba($main_color,.5); }
+.fcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.fcard-top h5 { color: #fff; margin: 0; font-size: 19px; }
+.fcard-top .mt-badge { flex: 0 0 auto; }
+.fcard p { color: rgba(255,255,255,.68); font-size: 14.5px; line-height: 1.55; margin: 0 0 15px; }
+.fcard-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.f-tag { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; color: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.14); border-radius: 40px; padding: 2px 9px; }
+
+/* Big stat counters (.stat-num is a div, not a heading — numbers aren't structure) */
+.mt-stats .item .stat-num { font-weight: 800; line-height: 1; }
+.mt-stats .item .lbl { display: inline-block; margin-top: 10px; max-width: 200px; color: rgba(255, 255, 255, .6); }
+/* Outlined numbers: mint stroke — the old white/.5 stroke was invisible on the dark bg */
+.txt-stroke { -webkit-text-stroke: 1.5px rgba($main_color, .85); -webkit-text-fill-color: transparent; color: transparent; }
+
+/* ===========================================================================
+   Testimonial slider — fix the theme's slide padding (a 50px gap left over
+   from a quote-mark SVG we removed) and the orphan default-blue pagination.
+   =========================================================================== */
+.q-avatar { flex: 0 0 auto; width: 56px; height: 56px; border-radius: 50%; background: rgba($main_color, .15); color: $main_color; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px; letter-spacing: .5px; }
+.testimonials {
+  .swiper-slide { padding: 0; }          /* was 50px top / 30px left → dead gap (mt.scss is last, so this wins) */
+  .fz-30 { font-weight: 500; line-height: 1.45; font-size: clamp(20px, 2.6vw, 30px); }
+
+  /* spacing lives here, not via the theme's .mt-50 utility (it's !important-laden vendor CSS) */
+  .swiper-arrow-control { display: flex; gap: 14px; padding: 0; margin-top: clamp(20px, 3.5vw, 50px); }
+  .swiper-button-prev, .swiper-button-next {
+    position: static; margin: 0; width: 48px; height: 48px;
+    border: 1px solid rgba(255, 255, 255, .18); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; transition: all .3s ease;
+    &:after { display: none; }
+    svg { width: 18px; height: 18px; }
+    &:hover { background: $main_color; border-color: $main_color; color: #101010; }
+  }
+
+  /* pagination: pull it into flow, left-aligned, mint active dot */
+  .swiper-pagination { position: static; width: auto; text-align: left; margin-top: 24px; }
+  .swiper-pagination-bullet { background: rgba(255, 255, 255, .3); opacity: 1; }
+  .swiper-pagination-bullet-active { background: $main_color; }
+}
+
+/* ===========================================================================
+   Screenshots
+   =========================================================================== */
+.mt-window {
+  border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .10); background: #0d0d0d; box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
+  .bar { display: flex; align-items: center; height: 40px; padding: 0 16px; background: #1d1d1d; border-bottom: 1px solid rgba(255, 255, 255, .07);
+    span { width: 11px; height: 11px; border-radius: 50%; margin-right: 8px; background: rgba(255, 255, 255, .18); } }
+  .shot img { display: block; width: 100%; height: auto; }
+}
+.mt-shot { border-radius: 10px; overflow: hidden; img { display: block; width: 100%; height: auto; } }
+
+/* ===========================================================================
+   Footer
+   =========================================================================== */
+.mt-footer {
+  background: #161616;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  .foot-cta h2 { font-weight: 700; line-height: 1.05; font-size: clamp(30px, 5vw, 70px); }
+  .foot-cta a { color: #fff; transition: color .3s ease; }
+  .foot-cta a:hover { color: $main_color; }
+  h6.sub-title { letter-spacing: 2px; text-transform: uppercase; font-size: 12px; opacity: .6; }
+  a { color: rgba(255, 255, 255, .75); transition: color .3s ease; }
+  a:hover { color: $main_color; }
+  .foot-soc a { color: rgba(255, 255, 255, .75); }
+}
+
+/* ===========================================================================
+   Mobile menu
+   =========================================================================== */
+.mt-burger {
+  display: none; width: 44px; height: 40px; padding: 9px 8px; background: transparent; border: 0; cursor: pointer;
+  flex-direction: column; justify-content: space-between;
+  span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; }
+}
+.mt-mobile-menu {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 82%; max-width: 330px; z-index: 1001;
+  padding: 28px 30px 40px; background: #161616; border-left: 1px solid rgba(255, 255, 255, .08);
+  transform: translateX(100%); transition: transform .35s ease; overflow-y: auto;
+  .close { text-align: right; margin-bottom: 24px; }
+  .close button { background: none; border: 0; color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  a { display: block; padding: 14px 0; color: #fff; font-size: 20px; border-bottom: 1px solid rgba(255, 255, 255, .06); }
+  a:hover { color: $main_color; }
+  .butn { margin-top: 26px; width: 100%; text-align: center; }
+  &.open { transform: translateX(0); box-shadow: -20px 0 70px rgba(0, 0, 0, .55); }
+}
+.mt-menu-backdrop {
+  position: fixed; inset: 0; z-index: 1000; background: rgba(0, 0, 0, .55);
+  opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility .35s ease;
+  &.open { opacity: 1; visibility: visible; }
+}
+
+/* ===========================================================================
+   Responsive — LAYOUT ONLY (spacing & type are fluid above)
+   =========================================================================== */
+@media (max-width: 991px) {
+  .mt-burger { display: flex; }
+
+  /* Testimonials stack: put the heading and the arrows on ONE row instead of
+     heading -> 50px gap -> arrows -> 50px gap -> quote (double dead gap). */
+  .testimonials .sec-head {
+    display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 20px;
+    margin-bottom: 26px;
+    h6 { grid-column: 1 / -1; }
+    .swiper-arrow-control { margin-top: 0; }
+  }
+}
+
+/* Tablet 2-col grids: a lone odd last card looked orphaned bottom-left —
+   let it span the full row instead (case studies, pillars, etc.). */
+@media (min-width: 768px) and (max-width: 991px) {
+  .row > [class*="col-md-6"]:last-child:nth-child(odd) { width: 100%; max-width: 100%; }
+}
+
+/* ===========================================================================
+   Menu polish — build on the theme's dropdown system (its hover JS already
+   toggles .show), aligned under each item and branded dark + mint. No !important.
+   =========================================================================== */
+.navbar .navbar-nav .nav-item.dropdown { position: relative; }
+.navbar .navbar-nav .nav-item.dropdown > .dropdown-menu {
+  top: 100%; left: 0; margin-top: 0; transform: translateY(12px);
+  padding: 10px; min-width: 266px;
+  background: rgba(16, 16, 16, .82); border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 14px; box-shadow: 0 26px 60px rgba(0, 0, 0, .5);
+  -webkit-backdrop-filter: blur(26px) saturate(150%); backdrop-filter: blur(26px) saturate(150%);
+}
+.navbar .navbar-nav .nav-item.dropdown > .dropdown-menu.show { transform: translateY(0); }
+
+.navbar .navbar-nav .dropdown-menu .dropdown-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: rgba(255, 255, 255, .82); font-weight: 500;
+  text-transform: none; letter-spacing: 0; white-space: nowrap;
+  padding: 11px 16px; border-radius: 9px;
+  transition: background .25s ease, color .25s ease, padding-left .25s ease;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item:after { display: none; }   /* drop the theme's underline tick */
+.navbar .navbar-nav .dropdown-menu .dropdown-item:hover {
+  background: rgba($main_color, .12); color: #fff; padding-left: 21px;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item.is-more {
+  margin-top: 6px; padding-top: 13px; border-top: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 0 0 9px 9px; color: $main_color; font-weight: 600; font-size: 13px;
+}
+.navbar .navbar-nav .dropdown-menu .dropdown-item.is-more:hover { background: transparent; padding-left: 16px; }
+
+.dd-badge {
+  margin-left: auto; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
+  color: $main_color; border: 1px solid rgba($main_color, .5); background: rgba($main_color, .1);
+  border-radius: 40px; padding: 2px 8px;
+}
+
+/* clean chevron caret — flex-centered with the link text (the .rolling-text box
+   is 30px tall, so a plain inline ::after drops to its baseline). */
+.navbar .navbar-nav .nav-link.dropdown-toggle { display: inline-flex; align-items: center; }
+.navbar .navbar-nav .dropdown-toggle:after {
+  content: ''; border: 0; flex: 0 0 auto; width: 6px; height: 6px; margin: -3px 0 0 8px; display: inline-block;
+  border-right: 1.5px solid rgba(255, 255, 255, .5); border-bottom: 1.5px solid rgba(255, 255, 255, .5);
+  transform: rotate(45deg); transition: border-color .25s ease;
+}
+.navbar .navbar-nav .nav-item.dropdown:hover .dropdown-toggle:after { border-color: $main_color; }
+
+/* mobile menu sub-lists (legacy custom menu; retained harmlessly) */
+.mt-mobile-menu .sub { list-style: none; margin: 2px 0 8px; padding: 2px 0 4px; border-left: 1px solid rgba($main_color, .3); }
+.mt-mobile-menu .sub a { font-size: 15px; color: rgba(255, 255, 255, .6); padding: 9px 0 9px 16px; border-bottom: 0; }
+.mt-mobile-menu .sub a:hover { color: $main_color; }
+
+/* ===========================================================================
+   Big navigator (fullscreen hamenu) — the ☰ trigger + brand accents.
+   The theme's _menu.scss styles the overlay; scripts.js drives open/close and
+   the 3-level accordions. These are brand tweaks + the trigger only. No !important.
+   =========================================================================== */
+.navbar .menu-icon {
+  display: flex; flex-direction: column; justify-content: center; gap: 5px;
+  width: auto; height: 44px; padding: 0 4px 0 22px; margin-left: 14px;
+  background: transparent; border: 0; border-left: 1px solid rgba(255, 255, 255, .16); cursor: pointer;
+  span { display: block; width: 24px; height: 2px; margin-left: auto; background: #fff; border-radius: 2px; transition: background .3s ease, width .3s ease; }
+  span:nth-child(2) { width: 17px; }
+  &:hover span { background: $main_color; width: 24px; }
+  &:focus-visible { outline: 2px solid $main_color; outline-offset: 3px; }
+}
+
+.hamenu {
+  .logo { z-index: 4; }
+  .close-menu { display: flex; align-items: center; justify-content: center; color: #fff; background: transparent; transition: border-color .3s ease, color .3s ease; }
+  .close-menu:hover { border-color: $main_color; color: $main_color; }
+
+  .menu-links .main-menu .sub-link { color: rgba(255, 255, 255, .58); transition: color .3s ease, padding-left .3s ease; }
+  .menu-links .main-menu .sub-link:hover { color: $main_color; padding-left: 6px; }
+  /* level-2 accordion rows a touch brighter than the leaf links */
+  .menu-links .main-menu .sub-dmenu .fill-text { color: rgba(255, 255, 255, .85); }
+  /* the +/- toggle bars pick up mint on the open row */
+  .menu-links .main-menu .dmenu.dopen i:after,
+  .menu-links .main-menu .sub-dmenu.dopen i:after { background: $main_color; }
+
+  .cont-info {
+    .sub-title { letter-spacing: 2px; text-transform: uppercase; }
+    .item h6 { color: #fff; }
+    a { color: rgba(255, 255, 255, .75); transition: color .3s ease; }
+    a:hover { color: $main_color; }
+    .butn.main-colorbg, .butn.main-colorbg span { color: #101010; }
+  }
+}
+
+/* ---- About hero: the "living Foundry" Canvas map ------------------------- */
+/* Two-column hero (copy left, interactive map right). The canvas is transparent
+   so the drifting graph reads as part of the dark hero, not a boxed widget. */
+.viz-hero .foundry-viz {
+  position: relative;
+  margin: 0;
+  --viz-accent: #{$main_color};
+}
+.viz-hero .foundry-viz canvas {
+  display: block;
+  width: 100%;
+  height: clamp(380px, 42vw, 560px);
+  outline: none;
+  border-radius: 14px;
+  touch-action: pan-y;
+}
+.viz-hero .foundry-viz canvas:focus-visible {
+  box-shadow: 0 0 0 1px rgba($main_color, .5), 0 0 0 6px rgba($main_color, .12);
+}
+.viz-hero .foundry-viz-cap {
+  display: block;
+  margin-top: 12px;
+  min-height: 42px;
+  padding-left: 2px;
+}
+.viz-hero .foundry-viz-cap .fv-name {
+  display: block;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.viz-hero .foundry-viz-cap .fv-desc {
+  display: block;
+  margin-top: 3px;
+  color: rgba(255, 255, 255, .55);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+/* Fallback list: screen-reader-only on desktop (canvas carries the visual),
+   promoted to real chips on mobile where the canvas is hidden. */
+.viz-hero .foundry-viz-fallback {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 992px) {
+  .viz-hero .foundry-viz-fallback {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+@media (max-width: 991px) {
+  .viz-hero .foundry-viz canvas,
+  .viz-hero .foundry-viz-cap { display: none; }
+  .viz-hero .foundry-viz-fallback {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .viz-hero .foundry-viz-fallback a {
+    display: block;
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, .82);
+    font-size: 13.5px;
+    transition: border-color .25s ease, color .25s ease;
+  }
+  .viz-hero .foundry-viz-fallback a:hover { border-color: rgba($main_color, .5); color: #fff; }
+  .viz-hero .foundry-viz-fallback .fv-fallback-more { color: $main_color; font-weight: 600; border-style: dashed; }
+}
+
+/* Throughline (About) fallback: plain milestone list on mobile */
+@media (max-width: 991px) {
+  .viz-hero .throughline-fig .foundry-viz-fallback li {
+    padding: 11px 15px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-left: 2px solid rgba($main_color, .55);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, .78);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+/* ---- About > How we work: interactive spotlight (index + stage) ---- */
+.how-showcase { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(24px, 4vw, 60px); align-items: stretch; }
+
+/* index — the clickable list of principle titles */
+.how-showcase .hw-index { display: flex; flex-direction: column; gap: 2px; }
+.how-showcase .hw-item {
+  position: relative; display: flex; align-items: baseline; gap: 14px;
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  padding: 15px 16px 16px; border-radius: 10px; color: rgba(255, 255, 255, .5);
+  transition: color .3s ease, background .3s ease;
+}
+.how-showcase .hw-item .hw-num { font-size: 13px; font-weight: 600; letter-spacing: .05em; color: rgba(255, 255, 255, .3); transition: color .3s ease; font-variant-numeric: tabular-nums; }
+.how-showcase .hw-item .hw-title { font-size: 16px; font-weight: 500; line-height: 1.3; transition: color .3s ease; }
+.how-showcase .hw-item:hover { color: rgba(255, 255, 255, .82); }
+.how-showcase .hw-item.is-active { color: #fff; background: rgba(255, 255, 255, .035); }
+.how-showcase .hw-item.is-active .hw-num,
+.how-showcase .hw-item:hover .hw-num { color: $main_color; }
+.how-showcase .hw-item:focus-visible { outline: none; box-shadow: inset 0 0 0 1px rgba($main_color, .5); }
+/* auto-advance progress cue on the active row */
+.how-showcase .hw-progress { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: $main_color; border-radius: 2px; }
+.how-showcase .hw-item.is-active .hw-progress { animation: hwFill 6s linear forwards; }
+.how-showcase:hover .hw-item.is-active .hw-progress { animation-play-state: paused; }
+@keyframes hwFill { from { width: 0; } to { width: 100%; } }
+
+/* stage — the spotlit principle */
+.how-showcase .hw-stage { position: relative; min-height: clamp(300px, 34vw, 380px); padding: clamp(20px, 3vw, 40px); background: $sub_bg; border: 1px solid rgba(255, 255, 255, .07); border-radius: 16px; overflow: hidden; }
+.how-showcase .hw-panel { position: absolute; inset: clamp(20px, 3vw, 40px); opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity .5s ease, transform .5s ease; }
+.how-showcase .hw-panel.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.how-showcase .hw-ghost { position: absolute; top: -18px; right: -6px; font-size: clamp(90px, 13vw, 150px); font-weight: 800; line-height: 1; color: rgba($main_color, .07); letter-spacing: -.03em; }
+.how-showcase .hw-panel-icon { display: inline-flex; align-items: center; justify-content: center; width: 58px; height: 58px; border-radius: 14px; background: rgba($main_color, .1); border: 1px solid rgba($main_color, .25); color: $main_color; margin-bottom: 22px; }
+.how-showcase .hw-panel-icon svg { width: 30px; height: 30px; }
+.how-showcase .hw-panel-title { color: #fff; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; margin: 0 0 14px; }
+.how-showcase .hw-panel-body { color: rgba(255, 255, 255, .72); font-size: 16px; line-height: 1.65; margin: 0; max-width: 46ch; }
+.how-showcase .hw-panel-body em { color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  .how-showcase .hw-item.is-active .hw-progress { animation: none; width: 100%; }
+  .how-showcase .hw-panel { transition: none; }
+}
+
+/* mobile: no spotlight — show all six as a readable stacked list */
+@media (max-width: 991px) {
+  .how-showcase { grid-template-columns: 1fr; gap: 0; }
+  .how-showcase .hw-index { display: none; }
+  .how-showcase .hw-stage { position: static; min-height: 0; padding: 0; background: none; border: 0; overflow: visible; }
+  .how-showcase .hw-panel { position: static; inset: auto; opacity: 1; transform: none; pointer-events: auto; padding: var(--sp-card); margin-bottom: 14px; background: $sub_bg; border: 1px solid rgba(255, 255, 255, .07); border-radius: 14px; }
+  .how-showcase .hw-ghost { position: static; display: block; font-size: 34px; margin-bottom: 6px; }
+  .how-showcase .hw-panel-icon { width: 46px; height: 46px; margin-bottom: 16px; }
+  .how-showcase .hw-panel-title { font-size: 19px; }
+}
+
+/* ---- About > The team: the roster panel (real names, real structure) ---- */
+.team-roster {
+  padding: clamp(24px, 3vw, 38px);
+  background: $sub_bg;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 16px;
+}
+.team-roster .tr-head {
+  display: block; margin-bottom: 18px;
+  color: $main_color; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .14em;
+}
+.team-roster .tr-lead { display: flex; align-items: center; gap: 16px; padding: 12px 0; }
+.team-roster .tr-lead + .tr-lead { border-top: 1px solid rgba(255, 255, 255, .06); }
+.team-roster .tr-avatar {
+  flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba($main_color, .1); border: 1px solid rgba($main_color, .4);
+  color: $main_color; font-weight: 700; font-size: 15px; letter-spacing: .04em;
+}
+.team-roster .tr-who strong { display: block; color: #fff; font-size: 17px; }
+.team-roster .tr-who span { display: block; margin-top: 3px; color: rgba(255, 255, 255, .55); font-size: 13px; line-height: 1.45; }
+.team-roster .tr-divider {
+  display: flex; align-items: center; gap: 14px; margin: 20px 0 16px;
+  color: rgba(255, 255, 255, .45); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+}
+.team-roster .tr-divider::before, .team-roster .tr-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, .08); }
+.team-roster .tr-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.team-roster .tr-chip {
+  padding: 6px 14px; border-radius: 40px;
+  border: 1px dashed rgba(255, 255, 255, .22);
+  color: rgba(255, 255, 255, .65); font-size: 12.5px;
+  transition: border-color .25s ease, color .25s ease, background .25s ease;
+}
+.team-roster .tr-chip:hover { border-color: rgba($main_color, .7); border-style: solid; color: #fff; background: rgba($main_color, .08); }
+.team-roster .tr-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .08);
+}
+.team-roster .tr-stat b { display: block; color: $main_color; font-size: 24px; font-weight: 700; line-height: 1; }
+.team-roster .tr-stat span { display: block; margin-top: 6px; color: rgba(255, 255, 255, .55); font-size: 12px; line-height: 1.4; }
+@media (max-width: 575px) { .team-roster .tr-stats { grid-template-columns: 1fr; gap: 12px; } }
+
+/* ---- About > What drives us: the verify-it-yourself terminal ---- */
+.term-proof { margin: 0; }
+.term-proof .term-win {
+  background: #0c100e;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+  overflow: hidden;
+}
+.term-proof .term-bar {
+  display: flex; align-items: center; gap: 7px;
+  padding: 11px 14px;
+  background: rgba(255, 255, 255, .04);
+  border-bottom: 1px solid rgba(255, 255, 255, .07);
+}
+.term-proof .term-dot { width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 255, 255, .14); }
+.term-proof .term-bar em {
+  margin-left: 8px; font-style: normal;
+  color: rgba(255, 255, 255, .4); font-size: 12px; letter-spacing: .02em;
+}
+.term-proof .term-body {
+  margin: 0; padding: 22px 22px 26px;
+  min-height: 240px;
+  font-family: ui-monospace, "Cascadia Code", Consolas, Menlo, monospace;
+  font-size: 13.5px; line-height: 1.75;
+  color: rgba(255, 255, 255, .85);
+  white-space: pre-wrap; word-break: break-word;
+}
+.term-proof .tp-prompt { color: $main_color; font-weight: 700; }
+.term-proof .tp-cmd { color: #fff; }
+.term-proof .tp-out { color: rgba(255, 255, 255, .48); }
+.term-proof .tp-out { display: inline-block; }
+.term-proof .tp-cursor {
+  display: inline-block; width: 8px; height: 15px; margin-left: 3px;
+  background: $main_color; vertical-align: -2px;
+  animation: tpBlink 1.05s steps(1) infinite;
+}
+@keyframes tpBlink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .term-proof .tp-cursor { animation: none; } }
+.term-proof .term-cap { margin-top: 14px; color: rgba(255, 255, 255, .5); font-size: 13px; }
+
+/* ---- Home > What we do: expanding service stage with living vignettes ----
+   Four panels; the open one widens, its SVG vignette runs, and the proof line
+   appears. State is pure CSS: hover/focus opens a panel; at rest (no hover or
+   focus anywhere in the stage) the first panel sits open. */
+.svc-stage { display: flex; gap: 16px; align-items: stretch; }
+.svc-panel {
+  flex: 1 1 0; min-width: 0; display: block;
+  padding: clamp(20px, 2.4vw, 30px);
+  background: $sub_bg; border: 1px solid rgba(255, 255, 255, .07); border-radius: 16px;
+  transition: flex-grow .55s cubic-bezier(.22, .9, .28, 1), border-color .35s ease, background .35s ease;
+}
+.svc-panel:focus-visible { outline: none; box-shadow: 0 0 0 1px rgba($main_color, .6), 0 0 0 6px rgba($main_color, .12); }
+
+.svc-panel .svc-head { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; }
+.svc-panel .svc-num { font-style: normal; font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, .35); font-variant-numeric: tabular-nums; transition: color .35s ease; }
+.svc-panel h3 { color: rgba(255, 255, 255, .85); font-size: clamp(17px, 1.5vw, 20px); line-height: 1.25; margin: 0; transition: color .35s ease; }
+.svc-panel .svc-tag { margin: 10px 0 0; color: rgba(255, 255, 255, .55); font-size: 14px; line-height: 1.55; }
+.svc-panel .svc-more { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .55s cubic-bezier(.22, .9, .28, 1), opacity .4s ease .1s; }
+.svc-panel .svc-more p { margin: 14px 0 0; color: rgba(255, 255, 255, .72); font-size: 14.5px; line-height: 1.6; }
+.svc-panel .svc-more em { color: $main_color; font-style: normal; font-weight: 600; }
+.svc-panel .svc-more .go { display: inline-block; margin-top: 14px; color: $main_color; font-size: 13.5px; font-weight: 600; }
+
+/* vignette frame */
+.svc-viz { display: block; border-radius: 10px; background: rgba(255, 255, 255, .025); border: 1px solid rgba(255, 255, 255, .05); }
+.svc-viz svg { display: block; width: 100%; height: auto; }
+.svc-viz svg * { vector-effect: non-scaling-stroke; }
+
+/* -- vignette base (closed = dim, resting) -- */
+.bp-grid path { stroke: rgba(255, 255, 255, .05); stroke-width: 1; }
+.bp-path { fill: none; stroke: rgba(255, 255, 255, .35); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.bp-tip { fill: rgba(255, 255, 255, .35); }
+.md-base { stroke: rgba(255, 255, 255, .18); stroke-width: 1.5; }
+.md-b { fill: rgba(255, 255, 255, .1); stroke: rgba(255, 255, 255, .18); stroke-width: 1; }
+.md-pulse { fill: rgba($main_color, .9); animation: mdPulse 1.6s ease-in-out infinite; }  /* uptime never stops */
+.md-up { fill: rgba(255, 255, 255, .4); font-family: "Poppins", sans-serif; font-size: 9px; letter-spacing: .08em; }
+@keyframes mdPulse { 50% { opacity: .25; } }
+.ai-d { fill: rgba(255, 255, 255, .4); transform: translate(var(--sx), var(--sy)); transition: transform .6s cubic-bezier(.22, .9, .28, 1), fill .4s ease; }
+.ai-arrow { fill: none; stroke: rgba(255, 255, 255, .25); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: stroke .4s ease; }
+.sc-line { stroke: rgba($main_color, .7); stroke-width: 1.8; stroke-linecap: round; }
+.sc-b { fill: rgba(255, 255, 255, .1); transform: scaleY(.22); transform-origin: bottom; transform-box: fill-box; transition: transform .55s cubic-bezier(.22, .9, .28, 1), fill .4s ease; }
+
+/* -- open state (hover / keyboard focus / at-rest first panel) -- */
+@mixin svc-open {
+  flex-grow: 2.1;
+  border-color: rgba($main_color, .45);
+  .svc-num { color: $main_color; }
+  h3 { color: #fff; }
+  .svc-more { max-height: 190px; opacity: 1; }
+  /* 01 — the blueprint draws itself, once */
+  .bp-path { stroke: $main_color; stroke-dasharray: 420; stroke-dashoffset: 420; animation: bpDraw 1.1s ease-out forwards; }
+  .bp-tip { fill: $main_color; }
+  /* 02 — parts get replaced one at a time; the pulse never stopped */
+  .md-b1 { animation: mdSwap .01s .15s forwards; } .md-b2 { animation: mdSwap .01s .45s forwards; }
+  .md-b3 { animation: mdSwap .01s .75s forwards; } .md-b4 { animation: mdSwap .01s 1.05s forwards; }
+  .md-b5 { animation: mdSwap .01s 1.35s forwards; }
+  /* 03 — the noise aligns into one clean output */
+  .ai-d { fill: $main_color; transform: translate(0, 0); }
+  .ai-d:nth-of-type(2) { transition-delay: .06s; } .ai-d:nth-of-type(3) { transition-delay: .12s; }
+  .ai-d:nth-of-type(4) { transition-delay: .18s; } .ai-d:nth-of-type(5) { transition-delay: .24s; }
+  .ai-d:nth-of-type(6) { transition-delay: .3s; }  .ai-d:nth-of-type(7) { transition-delay: .36s; }
+  .ai-arrow { stroke: $main_color; }
+  /* 04 — the load rises; the line holds */
+  .sc-b { transform: scaleY(1); fill: rgba($main_color, .55); }
+  .sc-b2 { transition-delay: .07s; } .sc-b3 { transition-delay: .14s; }
+  .sc-b4 { transition-delay: .21s; } .sc-b5 { transition-delay: .28s; }
+  .sc-b6 { transition-delay: .35s; }
+}
+@keyframes bpDraw { to { stroke-dashoffset: 0; } }
+@keyframes mdSwap { to { fill: rgba($main_color, .55); stroke: $main_color; } }
+
+.svc-panel:hover, .svc-panel:focus-visible { @include svc-open; }
+.svc-stage:not(:hover):not(:focus-within) .svc-panel:first-child { @include svc-open; }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-panel, .svc-panel .svc-more, .ai-d, .sc-b { transition: none; }
+  .bp-path, .md-b, .md-pulse { animation: none; }
+  .svc-panel:hover, .svc-panel:focus-visible, .svc-stage:not(:hover):not(:focus-within) .svc-panel:first-child {
+    .bp-path { stroke-dasharray: none; stroke-dashoffset: 0; }
+    .md-b { fill: rgba($main_color, .55); stroke: $main_color; }
+  }
+}
+
+/* mobile: no accordion — four full cards, everything visible */
+@media (max-width: 991px) {
+  .svc-stage { flex-direction: column; }
+  .svc-panel .svc-more { max-height: none; opacity: 1; }
+  .svc-panel h3 { color: #fff; }
+  .bp-path { stroke-dasharray: none; }
+  .ai-d { transform: none; fill: rgba($main_color, .8); }
+  .sc-b { transform: none; fill: rgba($main_color, .45); }
+  .md-b { fill: rgba($main_color, .35); stroke: rgba($main_color, .6); }
+}
+
+/* ---- Home hero: gear caption — the machine names itself ------------------ */
+/* One understated line under the gears; the terminal word crossfades through
+   the business systems (driven by js/gear-caption.js). Word sits at the END
+   of the sentence so cycling never reflows the text before it. */
+.gear-caption {
+  margin: clamp(26px, 3.4vw, 44px) 0 0;
+  max-width: 520px;
+  color: rgba(255, 255, 255, .5);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.gear-caption .gc-word {
+  color: $main_color;
+  font-weight: 600;
+  display: inline-block;
+  opacity: 1;
+  transition: opacity .35s ease;   /* FADE_MS in gear-caption.js */
+}
+.gear-caption .gc-word.is-fading { opacity: 0; }
+@media (max-width: 1199px) { .gear-caption { margin: clamp(20px, 4vw, 32px) auto 0; text-align: center; } }

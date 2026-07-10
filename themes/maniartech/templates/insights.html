@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Insights — {{ site.name }}{% endblock %}
+
+{% comment %} List page for /insights/*. Renders the `articles` collection. {% endcomment %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <span class="mt-eyebrow">Insights</span>
+                <h1 class="fw-bold prod-h1">Notes from the workshop — engineering, told straight.</h1>
+                <p class="lead-text mt-20 prod-lead">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build — and check our claims for yourself.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            {% for a in articles %}
+            <div class="col-lg-6 mb-30">
+                <a href="{{ a.url }}" class="mt-card d-block">
+                    <div class="d-flex align-items-center mb-15" style="gap:12px;">
+                        {% if a.postStatus %}<span class="mt-badge">{{ a.postStatus }}</span>{% endif %}
+                        {% if a.date %}<span class="opacity-6" style="font-size:13px;">{{ a.date }}</span>{% endif %}
+                    </div>
+                    <h5 class="mb-10">{{ a.title }}</h5>
+                    <p>{{ a.description }}</p>
+                    <span class="main-color d-inline-block mt-15" style="font-weight:600;font-size:14px;">Read →</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if pagination.pages > 1 %}
+        <nav class="d-flex mt-40" style="gap:10px;" aria-label="Pagination">
+            {% for p in pagination.items %}
+            <a href="{{ p.url }}" class="butn butn-sm butn-rounded {% if p.isCurrent %}butn-bg main-colorbg{% else %}butn-bord text-light{% endif %}"><span>{{ p.number }}</span></a>
+            {% endfor %}
+        </nav>
+        {% endif %}
+
+        <div class="mt-actions mt-60 pt-40 bord-thin-top">
+            <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>Explore the Foundry</span></a>
+            <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
+        </div>
+    </div>
+</section>
+{% endblock %}

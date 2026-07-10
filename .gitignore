@@ -1,34 +1,16 @@
-# Node modules (if using Node.js)
-node_modules/
-
-# Bower components (if using Bower)
-bower_components/
-
-# Distribution/build folders
-dist/
+# Build output
 build/
+.dist/
+
+# Tajmahal content/build cache (regenerated)
 .cache/
 
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Archives / external theme source dumps
+*.zip
 
-# Runtime data
-pids/
-*.pid
-*.seed
+# Dependencies (if you add a theme toolchain)
+node_modules/
 
-# OS generated files
+# OS / editor
 .DS_Store
-Thumbs.db
-
-# Environment Variables
-.env
-
-# Other unwanted files
-.idea/
-.vscode/
-*.sourcemap
+*.swp

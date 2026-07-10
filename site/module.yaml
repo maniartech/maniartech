@@ -1,15 +1,38 @@
-# The Taj Mahal Module
+# The `site` module — every general (bespoke) page.
+#
+# `pages:` is an ordered list of single-key entries: page-name → URL.
+# The page name selects content (site/<name>/index.md) and template
+# (<name>.html in the theme) by convention. Detail collections share a
+# template via one-line `{% extends %}` shims (e.g. chemo.html →
+# case-detail.html), matching the products pattern.
 
 name: site
 
 pages:
-  - home: /
-  # - home-new: /home-new/
-  # - about: /about/
-  # - services: /services/
-  # - golang-migration: /services/golang-migration/
-  # - lab: /lab/
-  # - careers: /careers/
-  # - blogs: /blogs/
-  # - post: /blogs/post/
-  # - contact: /contact/
+  - home:  /
+  - about: /about/
+
+  # Services — hub + category/capability detail pages
+  - services:                          /services/
+  - enterprise-software-engineering:   /services/enterprise-software-engineering/
+  - application-software-engineering:  /services/application-software-engineering/
+  - ai:                                /services/ai/
+  - modernization:                     /services/modernization/
+
+  # Case studies — hub + bespoke detail per study (projects approach)
+  - case-studies:    /case-studies/
+  - chemo:           /case-studies/chemo/
+  - rtl:             /case-studies/rtl/
+  - sales-navigator: /case-studies/sales-navigator/
+  - touchpoint:      /case-studies/touchpoint/
+  - content-engine:  /case-studies/content-engine/
+  - upsport:         /case-studies/upsport/
+
+  # NOTE: Products + Labs now live in the dedicated `labs` module (labs/module.yaml).
+
+  # Standalone site pages
+  - standards:    /standards/
+  - estimate:     /estimate/
+  - contact:      /contact/
+  - careers:      /careers/
+  - partnerships: /partnerships/

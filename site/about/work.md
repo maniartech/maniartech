@@ -1,0 +1,22 @@
+---
+heading: "We put our standards in the work, not on a poster."
+principles:
+  - icon: "team"
+    title: "Experienced engineers do your work"
+    body: "We don't learn on your project."
+  - icon: "unlock"
+    title: "No lock-in"
+    body: "We build on mainstream, hireable technology (Go, Python, React, PostgreSQL); you, or any team, can maintain it. We never slip our own libraries into your codebase without your say-so. You own the code, and you can walk."
+  - icon: "review"
+    title: "We check before we hand off"
+    body: "Every deliverable is reviewed for quality, design, and fit for your real users <em>before</em> it reaches you, so what you get is finished work, not a rough draft."
+  - icon: "trend"
+    title: "Real fixes"
+    body: "When we fix a defect, it stays fixed and doesn't spawn new ones; bug counts fall as a project matures."
+  - icon: "seal"
+    title: "Predictable by process"
+    body: "ISO 9001:2015 (a real, audited quality process) and ISO/IEC 27001:2022 (a real security standard for your data) certified, by URS under UKAS accreditation. Delivery comes from process, not heroics."
+  - icon: "truth"
+    title: "We tell you the truth"
+    body: "Including when something isn't the right fit, or shouldn't be built at all."
+---

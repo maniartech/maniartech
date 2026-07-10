@@ -1,0 +1,32 @@
+# The `labs` module — everything ManiarTech makes.
+#
+# Holds both the Labs projects (open-source libraries, standards, a language)
+# and the Products. Both are "what we make," so they share one module; URLs
+# (/labs/* and /products/*) are unchanged. Each page name selects content
+# (labs/<name>/index.md) and template (<name>.html in the theme) by convention;
+# detail pages share a template via one-line {% extends %} shims.
+
+name: labs
+
+pages:
+  # Foundry — project detail pages. (The old /labs/ hub is retired; /foundry/ is
+  # the hub. Content dirs stay labs/<slug>/ — only the public URLs change.)
+  - indigo:          /foundry/indigo/
+  - internet-object: /foundry/internet-object/
+  - uexl:            /foundry/uexl/
+  - signals:         /foundry/signals/
+  - gotime:          /foundry/gotime/
+  - vault-storage:   /foundry/vault-storage/
+  - tajmahal-ssg:    /foundry/tajmahal-ssg/
+
+  # Foundry — hub + curated, custom-designed view pages (each its own vibe)
+  - foundry:         /foundry/
+  - languages:       /foundry/languages/
+
+  # Products — hub + one detail page each
+  - products:        /products/
+  - processious:     /products/processious/
+  - ordin:           /products/ordin/
+  - documentor:      /products/documentor/
+  - tallery-gallery: /products/tallery-gallery/
+  - booster:         /products/booster/
