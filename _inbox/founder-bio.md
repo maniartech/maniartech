@@ -26,7 +26,8 @@ says "over 25 years"; he stated 27; span ≈ 27 — all consistent. Use "27 year
 
 **Education:** B.Com (Commerce with Software Engineering), Gujarat University (1994–1997) ·
 Diploma in Computer Engineering & Software Technology, GEBBS Institute, Mumbai (1998).
-**Award:** Outstanding Performance Award.
+**Award:** Outstanding Performance Award — received at **Countrywide Financial** (confirmed by
+Aamir, 2026-07-11; the original LinkedIn PDF listed the award without a company attribution).
 **Skills/positioning (his own):** Software Architect · Enterprise BPA expert · Director of
 Engineering · Tech Consultant.
 
@@ -141,6 +142,61 @@ all of these."*
 > firm, now iGATE). ManiarTech is the continuation of that work at company scale: a lab that
 > builds foundational technology — standards, a language, and platforms — that others build on.
 > *(Then: the team + ISO process + dogfood model → answers "not just one person.")*
+
+## ★ Oakton, enriched (Aamir, 2026-07-11) — his last role before founding ManiarTech
+Aamir describes Oakton as the most prominent role of his pre-founder career. He turned down a
+**Microsoft offer** to take it instead — a specific, deliberate choice for a harder/more meaningful
+problem over a bigger name (consistent with the maker-ethos pattern already documented above: he
+gravitates to depth and complexity over prestige). The Nova TCS/IMES project itself was Victoria
+State's Traffic and Infringements Life Cycle management system — "converting the law book into a
+system," a large, genuinely complex translation of legal rules into software logic. He wore two
+distinct hats: primarily **Technical Lead of the Smart Client (frontend) system**, and a **member of
+the offshore design review committee**. Worth surfacing on About/founder-narrative work later, not
+just the LinkedIn Oakton bullet — the Microsoft-offer detail in particular is a strong, specific,
+memorable beat.
+
+## ★ Freelance/consulting practice via UpWork (added 2026-07-11) — runs CONCURRENT with Founder role
+Alongside founding ManiarTech (2009–), Aamir ran a freelance/consulting practice on UpWork. Touchpoint
+Dashboard (see case study) was the flagship client that grew into a formal offshore partnership; other
+named clients below. **Frame all of these as ManiarTech's founder personally delivering early client
+work** (same framing as Touchpoint) — NOT a separate "freelancer" identity competing with "Founder."
+
+- **DashWatch** (https://dashwatch.org/) — an analytics platform for the **Dash cryptocurrency**
+  ecosystem: tracks proposals approved by the **Dash Core Committee**, their tracking timelines,
+  status, and analysis — via multiple views, charts, reports, and data formats. **Stack: React + MUI
+  (frontend), Node.js + MySQL (backend).**
+  - ⚠️ **GUARDRAIL — do NOT link the live site as proof.** Aamir confirmed the current dashwatch.org is
+    a **bad, broken replica** of what he originally built (someone else took it over after his
+    engagement and degraded it). Linking it would misrepresent the actual work's quality. Name the
+    project + describe what it did; do not screenshot or link the live URL as evidence.
+  - Open: exact date range of the engagement (confirm before publishing).
+- **Smashbrand** — client named, details not yet captured. **Open: what was built, stack, date range.**
+- Possibly other UpWork clients — Aamir to confirm if worth naming.
+- **Naming consent — CONFIRMED (2026-07-11).** Aamir's standing rule: he won't share private details
+  (code, customer data, named individuals, internal process/philosophy) — but the project name, what
+  it did, and the tech stack are all fine to show publicly as a record of the work, precisely because
+  none of that crosses into private territory. Apply this same bar to Smashbrand and any future
+  freelance credits: name it, describe what it did, list the stack — nothing more specific than that.
+- **Smashbrand → client Crittenden Research Inc.** — developed **directory / search / reports
+  platforms** across **Real Estate, Insurance, and other domains. Stack: Python, Django, Apache,
+  MySQL.**
+- **Chronology — CONFIRMED, full timeline (2026-07-11):**
+  - **Touchpoint Dashboard, Phase 1 — Senior Freelance Developer:** ~**April 2012 – March 2017**
+    (~5 years), via UpWork.
+  - **★ The Phase 1→2 transition marker (concrete, verifiable milestone):** Phase 1 became Phase 2
+    when Aamir **opened ManiarTech's first office and hired its first employee**, specifically to
+    work on the Touchpoint Dashboard project — that employee's join date was **April 2017**, which
+    is the transition point. *(Worth surfacing on the About/company-history page too — a real,
+    dated "first office + first hire" milestone is strong evidence of real growth beyond Aamir
+    alone, backing the bus-factor answer.)*
+  - **Touchpoint Dashboard, Phase 2 — Offshore Engineering Development Partner:** **April 2017 –
+    July 2018** (~1 yr 3 months). Aamir's best recollection of the end date — hedge as "through
+    mid-2018" if not certain enough to print "July" exactly.
+  - **Smashbrand / Crittenden Research Inc.** — **~2013–2015** (hedged, not certain). Ran
+    **concurrently** with Touchpoint Phase 1.
+  - **DashWatch — 2018–2019.** Started **after** Touchpoint Dashboard ended (July 2018).
+- **Open:** current status of the freelance practice today (wound down after DashWatch in 2019, or
+  continued/still active?) — low priority, doesn't block the LinkedIn draft.
 
 ## Open confirms for Aamir (small)
 - [x] **Founding year** → RESOLVED: company **registered 2010** (use "since 2010"); began 2009.

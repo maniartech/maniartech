@@ -44,6 +44,13 @@ RBAC with audit/GDPR compliance. (A Bynder/Brandfolder/Canto-class space.)
 
 ## The "learned from failure" story (handle with care — this is the heart of it)
 
+**V1 timeline (Aamir, 2026-07-11):** ManiarTech committed **significant team time and money to
+Tallery Gallery V1 between 2017 and 2021** — a substantial, multi-year investment, not a side
+project. ⚠️ **This date range is PRIVATE, same bar as the failure/COVID-loss details already
+flagged below — do not surface "2017–2021" or "significant investment" in any public copy
+(including LinkedIn) without Aamir's explicit sign-off.** It's recorded here for internal accuracy
+only.
+
 **V1** = the legacy `td_backend` (Django 3/4, MySQL, DRF, knox tokens) + an old webclient.
 It launched and **did not survive COVID** (Aamir: failed, lost the money). **V2** is the
 ground-up rebuild: legacy `td_backend` → modern `tg_server`, migrated **one module at a

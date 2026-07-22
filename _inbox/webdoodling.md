@@ -7,6 +7,15 @@
 **STATUS: UNDER DEVELOPMENT (modern rewrite).** Legacy version existed years ago;
 new TS version is a ground-up rewrite "with lots of learning." **Playground coming
 soon** (per Aamir). Not yet published — do NOT push `npm i webdoodling` yet.
+
+**★ Real timeline (Aamir, 2026-07-11) — a genuine "patient maker" example, not a new idea:**
+Aamir put substantial time into WebDoodling **2011–2018**, then **left it** (the legacy version
+referenced above), and has **recently resumed with a ground-up rewrite on a modern stack** (the
+current TS/wd-ts version, target 2.0.0). This is the same "ideas carried for years, resumed when
+the research/answer is ready" pattern already documented in `founder-bio.md` §"The maker & the
+method" — WebDoodling is a concrete, dated instance of it (2011 → 2018 → dormant → recent revival),
+not an abstract claim. Worth citing as a specific example if that section of the About page or the
+founder narrative ever wants a named illustration instead of the general principle.
 **One-liner:** A powerful 2D canvas library for creative coding — *"Bring the WOW to
 your canvas."* Flutter-grade rendering + CSS-grade layout + jQuery-like queries +
 reactive bindings.

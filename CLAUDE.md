@@ -26,6 +26,7 @@ vary treatments; no interaction on moving geometry.
 - **CSS: never `!important`** — `_mt.scss` loads last; win by specificity. Fluid `clamp()` tokens.
 - **Canvas visuals go through a small `R` renderer seam** (WebDoodling-ready) and do a synchronous first draw at boot.
 - **Names:** IQL was renamed to **AddressQL** (private, everywhere). **PDML** shows publicly as **PressML** but stays PDML internally — do not sweep PDML→PressML in specs/code/dossiers.
+- **ASCII-first.** Use plain ASCII characters/symbols wherever possible (straight quotes, `-`/`--` not em/en-dashes, `|` not middot, `->`/`<-` not arrows) — "smart" typography mangles on copy-paste into external tools (LinkedIn, forms, plain-text editors). **No emojis** in any content or heading, anywhere (site copy, dossiers, docs).
 
 ## Working with Aamir
 Frank critique over agreement. Align on the metaphor/approach *before* building; keep content real and
