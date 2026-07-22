@@ -36,3 +36,7 @@ pages:
   - contact:      /contact/
   - careers:      /careers/
   - partnerships: /partnerships/
+
+  # Dedicated trust pages (linked from every service page - substance lives here, signals inline)
+  - how-we-work:  /how-we-work/
+  - security:     /security/

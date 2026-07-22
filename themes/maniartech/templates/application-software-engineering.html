@@ -1,1 +1,182 @@
-{% extends "service-detail.html" %}
+{% extends "base.html" %}
+
+{% comment %} Application Software Engineering - the service-page PROTOTYPE (plan: _ia/app-se-page-redesign.md). {% endcomment %}
+{% comment %} Content directory: site/application-software-engineering/ - one .md per section. {% endcomment %}
+{% comment %} SEO: title tag = buyer vocabulary; H1 stays the brand term. FAQPage + Service JSON-LD below. {% endcomment %}
+
+{% block title %}Custom Application Development Services | {{ site.name }}{% endblock %}
+
+{% block head_extra %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Custom Application Development","serviceType":"Application Software Engineering","provider":{"@type":"Organization","name":"Maniar Technologies Private Limited","url":"https://www.maniartech.com/"},"areaServed":"Worldwide"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for f in faq.faqs %}{"@type":"Question","name":"{{ f.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ f.a }}"}}{% if not forloop.Last %},{% endif %}{% endfor %}]}</script>
+{% endblock %}
+
+{% block content %}
+<header class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <a href="/services/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; Services</a>
+                <h1 class="fw-bold mt-15 mb-20 prod-h1">{{ title }}</h1>
+                <p class="lead-text prod-lead">{{ description }}</p>
+                <div class="mt-actions">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                </div>
+                <p class="mt-20" style="color:rgba(255,255,255,.45);font-size:14px;letter-spacing:.02em;">ISO 9001 &amp; 27001 certified &nbsp;|&nbsp; Experienced engineers only &nbsp;|&nbsp; Since 2010</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mt-prose">{{ content|safe }}</div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ ways.heading }}</h2><div class="mt-prose mt-10">{{ ways.content|safe }}</div></div></div>
+        </div>
+        <div class="row mt-30">
+            <div class="col-lg-6"><div class="mt-prose"><h3 class="fw-600 mb-15">{{ build.heading }}</h3>{{ build.content|safe }}</div></div>
+            <div class="col-lg-6"><div class="mt-prose"><h3 class="fw-600 mb-15">{{ advise.heading }}</h3>{{ advise.content|safe }}</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ proof.heading }}</h2><div class="mt-prose mt-10">{{ proof.content|safe }}</div></div></div>
+        </div>
+        <div class="row mt-30">
+            {% for c in proof.cases %}
+            <div class="col-lg-4 mb-30">
+                <a href="{{ c.href }}" class="d-block h-100" style="border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:24px;">
+                    <span class="mt-eyebrow d-block mb-10">{{ c.label }}</span>
+                    <h3 class="fw-600 fz-20 mb-10 text-light">{{ c.name }}</h3>
+                    <p style="color:rgba(255,255,255,.65);">{{ c.outcome }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <blockquote class="mt-30" style="border-left:3px solid #14cf93;padding-left:24px;">
+                    <p class="fz-20" style="color:rgba(255,255,255,.85);">"{{ proof.quote }}"</p>
+                    <footer class="mt-10" style="color:rgba(255,255,255,.5);">{{ proof.quoteBy }} - {{ proof.quoteRole }} &nbsp;&middot;&nbsp; <a href="{{ proof.quoteHref }}">the full story</a></footer>
+                </blockquote>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="mt-40 pt-30 bord-thin-top">
+                    <p class="mb-15" style="color:rgba(255,255,255,.7);">Tell us what you are building - a senior engineer replies within one business day.</p>
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Estimate your project</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ lifecycle.heading }}</h2></div></div>
+        </div>
+        <div class="row mt-30">
+            {% for s in lifecycle.stages %}
+            <div class="col-lg-9 mb-25">
+                <div class="row">
+                    <div class="col-md-2"><span class="mt-eyebrow">0{{ forloop.Counter }}</span><h3 class="fw-600 fz-20 text-light">{{ s.name }}</h3></div>
+                    <div class="col-md-6"><p style="color:rgba(255,255,255,.65);">{{ s.what }}</p></div>
+                    <div class="col-md-4"><p style="color:#14cf93;font-size:15px;">{{ s.gives }}</p></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ engagement.heading }}</h2><div class="mt-prose mt-15">{{ engagement.content|safe }}</div></div></div>
+            <div class="col-lg-6"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ ownership.heading }}</h2><div class="mt-prose mt-15">{{ ownership.content|safe }}</div></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="pb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div style="border:1px solid rgba(20,207,147,.35);border-radius:8px;padding:20px 24px;color:rgba(255,255,255,.7);font-size:15px;">{{ trust.content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ depth.heading }}</h2><div class="mt-prose mt-15">{{ depth.content|safe }}</div></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ specialized.heading }}</h2><div class="mt-prose mt-10">{{ specialized.content|safe }}</div></div></div>
+        </div>
+        <div class="row mt-20">
+            {% for it in specialized.items %}
+            <div class="col-lg-3 mb-20">
+                <a href="{{ it.href }}" class="d-block" style="border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:18px;">
+                    <h3 class="fw-600 fz-18 mb-8 text-light">{{ it.name }}</h3>
+                    <p style="color:rgba(255,255,255,.6);font-size:14px;">{{ it.line }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ faq.heading }}</h2></div></div>
+        </div>
+        <div class="row mt-20">
+            <div class="col-lg-9">
+                {% for f in faq.faqs %}
+                <div class="mb-25">
+                    <h3 class="fw-600 fz-20 text-light mb-10">{{ f.q }}</h3>
+                    <p style="color:rgba(255,255,255,.65);">{{ f.a }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="mt-actions pt-40 bord-thin-top">
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>See the work</span></a>
+                </div>
+                <p class="mt-15" style="color:rgba(255,255,255,.45);font-size:14px;">Free and without obligation. A senior engineer replies within one business day - with a ballpark and an honest take.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

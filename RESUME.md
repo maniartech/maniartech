@@ -12,7 +12,7 @@ Last updated: **2026-07-10**.
 ## What this is
 A multi-page, SEO-first static rebuild of **maniartech.com** using the **Taj Mahal SSG**
 (Go static-site generator; modules + YAML config + Pongo2 templates). Solo project, founder = **Aamir Maniar**.
-- Project root: `E:\Projects\maniartech.com\maniartech-v2`
+- Project root: `E:\Projects\maniartech.com\maniartech` (published to GitHub — see below)
 - Theme: `themes/maniartech/` (dark **#1a1a1a** + mint **#14cf93** — NOT the brand-guide navy/gold; keep dark+mint).
 - Content: `site/`, `labs/`, `insights/`, `white-papers/` modules. IA/decisions in `_ia/`; raw dossiers in `_inbox/`; collateral in `_marketing/`.
 - Separate repo that merges later: the Price Estimator at `E:\Projects\maniartech.com\price-estimator` (not part of this repo).
@@ -41,20 +41,32 @@ If it panics / 500s on content: **stop tajmahal, `rm -rf .cache`, restart** (cac
 
 ## ▶ IMMEDIATE NEXT (why this session was archived)
 
-### 1. Move the code into a "real" repository (Aamir's task)
-Current git state: local repo on branch **`master`**, single branch, **no remote**. Latest commit `b64bac4`.
-- `.gitignore` already excludes `build/`, `.cache/`, and `*.zip` (there's a 51 MB `_external-themes.zip` = Infolio source dump — gitignored; decide whether to keep it around locally or discard).
-- **To publish:** `git remote add origin <url>` then `git push -u origin master` (GitHub private repo recommended). Or relocate the folder first.
-- ⚠️ **If the code moves to a NEW path**, the auto-loaded memory (keyed by the old path
-  `E--Projects-maniartech-com-maniartech-v2`) will **not** follow. That's exactly why this RESUME.md +
-  the root `CLAUDE.md` are committed in-repo — they're the durable, path-independent anchor. A fresh
-  session at the new location should read **RESUME.md → CLAUDE.md → `_ia/FOUNDRY-IA.md`** before anything.
+### 1. Move the code into a "real" repository — ✅ DONE (2026-07-10)
+The code now lives at `E:\Projects\maniartech.com\maniartech`, on branch **`v2`**, pushed to
+**`origin/v2`** at `git@github.com:maniartech/maniartech.git`. The entire v2 build was squashed into a
+single migration commit **`02e34c5 "V2 Migration"`** (the granular history `b64bac4`…`cb96e98` recorded
+below is pre-migration and no longer in this tree's log). `.gitignore` excludes `build/`, `.cache/`, `*.zip`
+(the 51 MB `_external-themes.zip` Infolio dump stays local, gitignored).
+- ⚠️ **Path/memory note:** the migration changed the project path, so auto-loaded memory keyed by the old
+  path (`…-maniartech-v2`) did NOT follow. This committed RESUME.md + root `CLAUDE.md` are the durable
+  anchor — a fresh session should read **RESUME.md → CLAUDE.md → `_ia/FOUNDRY-IA.md`** before anything.
 
-### 2. Pending content — the Team section placeholders (flagged, waiting on Aamir)
-On the About page team roster (`site/about/team.md` + `about.html`), three bits are placeholder/invented and must be made real before launch:
-- **Oomera Maniar's real title/remit** (currently "Operations · keeps the process honest" — the tail is invented).
-- **The real specialist domains** (currently illustrative: Security · Data & ML · Cloud/DevOps · Frontend · Mobile · QA).
-- **The third stat** (currently "+1 · only when the work justifies it" — cryptic; wants a real fact).
+### NEW (2026-07-11): Service-pages + trust-pages rebuild IN PROGRESS
+Full plan + decisions: **`_ia/app-se-page-redesign.md`**. Application SE page rebuilt as the prototype
+(content-directory + real template, SEO title-tag split, JSON-LD, proof strip, FAQ, engagement models).
+A multi-agent workflow drafted the other pages on the same system: enterprise-software-engineering, ai,
+modernization, + NEW `/how-we-work/` and `/security/` (routes added to site/module.yaml -> RESTART the
+server to pick up). Signals-inline/substance-dedicated trust architecture (no repeated founder/ISO
+sections on service pages). P2 = per-page visuals (blueprint hero, diptych, cross-section) pending
+metaphor alignment with Aamir. LinkedIn profile overhaul also completed this date
+(`_marketing/linkedin/profile-and-strategy.md` - paste-ready).
+
+### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
+`site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
+**`themes/maniartech/templates/about.html`** and must be made real before launch:
+- **Oomera Maniar's real title/remit** — `about.html:107` currently "Operations · keeps the process honest" (tail invented).
+- **The real specialist domains** — `about.html:112–117` currently illustrative chips: Security · Data & ML · Cloud/DevOps · Frontend · Mobile · QA.
+- **The third stat** — `about.html:122` currently "+1 · only when the work justifies it" (cryptic; wants a real fact).
 
 ---
 
