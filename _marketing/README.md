@@ -13,6 +13,7 @@ honest (Governing Rule #1).
 | Folder | What lives here |
 |---|---|
 | [`brand/`](brand/) | **Read first.** Brand guide: palette, type, logo, voice, positioning, verified facts, honesty rules, proof assets. The single source of truth. |
+| [`growth/`](growth/) | **The post-launch execution system**: marketing calendar (W0-M9), sole-founder weekly routine, AI social pipeline, launch playbooks, listings/citations checklists, metrics + CAPA, verification scripts. Strategy sources: `_inbox/SEO-PLAN.md`, `_inbox/DISTRIBUTION-STRATEGY.md`. |
 | [`presentations/`](presentations/) | Sales decks (pitch / meeting / leave-behind). Source `.md` outlines + built `.pptx` / PDF. |
 | [`prospectus/`](prospectus/) | The high-quality prospectus booklet (designed PDF, print- and share-ready). |
 | [`social/`](social/) | Social-media copy + graphics (LinkedIn, etc.). |

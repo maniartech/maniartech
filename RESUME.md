@@ -52,7 +52,7 @@ below is pre-migration and no longer in this tree's log). `.gitignore` excludes 
   anchor — a fresh session should read **RESUME.md → CLAUDE.md → `_ia/FOUNDRY-IA.md`** before anything.
 
 ### NEW (2026-07-11): Service-pages + trust-pages rebuild IN PROGRESS
-Full plan + decisions: **`_ia/app-se-page-redesign.md`**. Application SE page rebuilt as the prototype
+Full plan + decisions: **`_inbox/app-se-page-redesign.md`**. Application SE page rebuilt as the prototype
 (content-directory + real template, SEO title-tag split, JSON-LD, proof strip, FAQ, engagement models).
 A multi-agent workflow drafted the other pages on the same system: enterprise-software-engineering, ai,
 modernization, + NEW `/how-we-work/` and `/security/` (routes added to site/module.yaml -> RESTART the
@@ -60,6 +60,12 @@ server to pick up). Signals-inline/substance-dedicated trust architecture (no re
 sections on service pages). P2 = per-page visuals (blueprint hero, diptych, cross-section) pending
 metaphor alignment with Aamir. LinkedIn profile overhaul also completed this date
 (`_marketing/linkedin/profile-and-strategy.md` - paste-ready).
+
+**2026-07-23:** SEO strategy dossier at `_inbox/SEO-PLAN.md` (keyword tiers, outbound program,
+honest ranking expectations). **Post-launch execution system at `_marketing/growth/`** - calendar
+(W0-M9, go-live assumed Mon 2026-07-27), sole-founder weekly routine, AI social pipeline, launch
+playbooks, listings/citations, metrics + CAPA, and `scripts/site-health.mjs` (verified working).
+Growth program starts the week the site goes live.
 
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
