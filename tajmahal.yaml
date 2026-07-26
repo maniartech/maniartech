@@ -24,10 +24,23 @@ buildDir: build
 # Default number of items per page on list pages.
 page_size: 10
 
+# Site-wide template variables (read as {{ site.context.<var> }}).
+context:
+  # Show publication dates on Insights posts (list + article + schema).
+  # DECISION 2026-07: launched OFF. The launch batch is published together, and a cluster of
+  # identical dates misrepresents work that actually spans years. Dates are NOT faked - the true
+  # date stays in each post's frontmatter; it is simply not displayed yet.
+  # FLIP TO true once there is ~6 months of newer content (then the launch set reads as the
+  # founding batch, which is unremarkable). The dates revealed are the TRUE ones - the
+  # Medium-origin posts carry their real 2024/2025 first-publication dates, which gives the
+  # archive genuine depth at that point. Reminder tracked at CP-6M in METRICS-AND-CAPA.md.
+  showPostDates: false
+
 # Dev-server port (`tajmahal start`).
 port: 8080
 
 # The canonical absolute origin, used only for sitemap / canonical / og: URLs.
 # Internal links and assets stay relative regardless, so the built site is
-# portable. Override for production, e.g. https://example.com.
-url: "http://localhost:8080"
+# portable. APEX chosen as canonical (the Pages CNAME already serves apex;
+# www 301s to it). Decision 2026-07-23.
+url: "https://maniartech.com"

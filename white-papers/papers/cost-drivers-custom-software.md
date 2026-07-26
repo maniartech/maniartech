@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "The real cost drivers of custom software"
 description: "What actually moves the price of a custom system — and what teams consistently under- or over-estimate. A practical guide to reading an estimate."
 paperStatus: "In preparation"

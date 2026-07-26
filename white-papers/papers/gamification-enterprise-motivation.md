@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "How gamification enhances motivation in the enterprise"
 description: "A practical look at getting people to actually use the systems built for them — and where game mechanics help versus where they backfire."
 paperStatus: "In preparation"

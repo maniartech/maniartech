@@ -5,10 +5,30 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{{ title }} — {{ site.name }}{% endblock %}</title>
+    <title>{% block title %}{{ title }} | {{ site.name }}{% endblock %}</title>
     <meta name="description" content="{{ description }}">
+    <link rel="canonical" href="{{ site.url }}{{ uri }}">
+    {% if noindex %}<meta name="robots" content="noindex">{% endif %}
+    <link rel="icon" href="{% assets "imgs/favicon.ico" %}">
 
-    <!-- Fonts -->
+    <!-- Social / Open Graph -->
+    {% block og_type %}<meta property="og:type" content="website">{% endblock %}
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:title" content="{{ title }} | {{ site.name }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:url" content="{{ site.url }}{{ uri }}">
+    <meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">
+    <meta name="twitter:card" content="summary">
+    {% block og_extra %}{% endblock %}
+
+    <!-- Organization + WebSite entity (site-wide) -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Maniar Technologies Private Limited","alternateName":"ManiarTech","url":"https://maniartech.com/","logo":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png","foundingDate":"2010","address":{"@type":"PostalAddress","streetAddress":"344/1301, Kalpataru Srishti Complex, Mira Road East","addressLocality":"Thane","addressRegion":"Maharashtra","postalCode":"401107","addressCountry":"IN"},"email":"contact@maniartech.com","founder":{"@type":"Person","name":"Aamir Maniar","sameAs":"https://www.linkedin.com/in/aamironline"},"sameAs":["https://github.com/maniartech","https://www.linkedin.com/in/aamironline"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ManiarTech","url":"https://maniartech.com/"}</script>
+    {% block schema_extra %}{% endblock %}
+
+    <!-- Fonts (preconnect early to cut LCP; swap avoids invisible-text flash) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
 

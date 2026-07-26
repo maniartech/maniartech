@@ -2,6 +2,11 @@
 
 {% comment %} Inferred article page for /insights/:slug/. {% endcomment %}
 
+{% block og_type %}<meta property="og:type" content="article">{% endblock %}
+{% comment %} Dates are gated on site.context.showPostDates - see tajmahal.yaml for the why. True dates stay in frontmatter regardless. {% endcomment %}
+{% block og_extra %}{% if site.context.showPostDates %}<meta property="article:published_time" content="{{ pageContext.date }}">{% endif %}<meta property="article:publisher" content="https://maniartech.com/"><meta property="article:section" content="Insights">{% endblock %}
+{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
+
 {% block content %}
 <header class="main-header">
     <div class="container">
@@ -10,7 +15,7 @@
                 <a href="/insights/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Insights</a>
                 <div class="mt-15">
                     {% if pageContext.postStatus %}<span class="mt-badge">{{ pageContext.postStatus }}</span>{% endif %}
-                    {% if pageContext.date %}<span class="opacity-6 ml-15" style="font-size:13px;">{{ pageContext.date }}</span>{% endif %}
+                    {% if site.context.showPostDates %}{% if pageContext.date %}<span class="opacity-6 ml-15" style="font-size:13px;">{{ pageContext.date }}</span>{% endif %}{% endif %}
                 </div>
                 <h1 class="fw-bold mt-20 mb-20 prod-h1">{{ title }}</h1>
                 {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
