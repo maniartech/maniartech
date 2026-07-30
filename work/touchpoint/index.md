@@ -20,6 +20,7 @@ quote:
   text: "ManiarTech is a loyal and trustworthy partner. I appreciated the training they provided to their team to address TPD projects. They also have a great track record being transparent about both time and issues that arise."
   name: "Peter Haid"
   role: "Chief Product Officer, Strativity Group"
+titleTag: "Touchpoint Dashboard - Six Years of CX Engineering"
 ---
 
 ## The situation

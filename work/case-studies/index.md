@@ -32,6 +32,7 @@ studies:
     fact: "WebRTC + WebDoodling"
     body: "A returning founder, Jeff Hines, came back for his next venture: an in-browser video-review studio where a coach records commentary and draws live on running video."
     url: "/case-studies/upsport/"
+seoDescription: "Real client engagements, told straight: what each client faced, what we built, and where it stands today - with links where you can check it yourself."
 ---
 
 No invented numbers. No logos we can't stand behind. A few real engagements - what the client

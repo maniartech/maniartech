@@ -3,6 +3,8 @@ title: "Why a small engineering team authors its own standards"
 description: "Internet Object, NITES, UExL, FUSE, Indigo - what it means to write specifications instead of only consuming them, and what that discipline does to everyday client work."
 date: "2026-07-20"
 order: 2
+titleTag: "Why We Author Our Own Software Standards"
+seoDescription: "Why a small engineering firm writes its own data and language specifications - and what that discipline buys the clients whose projects inherit it."
 ---
 
 Most software companies consume standards. They use JSON because it is there, date libraries because someone wrote them, query conventions because a framework chose them. Nothing wrong with that - it is the sensible default.

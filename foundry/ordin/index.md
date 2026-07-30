@@ -2,6 +2,7 @@
 title: Ordin
 description: A workflow-automation engine - YAML-defined workflows, pluggable activities; fair-code / source-available. In active development.
 productStatus: In development
+titleTag: "Ordin - Plugin-Driven Workflow Automation"
 ---
 
 Ordin is a workflow-automation engine. You define workflows in YAML, wire in pluggable activities,

@@ -18,6 +18,7 @@ outcomes:
   - { num: "600+ -> 1", label: "Access forms and reports consolidated into one workflow screen" }
   - { num: "~15 yrs", label: "in daily production, by the lab's account" }
   - { num: "~2 yrs", label: "of engagement - extended when the lab came back for a customer web portal" }
+titleTag: "Reliable Analytical Labs - 600 Forms Became One"
 ---
 
 ## The situation

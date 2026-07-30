@@ -7,6 +7,8 @@ author: "Aamir Maniar"
 order: 1
 tldr:
   - "Gamification works in enterprise software when it strengthens the three things decades of motivation research say people need at work: a sense of competence, a sense of autonomy, and a sense of connection to others. It backfires - measurably, in controlled studies - when it ranks people against each other or converts work into a points economy, because extrinsic rewards reliably crowd out the intrinsic motivation you were trying to amplify. The practical rule we have arrived at after building internal systems since 2010: make progress visible and competence felt; never rank individuals publicly, and never attach rewards to a metric people can game. Most enterprise \"adoption problems\" turn out to be workflow problems anyway, and no badge fixes a workflow."
+titleTag: "Gamification in the Enterprise - What Actually Works"
+seoDescription: "What moves motivation in enterprise software and what backfires: the research, the failure modes, and a decision framework with two hard vetoes."
 ---
 
 *Aamir Maniar, Founder, ManiarTech*

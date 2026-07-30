@@ -21,6 +21,8 @@ shots:
 outcomes:
   - { num: "~4 months", label: "from start to launch" }
   - { num: "Live", label: "at sales.shanteehomes.com" }
+titleTag: "Sales Navigator - Real-Estate Presales Platform"
+seoDescription: "An end-to-end presales platform for Shantee Homes - floor plans, estimation and RERA payment-plan engine - built in about four months, live today."
 ---
 
 ## The situation

@@ -7,6 +7,8 @@ order: 3
 author: "Aamir Maniar"
 tldr:
   - "The visible size of a software project - features, screens, pages - is a weak predictor of its cost. The strong predictors are mostly invisible in a brief: the density of decisions and exception paths in the workflow, the integration surface, the data that must be moved and verified, the compliance and audit depth the domain demands, how fast the client side can decide, and the rework rate of the team doing the work. Quotes for the \"same\" brief vary five to ten times because vendors are not pricing the same project: they price different interpretations of an ambiguous document, with different rework economics and different honesty about contingency. The practical consequence: a range with stated assumptions tells you far more than a precise-looking single number, and the cheapest-looking quote is frequently the most expensive one to accept."
+titleTag: "The Real Cost Drivers of Custom Software"
+seoDescription: "Why quotes for the same brief vary 5-10x, where software cost really comes from, and how to read an estimate before you sign one. With a buyer's checklist."
 ---
 
 ## Why this matters: the decision you are actually facing

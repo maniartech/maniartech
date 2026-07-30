@@ -22,6 +22,7 @@ capabilities:
   - title: "Modernization & Migration"
     body: "Got an aging system that's slow, fragile, or costly to keep alive? We bring existing systems onto modern, maintainable, mainstream stacks — without trapping you in anything you can't hire for."
     url: "/services/modernization/"
+seoDescription: "Three kinds of engineering work - enterprise systems, custom applications and technology partnership - with AI and modernization in every engagement."
 ---
 
 We do three kinds of engineering work. Tell us which one sounds like you, and we'll point you

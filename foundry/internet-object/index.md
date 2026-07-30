@@ -7,6 +7,8 @@ license: "ISC"
 repo: "https://github.com/maniartech/InternetObject-js"
 playground: "https://play.internetobject.org"
 order: 2
+titleTag: "Internet Object - a Schema-First JSON Alternative"
+seoDescription: "A schema-first, human-readable data format: over 40% smaller than minified JSON and ~30% fewer LLM tokens - reproducible live in the playground."
 ---
 
 Internet Object is one of the standards we've authored — a schema-first, human-readable serialization format built for the web and AI era. We call it a respectful JSON alternative: it credits JSON rather than trashing it.

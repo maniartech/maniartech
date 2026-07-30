@@ -1,6 +1,7 @@
 ---
 title: Senior Software Engineering, Built to Last
 description: ManiarTech designs, builds, and modernizes the systems companies depend on — senior engineers, an ISO-certified process, and mainstream technology your own team can maintain.
+seoDescription: "Senior software engineering from India for clients worldwide: custom applications, process automation and modernization - ISO 9001 and 27001 certified."
 ---
 
 You're looking at the default starter. This page is rendered from

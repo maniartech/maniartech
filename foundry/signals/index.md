@@ -6,6 +6,7 @@ category: "Libraries & Frameworks"
 license: "MIT"
 repo: "https://github.com/maniartech/signals"
 order: 4
+titleTag: "signals - a Type-Safe Event System for Go"
 ---
 
 `signals` is a small, type-safe event/signal system for Go — published, MIT, and used in production.

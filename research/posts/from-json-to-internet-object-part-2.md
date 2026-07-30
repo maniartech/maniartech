@@ -3,6 +3,8 @@ title: "From JSON to Internet Object: comments, object structure and types (Part
 description: "Internet Object beyond size savings - first-class comments, positional/keyed/mixed object styles, open vs closed objects, and a type system with constraints, decimals, dates, and binary data."
 date: "2025-11-25"  # true first publication: Medium, 25 Nov 2025
 order: 8
+titleTag: "JSON to Internet Object, Part 2 - Schemas and Types"
+seoDescription: "Part 2 of the series: typed schemas, nested objects, optional and nullable members, and the validation the format gives you for free."
 ---
 
 *First published in the ManiarTech Engineering Journal on Medium (November 2025); refreshed for maniartech.com.*

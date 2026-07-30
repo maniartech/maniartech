@@ -2,6 +2,7 @@
 title: "Application Software Engineering"
 description: "Custom application development done properly the first time - and honest architecture review for the systems you already run. Senior engineers, mainstream technology, ISO-certified process."
 order: 2
+seoDescription: "Custom applications built end to end, and architecture review for the ones you already have - senior engineers only, mainstream stack, you own the code."
 ---
 
 If you are here, one of these is probably true. You need a custom application built - properly, the first time, by people who have done it before. You have outgrown spreadsheets, manual work, or off-the-shelf software that no longer fits. You have a system that already exists and want an honest expert to tell you what to fix and what to leave alone. Or you have been burned before - by a vendor who over-promised, staffed juniors, or locked you into tools only they understood.

@@ -3,6 +3,8 @@ title: "Dogfood first, then release: how we decide software is ready"
 description: "Why we run our own libraries, platforms, and tools in production before recommending them to anyone - and why so much of our work is deliberately pre-1.0."
 date: "2026-07-21"
 order: 3
+titleTag: "Dogfood First - How We Decide Software Is Ready"
+seoDescription: "We rebuilt maniartech.com on our own static-site framework before offering it to anyone. What dogfooding first buys a client, with the specifics."
 ---
 
 There is a question every software vendor should be able to answer and most cannot: **do you use this yourself?**

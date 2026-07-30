@@ -2,6 +2,8 @@
 title: "You have the market. We can be the technology behind it."
 description: "For founders with a real market edge but no technology arm, ManiarTech can come in as a technology co-founder — building with you, sharing the risk and the reward. A selective track."
 eyebrow: "Technology Partnership"
+titleTag: "Technology Partnership - We Build It With You"
+seoDescription: "For founders with a real market edge and no technology arm: ManiarTech as your technology co-founder - building with you, sharing risk and reward."
 ---
 
 For founders and companies with a real edge — a market, a brand, a way in — but no technology arm of their own, we offer something most vendors don't: instead of only building the product for a fee, **we can come in as your technology co-founder** — we build it, and we share the risk and the reward.

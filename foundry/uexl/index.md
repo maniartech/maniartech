@@ -6,6 +6,7 @@ category: "Languages"
 license: "TBC (MIT likely)"
 repo: "https://github.com/maniartech/uexl-go"
 order: 3
+titleTag: "UExL - a Zero-Allocation Expression Engine for Go"
 ---
 
 UExL (Universal Expression Language) is one of the standards we've authored — implementation-first, with the formal spec derived afterward from the finished reference engine. The Go implementation is done and in the publish queue.

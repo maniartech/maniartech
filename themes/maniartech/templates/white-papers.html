@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}White Papers - Applied Research for Software Decisions | {{ site.name }}{% endblock %}
+{% block title %}White Papers - Applied Research{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
+{% block meta_description %}Open-access white papers on the decisions behind custom software: what drives cost, how people move through systems, and what makes teams adopt the tools you build.{% endblock %}
 
 {% comment %} List page for /white-papers/*. v2 (launch state): the papers are
 real and open - lead with what the reader gets. paper-card treatment. {% endcomment %}

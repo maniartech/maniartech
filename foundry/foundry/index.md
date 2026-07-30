@@ -122,6 +122,7 @@ sections:
         status: "Internal"
         tags: ["Tool"]
         url: "/foundry/gowork/"
+seoDescription: "Everything ManiarTech makes: products, languages, libraries and developer tools - each with an honest status label and proof you can open."
 ---
 
 Over the years we've built our own libraries, standards, tools, a couple of languages, and the

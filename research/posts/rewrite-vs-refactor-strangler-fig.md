@@ -3,6 +3,8 @@ title: "Rewrite or refactor? The strangler-fig answer to aging systems"
 description: "Why big-bang rewrites fail, when a rewrite is actually right, and how incremental modernization - old and new running side by side, every step reversible - de-risks the systems you cannot afford to break."
 date: "2026-07-23"
 order: 6
+titleTag: "Rewrite vs Refactor - the Strangler Fig Approach"
+seoDescription: "When a rewrite is justified, when refactoring wins, and how a strangler-fig migration modernizes a legacy system without a go-live gamble."
 ---
 
 Every company running an aging system eventually faces the same meeting. The system still works - it runs the business, in fact - but it is slow to change, expensive to maintain, and built on technology that gets harder to hire for every year. Someone says the word "rewrite." Someone else remembers the last rewrite. The meeting ends without a decision, and the system ages another quarter.

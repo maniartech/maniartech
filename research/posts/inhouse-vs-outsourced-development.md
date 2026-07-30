@@ -3,6 +3,8 @@ title: "In-house vs outsourced development: an honest comparison"
 description: "When hiring your own engineers wins, when outsourcing wins, the hybrid patterns in between, and the real risks of each - knowledge walkout vs partner lock-in - with mitigations for both."
 date: "2026-07-27"
 order: 13
+seoDescription: "When in-house wins, when outsourcing wins, and the hybrid patterns between - an honest comparison with the risks and mitigations of each path."
+titleTag: "In-House vs Outsourced Development Compared"
 ---
 
 A disclosure before the framework: we sell outsourced software development. Every incentive we have points toward telling you to outsource. So treat this post the way you would treat a butcher's essay on vegetarianism - and note that the butcher who writes one fairly is probably safe to buy from. We have tried to be fair; several sections below argue against hiring us.

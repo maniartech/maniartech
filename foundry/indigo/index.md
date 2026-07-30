@@ -5,6 +5,7 @@ labStatus: "Research · in development"
 category: "Languages"
 license: "TBC (frontend BSD-3)"
 order: 1
+titleTag: "Indigo - a Go Superset Compiling to Idiomatic Go"
 ---
 
 Indigo is the flagship of the standards we've authored — ManiarTech making a language, not just using one. It is pre-1.0, and we are letting it mature at the pace a language deserves.

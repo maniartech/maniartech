@@ -3,6 +3,8 @@ title: "Building software for testing laboratories: lessons from 15 years of LIM
 description: "What two real laboratory systems - one running since 2011, one live in production today - taught us about sample workflows, review chains, report integrity, and software that labs actually keep using."
 date: "2026-07-22"
 order: 5
+titleTag: "Laboratory Software - 15 Years of LIMS Lessons"
+seoDescription: "What ~15 years of laboratory systems taught us about sample lifecycles, review chains, report integrity and why some LIMS software lasts."
 ---
 
 Laboratory software is a niche with an unforgiving audience. A testing laboratory lives and dies by the integrity of its results: samples must be traceable, reviews must be enforced, reports must be tamper-proof, and the whole chain must survive an auditor's visit. Software that merely *mostly* works is not an option in a business whose product is trust.

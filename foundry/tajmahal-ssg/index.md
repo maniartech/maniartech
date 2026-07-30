@@ -5,6 +5,7 @@ labStatus: "Internal · OSS planned"
 category: "Developer Tools"
 license: "TBC"
 order: 7
+titleTag: "Taj Mahal SSG - a Static Site Generator in Go"
 ---
 
 Taj Mahal SSG is our own static-site generator, written in Go. It is internal today — not yet released — but it isn't a prototype: it runs in production on this very website and on live client sites. An open-source release is planned.

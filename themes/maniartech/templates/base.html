@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{{ title }} | {{ site.name }}{% endblock %}</title>
-    <meta name="description" content="{{ description }}">
+    {% comment %} titleTag / seoDescription frontmatter override the visible title/description
+    for search snippets ONLY - H1s and page copy keep the editorial versions. {% endcomment %}
+    <title>{% block title %}{% if pageContext.titleTag %}{{ pageContext.titleTag }}{% else %}{{ title }}{% endif %} | {{ site.name }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% if pageContext.seoDescription %}{{ pageContext.seoDescription }}{% else %}{{ description }}{% endif %}{% endblock %}">
     <link rel="canonical" href="{{ site.url }}{{ uri }}">
     {% if noindex %}<meta name="robots" content="noindex">{% endif %}
     <link rel="icon" href="{% assets "imgs/favicon.ico" %}">
@@ -14,8 +16,8 @@
     <!-- Social / Open Graph -->
     {% block og_type %}<meta property="og:type" content="website">{% endblock %}
     <meta property="og:site_name" content="{{ site.name }}">
-    <meta property="og:title" content="{{ title }} | {{ site.name }}">
-    <meta property="og:description" content="{{ description }}">
+    <meta property="og:title" content="{% if pageContext.titleTag %}{{ pageContext.titleTag }}{% else %}{{ title }}{% endif %} | {{ site.name }}">
+    <meta property="og:description" content="{% if pageContext.seoDescription %}{{ pageContext.seoDescription }}{% else %}{{ description }}{% endif %}">
     <meta property="og:url" content="{{ site.url }}{{ uri }}">
     <meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">
     <meta name="twitter:card" content="summary">

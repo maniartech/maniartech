@@ -15,6 +15,7 @@ quote:
   text: "As per our organization experience Maniar Technologies Pvt. Ltd has given best solution for Web Portal as well as windows application."
   name: "Shailesh Pichori"
   role: "AVP - Information Technology, TendersInfo.com"
+titleTag: "Content Engine - Production NLP in 2010"
 ---
 
 ## The situation

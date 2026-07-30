@@ -3,6 +3,8 @@ title: "From JSON to Internet Object: a lean, schema-first data format (Part 1)"
 description: "How Internet Object trims JSON down to pure data - separating schema from records, collections, typed schemas, and a worked example that shrinks a JSON collection by more than half."
 date: "2025-11-17"  # true first publication: Medium, 17 Nov 2025
 order: 7
+titleTag: "JSON to Internet Object, Part 1 - a Leaner Format"
+seoDescription: "A step-by-step walk from JSON to Internet Object: send the schema once, stream validated records, and cut payload size - reproducibly."
 ---
 
 *First published in the ManiarTech Engineering Journal on Medium (November 2025); refreshed for maniartech.com.*

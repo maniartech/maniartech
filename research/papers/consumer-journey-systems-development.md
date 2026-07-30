@@ -8,6 +8,8 @@ author: "Aamir Maniar"
 tldr:
   - "Most custom business systems are designed around data: the entities, the tables, the modules that mirror departments. But the people who move through a system - customers, staff, auditors, partners - do not experience entities. They experience a journey: a sequence of steps toward a goal that cuts across module and department boundaries. The gap between how a system is structured and how it is travelled is where systems quietly fail: re-entered data, shadow spreadsheets, phone calls to find out where things stand, and eventually abandonment. The fix is not more features. It is to map the journeys before you draw the schema, let the journeys pick the schema's seams, sequence the build so one journey works end to end early, and watch for specific drift signals during delivery. This costs days, not months, and it changes what gets built and in what order."
   - "We make this argument as practitioners, not theorists: our founder spent six years (2012-2018) building Touchpoint Dashboard - first as a senior developer on its engineering team, later with ManiarTech as the product's offshore engineering development partner - a pioneering customer-journey-management platform that counted Fortune 500 brands among its users. We apply the same lens today to systems as unglamorous as a laboratory's sample pipeline and a property developer's presales flow."
+titleTag: "The Consumer Journey in Systems Development"
+seoDescription: "Why systems designed around data flows fail the people who move through them - and a journey-first method that changes what you build, in what order."
 ---
 
 ## Why it matters: the failure mode nobody budgets for

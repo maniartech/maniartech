@@ -2,6 +2,8 @@
 title: "For engineers who'd rather make the tools than just use them"
 description: "ManiarTech is a small, senior team building production systems, authored standards, open-source libraries, and a language in development. Senior engineers, come talk to us."
 eyebrow: "Careers"
+titleTag: "Careers at ManiarTech - for Senior Engineers"
+seoDescription: "A small, senior team building production systems, authored standards, open-source libraries and a language. Experienced engineers, come talk to us."
 ---
 
 ManiarTech is a small, senior team that builds the layers beneath software — production systems for clients, plus the standards we've authored, our libraries, and a programming language in development. If you're an experienced engineer who cares more about doing the work *right* than doing it fast, we should talk.

@@ -17,6 +17,8 @@ quote:
   text: "MANIAR TECHNOLOGIES PVT. LTD. is a top-notch professional firm. They take their work very seriously and are committed to excellence. Their work is on time, high quality, and fairly priced. They are excellent communicators throughout the project lifecycle. I would recommend them to anyone looking for web development services."
   name: "Jeff Hines"
   role: "Founder, UpSport IO"
+titleTag: "UpSport - Draw-on-Video in the Browser"
+seoDescription: "A returning founder came back for his next venture: an in-browser video-review studio with live drawing on running video, on WebRTC and WebDoodling."
 ---
 
 ## The situation

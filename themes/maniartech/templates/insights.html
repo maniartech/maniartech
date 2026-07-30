@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}Insights - Engineering Notes and Applied Write-ups | {{ site.name }}{% endblock %}
+{% block title %}Insights - Engineering Notes and Write-ups{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
+{% block meta_description %}Engineering notes, applied write-ups and reproducible benchmarks from the ManiarTech team{% if pagination.page > 1 %} - page {{ pagination.page }} of the archive{% endif %}. Read how we build, and check our claims yourself.{% endblock %}
 
 {% comment %} List page for /insights/*. v2: no uniform card grid - an editorial
 index: topic lanes up top (real content at rest), then posts as typographic rows.

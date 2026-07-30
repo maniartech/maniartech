@@ -14,6 +14,7 @@ outcomes:
   - { num: "Live", label: "in production today, running real analytical work" }
   - { num: "~1 yr", label: "the client waited for us to build it on Processious" }
   - { num: "2", label: "public URLs anyone can verify, including a report-authenticity checker" }
+titleTag: "Chemo Test Laboratory - a Live LIMS Case Study"
 ---
 
 ## The situation
