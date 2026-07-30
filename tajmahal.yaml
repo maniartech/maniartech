@@ -8,11 +8,14 @@ name: "ManiarTech"
 author: "Aamir Maniar"
 
 # Active modules — each maps to a directory at the project root.
+# One module per top-level menu item (Aamir, 2026-07-30): services / work /
+# foundry / research, plus `site` for home, about, and the standalone pages.
 modules:
   - site
-  - labs
-  - insights
-  - white-papers
+  - services
+  - work
+  - foundry
+  - research
 
 # Theme (a directory under themeDir).
 theme: maniartech

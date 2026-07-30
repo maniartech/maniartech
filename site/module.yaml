@@ -1,34 +1,12 @@
-# The `site` module — every general (bespoke) page.
-#
-# `pages:` is an ordered list of single-key entries: page-name → URL.
-# The page name selects content (site/<name>/index.md) and template
-# (<name>.html in the theme) by convention. Detail collections share a
-# template via one-line `{% extends %}` shims (e.g. chemo.html →
-# case-detail.html), matching the products pattern.
+# The `site` module - home, about, and the standalone pages.
+# Services / Work (case studies) / Foundry / Research each live in their own
+# module now (one module per top-level menu item - Aamir, 2026-07-30).
 
 name: site
 
 pages:
   - home:  /
   - about: /about/
-
-  # Services — hub + category/capability detail pages
-  - services:                          /services/
-  - enterprise-software-engineering:   /services/enterprise-software-engineering/
-  - application-software-engineering:  /services/application-software-engineering/
-  - ai:                                /services/ai/
-  - modernization:                     /services/modernization/
-
-  # Case studies — hub + bespoke detail per study (projects approach)
-  - case-studies:    /case-studies/
-  - chemo:           /case-studies/chemo/
-  - rtl:             /case-studies/rtl/
-  - sales-navigator: /case-studies/sales-navigator/
-  - touchpoint:      /case-studies/touchpoint/
-  - content-engine:  /case-studies/content-engine/
-  - upsport:         /case-studies/upsport/
-
-  # NOTE: Products + Labs now live in the dedicated `labs` module (labs/module.yaml).
 
   # Standalone site pages
   - standards:    /standards/

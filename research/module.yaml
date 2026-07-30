@@ -1,0 +1,18 @@
+# The `research` module - the Research top-level section: Insights (the blog /
+# SEO engine) and White Papers (applied papers), one module per top-level menu
+# item, per Aamir 2026-07-30. Two list/article collections; URLs unchanged.
+# Page names stay `insights` / `white-papers` so the existing templates
+# (insights.html, white-papers.html + dotted article shims) resolve untouched.
+
+name: research
+
+pages:
+  - insights:
+      path: /insights/*
+      content: posts
+
+  - white-papers:
+      path: /white-papers/*
+      content: papers
+
+page_size: 10

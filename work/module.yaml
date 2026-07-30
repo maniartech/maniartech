@@ -1,0 +1,15 @@
+# The `work` module - the Work top-level section (case studies). One module
+# per top-level menu item, per Aamir 2026-07-30. URLs unchanged (/case-studies/*).
+# Each case page is a content directory (index/build/decisions/outcome) rendered
+# by case-detail.html via one-line {% extends %} shims.
+
+name: work
+
+pages:
+  - case-studies:    /case-studies/
+  - chemo:           /case-studies/chemo/
+  - rtl:             /case-studies/rtl/
+  - sales-navigator: /case-studies/sales-navigator/
+  - touchpoint:      /case-studies/touchpoint/
+  - content-engine:  /case-studies/content-engine/
+  - upsport:         /case-studies/upsport/

@@ -1,0 +1,13 @@
+# The `services` module - the Services top-level section (one module per
+# top-level menu item, per Aamir 2026-07-30). Hub + the four service pages.
+# URLs unchanged from the old `site` module. Page name selects content
+# (services/<name>/) and template (<name>.html) by convention.
+
+name: services
+
+pages:
+  - services:                          /services/
+  - enterprise-software-engineering:   /services/enterprise-software-engineering/
+  - application-software-engineering:  /services/application-software-engineering/
+  - ai:                                /services/ai/
+  - modernization:                     /services/modernization/
