@@ -73,7 +73,7 @@ above working end to end - and it is not best-in-class yet. The roadmap tracks t
 the features. It's **fair-code / source-available** - you can read the source; the licence is not a
 permissive open-source one. We don't publish performance claims we can't let you reproduce.
 
-Ordin is also being built as the automation engine behind [Processious](/foundry/processious/), our
+Ordin is also being built as the automation engine behind [Processious](/products/processious/), our
 process-automation platform - the long-running, scheduled, event-driven work runs through it.
 
 ## Why it matters to your project

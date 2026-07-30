@@ -18,6 +18,8 @@ pages:
   - gotime:          /foundry/gotime/
   - vault-storage:   /foundry/vault-storage/
   - tajmahal-ssg:    /foundry/tajmahal-ssg/
+  - gocurl:          /foundry/gocurl/
+  - gowork:          /foundry/gowork/
 
   # Foundry — hub + curated, custom-designed view pages (each its own vibe)
   - foundry:         /foundry/

@@ -61,17 +61,17 @@ sections:
         desc: "One human-readable date/time format to replace the fragmented mess."
         status: "Research"
         tags: ["Standard"]
-        url: "/standards/"
+        url: "/standards/#nites"
       - name: "FUSE"
         desc: "A protocol that unifies REST, live queries, and push on one server."
         status: "Research"
         tags: ["Standard"]
-        url: "/standards/"
+        url: "/standards/#fuse"
       - name: "AddressQL"
         desc: "A URL-native, backend-neutral query language — SQL-like power in an address bar."
         status: "Research"
         tags: ["Standard"]
-        url: "/standards/"
+        url: "/standards/#addressql"
   - name: "Libraries & Frameworks"
     anchor: "libraries"
     blurb: "Code you import and build on."
@@ -100,7 +100,7 @@ sections:
         desc: "Run a curl command directly as Go HTTP code."
         status: "Internal"
         tags: ["Library", "Open source"]
-        url: "/foundry/#libraries"
+        url: "/foundry/gocurl/"
   - name: "Developer Tools"
     anchor: "tools"
     blurb: "Things you run to build and ship."
@@ -121,7 +121,7 @@ sections:
         desc: "Friendlier multi-module workspace management for Go."
         status: "Internal"
         tags: ["Tool"]
-        url: "/foundry/#tools"
+        url: "/foundry/gowork/"
 ---
 
 Over the years we've built our own libraries, standards, tools, a couple of languages, and the

@@ -25,6 +25,8 @@ We'd rather you know exactly where each project stands — and exactly what you 
 
 None of these are "industry standards" handed down by a committee. They are **standards we've authored** — some young, some further along — and we label them honestly so you can judge for yourself. Where a link is dark, it's dark on purpose: we won't point you at a "coming soon" page and call that verifiable.
 
+<span id="indigo" style="scroll-margin-top:88px;"></span>
+
 ## Indigo — a Go superset whose output is plain, idiomatic Go you read in the diff
 
 > **Status: Maturing in the open · pre-1.0 · active development**
@@ -56,6 +58,8 @@ The engineering principle behind it: **"no output is better than wrong output."*
 
 Data. Time. Expressions. The API itself. These are the foundations software is built *on* — and over the years we've designed our own, each as an open specification with a reference implementation. One of them you can run in your browser right now (Internet Object); one ships today as a Go library (NITES via GoTime). The rest are spec-to-read, code-still-maturing — and each one below tells you which. Here's where each stands, told straight.
 
+<span id="internet-object" style="scroll-margin-top:88px;"></span>
+
 ### Internet Object — a schema-first, human-readable data format
 
 > **Status: Open now · Published · spec 1.0 Draft (beta) · live playground + two reference parsers**
@@ -69,6 +73,8 @@ A compact, schema-first alternative to JSON, designed from a clean slate for the
 **Honest status:** the spec is a 1.0 *Draft* (work in progress); most features are marked beta, a few experimental; nothing is locked as "stable" yet. It's not a weekend toy: the JavaScript reference implementation's first public commit dates to **December 2018** — you can read the full history in `git log` on the public repo. That's the verifiable maturity signal; we're not rounding it into a slogan.
 
 [Read more about Internet Object →](/foundry/internet-object/)
+
+<span id="uexl" style="scroll-margin-top:88px;"></span>
 
 ### UExL — the regex of expression evaluation
 
@@ -84,6 +90,8 @@ An embeddable, language-independent expression engine — the way regex became t
 
 [Read more about UExL →](/foundry/uexl/)
 
+<span id="nites" style="scroll-margin-top:88px;"></span>
+
 ### NITES — one intuitive time format for every language
 
 > **Status: Open now (via GoTime) · Research / Draft · spec v1.0 (finalizing) · live reference implementation**
@@ -92,6 +100,8 @@ Natural and Intuitive Time Expression Syntax: one human-readable, case-insensiti
 
 - **It already ships in real code.** NITES is the specification; **GoTime**, our published Go library, is its reference implementation — so this is a standard that runs today, not vaporware. This is the one item in this section, besides Internet Object, with a live artifact to click.
 - Aspiration stated honestly: we'd like NITES to become a cross-language standard. Today it's a v1.0 draft, finalizing, with one reference implementation.
+
+<span id="fuse" style="scroll-margin-top:88px;"></span>
 
 ## FUSE — REST that's live by default
 
@@ -112,6 +122,8 @@ What makes the FUSE specs worth reading is their intellectual honesty, which we 
 | **Convex** | you'll adopt a full managed backend platform | you keep your own DB/stack and add reactivity |
 
 **Honest status:** this is design-phase research. The wire protocol is **not frozen**; a proof-of-concept comes first (proving automatic reactivity over stock Postgres against a "no-stale" invariant) before the spec is finalized or more languages are added. We're publishing the research now and building the framework as time allows — so this is a spec to read and critique, not yet a library to build on.
+
+<span id="addressql" style="scroll-margin-top:88px;"></span>
 
 ## AddressQL — SQL-like power you can paste into a URL
 
