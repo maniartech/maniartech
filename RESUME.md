@@ -115,6 +115,18 @@ driver rail (LIMS cost). Products: five concept diagrams, dossier-calibrated (ag
 claims it could not ground - ordin audit-trail, tallery versioning). All 38 routes 200, no
 console errors, body-dash + ASCII sweeps clean, site-health 75/1 (sitemap = Aamir's).
 
+**2026-07-30 (part 4 - link fixes + SEO gate):** Aamir's review caught menu links that "worked"
+(HTTP 200) but betrayed their labels - gocurl/gowork cards and menu items anchor-linked because no
+pages existed (REAL pages built from dossiers, module.yaml + shims added - routes are
+startup-only); AddressQL/PressML pointed at a languages page that lacked them (sections added,
+deep-anchored); 5 dead mobile anchors restored; ordin's wrong Processious path fixed. New
+verification standard: recursive crawl (every link 200 + every #anchor resolves) PLUS
+label-vs-destination audit (4,822 labeled links). **NEW `scripts/seo/`** (seo-check.mjs + README):
+crawling SEO gate - first run found 10 FAIL / 122 WARN, now 0 FAIL / 7 documented-advisory.
+base.html gained `titleTag:` / `seoDescription:` frontmatter overrides (snippet layer only; H1s
+keep editorial voice) - ~50 pages got crafted snippet text. GOTCHA recorded: NEW frontmatter keys
+need server restart + rm -rf .cache (body edits hot-reload; frontmatter does not).
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
