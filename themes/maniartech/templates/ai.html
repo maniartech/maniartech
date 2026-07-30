@@ -14,8 +14,8 @@
 {% block content %}
 <header class="main-header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
+        <div class="svc-hero">
+            <div>
                 <a href="/services/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; Services</a>
                 <h1 class="fw-bold mt-15 mb-20 prod-h1">{{ title }}</h1>
                 <p class="lead-text prod-lead">{{ description }}</p>
@@ -24,6 +24,22 @@
                     <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
                 </div>
                 <p class="mt-20" style="color:rgba(255,255,255,.45);font-size:14px;letter-spacing:.02em;">ISO 9001 &amp; 27001 certified &nbsp;|&nbsp; Experienced engineers only &nbsp;|&nbsp; Since 2010</p>
+            </div>
+            <div class="svc-hero-visual">
+                {% comment %} Noise settles into signal - then holds. {% endcomment %}
+                <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scattered noise settling into a clear signal line">
+                    <line class="aih-base" x1="24" y1="180" x2="296" y2="180"/>
+                    <circle class="aih-d" cx="40"  cy="160" r="4" style="--nx:-8px;  --ny:-64px"/>
+                    <circle class="aih-d" cx="76"  cy="150" r="4" style="--nx:14px;  --ny:42px"/>
+                    <circle class="aih-d" cx="112" cy="138" r="4" style="--nx:-20px; --ny:26px"/>
+                    <circle class="aih-d" cx="148" cy="124" r="4" style="--nx:12px;  --ny:-48px"/>
+                    <circle class="aih-d" cx="184" cy="108" r="4" style="--nx:-10px; --ny:56px"/>
+                    <circle class="aih-d" cx="220" cy="90"  r="4" style="--nx:22px;  --ny:-30px"/>
+                    <circle class="aih-d" cx="256" cy="70"  r="4" style="--nx:-16px; --ny:-58px"/>
+                    <circle class="aih-d" cx="284" cy="52"  r="4" style="--nx:8px;   --ny:38px"/>
+                    <path class="aih-sig" d="M40 160 L76 150 L112 138 L148 124 L184 108 L220 90 L256 70 L284 52"/>
+                </svg>
+                <p class="svc-hero-cap">Your data has a signal. AI is only worth it when it finds one.</p>
             </div>
         </div>
     </div>

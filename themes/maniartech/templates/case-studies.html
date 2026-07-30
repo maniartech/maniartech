@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Case Studies — {{ site.name }}{% endblock %}
+{% block title %}Case Studies - Real Client Work, Verifiable | {{ site.name }}{% endblock %}
 
-{% comment %} Case-studies hub. Cards render from pageContext.studies
-(content in site/case-studies/index.md). Bespoke child pages live at
-/case-studies/<slug>/. {% endcomment %}
+{% comment %} Case-studies hub v2: typographic rows (no uniform card grid),
+each with a verified fact on the right at rest. Data: pageContext.studies
+in site/case-studies/index.md. forloop CAPITALIZED. {% endcomment %}
 
 {% block content %}
 <header class="main-header">
@@ -14,10 +14,6 @@
                 <span class="mt-eyebrow">Case Studies</span>
                 <h1 class="fw-bold prod-h1">{{ title }}</h1>
                 <p class="lead-text mt-20 prod-lead">{{ description }}</p>
-                <div class="mt-actions">
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
-                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
-                </div>
             </div>
         </div>
     </div>
@@ -26,23 +22,32 @@
 <section class="section-padding pt-0">
     <div class="container">
         <div class="row">
-            {% for s in pageContext.studies %}
-            <div class="col-lg-6 mb-30">
-                <a href="{{ s.url }}" class="mt-card d-block">
-                    <span class="mt-badge {% if s.caseStatus == "In production" %}is-live{% endif %} mb-15 d-inline-block">{{ s.caseStatus }}</span>
-                    <h5 class="mb-10">{{ s.title }}</h5>
-                    <p>{{ s.body }}</p>
-                    <span class="main-color d-inline-block mt-15" style="font-weight:600;font-size:14px;">Read the full case →</span>
+            <div class="col-lg-11">
+                {% for s in pageContext.studies %}
+                <a href="{{ s.url }}" class="case-row">
+                    <span>
+                        <span class="d-flex align-items-center mb-8" style="gap:12px;flex-wrap:wrap;">
+                            <span class="mt-badge {% if s.caseStatus == "In production" %}is-live{% endif %}">{{ s.caseStatus }}</span>
+                        </span>
+                        <span class="cr-name d-block">{{ s.title }}</span>
+                        <span class="cr-line d-block">{{ s.body }}</span>
+                    </span>
+                    <span class="cr-fact">{{ s.fact }}</span>
                 </a>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
 
-        <div class="text-md-center mt-40">
-            <span class="mt-eyebrow d-block">See how we'd approach yours</span>
-            <div class="mt-actions justify-center">
-                <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
-                <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="mt-60 pt-40">
+                    <span class="mt-eyebrow d-block">See how we'd approach yours</span>
+                    <div class="mt-actions">
+                        <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                        <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                    </div>
+                    <p class="mt-15" style="color:rgba(255,255,255,.45);font-size:14px;">Free and without obligation. A senior engineer replies within one business day.</p>
+                </div>
             </div>
         </div>
     </div>

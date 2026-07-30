@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Insights — {{ site.name }}{% endblock %}
+{% block title %}Insights - Engineering Notes and Applied Write-ups | {{ site.name }}{% endblock %}
 
-{% comment %} List page for /insights/*. Renders the `articles` collection. {% endcomment %}
+{% comment %} List page for /insights/*. v2: no uniform card grid - an editorial
+index: topic lanes up top (real content at rest), then posts as typographic rows.
+forloop vars CAPITALIZED in this binary. {% endcomment %}
 
 {% block content %}
 <header class="main-header">
@@ -10,29 +12,40 @@
         <div class="row">
             <div class="col-lg-9">
                 <span class="mt-eyebrow">Insights</span>
-                <h1 class="fw-bold prod-h1">Notes from the workshop — engineering, told straight.</h1>
-                <p class="lead-text mt-20 prod-lead">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build — and check our claims for yourself.</p>
+                <h1 class="fw-bold prod-h1">Notes from the workshop - engineering, told straight.</h1>
+                <p class="lead-text mt-20 prod-lead">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build - and check our claims for yourself.</p>
+                <p class="mt-20" style="color:rgba(255,255,255,.5);font-size:14.5px;max-width:62ch;">New here, and growing deliberately. We'd rather publish one piece worth your time than a feed of filler - roughly once or twice a month, not on a content treadmill.</p>
             </div>
         </div>
     </div>
 </header>
 
-<section class="section-padding pt-0">
+<section class="section-padding pt-0 pb-0">
     <div class="container">
         <div class="row">
-            {% for a in articles %}
-            <div class="col-lg-6 mb-30">
-                <a href="{{ a.url }}" class="mt-card d-block">
-                    <div class="d-flex align-items-center mb-15" style="gap:12px;">
+            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">Why we built it</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">The decisions behind our open-source work - trade-offs, dead ends, reasons.</p></div>
+            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">How it works</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">Walkthroughs of the tools and formats we've made - runnable, verifiable.</p></div>
+            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">How we work</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">Senior-only delivery, a documented process, right-sized engineering.</p></div>
+            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">What things cost</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">Honest looks at software cost and the decisions that drive it.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                {% for a in articles %}
+                <a href="{{ a.url }}" class="post-row">
+                    <span class="pr-top">
+                        <span class="pr-name">{{ a.title }}</span>
                         {% if a.postStatus %}<span class="mt-badge">{{ a.postStatus }}</span>{% endif %}
-                        {% if site.context.showPostDates %}{% if a.date %}<span class="opacity-6" style="font-size:13px;">{{ a.date }}</span>{% endif %}{% endif %}
-                    </div>
-                    <h5 class="mb-10">{{ a.title }}</h5>
-                    <p>{{ a.description }}</p>
-                    <span class="main-color d-inline-block mt-15" style="font-weight:600;font-size:14px;">Read →</span>
+                        {% if site.context.showPostDates %}{% if a.date %}<span class="pr-meta">{{ a.date }}</span>{% endif %}{% endif %}
+                    </span>
+                    <span class="pr-line d-block">{{ a.description }}</span>
                 </a>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
 
         {% if pagination.pages > 1 %}
@@ -43,9 +56,14 @@
         </nav>
         {% endif %}
 
-        <div class="mt-actions mt-60 pt-40 bord-thin-top">
-            <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>Explore the Foundry</span></a>
-            <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="mt-actions mt-60 pt-40 bord-thin-top">
+                    <a href="/white-papers/" class="butn butn-md butn-rounded butn-bord text-light"><span>Read the white papers</span></a>
+                    <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>Explore the Foundry</span></a>
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

@@ -1,1 +1,88 @@
-{% extends "page.html" %}
+{% extends "base.html" %}
+
+{% comment %} Contact - "three doors". Estimate / email / call as equal doors,
+then what happens next (the anti-black-hole promise), then the registered-company
+block. Content directory: site/contact/ (index + where). forloop CAPITALIZED. {% endcomment %}
+
+{% block title %}Contact ManiarTech - Talk to a Senior Engineer | {{ site.name }}{% endblock %}
+
+{% block content %}
+<header class="main-header pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <span class="mt-eyebrow">{{ pageContext.eyebrow }}</span>
+                <h1 class="fw-bold mb-20 prod-h1">{{ title }}</h1>
+                <div class="mt-prose">{{ content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-40">
+    <div class="container">
+        <div class="row">
+            {% for d in pageContext.doors %}
+            <div class="col-lg-4 mb-30">
+                <a href="{{ d.href }}" class="door">
+                    <span class="door-k">{{ d.k }}</span>
+                    <h3>{{ d.t }}</h3>
+                    <p>{{ d.d }}</p>
+                    <span class="door-go">{{ d.go }} &rarr;</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="bord pt-25 bord-thin-top">
+                    <h2 class="fw-600">What happens when you reach out</h2>
+                    <p class="mt-10" style="color:rgba(255,255,255,.6);">No black holes, no hard sell.</p>
+                </div>
+                <div class="mt-25">
+                    {% for n in pageContext.next %}
+                    <div class="mt-check mb-20">
+                        <span class="tick">&#10003;</span>
+                        <div class="ct"><p style="margin:0;">{{ n }}</p></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="bord pt-25 bord-thin-top">
+                    <h2 class="fw-600">{{ where.heading }}</h2>
+                    <div class="mt-prose mt-15">{{ where.content|safe }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="pt-40 bord-thin-top">
+                    <h2 class="fw-600 mb-15">Whatever you're building, start with a conversation</h2>
+                    <p style="color:rgba(255,255,255,.7);max-width:62ch;">No obligation, no pressure - just a clear next step. Small team or enterprise, you'll get the same senior attention.</p>
+                    <div class="mt-actions">
+                        <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -22,6 +22,23 @@ This is not a slogan for us; it is an inventory.
 
 The pattern is consistent: build the tool because the work demands it, run it until it stops surprising us, and only then let it near anyone else's project.
 
+## Case in point: this site runs on a framework we have not released yet
+
+Taj Mahal is worth a closer look, because it is the dogfood gate operating in plain view, right now.
+
+It is a static-site generator with a specific opinion: every section of a site - the blog, the docs, the service pages, a landing area - is an independent **module** with its own content directory, its own routes, and, if it wants one, its own theme. Content is Markdown with YAML frontmatter; presentation is Django-style templates with theme inheritance; assets go through a built-in bundling and minification pipeline rather than a bolted-on toolchain. It currently runs **more than ten of our own live websites**, plus that laboratory client's public site, plus the page you are reading.
+
+It is not open source yet. Not because it is secret - because it has not passed its own gate.
+
+Rebuilding maniartech.com on it has been the hardest workout the framework has had: a multi-section site with a blog, case studies, long-form documents, and a custom theme, built under real deadline pressure by people with no patience for their own tool's excuses. A framework that survives that is shaped differently from one designed on a whiteboard:
+
+- **Content ordering is strictly deterministic** - numeric filename prefix, then frontmatter order, then timestamp - because "mostly alphabetical" is tolerable on a five-page demo and maddening on a two-hundred-page site.
+- **Error reporting is a headline feature**, not an afterthought, because the person staring at a broken template at midnight is usually one of us. Nothing improves a framework's error messages like the author having to read them.
+- **Documentation is part of the definition of done.** Taj Mahal ships with a full manual - an eight-part book, around twenty-nine chapters - written by the people who operate the tool daily, covering the failure modes we actually hit, not the happy path we hoped for.
+- **We know its remaining rough edges precisely.** Which configuration changes need a restart. How to recover when the content cache gets into a bad state. Our own build notes record every surprise, and that list is the honest release checklist: the framework goes public when the surprises run out, not when a launch date arrives.
+
+That last point is the whole model in one sentence. Most software is released when the roadmap says so. Ours is released when the dogfooding stops producing incident notes.
+
 ## Why so much of our work is pre-1.0 - deliberately
 
 If you browse our [Foundry](/foundry/), you will notice honest labels everywhere: in development, research, internal. We could stamp 1.0 on more things. We do not, and the reason is the same discipline in reverse.
@@ -40,13 +57,13 @@ What we get in exchange:
 - **Real documentation.** Docs written by the people who had to operate the thing, not by the people who hoped it would work.
 - **An honest catalog.** When everything carries a truthful status label, "in production" actually means something. A buyer can calibrate instead of guessing.
 
-## A concrete example
+## A concrete example that completed the loop
 
 Our [signals](/foundry/signals/) library - a small, type-safe event system for Go - is a fair miniature of the whole model. It existed because our own systems needed clean event handling. It ran inside real projects first. It was published only when it had stopped changing underneath us, and it has since been used by developers we have never met - which is the point of the model: **the last step of dogfooding is that the food turns out to be fine for everyone.**
 
-The same path is being walked right now by bigger things - our data format, our expression engine, our document tooling - each at its own honest stage, each maturing on real work before it asks for anyone's trust.
+The same path is being walked right now by bigger things - our data format, our expression engine, the site generator this page is served by - each at its own honest stage, each maturing on real work before it asks for anyone's trust.
 
-## What this means if you hire us
+## What dogfooding buys you as a client
 
 Two practical consequences.
 

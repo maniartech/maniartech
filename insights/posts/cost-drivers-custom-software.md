@@ -7,7 +7,7 @@ order: 4
 
 Ask five vendors what your project will cost and you will get five numbers, none of which explain themselves. This post is the explanation - the actual drivers that move an estimate up or down, written by people who produce estimates for a living and would rather demystify the process than dramatize it.
 
-One honest note before we start: **you will not find dollar figures here.** Any article that quotes "a CRM costs $40,000-$120,000" is describing its own averages, not your project. What transfers between projects is not the number - it is the structure of where the number comes from.
+Two honest notes before we start. First, **you will not find dollar figures here.** Any article that quotes "a CRM costs $40,000-$120,000" is describing its own averages, not your project. What transfers between projects is not the number - it is the structure of where the number comes from. Second, this is deliberately the short, practical version: if you want the full treatment, we go much deeper in our [white paper on custom software cost drivers](/white-papers/cost-drivers-custom-software/).
 
 ## Driver 1: Scope clarity - the cheapest thing you control
 
@@ -56,6 +56,20 @@ Cost drivers get all the attention, but several things genuinely reduce cost, an
 - **Saying no.** Some features cost more than they will ever return. A vendor who tells you what NOT to build is saving you money in the most direct way possible.
 - **Off-the-shelf honesty.** If a standard product genuinely fits, custom software is the wrong answer - and we will say so before you spend anything.
 
+## A checklist before you ask anyone for a number
+
+Ten minutes with this list will make every quote you receive more comparable and more honest:
+
+1. Write a one-page description of the problem in your own words - what happens today, what should happen instead.
+2. List the decisions: who can do what, in what order, and what happens on rejection or exception.
+3. List every system the software must talk to - and mark the ones that are old, undocumented, or owned by someone else.
+4. Name your regulator, accreditor, or auditor, if you have one.
+5. Name the old system and its data, if one exists - and be honest about how clean that data is.
+6. Write down what you genuinely do not know yet. A vendor who is not curious about this list is pricing blind.
+7. Decide what the smallest genuinely useful first phase would be - the part you would ship if you could only ship one thing.
+
+Bring that to any vendor - including us - and the conversation starts three meetings ahead.
+
 ## Turning this into your number
 
-The structure above is general; your number is specific. The shortest path between the two: [tell us what you are building](/estimate/) - free and without obligation. A senior engineer reads it and replies within one business day with a ballpark and an honest take, including the drivers that dominate in your particular case, and including "this should not be custom software" if that is the truth.
+The structure above is general; your number is specific. For the deeper treatment of every driver - and how they interact - the [full white paper](/white-papers/cost-drivers-custom-software/) is the long version of this post. And the shortest path to an actual figure: [tell us what you are building](/estimate/) - free and without obligation. A senior engineer reads it and replies within one business day with a ballpark and an honest take, including the drivers that dominate in your particular case, and including "this should not be custom software" if that is the truth.

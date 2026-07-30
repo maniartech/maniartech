@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}White Papers — {{ site.name }}{% endblock %}
+{% block title %}White Papers - Applied Research for Software Decisions | {{ site.name }}{% endblock %}
 
-{% comment %} List page for /white-papers/*. {% endcomment %}
+{% comment %} List page for /white-papers/*. v2 (launch state): the papers are
+real and open - lead with what the reader gets. paper-card treatment. {% endcomment %}
 
 {% block content %}
 <header class="main-header">
@@ -10,8 +11,9 @@
         <div class="row">
             <div class="col-lg-9">
                 <span class="mt-eyebrow">White Papers</span>
-                <h1 class="fw-bold prod-h1">Applied papers, written to be useful.</h1>
-                <p class="lead-text mt-20 prod-lead">A small set of quality-first papers on the problems we work in — motivation and gamification, the consumer journey in systems, and the real cost drivers of custom software. Quality over quantity; each is released when it's genuinely worth your time.</p>
+                <h1 class="fw-bold prod-h1">Applied thinking on the decisions you actually face.</h1>
+                <p class="lead-text mt-20 prod-lead">Before you commit budget to custom software, automation, or AI, it helps to think clearly about it. These papers cover the questions that decide whether a build pays off: what really drives cost, how people actually move through systems, and what makes teams adopt the software you give them.</p>
+                <p class="mt-20" style="color:rgba(255,255,255,.5);font-size:14.5px;">No sign-up wall. Read them, share them, disagree with them.</p>
             </div>
         </div>
     </div>
@@ -22,11 +24,11 @@
         <div class="row">
             {% for a in articles %}
             <div class="col-lg-4 col-md-6 mb-30">
-                <a href="{{ a.url }}" class="mt-card d-block">
-                    {% if a.paperStatus %}<span class="mt-badge mb-15 d-inline-block">{{ a.paperStatus }}</span>{% endif %}
-                    <h5 class="mb-10">{{ a.title }}</h5>
+                <a href="{{ a.url }}" class="paper-card">
+                    <span class="pc-kind">White paper</span>
+                    <h3>{{ a.title }}</h3>
                     <p>{{ a.description }}</p>
-                    <span class="main-color d-inline-block mt-15" style="font-weight:600;font-size:14px;">Read the outline →</span>
+                    <span class="pc-foot">Open access - read in full &rarr;</span>
                 </a>
             </div>
             {% endfor %}
@@ -39,6 +41,18 @@
             {% endfor %}
         </nav>
         {% endif %}
+
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="mt-60 pt-40 bord-thin-top">
+                    <p style="color:rgba(255,255,255,.6);font-size:15px;max-width:70ch;">These are written the way we build: claims sourced, limits acknowledged, judgment labeled as judgment. If a paper touches a decision you're facing, we're happy to talk it through - no pitch attached.</p>
+                    <div class="mt-actions">
+                        <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to us about a paper</span></a>
+                        <a href="/insights/" class="butn butn-md butn-rounded butn-bord text-light"><span>Lighter reads: Insights</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

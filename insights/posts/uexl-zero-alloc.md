@@ -5,35 +5,57 @@ date: "2026-07-23"
 order: 1
 ---
 
-UExL is our embeddable expression language for Go - the kind of engine you reach for when business rules, filters, or computed fields need to be evaluated thousands of times per second inside a larger system. This post makes one precise claim about it, shows the numbers behind that claim, tells you where UExL loses, and gives you the harness to check all of it on your own machine.
+UExL is our embeddable expression language for Go - the kind of engine you reach for when business rules, filters, or computed fields need to be evaluated thousands of times per second inside a larger system. This post makes one precise claim about it, shows the numbers behind that claim, tells you exactly where the claim stops, and gives you the harness to check all of it on your own machine.
 
 That structure is deliberate. Performance posts usually make broad claims and hope nobody checks. We would rather make a narrow claim and insist that you do.
 
 ## The claim, stated exactly
 
-Of the three Go expression engines we benchmarked - UExL, cel-go, and expr - **UExL is the only one that evaluates with zero heap allocations on the boolean and string paths.**
+Of the three Go expression engines we benchmarked - UExL, cel-go, and expr - **UExL is the only one that evaluates with zero heap allocations on the boolean/comparison and string-matching paths.**
 
-Not "low allocations." Not "fast." Zero allocations, on those specific paths. This is the claim we lead with because, unlike wall-clock timings, it is exact and stable: allocation counts do not vary with your hardware, your CPU load, or your Go version's scheduler mood. Either the profiler shows zero or it does not.
+Not "low allocations." Not "fast." Zero allocations, on those specific paths, for pre-compiled expressions. This is the claim we lead with because, unlike wall-clock timings, it is exact and stable: allocation counts do not vary with your hardware, your CPU load, or your Go version's scheduler mood. Either the profiler shows zero or it does not.
 
 ## Why allocations matter more than nanoseconds
 
 In a long-running Go service, every heap allocation is a small loan from the garbage collector, and the GC collects its interest at the worst times. An expression engine sitting on a hot path - evaluating rules per request, per record, per event - can allocate millions of times per hour. That shows up not as slow averages but as **latency spikes**: the occasional slow request that is nothing to do with your code and everything to do with collection pauses.
 
-An engine that does not allocate on its hot path simply does not contribute to that problem. That is worth more to a production service than winning any single microbenchmark - which is why it is the property we engineered for and the one we headline.
+The arithmetic is unforgiving. An engine that allocates four times per evaluation, evaluating a modest 5,000 expressions per second, is handing the collector 72 million objects an hour - forever, for as long as the service runs. An engine that does not allocate on its hot path simply does not contribute to that problem, no matter how hot the path gets. That is worth more to a production service than winning any single microbenchmark - which is why it is the property we engineered for and the one we headline.
 
-## The numbers - and the one we lose
+## How the engine avoids allocating
 
-From our benchmark run (Go, same machine, same harness for all three engines; timings vary run to run, allocation counts do not):
+Zero-allocation evaluation is not a trick; it is a set of design decisions that all point the same way.
 
-- **String path:** UExL ~108 ns per evaluation vs ~325 ns (one competitor) and ~348 ns (the other) - with zero allocations against their several.
-- **Map access over 100 keys:** UExL ~11,400 ns vs ~15,150 ns (expr) and ~63,500 ns (cel-go).
-- **Basic arithmetic: UExL is slower** - ~266 ns vs expr's ~130 ns. We are not the fastest at everything, and pretending otherwise would be exactly the kind of claim this post exists to avoid.
+- **Compile once, evaluate many.** UExL is a three-stage pipeline - parser to AST, compiler to bytecode, then a small VM that executes it. All the expensive work (parsing, validation, function resolution) happens once at compile time. The hot path only executes bytecode.
+- **Nothing per-evaluation on the fast paths.** For boolean, comparison, and string-matching expressions, the VM works without touching the heap - no boxed intermediates, no per-call closures, no temporary slices.
+- **Pooled VMs, immutable inputs.** Virtual machines are reused from a pool rather than constructed per call, and compiled expressions and environments are immutable - which is also what makes concurrent evaluation safe without locks around your rules.
+- **Errors, never panics.** Bad input produces an error value, not a recovered panic - a correctness decision, but also a performance one, because panic/recover machinery is not sitting in the hot loop.
 
-That last line matters. If your workload is dominated by simple arithmetic over trusted inputs, expr is a fine engine and may serve you better today. UExL's case is strongest where expressions are string-heavy, structure-heavy, or running hot enough that GC pressure is a real concern.
+None of this is exotic; it is the standard playbook for latency-sensitive Go, applied all the way down instead of most of the way.
 
-## Run it yourself
+## The numbers, with their reproducibility framing
 
-The benchmark suite lives in the public repository - [github.com/maniartech/uexl-go](https://github.com/maniartech/uexl-go#performance) - with the harness and methodology in the README. Clone it, run it, and compare your numbers to ours. Your absolute timings will differ from the figures above; the zero-allocation behavior on the boolean and string paths should reproduce exactly, because that is the nature of the claim.
+These are warm-state medians over six benchmark runs on one of our machines (AMD Ryzen 7 5700G, Go 1.26), from the head-to-head harness linked below. Treat the timings as guidance, not guarantees - they are machine-specific and vary run to run. The allocation counts are the part that reproduces exactly.
+
+- **Boolean/general expression:** UExL ~125 ns, 0 allocs - vs ~165 ns, 1 alloc for both expr and cel-go.
+- **String pattern match:** UExL ~108 ns, 0 allocs - vs ~325 ns, 4 allocs (expr) and ~348 ns, 4 allocs (cel-go).
+- **Custom function call:** UExL ~153 ns, 2 allocs - vs ~228 ns, 4 allocs (expr) and ~267 ns, 4 allocs (cel-go).
+- **Map over 100 items:** UExL ~11,400 ns, 104 allocs - vs ~15,150 ns, 111 allocs (expr) and ~63,500 ns, 621 allocs (cel-go).
+
+Read the allocation column before the timing column. The timings will drift on your hardware; the zeros will not.
+
+## Where the claim stops
+
+A narrow claim is only honest if its edges are drawn plainly, so here they are.
+
+- **Function calls still allocate.** Two allocations per call - fewer than the four the other engines show, but not zero. The zero-allocation claim is scoped to the boolean/comparison and string paths, and we state it that way everywhere.
+- **One-shot evaluation is not the fast path.** If you parse, compile, and run an expression once and throw it away, the whole pipeline costs on the order of ~10,000 ns with allocations. UExL's performance case assumes you pre-compile and evaluate repeatedly - which is what hot paths do, but if your workload evaluates each expression once, this engine's headline property does not apply to you.
+- **Timings are one machine's story.** We publish medians and the method, not universal truths. If your benchmark disagrees with our nanoseconds, believe yours.
+
+If your workload is one-shot, allocation-insensitive, and simple, any of the three engines will serve you well - expr and cel-go are both solid projects. UExL's case is strongest where expressions are string-heavy, structure-heavy, or running hot enough that GC pressure is a real concern.
+
+## Run the benchmark yourself
+
+The harness and methodology are public: the repository at [github.com/maniartech/uexl-go](https://github.com/maniartech/uexl-go#performance) documents the setup - clone the shared comparison suite, add the UExL benchmark file from the repo, and run `go test -bench=. -benchmem -benchtime=2s -count=6`. Your absolute timings will differ from the figures above; the zero-allocation behavior on the boolean and string paths should reproduce exactly, because that is the nature of the claim.
 
 If you find a case where it does not reproduce, we genuinely want the issue report - a benchmark that cannot survive strangers is not a benchmark.
 
@@ -43,6 +65,6 @@ UExL is **pre-1.0**. The engine is public and the benchmark is reproducible, but
 
 ## The larger point
 
-We build expression evaluation into client systems regularly - rules engines, filters, computed fields inside business platforms. UExL exists because we kept needing an engine with a specific performance envelope, and building it taught us exactly where the costs live in this class of software.
+We build expression evaluation into client systems regularly - rules engines, pricing and discount logic, feature targeting, computed fields inside business platforms. UExL exists because we kept needing an engine with a specific performance envelope, and building it taught us exactly where the costs live in this class of software.
 
-That is the real argument of this post, beyond any benchmark: **a team that measures precisely, states claims narrowly, and publishes the harness is showing you how it will treat your project's claims too.** If that is the engineering culture you want on your own systems, [tell us what you are building](/estimate/) - a senior engineer replies within one business day.
+That is the real argument of this post, beyond any benchmark: **a team that measures precisely, states claims narrowly, publishes the harness, and draws the edges of its own claim is showing you how it will treat your project's claims too.** If that is the engineering culture you want on your own systems, [tell us what you are building](/estimate/) - a senior engineer replies within one business day.

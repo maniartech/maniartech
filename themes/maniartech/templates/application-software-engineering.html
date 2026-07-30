@@ -14,8 +14,8 @@
 {% block content %}
 <header class="main-header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
+        <div class="svc-hero">
+            <div>
                 <a href="/services/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; Services</a>
                 <h1 class="fw-bold mt-15 mb-20 prod-h1">{{ title }}</h1>
                 <p class="lead-text prod-lead">{{ description }}</p>
@@ -24,6 +24,19 @@
                     <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
                 </div>
                 <p class="mt-20" style="color:rgba(255,255,255,.45);font-size:14px;letter-spacing:.02em;">ISO 9001 &amp; 27001 certified &nbsp;|&nbsp; Experienced engineers only &nbsp;|&nbsp; Since 2010</p>
+            </div>
+            <div class="svc-hero-visual">
+                {% comment %} The blueprint that draws once - then stays whole. {% endcomment %}
+                <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A blueprint drawing itself once and staying complete">
+                    <path class="bph-line" d="M30 190 V96 H108 V56 H212 V96 H290 V190 Z"/>
+                    <path class="bph-line l2" d="M126 190 V140 H194 V190 M108 96 H212 M30 140 H108 M212 140 H290"/>
+                    <line class="bph-line l3" x1="160" y1="56" x2="160" y2="26"/>
+                    <line class="bph-dim" x1="30" y1="206" x2="290" y2="206"/>
+                    <line class="bph-dim" x1="30" y1="201" x2="30" y2="211"/>
+                    <line class="bph-dim" x1="290" y1="201" x2="290" y2="211"/>
+                    <circle class="bph-dot" cx="160" cy="26" r="3.5"/>
+                </svg>
+                <p class="svc-hero-cap">Drawn once, built once - the plan before the build.</p>
             </div>
         </div>
     </div>

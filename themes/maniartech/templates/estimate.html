@@ -1,1 +1,142 @@
-{% extends "page.html" %}
+{% extends "base.html" %}
+
+{% comment %} Estimate - the primary conversion page. Concept: "the specimen" -
+show the actual thing you get back (a reply with a range and its assumptions),
+window-chromed, sticky beside the pitch, and honestly labeled ILLUSTRATIVE.
+Content directory: site/estimate/ (index + how + include + safe + who).
+forloop vars are CAPITALIZED in this binary. {% endcomment %}
+
+{% block title %}Free Project Estimate - Custom Software | {{ site.name }}{% endblock %}
+
+{% block content %}
+<header class="main-header pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow">{{ pageContext.eyebrow }}</span>
+                <h1 class="fw-bold mb-20 prod-h1">{{ title }}</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-40">
+    <div class="container">
+        <div class="estimate-grid">
+
+            <div>
+                <div class="mt-prose">{{ content|safe }}</div>
+
+                <div class="mt-50">
+                    <h2 class="fw-600" style="font-size:var(--fs-h3);color:#fff;">{{ how.heading }}</h2>
+                    <div class="mt-25">
+                        {% for s in how.steps %}
+                        <div class="mt-diag mb-25">
+                            <span class="num">0{{ forloop.Counter }}</span>
+                            <div class="d">
+                                <h3 class="fw-600 fz-20 text-light mb-8">{{ s.t }}</h3>
+                                <p style="color:rgba(255,255,255,.65);margin:0;">{{ s.d }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-prose mt-10">{{ how.content|safe }}</div>
+                </div>
+
+                <div class="mt-50">
+                    <h2 class="fw-600" style="font-size:var(--fs-h3);color:#fff;">{{ include.heading }}</h2>
+                    <div class="mt-prose mt-10">{{ include.content|safe }}</div>
+                    <div class="row mt-20">
+                        {% for it in include.items %}
+                        <div class="col-md-6 mb-20">
+                            <div style="border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 20px;height:100%;">
+                                <strong style="color:#fff;">{{ it.t }}</strong>
+                                <p style="color:rgba(255,255,255,.62);font-size:14.5px;margin:8px 0 0;">{{ it.d }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="spec-pane">
+                    <div class="sp-bar"><span class="sp-dot ok"></span><span class="sp-dot"></span><b>Re: Your estimate</b><span class="sp-tag">Illustrative</span></div>
+                    <div class="sp-body">
+                        <p class="sp-h">The shape of every reply</p>
+                        <p>Thanks for the write-up. Here's our first read on your stock-and-dispatch system.</p>
+                        <p class="sp-h">Ballpark</p>
+                        <p><span class="sp-range">A realistic range,</span><br>with the assumptions it rests on - never a single take-it-or-leave-it number.</p>
+                        <p class="sp-h">The assumptions it rests on</p>
+                        <ul>
+                            <li>Which workflows are in scope for phase one - and which can wait.</li>
+                            <li>What integrates with what: accounts, barcode scanners, the courier API.</li>
+                            <li>Who approves what - roles and permissions change the build.</li>
+                            <li>What happens to the data in the old spreadsheets.</li>
+                        </ul>
+                        <p class="sp-h">An honest take</p>
+                        <p>Including the decisions that change the shape of the work, what we'd cut first if budget is tight - and whether we'd build it at all.</p>
+                        <p class="sp-note">A representative reply. The format is exactly what you'll get; the project and details here are illustrative, not a real client's.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="bord pt-25 bord-thin-top">
+                    <h2 class="fw-600">{{ safe.heading }}</h2>
+                </div>
+                <div class="row mt-30">
+                    {% for it in safe.items %}
+                    <div class="col-lg-6">
+                        <div class="mt-check mb-25">
+                            <span class="tick">&#10003;</span>
+                            <div class="ct">
+                                <strong>{{ it.t }}</strong>
+                                <p>{{ it.d }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="bord pt-25 bord-thin-top">
+                    <h2 class="fw-600">{{ who.heading }}</h2>
+                    <div class="mt-prose mt-15">{{ who.content|safe }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="pt-40 bord-thin-top">
+                    <h2 class="fw-600 mb-15">Ready? Tell us what you're building</h2>
+                    <p style="color:rgba(255,255,255,.7);max-width:62ch;">Start with a free, no-obligation estimate. A senior engineer reads it and replies within one business day - with a ballpark and an honest take. Prefer a person? Just reach out.</p>
+                    <div class="mt-actions">
+                        <a href="mailto:contact@maniartech.com?subject=Project%20estimate" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Email us your project</span></a>
+                        <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

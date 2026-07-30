@@ -1,16 +1,26 @@
 {% extends "base.html" %}
 
-{% comment %} Inferred article page for /white-papers/:slug/. {% endcomment %}
+{% comment %} Inferred article page for /white-papers/:slug/. v2: reads like a
+paper - byline row, article typography, closing CTA. Article schema. {% endcomment %}
+
+{% block og_type %}<meta property="og:type" content="article">{% endblock %}
+{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}",{% endif %}"author":{"@type":"Person","name":"Aamir Maniar","url":"https://www.linkedin.com/in/aamironline"},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
 
 {% block content %}
 <header class="main-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <a href="/white-papers/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← White Papers</a>
-                {% if pageContext.paperStatus %}<div class="mt-15"><span class="mt-badge">{{ pageContext.paperStatus }}</span></div>{% endif %}
-                <h1 class="fw-bold mt-20 mb-20 prod-h1">{{ title }}</h1>
-                {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
+                <a href="/white-papers/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; White Papers</a>
+                <div class="article-head">
+                    <h1 class="fw-bold mt-20 mb-20">{{ title }}</h1>
+                    {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
+                    <div class="ah-meta">
+                        {% if pageContext.author %}<span>By <b style="color:rgba(255,255,255,.8);">{{ pageContext.author }}</b>, Founder, ManiarTech</span>{% endif %}
+                        <span>ManiarTech Research</span>
+                        <span>Open access</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -19,15 +29,14 @@
 <section class="section-padding pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mt-prose">
-                {{ content|safe }}
-            </div>
-        </div>
-        <div class="row">
             <div class="col-lg-8">
-                <div class="mt-actions mt-50 pt-40 bord-thin-top">
-                    <a href="/white-papers/" class="butn butn-md butn-rounded butn-bord text-light"><span>← All papers</span></a>
-                    <a href="/contact/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Ask to be notified</span></a>
+                <div class="article-body mt-prose">{{ content|safe }}</div>
+                <div class="article-foot">
+                    <p style="color:rgba(255,255,255,.6);font-size:15px;">Facing this decision in your own organization? Tell us what you're weighing - a senior engineer reads it and replies within one business day with an honest take, no pitch attached.</p>
+                    <div class="mt-actions">
+                        <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
+                        <a href="/white-papers/" class="butn butn-md butn-rounded butn-bord text-light"><span>All papers</span></a>
+                    </div>
                 </div>
             </div>
         </div>

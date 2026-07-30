@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 
-{% comment %} Shared case-study detail. Shims: chemo, rtl, sales-navigator,
-touchpoint, content-engine, upsport. Meta from frontmatter (collision-proof
-via pageContext). Live-proof URLs are optional and shown as proof chips. {% endcomment %}
+{% comment %} Case study v2 - "the case file". Chapters with a numbered spine, verified
+numbers at rest, verbatim quote, honest outcomes. Content contract per page dir:
+index.md (frontmatter + The situation) + build.md + decisions.md + outcome.md.
+Frontmatter: caseStatus, client, services, tech, proof[], outcomes[{num,label}],
+quote{text,name,role}. Shims: chemo, rtl, sales-navigator, touchpoint,
+content-engine, upsport. forloop vars are CAPITALIZED in this binary. {% endcomment %}
+
+{% block og_type %}article{% endblock %}
 
 {% block content %}
 <header class="main-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <a href="/case-studies/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Case Studies</a>
+                <a href="/case-studies/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; Case Studies</a>
                 {% if pageContext.caseStatus %}
                 <div><span class="mt-badge {% if pageContext.caseStatus == "In production" %}is-live{% endif %} mt-15">{{ pageContext.caseStatus }}</span></div>
                 {% endif %}
@@ -38,10 +43,18 @@ via pageContext). Live-proof URLs are optional and shown as proof chips. {% endc
         </div>
         {% endif %}
 
+        {% if pageContext.outcomes %}
+        <div class="case-stats">
+            {% for o in pageContext.outcomes %}
+            <div class="cs-cell"><span class="cs-num">{{ o.num }}</span><span class="cs-lbl">{{ o.label }}</span></div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         {% if pageContext.proof %}
-        <div class="mt-proof-chips mt-20">
+        <div class="mt-proof-chips mt-30">
             {% for p in pageContext.proof %}
-            <a href="{{ p.url }}" target="_blank" rel="noopener" class="mt-proof-chip"><span class="ar">↗</span> {{ p.label }}</a>
+            <a href="{{ p.url }}" target="_blank" rel="noopener" class="mt-proof-chip"><span class="ar">&#8599;</span> {{ p.label }}</a>
             {% endfor %}
         </div>
         {% endif %}
@@ -50,17 +63,51 @@ via pageContext). Live-proof URLs are optional and shown as proof chips. {% endc
 
 <section class="section-padding pt-0">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9 mt-prose">
-                {{ content|safe }}
+        <div class="row"><div class="col-lg-10">
+
+            <div class="case-chapter">
+                <div class="cc-no">01<small>Situation</small></div>
+                <div class="cc-body"><div class="mt-prose">{{ content|safe }}</div></div>
             </div>
-        </div>
+
+            {% if build %}
+            <div class="case-chapter">
+                <div class="cc-no">02<small>The build</small></div>
+                <div class="cc-body"><div class="mt-prose">{{ build.content|safe }}</div></div>
+            </div>
+            {% endif %}
+
+            {% if decisions %}
+            <div class="case-chapter">
+                <div class="cc-no">03<small>Decisions</small></div>
+                <div class="cc-body"><div class="mt-prose">{{ decisions.content|safe }}</div></div>
+            </div>
+            {% endif %}
+
+            {% if pageContext.quote %}
+            <div class="mt-quote mt-50">
+                <p class="quote-text">"{{ pageContext.quote.text }}"</p>
+                <span class="q-name">{{ pageContext.quote.name }}</span>
+                <span class="q-role">{{ pageContext.quote.role }}</span>
+            </div>
+            {% endif %}
+
+            {% if outcome %}
+            <div class="case-chapter">
+                <div class="cc-no">04<small>Outcome</small></div>
+                <div class="cc-body"><div class="mt-prose">{{ outcome.content|safe }}</div></div>
+            </div>
+            {% endif %}
+
+        </div></div>
+
         <div class="row">
-            <div class="col-lg-9">
-                <div class="mt-actions mt-50 pt-40 bord-thin-top">
+            <div class="col-lg-10">
+                <div class="mt-actions mt-60 pt-40 bord-thin-top">
                     <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>See how we'd approach yours</span></a>
                     <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>More case studies</span></a>
                 </div>
+                <p class="mt-15" style="color:rgba(255,255,255,.45);font-size:14px;">Free and without obligation. A senior engineer replies within one business day.</p>
             </div>
         </div>
     </div>

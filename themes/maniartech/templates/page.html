@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
-{% comment %} Generic prose page: hero from title/description + markdown body.
-Used via one-line shims for contact / careers / partnerships. {% endcomment %}
+{% comment %} Generic editorial page: hero from title/description + markdown body
+in a reading-width column, closed by an estimate CTA band. Used via one-line
+shims for careers / partnerships / standards and any future prose page. {% endcomment %}
 
 {% block content %}
 <header class="main-header">
@@ -19,8 +20,8 @@ Used via one-line shims for contact / careers / partnerships. {% endcomment %}
 <section class="section-padding pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9 mt-prose">
-                {{ content|safe }}
+            <div class="col-lg-8">
+                <div class="article-body mt-prose">{{ content|safe }}</div>
             </div>
         </div>
     </div>

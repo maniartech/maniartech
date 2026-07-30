@@ -19,7 +19,17 @@ The all-at-once rewrite has a seductive logic: the old system is a mess, so buil
 
 None of this means legacy systems should be left to rot. It means the *shape* of the replacement matters more than the ambition of it.
 
-## The strangler-fig alternative
+## Rewrite vs refactor: the real question is the shape of your risk
+
+Strip away the technology and the decision has three basic postures, each with a different risk profile:
+
+- **Refactor in place** improves the existing system incrementally - the risk is continuous but small, and the ceiling is limited: you keep the old architecture's fundamental constraints, and sometimes the old platform's hiring problem.
+- **Big-bang rewrite** defers all risk to one concentrated moment - months of apparent calm, then a cutover where every unknown comes due simultaneously, with the least room to maneuver.
+- **Strangler-fig migration** replaces the system piece by piece while it keeps running - risk stays small, visible, and above all *reversible* at every step, at the price of some duplicated infrastructure and discipline while old and new coexist.
+
+Most modernization arguments are really arguments about which risk shape the business can live with. For a system the business depends on daily, the answer is rarely "all of it, on one weekend."
+
+## The strangler-fig migration, step by step
 
 The strangler fig is a tree that grows around a host, gradually taking over its structure until it stands on its own. Applied to software, the method looks like this:
 
@@ -50,18 +60,30 @@ Modernization has two halves: how you migrate, and what you land on. Our rule fo
 
 And the destination should be chosen by the workload, not by a vendor's favorite language. We work deeply in Go - deeply enough to have [built our own tooling and libraries in its ecosystem](/foundry/) - and we move systems to Go where high concurrency or performance-critical paths genuinely benefit. We have also modernized systems onto current Python, because that was the right call for those systems. A modernization partner selling one destination for every workload is selling their preference, not your outcome.
 
-## The proof that patience works
+## How this played out: 600 Access forms became one system
 
-The longest-running validation we can offer: in 2011 we took over a laboratory's sprawling legacy platform - **600+ Microsoft Access forms** grown over years - and replaced it with a single workflow-driven application. Not by switching everything off one weekend, but by understanding what the sprawl actually did, keeping the operation running, and shipping a system its users could see themselves in. By the lab's account, it is **still in daily use about 15 years later** - and its users later sought us out to build a second laboratory platform, which runs in production today.
+The longest-running validation we can offer started in 2011, when we took over the modernization of a laboratory's test-management platform. The original had been built in-house, in Microsoft Access, by people who knew the lab intimately - and over years of growth it had swelled to **600+ forms**, about as many reports, and a sprawl of data tables, wrapped around a genuinely complex pipeline: a sample is received, logged, accepted, analysed, reviewed, signed off more than once, then dispatched and invoiced. It captured everything and had become hard to learn, hard to train on, and slow under its own weight.
+
+Three things about how that engagement ran are the whole framework in miniature:
+
+**The audit came first.** The real work was not porting; it was understanding what those hundreds of forms actually did - working hand in hand with the people who had built the original and knew every workflow in it. That understanding is what made the second step possible.
+
+**The replacement was a compression, not a copy.** We rebuilt the system around the sample's journey rather than around the forms: **600+ forms and reports became one workflow-driven screen and one report**, with role-based access governing who could check, sign, and authorize at each step, and the accounts and invoicing system integrated into the same application. Faster, and far easier to learn - because it modeled the work, not the history of patches.
+
+**The business never stopped.** The engagement ran for some two-plus years, the lab kept operating throughout, and the relationship kept extending - the lab later came back for a second phase, a web portal that let its own customers download their analytical reports directly. By the lab's account, the system is **still in daily use about 15 years later**, with the lab's own modifications along the way - and its users later sought us out to build a second laboratory platform, which runs in production today.
 
 Systems earn that kind of lifespan when the migration respects the business it serves - and when the result is boring, in the best sense: comprehensible, maintainable, and quietly doing its job a decade on.
 
-## A self-assessment to bring to the meeting
+## A rewrite vs refactor decision checklist
+
+Bring these questions to the meeting; they do most of the framework's work:
 
 1. Which parts of the system change most often? (Those migrate first - that is where the pain is.)
 2. Which parts have not changed in years and work fine? (Candidates to leave alone or retire.)
 3. What breaks the business if it breaks? (Those get the most careful, most reversible treatment.)
 4. What does the system do that nobody can explain? (That is your rewrite risk, quantified.)
-5. Who maintains the result in year three? (The answer chooses your destination stack.)
+5. Who understands the current system - and are they available to the migration? (Their knowledge is the specification; plan around it.)
+6. What is the smallest piece that could move first and prove the approach? (If no such piece exists, be suspicious of any plan.)
+7. Who maintains the result in year three? (The answer chooses your destination stack.)
 
 If you are weighing this decision for a system you cannot afford to break, our [Modernization & Migration](/services/modernization/) practice does exactly this work. Or skip straight to the honest conversation: [tell us what you are running](/estimate/) - a senior engineer replies within one business day, including "leave it alone" if that is the truth.

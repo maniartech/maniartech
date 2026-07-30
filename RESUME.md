@@ -67,6 +67,24 @@ honest ranking expectations). **Post-launch execution system at `_marketing/grow
 playbooks, listings/citations, metrics + CAPA, and `scripts/site-health.mjs` (verified working).
 Growth program starts the week the site goes live.
 
+**2026-07-30 (overnight build, UNCOMMITTED - Aamir to review):** Full non-home/about surface
+rebuilt + all planned content written. (1) **3 white papers now REAL** (gamification / consumer
+journey / cost drivers; every citation fetched+verified live; noindex removed; "Research" nav
+dropdown added - the canon nav gate is satisfied). (2) **13 insights posts**: 4 new (LIMS cost,
+real-estate presales, choosing a partner, in-house vs outsourced) + 6 upgraded (incl. a stale
+UExL benchmark corrected against the live README). (3) **Case studies v2**: "case file" chapter
+system (content-directory: index/build/decisions/outcome + outcomes[] stat strips + verbatim
+quotes); Touchpoint role corrected everywhere (senior dev -> offshore partner, acquisition 2015
+per Business Wire); Sales Navigator now LIVE + client named (Shantee Homes - per Aamir's ISO
+usage; confirm). (4) **Estimate = "the specimen"** (sticky illustrative reply pane - labeled
+Illustrative; Aamir to approve concept). (5) Contact = three doors; page.html editorial; insights/
+white-papers list+article templates rebuilt (no uniform card grids). (6) **Service hero visuals
+(P2)**: blueprint draw-once / systems-join-frame / noise-settles-to-signal / parts-swap-line-holds
+- one-shot CSS SVG, whole at rest, reduced-motion safe. Verified: all routes 200, JSON-LD valid
+(FAQPage forloop caps), site-health 75 pass / 1 fail (sitemap.xml - Aamir owns), zero console
+errors, ASCII + no-body-`---` sweep clean. NOT committed, NOT pushed. Foundry/labs/products
+detail pages intentionally untouched (recently built + Aamir-iterated).
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:

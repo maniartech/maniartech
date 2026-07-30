@@ -14,8 +14,8 @@
 {% block content %}
 <header class="main-header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
+        <div class="svc-hero">
+            <div>
                 <a href="/services/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; Services</a>
                 <h1 class="fw-bold mt-15 mb-20 prod-h1">{{ title }}</h1>
                 <p class="lead-text prod-lead">{{ description }}</p>
@@ -24,6 +24,20 @@
                     <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
                 </div>
                 <p class="mt-20" style="color:rgba(255,255,255,.45);font-size:14px;letter-spacing:.02em;">ISO 9001 &amp; 27001 certified &nbsp;|&nbsp; Experienced engineers only &nbsp;|&nbsp; Since 2010</p>
+            </div>
+            <div class="svc-hero-visual">
+                {% comment %} Separate systems, joined into one working frame. {% endcomment %}
+                <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Disconnected systems being joined into one connected frame">
+                    <rect class="ent-b lit d1" x="24"  y="30" width="72" height="44"/>
+                    <rect class="ent-b lit d2" x="224" y="30" width="72" height="44"/>
+                    <rect class="ent-b lit d3" x="24"  y="146" width="72" height="44"/>
+                    <rect class="ent-b lit d4" x="224" y="146" width="72" height="44"/>
+                    <rect class="ent-b lit d5" x="124" y="88" width="72" height="44"/>
+                    <path class="ent-link"    d="M96 52 H124 V88 M96 168 H124 V132"/>
+                    <path class="ent-link l2" d="M224 52 H196 V88 M224 168 H196 V132"/>
+                    <path class="ent-link l3" d="M160 88 V52 M160 132 V168"/>
+                </svg>
+                <p class="svc-hero-cap">Sales, billing, operations - one connected frame.</p>
             </div>
         </div>
     </div>

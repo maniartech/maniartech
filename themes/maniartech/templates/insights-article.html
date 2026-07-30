@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% comment %} Inferred article page for /insights/:slug/. {% endcomment %}
+{% comment %} Inferred article page for /insights/:slug/. v2: reading-focused
+typography (article-head/body/foot), gated dates, BlogPosting schema. {% endcomment %}
 
 {% block og_type %}<meta property="og:type" content="article">{% endblock %}
 {% comment %} Dates are gated on site.context.showPostDates - see tajmahal.yaml for the why. True dates stay in frontmatter regardless. {% endcomment %}
@@ -12,13 +13,18 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <a href="/insights/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Insights</a>
-                <div class="mt-15">
-                    {% if pageContext.postStatus %}<span class="mt-badge">{{ pageContext.postStatus }}</span>{% endif %}
-                    {% if site.context.showPostDates %}{% if pageContext.date %}<span class="opacity-6 ml-15" style="font-size:13px;">{{ pageContext.date }}</span>{% endif %}{% endif %}
+                <a href="/insights/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; Insights</a>
+                <div class="article-head">
+                    <div class="mt-15">
+                        {% if pageContext.postStatus %}<span class="mt-badge">{{ pageContext.postStatus }}</span>{% endif %}
+                    </div>
+                    <h1 class="fw-bold mt-20 mb-20">{{ title }}</h1>
+                    {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
+                    <div class="ah-meta">
+                        <span>By the ManiarTech team</span>
+                        {% if site.context.showPostDates %}{% if pageContext.date %}<span>{{ pageContext.date }}</span>{% endif %}{% endif %}
+                    </div>
                 </div>
-                <h1 class="fw-bold mt-20 mb-20 prod-h1">{{ title }}</h1>
-                {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
             </div>
         </div>
     </div>
@@ -27,15 +33,14 @@
 <section class="section-padding pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mt-prose">
-                {{ content|safe }}
-            </div>
-        </div>
-        <div class="row">
             <div class="col-lg-8">
-                <div class="mt-actions mt-50 pt-40 bord-thin-top">
-                    <a href="/insights/" class="butn butn-md butn-rounded butn-bord text-light"><span>← All insights</span></a>
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
+                <div class="article-body mt-prose">{{ content|safe }}</div>
+                <div class="article-foot">
+                    <p style="color:rgba(255,255,255,.6);font-size:15px;">Working on something in this territory? Tell us what you're building - a senior engineer reads it and replies within one business day with a ballpark and an honest take.</p>
+                    <div class="mt-actions">
+                        <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
+                        <a href="/insights/" class="butn butn-md butn-rounded butn-bord text-light"><span>All insights</span></a>
+                    </div>
                 </div>
             </div>
         </div>
