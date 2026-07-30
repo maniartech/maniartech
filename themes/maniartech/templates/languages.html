@@ -8,11 +8,13 @@ title/description come from labs/languages/index.md. {% endcomment %}
 <header class="main-header lang-hero">
     <div class="container">
         <a href="/foundry/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Foundry</a>
-        <h1 class="fw-bold lang-h1">We've built two <span class="main-color">languages.</span></h1>
-        <p class="lead-text lang-lead">A Go superset that compiles to idiomatic Go, and an embeddable expression engine. We build things like these when the work calls for them — patiently, over years, not as products to sell.</p>
+        <h1 class="fw-bold lang-h1">We build <span class="main-color">languages.</span></h1>
+        <p class="lead-text lang-lead">A Go superset that compiles to idiomatic Go, an embeddable expression engine, a URL-native query language, and a markup language for print. We build things like these when the work calls for them — patiently, over years, not as products to sell.</p>
         <div class="lang-jump">
             <a href="#indigo">Indigo <span class="j-tag">a Go superset</span></a>
             <a href="#uexl">UExL <span class="j-tag">expression engine</span></a>
+            <a href="#addressql">AddressQL <span class="j-tag">URL-native queries</span></a>
+            <a href="#pressml">PressML <span class="j-tag">markup for print</span></a>
         </div>
     </div>
 </header>
@@ -105,6 +107,49 @@ price > 100 <span class="k">and</span> status <span class="k">in</span> [<span c
         <div class="mt-actions">
             <a href="https://github.com/maniartech/uexl-go" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>View the repo &amp; run the benchmark</span></a>
             <a href="/foundry/uexl/" class="butn butn-md butn-rounded butn-bord text-light"><span>Go deeper on UExL</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ AddressQL ============ -->
+<section class="section-padding lang-block" id="addressql">
+    <div class="container">
+        <div class="lang-head">
+            <div class="lh-meta"><span class="mt-eyebrow" style="margin:0;">The query language</span><span class="mt-badge">Research &middot; used in our production</span></div>
+            <h2 class="lang-name">AddressQL</h2>
+            <p class="lead-text">A <strong>URL-native, backend-neutral query language</strong> — SQL-like power you can paste into a browser address bar. Filtering, projection, sorting and pagination as one readable, cacheable query string.</p>
+        </div>
+
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> a real query &middot; <b>one GET request</b></div>
+<pre class="mt-code">GET /api/articles
+  ?query=<span class="op">and(</span>eq(status,open)<span class="op">,</span> has(author, eq(country,us))<span class="op">)</span>
+  &amp;select=title, author.name, <span class="k">count</span>(comments)
+  &amp;sort=-publishedAt
+  &amp;limit=20</pre>
+        </div>
+
+        <div class="lang-principle">
+            <span class="lp-mark">&ldquo;</span>
+            <p>Parenthesized prefix syntax means <strong>no precedence ambiguity</strong>; five independent params (<code>query</code>, <code>select</code>, <code>sort</code>, <code>limit</code>, <code>offset</code>) keep concerns separated; typed literals (<code>d()</code> dates, <code>decimal()</code>, <code>uuid()</code>) mean <strong>no silent string coercion</strong>. And because the canonical form is deterministic, identical intent produces an identical URL — so <strong>CDN caching and URL signing work</strong> with no client-side normalization. The same query string runs against MongoDB today and SQL tomorrow.</p>
+        </div>
+
+        <div class="mt-prose">
+            <p><strong>Honest status:</strong> internal, and used in our own production — we send AddressQL queries from the browser and run them against MongoDB behind our APIs. The specification is v1; portability specs for Go, JavaScript and Rust are written; the Go reference library is pre-public. Per our link-dark rule, no repository link appears here until there is a public repository to read. The deeper write-up lives on the <a href="/standards/#addressql">Standards page</a>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PressML ============ -->
+<section class="section-padding bg-soft lang-block" id="pressml">
+    <div class="container">
+        <div class="lang-head">
+            <div class="lh-meta"><span class="mt-eyebrow" style="margin:0;">The markup language</span><span class="mt-badge">In development &middot; coming</span></div>
+            <h2 class="lang-name">PressML</h2>
+            <p class="lead-text">A markup language for the <strong>printing press side of software</strong>: PDFs, books, reports and invoices, written the way web developers already think — HTML/CSS-style markup, aimed at print.</p>
+        </div>
+        <div class="mt-prose">
+            <p>Documents that must print well — paginated, styled, repeatable — are still produced with tools that fight you. PressML applies the web's familiar authoring model to that problem. It is in active development and not yet public, so this entry is deliberately short: no syntax to show until there is a spec you can read, no links until there is a repository to open. When it ships, this section becomes a real one.</p>
         </div>
     </div>
 </section>

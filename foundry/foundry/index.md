@@ -71,7 +71,7 @@ sections:
         desc: "A URL-native, backend-neutral query language — SQL-like power in an address bar."
         status: "Research"
         tags: ["Standard"]
-        url: "/standards/#addressql"
+        url: "/foundry/languages/#addressql"
   - name: "Libraries & Frameworks"
     anchor: "libraries"
     blurb: "Code you import and build on."
