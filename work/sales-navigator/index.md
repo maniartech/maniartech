@@ -9,6 +9,15 @@ tech: "Python / Django | PostgreSQL | Cloud image delivery"
 order: 3
 proof:
   - { label: "sales.shanteehomes.com", url: "https://sales.shanteehomes.com/" }
+shots:
+  - src: "/themes/maniartech/assets/imgs/work/sales-navigator-estimate.webp"
+    alt: "A Sales Navigator customer estimate for a 2 BHK unit: cost breakdown with agreement value, GST, registration and stamp duty, next to a 19-milestone RERA construction-linked payment plan (demo customer data)"
+    title: "The estimate that used to take a spreadsheet and a prayer."
+    caption: "Cost breakdown and a 19-milestone RERA construction-linked payment plan, generated on the spot and shareable over WhatsApp or email. Demo customer shown."
+  - src: "/themes/maniartech/assets/imgs/work/sales-navigator-projects.webp"
+    alt: "Sales Navigator projects portfolio showing three residential projects with live unit availability, wings, amenities, floor plans and estimation counts"
+    title: "The portfolio view."
+    caption: "Every project with its inventory at a glance - available, on hold, sold - plus wings, amenities, plans and estimations. Sales staff see live inventory; customers never do."
 outcomes:
   - { num: "~4 months", label: "from start to launch" }
   - { num: "Live", label: "at sales.shanteehomes.com" }

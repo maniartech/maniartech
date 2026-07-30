@@ -43,6 +43,38 @@ The strangler fig is a tree that grows around a host, gradually taking over its 
 
 **Tested as it goes.** Each migrated piece ships with its tests, so "modernized" also means "verified" - not "we will find out in production."
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three stages of a strangler-fig migration: the legacy system running whole; new modules growing alongside while traffic shifts; the legacy core retired with the modern system standing on its own">
+  <g font-family="inherit" font-size="12">
+    <g>
+      <rect x="40" y="50" width="180" height="120" rx="8" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
+      <text x="130" y="115" text-anchor="middle" fill="rgba(255,255,255,.7)" font-weight="600">Legacy system</text>
+      <text x="130" y="200" text-anchor="middle" fill="rgba(255,255,255,.5)">1. Serving everything</text>
+    </g>
+    <g>
+      <rect x="300" y="50" width="180" height="120" rx="8" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.3)" stroke-width="1.2"/>
+      <rect x="286" y="36" width="70" height="52" rx="6" fill="rgba(20,207,147,.16)" stroke="rgba(20,207,147,.6)" stroke-width="1.3"/>
+      <rect x="424" y="36" width="70" height="52" rx="6" fill="rgba(20,207,147,.16)" stroke="rgba(20,207,147,.6)" stroke-width="1.3"/>
+      <rect x="286" y="132" width="70" height="52" rx="6" fill="rgba(20,207,147,.16)" stroke="rgba(20,207,147,.6)" stroke-width="1.3"/>
+      <text x="390" y="115" text-anchor="middle" fill="rgba(255,255,255,.55)" font-weight="600">Legacy core</text>
+      <text x="390" y="200" text-anchor="middle" fill="rgba(255,255,255,.5)">2. New modules take traffic, one by one</text>
+    </g>
+    <g>
+      <rect x="560" y="50" width="180" height="120" rx="8" fill="rgba(20,207,147,.14)" stroke="rgba(20,207,147,.65)" stroke-width="1.4"/>
+      <rect x="588" y="80" width="54" height="38" rx="5" fill="rgba(20,207,147,.2)" stroke="rgba(20,207,147,.5)"/>
+      <rect x="658" y="80" width="54" height="38" rx="5" fill="rgba(20,207,147,.2)" stroke="rgba(20,207,147,.5)"/>
+      <rect x="588" y="126" width="124" height="30" rx="5" fill="rgba(20,207,147,.2)" stroke="rgba(20,207,147,.5)"/>
+      <text x="650" y="200" text-anchor="middle" fill="rgba(255,255,255,.5)">3. Old core retired - no cutover event</text>
+    </g>
+    <g stroke="rgba(255,255,255,.3)" stroke-width="1.3" fill="none" marker-end="none">
+      <path d="M228 110 H292"/><path d="M488 110 H552"/>
+    </g>
+    <text x="380" y="242" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11.5">The service line never breaks: the business keeps running through every stage.</text>
+  </g>
+</svg>
+<figcaption><strong>The strangler-fig migration.</strong> New growth carries more and more of the load until the old core is doing nothing - and switching it off is an anticlimax, which is the point.</figcaption>
+</figure>
+
 ## When a rewrite IS the right answer
 
 Honesty requires the other half of the framework. A full rewrite is legitimate when:

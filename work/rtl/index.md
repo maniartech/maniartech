@@ -7,6 +7,13 @@ client: "Reliable Analytical Laboratories, Mumbai"
 services: "Legacy modernization | Enterprise software engineering | Web portal development"
 tech: "C# / WPF (.NET) | ASP.NET | XPS reporting | Role-based access control"
 order: 2
+viz: "rtl-consolidation"
+vizAlt: "An animated illustration: hundreds of scattered form rectangles converge into a single workflow screen whose status rail then lights up, sample by sample"
+shots:
+  - src: "/themes/maniartech/assets/imgs/work/rtl-sample-status-2011.webp"
+    alt: "The 2011 Test Management System for Reliable Analytical Laboratories: a Sample Status grid where each sample row shows its whole workflow - Created, In Lab, Analysis Complete, Checked, Signed, Report Dispatched, Invoice - as status dots"
+    title: "The actual 2011 screen."
+    caption: "One grid replaced 600+ forms: every sample, its whole journey - created, in lab, analysis, checking, signing, dispatch, invoicing - visible at a glance. A dark UI in 2011, years before that was fashionable."
 outcomes:
   - { num: "600+ -> 1", label: "Access forms and reports consolidated into one workflow screen" }
   - { num: "~15 yrs", label: "in daily production, by the lab's account" }

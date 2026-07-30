@@ -43,6 +43,41 @@ These are warm-state medians over six benchmark runs on one of our machines (AMD
 
 Read the allocation column before the timing column. The timings will drift on your hardware; the zeros will not.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart of the string pattern match benchmark: UExL about 108 nanoseconds with zero allocations, expr about 325 nanoseconds with 4 allocations, cel-go about 348 nanoseconds with 4 allocations">
+  <g font-family="inherit" font-size="12.5">
+    <text x="40" y="30" fill="rgba(255,255,255,.8)" font-weight="600">String pattern match - time per evaluation (lower is better)</text>
+    <g font-size="12">
+      <text x="40" y="66" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">UExL</text>
+      <rect x="120" y="52" width="149" height="18" rx="4" fill="#14cf93"/>
+      <text x="280" y="66" fill="rgba(255,255,255,.7)">~108 ns</text>
+      <text x="352" y="66" fill="#14cf93" font-weight="600">0 allocs</text>
+      <text x="40" y="98" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">expr</text>
+      <rect x="120" y="84" width="448" height="18" rx="4" fill="rgba(255,255,255,.28)"/>
+      <text x="580" y="98" fill="rgba(255,255,255,.7)">~325 ns</text>
+      <text x="652" y="98" fill="rgba(255,255,255,.5)">4 allocs</text>
+      <text x="40" y="130" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">cel-go</text>
+      <rect x="120" y="116" width="480" height="18" rx="4" fill="rgba(255,255,255,.28)"/>
+      <text x="612" y="130" fill="rgba(255,255,255,.7)">~348 ns</text>
+      <text x="684" y="130" fill="rgba(255,255,255,.5)">4 allocs</text>
+    </g>
+    <text x="40" y="184" fill="rgba(255,255,255,.8)" font-weight="600">Boolean / general expression</text>
+    <g font-size="12">
+      <text x="40" y="220" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">UExL</text>
+      <rect x="120" y="206" width="266" height="18" rx="4" fill="#14cf93"/>
+      <text x="397" y="220" fill="rgba(255,255,255,.7)">~125 ns</text>
+      <text x="469" y="220" fill="#14cf93" font-weight="600">0 allocs</text>
+      <text x="40" y="252" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">both others</text>
+      <rect x="120" y="238" width="352" height="18" rx="4" fill="rgba(255,255,255,.28)"/>
+      <text x="483" y="252" fill="rgba(255,255,255,.7)">~165 ns</text>
+      <text x="555" y="252" fill="rgba(255,255,255,.5)">1 alloc</text>
+    </g>
+    <text x="40" y="288" fill="rgba(255,255,255,.45)" font-size="11.5">Warm-state medians, six runs, AMD Ryzen 7 5700G / Go 1.26. Timings drift by machine; the allocation counts reproduce exactly.</text>
+  </g>
+</svg>
+<figcaption><strong>The two hot paths, drawn.</strong> Bars are our medians - rerun the public harness and trust your own. The zeros are the durable claim.</figcaption>
+</figure>
+
 ## Where the claim stops
 
 A narrow claim is only honest if its edges are drawn plainly, so here they are.

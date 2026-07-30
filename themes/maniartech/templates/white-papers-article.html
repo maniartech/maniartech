@@ -30,6 +30,12 @@ paper - byline row, article typography, closing CTA. Article schema. {% endcomme
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
+                {% if pageContext.tldr %}
+                <div class="paper-tldr">
+                    <span class="pt-lbl">TL;DR</span>
+                    {% for p in pageContext.tldr %}<p>{{ p }}</p>{% endfor %}
+                </div>
+                {% endif %}
                 <div class="article-body mt-prose">{{ content|safe }}</div>
                 <div class="article-foot">
                     <p style="color:rgba(255,255,255,.6);font-size:15px;">Facing this decision in your own organization? Tell us what you're weighing - a senior engineer reads it and replies within one business day with an honest take, no pitch attached.</p>

@@ -82,8 +82,22 @@ white-papers list+article templates rebuilt (no uniform card grids). (6) **Servi
 (P2)**: blueprint draw-once / systems-join-frame / noise-settles-to-signal / parts-swap-line-holds
 - one-shot CSS SVG, whole at rest, reduced-motion safe. Verified: all routes 200, JSON-LD valid
 (FAQPage forloop caps), site-health 75 pass / 1 fail (sitemap.xml - Aamir owns), zero console
-errors, ASCII + no-body-`---` sweep clean. NOT committed, NOT pushed. Foundry/labs/products
-detail pages intentionally untouched (recently built + Aamir-iterated).
+errors, ASCII + no-body-`---` sweep clean. Committed as `b70f051` on Aamir's instruction (not pushed).
+Foundry/labs/products detail pages intentionally untouched (recently built + Aamir-iterated).
+
+**2026-07-30 (part 2, same session):** (a) **Modules now mirror the IA** (Aamir's call): one module
+per top-level menu item - `services` / `work` / `foundry` (renamed labs) / `research` (insights +
+white-papers merged, two collections) + `site` (home/about/standalone). ALL URLs unchanged, every
+route verified 200 (`735cb52`). (b) **Visual enrichment**: real screenshots wired into case studies
+from `_inbox/reference-images/` (RTL 2011 grid, Touchpoint demo journey map, Sales Navigator
+estimate + portfolio - all sensitivity-checked; UpSport skipped, its shots contain copyrighted
+media; Chemo awaits Aamir's clean capture and got an SVG journey rail instead); IO playground shot
+(browser chrome cropped) into the IO post; SVG figures/charts authored inline: Cone of Uncertainty
+(cost paper), decision-framework flow (gamification), journey-vs-seams diagram (journey paper),
+strangler-fig 3-stage, LIMS lifecycle rail, UExL benchmark bars; papers' TL;DR moved to frontmatter
+and rendered as the styled paper-tldr panel; NEW canvas piece `lib/case-viz/case-viz.js` (R-seam,
+WebDoodling-ready, synchronous first draw, reduced-motion safe) - "600 forms -> 1" consolidation
+on the RTL case via frontmatter `viz:` hook (extensible per-case).
 
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template

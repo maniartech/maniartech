@@ -5,13 +5,10 @@ paperStatus: "Published"
 date: "2026-06-12"
 order: 2
 author: "Aamir Maniar"
+tldr:
+  - "Most custom business systems are designed around data: the entities, the tables, the modules that mirror departments. But the people who move through a system - customers, staff, auditors, partners - do not experience entities. They experience a journey: a sequence of steps toward a goal that cuts across module and department boundaries. The gap between how a system is structured and how it is travelled is where systems quietly fail: re-entered data, shadow spreadsheets, phone calls to find out where things stand, and eventually abandonment. The fix is not more features. It is to map the journeys before you draw the schema, let the journeys pick the schema's seams, sequence the build so one journey works end to end early, and watch for specific drift signals during delivery. This costs days, not months, and it changes what gets built and in what order."
+  - "We make this argument as practitioners, not theorists: our founder spent six years (2012-2018) building Touchpoint Dashboard - first as a senior developer on its engineering team, later with ManiarTech as the product's offshore engineering development partner - a pioneering customer-journey-management platform that counted Fortune 500 brands among its users. We apply the same lens today to systems as unglamorous as a laboratory's sample pipeline and a property developer's presales flow."
 ---
-
-## TL;DR
-
-Most custom business systems are designed around data: the entities, the tables, the modules that mirror departments. But the people who move through a system - customers, staff, auditors, partners - do not experience entities. They experience a journey: a sequence of steps toward a goal that cuts across module and department boundaries. The gap between how a system is structured and how it is travelled is where systems quietly fail: re-entered data, shadow spreadsheets, phone calls to find out where things stand, and eventually abandonment. The fix is not more features. It is to map the journeys before you draw the schema, let the journeys pick the schema's seams, sequence the build so one journey works end to end early, and watch for specific drift signals during delivery. This costs days, not months, and it changes what gets built and in what order.
-
-We make this argument as practitioners, not theorists: our founder spent six years (2012-2018) building Touchpoint Dashboard - first as a senior developer on its engineering team, later with ManiarTech as the product's offshore engineering development partner - a pioneering customer-journey-management platform that counted Fortune 500 brands among its users. We apply the same lens today to systems as unglamorous as a laboratory's sample pipeline and a property developer's presales flow.
 
 ## Why it matters: the failure mode nobody budgets for
 
@@ -41,6 +38,44 @@ Now ask the customer to describe it: "I placed the order, then I waited, then I 
 Both descriptions are true. The trouble is that only one of them usually governs the design. The staff member processing the order has a journey too - and so does the auditor who arrives a year later and needs to reconstruct what happened. A journey, in the systems context we mean here, is simply: a specific person, with a goal, moving through a sequence of steps that the system either carries smoothly or drops at the seams.
 
 The seams are the point. Journeys, by their nature, cross the boundaries that data-first designs are organized around. A journey is precisely the thing that does not live in any one module - which is why module-by-module development, module-by-module testing, and module-by-module sign-off can all succeed while the journey fails.
+
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three system modules drawn as columns - Orders, Invoicing, Dispatch - with one customer journey line crossing all three; the journey drops into gaps at each module boundary">
+  <g font-family="inherit" font-size="12.5">
+    <g fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.3)" stroke-width="1.2">
+      <rect x="40"  y="40" width="200" height="200" rx="8"/>
+      <rect x="280" y="40" width="200" height="200" rx="8"/>
+      <rect x="520" y="40" width="200" height="200" rx="8"/>
+    </g>
+    <g fill="rgba(255,255,255,.65)" text-anchor="middle" font-weight="600">
+      <text x="140" y="66">Orders</text>
+      <text x="380" y="66">Invoicing</text>
+      <text x="620" y="66">Dispatch</text>
+    </g>
+    <g fill="rgba(255,255,255,.35)" text-anchor="middle" font-size="11">
+      <text x="140" y="84">owned by sales</text>
+      <text x="380" y="84">owned by finance</text>
+      <text x="620" y="84">owned by logistics</text>
+    </g>
+    <path d="M60 150 C 110 120, 180 130, 235 150 S 255 195, 285 170 C 340 130, 420 130, 475 165 S 500 205, 525 175 C 575 135, 650 135, 700 150"
+          fill="none" stroke="#14cf93" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="60" cy="150" r="4.5" fill="#14cf93"/>
+    <circle cx="700" cy="150" r="4.5" fill="#14cf93"/>
+    <g stroke="rgba(240,90,90,.75)" stroke-width="1.4" fill="none">
+      <circle cx="260" cy="172" r="17"/>
+      <circle cx="500" cy="180" r="17"/>
+    </g>
+    <g fill="rgba(240,90,90,.85)" text-anchor="middle" font-size="11.5">
+      <text x="260" y="215">the seam</text>
+      <text x="500" y="222">the seam</text>
+    </g>
+    <g fill="rgba(255,255,255,.5)" font-size="11.5">
+      <text x="40" y="272">One person's journey crosses every module. The modules can each pass their tests while the journey fails at the seams.</text>
+    </g>
+  </g>
+</svg>
+<figcaption><strong>The gap this paper is about.</strong> Modules mirror the org chart; the journey crosses them. Everything between the boxes is where re-entered data, shadow spreadsheets and "where is my order?" calls live.</figcaption>
+</figure>
 
 ## Why builds default to data-first
 

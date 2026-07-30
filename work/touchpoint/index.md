@@ -7,6 +7,11 @@ client: "Touchpoint Dashboard (US; later acquired by Strativity Inc.)"
 services: "Senior product engineering | Offshore engineering partnership"
 tech: "Django | Backbone.js | CoffeeScript | React | MySQL"
 order: 4
+shots:
+  - src: "/themes/maniartech/assets/imgs/work/touchpoint-journey-map.webp"
+    alt: "Touchpoint Dashboard's journey-mapping workspace showing a demo customer journey across Awareness, Research, Decision, Purchase and Product Delivery stages, with persona details and color-coded touchpoint cards per channel"
+    title: "The product itself (demo data)."
+    caption: "A customer journey mapped across lifecycle stages - persona on the left, color-coded touchpoints by channel, and the story editor below. The modules we engineered included this mapping experience, analytics, and collaboration."
 outcomes:
   - { num: "6 yrs", label: "on one product, 2012-2018" }
   - { num: "2012", label: "our first international engagement" }

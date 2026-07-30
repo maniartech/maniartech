@@ -17,6 +17,36 @@ What we shipped replaced that sprawl with essentially **one workflow-driven scre
 
 That compression - hundreds of forms into one living view - is the whole discipline of laboratory software in miniature. A lab is not a collection of data entry tasks; it is a pipeline of samples moving through states. Software that models the states, and makes them visible at a glance, gets adopted. Software that models the forms gets worked around.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A laboratory sample's lifecycle as a staged rail: Received, In Lab, Analysis, Checked, Signed, Dispatched, Invoiced - with review gates marked between analysis, checking and signing">
+  <g font-family="inherit" font-size="12">
+    <line x1="50" y1="70" x2="710" y2="70" stroke="rgba(255,255,255,.22)" stroke-width="2"/>
+    <g fill="#14cf93">
+      <circle cx="60" cy="70" r="7"/><circle cx="165" cy="70" r="7"/><circle cx="270" cy="70" r="7"/>
+    </g>
+    <g fill="rgba(20,207,147,.5)" stroke="#14cf93" stroke-width="1.5">
+      <circle cx="375" cy="70" r="7"/><circle cx="480" cy="70" r="7"/>
+    </g>
+    <g fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.45)" stroke-width="1.5">
+      <circle cx="585" cy="70" r="7"/><circle cx="690" cy="70" r="7"/>
+    </g>
+    <g text-anchor="middle" fill="rgba(255,255,255,.7)">
+      <text x="60" y="45">Received</text><text x="165" y="45">In Lab</text><text x="270" y="45">Analysis</text>
+      <text x="375" y="45">Checked</text><text x="480" y="45">Signed</text>
+      <text x="585" y="45">Dispatched</text><text x="690" y="45">Invoiced</text>
+    </g>
+    <g stroke="rgba(240,200,90,.6)" stroke-width="1.2" stroke-dasharray="3 4">
+      <line x1="322" y1="52" x2="322" y2="90"/><line x1="427" y1="52" x2="427" y2="90"/>
+    </g>
+    <g text-anchor="middle" fill="rgba(240,200,90,.75)" font-size="10.5">
+      <text x="322" y="106">review gate</text><text x="427" y="106">sign-off gate</text>
+    </g>
+    <text x="380" y="146" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11.5">Every sample is somewhere on this rail. The software's job is to make that visible in one look - and to enforce the gates.</text>
+  </g>
+</svg>
+<figcaption><strong>The sample lifecycle.</strong> States, not forms. The gates in the middle are where a result becomes a defensible report - they must be enforced by the system, not by habit.</figcaption>
+</figure>
+
 The proof of the lesson is longevity: systems survive 15 years when they match how the work actually flows, because nobody has a reason to replace them. A decade later, when we built our second laboratory platform, we kept the same workflow-at-a-glance DNA - a staged timeline for every sample, each step stamped with who did it and when. It is the closest thing we have to a signature.
 
 ## What generic tools get wrong about laboratory work

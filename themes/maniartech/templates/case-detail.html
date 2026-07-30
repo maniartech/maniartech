@@ -9,6 +9,8 @@ content-engine, upsport. forloop vars are CAPITALIZED in this binary. {% endcomm
 
 {% block og_type %}article{% endblock %}
 
+{% block scripts_extra %}{% if pageContext.viz %}{% lib "case-viz/case-viz.js" %}{% endif %}{% endblock %}
+
 {% block content %}
 <header class="main-header">
     <div class="container">
@@ -63,6 +65,14 @@ content-engine, upsport. forloop vars are CAPITALIZED in this binary. {% endcomm
 
 <section class="section-padding pt-0">
     <div class="container">
+        {% if pageContext.viz %}
+        <div class="row"><div class="col-lg-10">
+            <figure class="case-viz-wrap">
+                <canvas id="caseViz" data-viz="{{ pageContext.viz }}" role="img" aria-label="{{ pageContext.vizAlt }}"></canvas>
+                <figcaption id="caseVizCap" class="case-viz-cap" aria-live="polite"></figcaption>
+            </figure>
+        </div></div>
+        {% endif %}
         <div class="row"><div class="col-lg-10">
 
             <div class="case-chapter">
@@ -73,7 +83,17 @@ content-engine, upsport. forloop vars are CAPITALIZED in this binary. {% endcomm
             {% if build %}
             <div class="case-chapter">
                 <div class="cc-no">02<small>The build</small></div>
-                <div class="cc-body"><div class="mt-prose">{{ build.content|safe }}</div></div>
+                <div class="cc-body">
+                    <div class="mt-prose">{{ build.content|safe }}</div>
+                    {% if pageContext.shots %}
+                    {% for sh in pageContext.shots %}
+                    <figure class="mt-figure">
+                        <img src="{{ sh.src }}" alt="{{ sh.alt }}" loading="lazy">
+                        <figcaption><strong>{{ sh.title }}</strong> {{ sh.caption }}</figcaption>
+                    </figure>
+                    {% endfor %}
+                    {% endif %}
+                </div>
             </div>
             {% endif %}
 

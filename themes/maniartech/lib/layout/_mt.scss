@@ -1276,3 +1276,22 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .mdh-b.swap { animation: none; fill: rgba($main_color, .18); stroke: rgba($main_color, .75); }
   .mdh-pulse { animation: none; }
 }
+
+/* Figures: real screenshots + inline SVG diagrams, captioned. Used by case
+   studies (shots frontmatter), papers and posts (inline in markdown). */
+.mt-figure {
+  margin: clamp(26px, 4vw, 44px) 0;
+  img, svg { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .12); }
+  figcaption { margin-top: 12px; color: rgba(255, 255, 255, .5); font-size: 13.5px; line-height: 1.55; }
+  figcaption strong { color: rgba(255, 255, 255, .75); }
+}
+.mt-prose .mt-figure img, .mt-prose .mt-figure svg { border-radius: 12px; }
+.mt-fig-diagram { background: #161616; border: 1px solid rgba(255, 255, 255, .09); border-radius: 12px; padding: clamp(14px, 2vw, 24px); }
+.mt-fig-diagram svg { border: 0; border-radius: 0; }
+
+/* Case-study canvas illustration (case-viz.js) */
+.case-viz-wrap {
+  margin: clamp(10px, 2vw, 20px) 0 0;
+  #caseViz { display: block; width: 100%; height: clamp(240px, 36vw, 340px); border: 1px solid rgba(255, 255, 255, .09); border-radius: 14px; background: #131313; cursor: pointer; --viz-accent: #14cf93; }
+  .case-viz-cap { margin-top: 12px; color: rgba(255, 255, 255, .5); font-size: 13.5px; min-height: 1.4em; }
+}

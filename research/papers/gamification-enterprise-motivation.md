@@ -5,13 +5,11 @@ paperStatus: "Published"
 date: "2026-06-20"
 author: "Aamir Maniar"
 order: 1
+tldr:
+  - "Gamification works in enterprise software when it strengthens the three things decades of motivation research say people need at work: a sense of competence, a sense of autonomy, and a sense of connection to others. It backfires - measurably, in controlled studies - when it ranks people against each other or converts work into a points economy, because extrinsic rewards reliably crowd out the intrinsic motivation you were trying to amplify. The practical rule we have arrived at after building internal systems since 2010: make progress visible and competence felt; never rank individuals publicly, and never attach rewards to a metric people can game. Most enterprise \"adoption problems\" turn out to be workflow problems anyway, and no badge fixes a workflow."
 ---
 
 *Aamir Maniar, Founder, ManiarTech*
-
-## TL;DR
-
-Gamification works in enterprise software when it strengthens the three things decades of motivation research say people need at work: a sense of competence, a sense of autonomy, and a sense of connection to others. It backfires - measurably, in controlled studies - when it ranks people against each other or converts work into a points economy, because extrinsic rewards reliably crowd out the intrinsic motivation you were trying to amplify. The practical rule we have arrived at after building internal systems since 2010: make progress visible and competence felt; never rank individuals publicly, and never attach rewards to a metric people can game. Most enterprise "adoption problems" turn out to be workflow problems anyway, and no badge fixes a workflow.
 
 ## The decision this paper is for
 
@@ -90,6 +88,45 @@ Most gamification research was done on students, patients, and crowd volunteers 
 **Limits of this analysis, stated plainly.** The research base skews toward education and health; direct enterprise evidence is thinner. Published studies likely over-represent positive results. Novelty effects inflate short-term wins - which is one reason the longitudinal Hanus and Fox result carries more weight than short-term wins measured in a study's first weeks. And our own evidence is practitioner experience across a modest number of systems, not a controlled sample. We are confident in the direction of this guidance; we would not defend any precise effect size, and we cite none.
 
 ## What to do with it: a decision framework
+
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Decision flow: diagnose the real problem first; if it is genuinely motivation, feed competence, autonomy and relatedness; two hard vetoes - never rank individuals publicly, never attach money or evaluation">
+  <g font-family="inherit" font-size="12.5">
+    <rect x="30" y="26" width="210" height="64" rx="10" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
+    <text x="135" y="52" text-anchor="middle" fill="rgba(255,255,255,.85)" font-weight="600">People avoid the system</text>
+    <text x="135" y="72" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="11.5">diagnose before you gamify</text>
+    <g stroke="rgba(255,255,255,.35)" stroke-width="1.2" fill="none">
+      <path d="M240 58 H300"/>
+      <path d="M330 58 v-22 h90"/><path d="M330 58 h90"/><path d="M330 58 v22 h90"/>
+    </g>
+    <g fill="rgba(255,255,255,.7)" font-size="12">
+      <text x="428" y="30">Friction? -&gt; fix the workflow, not the reward layer</text>
+      <text x="428" y="62">Fear? -&gt; fix how the data is used, not the UI</text>
+      <text x="428" y="94" fill="#14cf93" font-weight="600">Genuinely low motivation? -&gt; continue below</text>
+    </g>
+    <g fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.5)" stroke-width="1.2">
+      <rect x="30"  y="140" width="210" height="70" rx="10"/>
+      <rect x="275" y="140" width="210" height="70" rx="10"/>
+      <rect x="520" y="140" width="210" height="70" rx="10"/>
+    </g>
+    <g text-anchor="middle">
+      <text x="135" y="166" fill="#14cf93" font-weight="600">Competence</text>
+      <text x="135" y="186" fill="rgba(255,255,255,.65)" font-size="11.5">make progress visible -</text>
+      <text x="135" y="201" fill="rgba(255,255,255,.65)" font-size="11.5">information, not a score</text>
+      <text x="380" y="166" fill="#14cf93" font-weight="600">Autonomy</text>
+      <text x="380" y="186" fill="rgba(255,255,255,.65)" font-size="11.5">informational and optional -</text>
+      <text x="380" y="201" fill="rgba(255,255,255,.65)" font-size="11.5">never a monitoring channel</text>
+      <text x="625" y="166" fill="#14cf93" font-weight="600">Relatedness</text>
+      <text x="625" y="186" fill="rgba(255,255,255,.65)" font-size="11.5">team outcomes -</text>
+      <text x="625" y="201" fill="rgba(255,255,255,.65)" font-size="11.5">never colleague vs colleague</text>
+    </g>
+    <rect x="30" y="240" width="700" height="56" rx="10" fill="rgba(240,90,90,.07)" stroke="rgba(240,90,90,.45)" stroke-width="1.2"/>
+    <text x="380" y="264" text-anchor="middle" fill="rgba(240,90,90,.9)" font-weight="600">Two hard vetoes</text>
+    <text x="380" y="284" text-anchor="middle" fill="rgba(255,255,255,.65)" font-size="12">never rank individuals publicly | never attach money or evaluation to the mechanics</text>
+  </g>
+</svg>
+<figcaption><strong>The framework at a glance.</strong> Most "motivation problems" are workflow or trust problems; the enterprise-safe subset of gamification feeds the three needs and honors the two vetoes. The steps below give the detail.</figcaption>
+</figure>
 
 **Step 0 - diagnose before you gamify.** If people avoid the system, find out whether it is friction (too many steps, fights the real workflow), fear (the data is used against people), or genuinely low motivation for the task itself. Only the third is a motivation problem. Fix the first two in the workflow, not the reward layer.
 
