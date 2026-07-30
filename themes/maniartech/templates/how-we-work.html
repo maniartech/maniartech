@@ -43,6 +43,38 @@
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ engage.heading }}</h2><div class="mt-prose mt-10">{{ engage.content|safe }}</div></div></div>
         </div>
         <div class="row mt-30">
+            <div class="col-lg-9">
+                <figure class="mt-figure mt-fig-diagram mb-30">
+                    <svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The dedicated team model over time: a senior engineer starts immediately, and further engineers join as the project's demands grow - the team is chosen for the problem, not pulled from a bench">
+                        <g font-family="inherit" font-size="12">
+                            <line x1="60" y1="150" x2="710" y2="150" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+                            <g fill="#14cf93">
+                                <circle cx="110" cy="120" r="9"/>
+                            </g>
+                            <g fill="rgba(20,207,147,.55)">
+                                <circle cx="300" cy="120" r="9"/><circle cx="330" cy="104" r="9"/>
+                            </g>
+                            <g fill="rgba(20,207,147,.35)">
+                                <circle cx="520" cy="120" r="9"/><circle cx="550" cy="104" r="9"/><circle cx="580" cy="88" r="9"/>
+                            </g>
+                            <g text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11.5">
+                                <text x="110" y="172">day one</text>
+                                <text x="315" y="172">as the build demands</text>
+                                <text x="550" y="172">as the project grows</text>
+                            </g>
+                            <g text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="11">
+                                <text x="110" y="94">a senior engineer starts</text>
+                                <text x="315" y="78">specialists picked for YOUR problem</text>
+                                <text x="550" y="62">never staffed from whoever is idle</text>
+                            </g>
+                            <text x="380" y="30" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11.5">The team is built around the problem - momentum rarely waits on hiring.</text>
+                        </g>
+                    </svg>
+                    <figcaption><strong>The dedicated team, over time.</strong> Work usually starts immediately with a senior engineer; the team is then chosen for the specific problem and grows as the project itself grows. The four shapes below cover everything lighter.</figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="row">
             {% for m in engage.models %}
             <div class="col-lg-3 mb-20">
                 <div class="h-100" style="border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:20px;">

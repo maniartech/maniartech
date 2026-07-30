@@ -105,6 +105,35 @@
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ keystone.heading }}</h2><div class="mt-prose mt-15">{{ keystone.content|safe }}</div></div></div>
         </div>
         <div class="row mt-30">
+            <div class="col-lg-9">
+                {% comment %} The method's namesake, drawn: five stones make an arch; the
+                keystone is what lets the structure bear load without scaffolding. {% endcomment %}
+                <figure class="mt-figure mt-fig-diagram mb-30">
+                    <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A five-stone arch: Survey, Document, Design, then the Keystone set at the center, then Bear Load - once the keystone is set the arch stands on its own">
+                        <g font-family="inherit" font-size="12">
+                            <g stroke-width="1.3">
+                                <path d="M120 200 L138 128 L212 106 L244 174 Z" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.4)"/>
+                                <path d="M218 100 L252 34 L332 22 L338 92 L250 168 Z" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.4)"/>
+                                <path d="M345 90 L339 20 L421 20 L415 90 Z" fill="rgba(20,207,147,.2)" stroke="rgba(20,207,147,.8)" stroke-width="1.8"/>
+                                <path d="M422 92 L428 22 L508 34 L542 100 L510 168 Z" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.4)"/>
+                                <path d="M548 106 L622 128 L640 200 L516 174 Z" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.4)"/>
+                            </g>
+                            <g text-anchor="middle" fill="rgba(255,255,255,.65)" font-size="11.5">
+                                <text x="181" y="152">01 Survey</text>
+                                <text x="285" y="92">02 Document</text>
+                                <text x="475" y="92">03 Design</text>
+                                <text x="579" y="152">05 Bear Load</text>
+                            </g>
+                            <text x="380" y="60" text-anchor="middle" fill="#14cf93" font-weight="600" font-size="12.5">04 Set the Keystone</text>
+                            <line x1="120" y1="212" x2="640" y2="212" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+                            <text x="380" y="238" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11.5">An arch is built sides first; the keystone goes in last - and only then does the structure bear load on its own.</text>
+                        </g>
+                    </svg>
+                    <figcaption><strong>Why it is called the Keystone Method.</strong> Survey, document and design prepare the sides; the built system is the keystone, set last into a prepared structure. Once set, the arch carries the department's weight without depending on any single person - the stages below give the detail.</figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="row">
             {% for s in keystone.stages %}
             <div class="col-lg-9 mb-25">
                 <div class="row">

@@ -61,6 +61,49 @@ Note the symmetry: the mitigations are nearly the same list - ownership, documen
 5. Where must the knowledge live in three years - and does your plan (docs, ownership, handover) actually put it there?
 6. Whichever path you pick: what is your exit? If you cannot describe how you would leave your vendor - or survive your lead engineer resigning - fix that before it is tested.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A two-by-two quadrant: how core the software is against how long the horizon runs. Core plus steady-for-years leans in-house; supporting plus spike leans outsourced; core plus spike suggests outsourcing v1 and insourcing later; supporting plus steady is decided by whether you can actually hire">
+  <g font-family="inherit" font-size="11">
+    <g fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.3)" stroke-width="1.2">
+      <rect x="110" y="30" width="300" height="115" rx="8"/>
+      <rect x="420" y="155" width="300" height="115" rx="8"/>
+    </g>
+    <g fill="rgba(20,207,147,.10)" stroke="rgba(20,207,147,.5)" stroke-width="1.2">
+      <rect x="420" y="30" width="300" height="115" rx="8"/>
+      <rect x="110" y="155" width="300" height="115" rx="8"/>
+    </g>
+    <g text-anchor="middle" fill="rgba(255,255,255,.85)" font-size="12.5" font-weight="600">
+      <text x="570" y="62">Build in-house</text>
+      <text x="260" y="187">Outsource</text>
+      <text x="570" y="187">Hybrid: outsource v1, insource later</text>
+      <text x="260" y="62">Either - the hiring gate decides</text>
+    </g>
+    <g text-anchor="middle" fill="rgba(255,255,255,.6)">
+      <text x="570" y="86">the codebase is the business -</text>
+      <text x="570" y="101">product intuition compounds</text>
+      <text x="570" y="116">in resident heads</text>
+      <text x="260" y="211">a payroll hired for the spike stays</text>
+      <text x="260" y="226">shaped like the spike -</text>
+      <text x="260" y="241">rent the build instead</text>
+      <text x="570" y="211">a partner builds and hands over -</text>
+      <text x="570" y="226">planned from day one, not after</text>
+      <text x="260" y="86">can you actually hire and keep</text>
+      <text x="260" y="101">the seniority you need?</text>
+      <text x="260" y="116">Be brutal here.</text>
+    </g>
+    <g text-anchor="end" fill="rgba(255,255,255,.5)">
+      <text x="100" y="42">steady</text><text x="100" y="57">for years</text>
+      <text x="100" y="248">a spike, then</text><text x="100" y="263">a trickle</text>
+    </g>
+    <g text-anchor="middle" fill="rgba(255,255,255,.5)">
+      <text x="260" y="294">supporting the business</text>
+      <text x="570" y="294">the core of your product</text>
+    </g>
+  </g>
+</svg>
+<figcaption><strong>Questions one and two of the checklist, as a map.</strong> How core the software is and how long the horizon runs settle most cases; question three - can you actually hire? - can flip either hybrid, and decides more cases than any other.</figcaption>
+</figure>
+
 ## Where we obviously stand
 
 We are the outsourced option in this comparison - a small senior team that takes on exactly the spiky, senior-skill, built-before work described above, structured against lock-in on purpose: your accounts, your IP, mainstream stacks, documented handover ([how we work](/how-we-work/) spells it out). If your situation reads in-house by this framework, hire - genuinely. If it reads outsourced or hybrid, [tell us what you are weighing](/estimate/) - a senior engineer replies within one business day, including "hire instead" if that is the honest answer.

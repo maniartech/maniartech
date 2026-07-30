@@ -99,6 +99,22 @@ and rendered as the styled paper-tldr panel; NEW canvas piece `lib/case-viz/case
 WebDoodling-ready, synchronous first draw, reduced-motion safe) - "600 forms -> 1" consolidation
 on the RTL case via frontmatter `viz:` hook (extensible per-case).
 
+**2026-07-30 (part 3 - "explain the concepts" pass, after Aamir's "still boring" verdict):**
+Every foundry/products page now TEACHES its thing: real code panes (lang-diff/lang-pane pattern,
+APIs verified against dossiers + fetched READMEs - never invented), one concept SVG per page
+(fan-out, pipeline, comparison, workflow), benchmark charts with published numbers only.
+Reference implementation of all patterns: `foundry/internet-object/index.md` + the pattern spec
+in the session scratchpad (FIGURE-PATTERNS.md - re-derive from the IO page if lost). Indigo got
+its before/after compile panes + refusal-gate diagram; UExL its parser->compiler->VM diagram +
+bench chart. Services: Keystone Method arch drawn (sides first, keystone last - enterprise page),
+strangler-fig 3-stage (modernization), AI triage figure (ai), dedicated-team growth figure
+(how-we-work). Work: NLP pipeline (content-engine), estimation flow (sales-navigator), second
+canvas piece "upsport-annotate" (ink lands on RUNNING video - case-viz.js is now a piece
+registry). Research: decision quadrant (inhouse-vs-outsourced), audit-path (choosing-partner),
+driver rail (LIMS cost). Products: five concept diagrams, dossier-calibrated (agent dropped
+claims it could not ground - ordin audit-trail, tallery versioning). All 38 routes 200, no
+console errors, body-dash + ASCII sweeps clean, site-health 75/1 (sitemap = Aamir's).
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:

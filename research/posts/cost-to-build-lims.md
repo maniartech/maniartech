@@ -19,6 +19,35 @@ So the useful question is not "what does a LIMS cost" but "which drivers is my l
 
 ## The five drivers of custom LIMS cost
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The five cost drivers as five equal-width bars: sample workflow complexity, instrument integrations, compliance and audit trail, reporting and report integrity, and portals, accounts and multi-lab">
+  <g font-family="inherit" font-size="11.5">
+    <g fill="rgba(20,207,147,.08)" stroke="rgba(20,207,147,.4)" stroke-width="1.2">
+      <rect x="10" y="12" width="740" height="40" rx="7"/>
+      <rect x="10" y="62" width="740" height="40" rx="7"/>
+      <rect x="10" y="112" width="740" height="40" rx="7"/>
+      <rect x="10" y="162" width="740" height="40" rx="7"/>
+      <rect x="10" y="212" width="740" height="40" rx="7"/>
+    </g>
+    <g fill="rgba(255,255,255,.85)" font-size="12.5" font-weight="600">
+      <text x="26" y="37">1. Sample workflow complexity</text>
+      <text x="26" y="87">2. Instrument integrations</text>
+      <text x="26" y="137">3. Compliance + audit trail</text>
+      <text x="26" y="187">4. Reporting + report integrity</text>
+      <text x="26" y="237">5. Portals, accounts, multi-lab</text>
+    </g>
+    <g text-anchor="end" fill="rgba(255,255,255,.55)">
+      <text x="734" y="37">states, test series, exception paths</text>
+      <text x="734" y="87">each interface is its own small project</text>
+      <text x="734" y="137">moderate built in from day one; expensive to retrofit</text>
+      <text x="734" y="187">scales with variety, fidelity, integrity</text>
+      <text x="734" y="237">bounded add-ons - but they add up</text>
+    </g>
+  </g>
+</svg>
+<figcaption><strong>The five drivers, deliberately drawn equal.</strong> We do not rank them - which drivers your lab actually buys, and how hard, is what moves an estimate between the bands below.</figcaption>
+</figure>
+
 ### 1. Sample workflow complexity
 
 The core of any LIMS is the sample lifecycle: received, logged, accepted, analysed, reviewed, authorized, reported, dispatched. The cost question is how many states your samples pass through, how many test series and parameters each carries, and how many exception paths exist (retests, holds, partial results, cancellations).

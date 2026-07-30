@@ -1295,3 +1295,13 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   #caseViz { display: block; width: 100%; height: clamp(240px, 36vw, 340px); border: 1px solid rgba(255, 255, 255, .09); border-radius: 14px; background: #131313; cursor: pointer; --viz-accent: #14cf93; }
   .case-viz-cap { margin-top: 12px; color: rgba(255, 255, 255, .5); font-size: 13.5px; min-height: 1.4em; }
 }
+
+/* Code panes used inside markdown prose (foundry pages): the pane owns the
+   chrome; strip the prose pre styling so borders/margins don't double up. */
+.mt-prose .lang-pane pre { margin: 0; border: 0; border-radius: 0; background: transparent; }
+.mt-prose .lang-diff { margin: clamp(22px, 3vw, 34px) 0; }
+.mt-prose .lang-diff + p { margin-top: 0; }
+@media (max-width: 767px) {
+  .mt-prose .lang-diff { grid-template-columns: 1fr; }
+  .mt-prose .lang-diff .lang-arrow { display: none; }
+}

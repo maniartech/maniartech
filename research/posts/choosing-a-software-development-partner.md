@@ -31,6 +31,49 @@ The dividing line in vendor evaluation is between claims you must take on faith 
 
 A practical rule: for every major claim on a vendor's site, ask "could I verify this in one click or one email?" Count the claims that fail. That count is your risk estimate.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Audit path: a vendor claim leads to asking for the artifact, opening it yourself in one click or one email, and weighting it; claims that never produce an artifact map to the red flags - logo walls, uncheckable superlatives, no named humans">
+  <g font-family="inherit" font-size="10.5">
+    <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.35)" stroke-width="1.2">
+      <rect x="10" y="30" width="158" height="68" rx="8"/>
+      <rect x="204" y="30" width="158" height="68" rx="8"/>
+      <rect x="592" y="30" width="158" height="68" rx="8"/>
+    </g>
+    <rect x="398" y="30" width="158" height="68" rx="8" fill="rgba(20,207,147,.12)" stroke="rgba(20,207,147,.6)" stroke-width="1.2"/>
+    <g text-anchor="middle" fill="rgba(255,255,255,.85)" font-size="12" font-weight="600">
+      <text x="89" y="54">The claim</text>
+      <text x="283" y="54">Ask for the artifact</text>
+      <text x="477" y="54">Open it yourself</text>
+      <text x="671" y="54">Weight it</text>
+    </g>
+    <g text-anchor="middle" fill="rgba(255,255,255,.6)">
+      <text x="89" y="74">on the vendor's site</text>
+      <text x="283" y="74">URL, repo, certificate,</text>
+      <text x="283" y="88">reference you choose</text>
+      <text x="477" y="74">one click or</text>
+      <text x="477" y="88">one email</text>
+      <text x="671" y="74">checkable claims count;</text>
+      <text x="671" y="88">faith claims don't</text>
+    </g>
+    <g text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="14">
+      <text x="186" y="68">&rarr;</text><text x="380" y="68">&rarr;</text><text x="574" y="68">&rarr;</text>
+    </g>
+    <text x="380" y="132" text-anchor="middle" fill="rgba(240,90,90,.75)" font-size="11">When no artifact ever arrives, you are looking at the red flags:</text>
+    <g fill="rgba(240,90,90,.10)" stroke="rgba(240,90,90,.55)" stroke-width="1.2">
+      <rect x="75" y="142" width="190" height="30" rx="6"/>
+      <rect x="285" y="142" width="190" height="30" rx="6"/>
+      <rect x="495" y="142" width="190" height="30" rx="6"/>
+    </g>
+    <g text-anchor="middle" fill="rgba(240,90,90,.85)" font-size="11">
+      <text x="170" y="161">logo walls, no story</text>
+      <text x="380" y="161">uncheckable superlatives</text>
+      <text x="590" y="161">no named humans</text>
+    </g>
+  </g>
+</svg>
+<figcaption><strong>Verify, don't trust.</strong> For every major claim: ask for the artifact, open it yourself, and count the claims that survive - the failures are your risk estimate.</figcaption>
+</figure>
+
 ## Seniority questions to ask
 
 The most common failure mode in outsourced software is the bait-and-switch: impressive seniors in the sales calls, juniors on the keyboard. Questions that surface it:

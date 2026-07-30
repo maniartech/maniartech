@@ -11,4 +11,35 @@ Content Engine was not a black-box "rewrite" button. It was an assistant for the
 - **Line- and word-level paraphrasing**, using a range of randomization methods, to help editors re-express sourced material as original copy.
 - **Secure approval sign-off.** The tool carried automatic secured signing, so items moved through the edit-and-approve pipeline with proper, tamper-evident sign-off - part of the governed workflow, not a side utility.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline: a word in a sourced article is analysed for part of speech, lemma and grammatical form, disambiguated by context, form-matched suggestions are offered, and the editor accepts or rejects them">
+  <g font-family="inherit" font-size="11.5">
+    <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.35)" stroke-width="1.2">
+      <rect x="10" y="42" width="128" height="48" rx="8"/>
+      <rect x="163" y="42" width="128" height="48" rx="8"/>
+      <rect x="316" y="42" width="128" height="48" rx="8"/>
+      <rect x="469" y="42" width="128" height="48" rx="8"/>
+    </g>
+    <rect x="622" y="42" width="128" height="48" rx="8" fill="rgba(20,207,147,.15)" stroke="rgba(20,207,147,.6)" stroke-width="1.2"/>
+    <g text-anchor="middle" fill="rgba(255,255,255,.75)">
+      <text x="74" y="61">Sourced</text><text x="74" y="77">article</text>
+      <text x="227" y="61">POS + lemma</text><text x="227" y="77">+ form detected</text>
+      <text x="380" y="61">Word sense</text><text x="380" y="77">from context</text>
+      <text x="533" y="61">Form-matched</text><text x="533" y="77">suggestions</text>
+      <text x="686" y="61">Editor accepts</text><text x="686" y="77">or rejects</text>
+    </g>
+    <g text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="14">
+      <text x="150" y="70">&rarr;</text><text x="303" y="70">&rarr;</text>
+      <text x="456" y="70">&rarr;</text><text x="609" y="70">&rarr;</text>
+    </g>
+    <g text-anchor="middle" font-size="10.5">
+      <text x="380" y="108" fill="rgba(240,200,90,.75)">right in many cases, not all</text>
+      <text x="686" y="108" fill="rgba(20,207,147,.8)">the human decides</text>
+    </g>
+    <text x="380" y="140" text-anchor="middle" fill="rgba(255,255,255,.45)">Click a word - the engine analyses it, filters senses by context, and offers alternatives that slot into the sentence.</text>
+  </g>
+</svg>
+<figcaption><strong>The suggestion pipeline, editor in the loop.</strong> Every suggestion had to match the word's grammatical form; the word-sense step got it right in many cases, not all - and the editor always made the final call.</figcaption>
+</figure>
+
 All of it ran on an NLTK-based engine, in Python. We designed and delivered Phase 1 in three months, and it took its place inside the pipeline the copywriting team used every day.

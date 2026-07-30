@@ -7,6 +7,8 @@ client: "IntelMaven LLC (UpSport) - Jeff Hines, Founder; a returning client"
 services: "Custom application engineering | Real-time / video web engineering"
 tech: "WebRTC | WebDoodling (our own canvas framework) | In-browser video recording & live annotation"
 order: 6
+viz: "upsport-annotate"
+vizAlt: "An animated illustration: while a small video scene keeps playing, a coach's mint annotation stroke draws itself over the running footage and stays"
 outcomes:
   - { num: "PoC", label: "built first, to prove the browser could carry it before the full build" }
   - { num: "2019", label: "live draw-on-video capture, at the edge of what browsers could do" }

@@ -56,6 +56,34 @@
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><span class="mt-eyebrow d-block mb-10 mt-15" style="color:#14cf93;">The method - and the difference</span><h2 class="fw-600">{{ method.heading }}</h2><div class="mt-prose mt-10">{{ method.content|safe }}</div></div></div>
         </div>
         <div class="row mt-30">
+            <div class="col-lg-9">
+                <figure class="mt-figure mt-fig-diagram mb-30">
+                    <svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three stages of a strangler-fig migration: the legacy system serving everything; new modules taking traffic piece by piece alongside the legacy core; the old core retired with no cutover event">
+                        <g font-family="inherit" font-size="12">
+                            <rect x="40" y="44" width="180" height="110" rx="8" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
+                            <text x="130" y="104" text-anchor="middle" fill="rgba(255,255,255,.7)" font-weight="600">Your system today</text>
+                            <text x="130" y="182" text-anchor="middle" fill="rgba(255,255,255,.5)">1. Keeps serving, untouched</text>
+                            <rect x="300" y="44" width="180" height="110" rx="8" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.3)" stroke-width="1.2"/>
+                            <rect x="288" y="32" width="66" height="46" rx="6" fill="rgba(20,207,147,.16)" stroke="rgba(20,207,147,.6)" stroke-width="1.3"/>
+                            <rect x="426" y="32" width="66" height="46" rx="6" fill="rgba(20,207,147,.16)" stroke="rgba(20,207,147,.6)" stroke-width="1.3"/>
+                            <rect x="288" y="120" width="66" height="46" rx="6" fill="rgba(20,207,147,.16)" stroke="rgba(20,207,147,.6)" stroke-width="1.3"/>
+                            <text x="390" y="104" text-anchor="middle" fill="rgba(255,255,255,.55)" font-weight="600">Old core</text>
+                            <text x="390" y="182" text-anchor="middle" fill="rgba(255,255,255,.5)">2. New pieces take the load, one by one</text>
+                            <rect x="560" y="44" width="180" height="110" rx="8" fill="rgba(20,207,147,.14)" stroke="rgba(20,207,147,.65)" stroke-width="1.4"/>
+                            <rect x="586" y="66" width="56" height="34" rx="5" fill="rgba(20,207,147,.2)" stroke="rgba(20,207,147,.5)"/>
+                            <rect x="658" y="66" width="56" height="34" rx="5" fill="rgba(20,207,147,.2)" stroke="rgba(20,207,147,.5)"/>
+                            <rect x="586" y="108" width="128" height="28" rx="5" fill="rgba(20,207,147,.2)" stroke="rgba(20,207,147,.5)"/>
+                            <text x="650" y="182" text-anchor="middle" fill="rgba(255,255,255,.5)">3. Old core retired - no go-live weekend</text>
+                            <line x1="228" y1="99" x2="292" y2="99" stroke="rgba(255,255,255,.3)" stroke-width="1.3"/>
+                            <line x1="488" y1="99" x2="552" y2="99" stroke="rgba(255,255,255,.3)" stroke-width="1.3"/>
+                            <text x="380" y="216" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11.5">Your business keeps running through every stage - the "cutover" never happens as an event.</text>
+                        </g>
+                    </svg>
+                    <figcaption><strong>The strangler-fig migration, in one picture.</strong> The modern system grows alongside the old one and takes the load gradually. One day the old core is doing nothing, and switching it off is an anticlimax - which is the point.</figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="row">
             {% for s in method.steps %}
             <div class="col-lg-9 mb-25">
                 <div class="row">
