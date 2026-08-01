@@ -1,6 +1,7 @@
 ---
 title: "Gamification in the enterprise: what actually moves motivation, and what backfires"
 description: "Game mechanics raise motivation when they make progress visible and competence felt - and reliably backfire when they rank people or pay them in points. A research-grounded framework for deciding when (and when not) to gamify an internal system."
+figure: "motivation"
 paperStatus: "Published"
 date: "2026-06-20"
 author: "Aamir Maniar"

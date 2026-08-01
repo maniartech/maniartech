@@ -1,6 +1,7 @@
 ---
 title: "Build the journey, not the database: why systems designed around data flows fail the people who move through them"
 description: "Custom systems are usually designed around internal data and department boundaries. The people who use them experience a journey that crosses those boundaries - and the gap between the two is where systems fail. A practical method for mapping the journey before the schema, from a team that spent six years building a customer-journey platform."
+figure: "journey-cross"
 paperStatus: "Published"
 date: "2026-06-12"
 order: 2

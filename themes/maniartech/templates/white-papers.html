@@ -3,18 +3,29 @@
 {% block title %}White Papers - Applied Research{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
 {% block meta_description %}Open-access white papers on the decisions behind custom software: what drives cost, how people move through systems, and what makes teams adopt the tools you build.{% endblock %}
 
-{% comment %} List page for /white-papers/*. v2 (launch state): the papers are
-real and open - lead with what the reader gets. paper-card treatment. {% endcomment %}
+{% comment %} White papers hub v3. Three substantial papers were getting three
+identical text cards. Now each card leads with the figure that carries its
+argument - drawn from that paper's own TL;DR, so the hub cannot overstate what
+the paper says. The hero canvas (hub-viz.js, "papers-evidence") shows the
+editorial rule these are written under: a claim that will not resolve to a
+source does not get published. {% endcomment %}
 
 {% block content %}
 <header class="main-header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
                 <span class="mt-eyebrow">White Papers</span>
                 <h1 class="fw-bold prod-h1">Applied thinking on the decisions you actually face.</h1>
-                <p class="lead-text mt-20 prod-lead">Before you commit budget to custom software, automation, or AI, it helps to think clearly about it. These papers cover the questions that decide whether a build pays off: what really drives cost, how people actually move through systems, and what makes teams adopt the software you give them.</p>
+                <p class="lead-text mt-20 prod-lead">Before you commit budget to custom software, automation, or AI, it helps to think clearly about it. These papers cover the questions that decide whether a build pays off.</p>
                 <p class="mt-20" style="color:rgba(255,255,255,.5);font-size:14.5px;">No sign-up wall. Read them, share them, disagree with them.</p>
+            </div>
+            <div class="col-lg-6">
+                <figure class="hub-viz">
+                    <canvas data-hub-viz="papers-evidence" data-cap="papersVizCap" role="img"
+                        aria-label="Animated diagram: claims arrive unproven; the ones that resolve to a source keep their citations and stay, and the ones that do not fade away."></canvas>
+                    <figcaption class="hub-viz-cap" id="papersVizCap" aria-live="polite">Every claim a paper wants to make arrives the same way: unproven.</figcaption>
+                </figure>
             </div>
         </div>
     </div>
@@ -25,7 +36,55 @@ real and open - lead with what the reader gets. paper-card treatment. {% endcomm
         <div class="row">
             {% for a in articles %}
             <div class="col-lg-4 col-md-6 mb-30">
-                <a href="{{ a.url }}" class="paper-card">
+                <a href="{{ a.url }}" class="paper-card has-fig">
+                    <span class="pc-fig">
+                        {% if a.figure == "cost-range" %}
+                        {% comment %} One brief, five vendors. The spread is the paper's central fact. {% endcomment %}
+                        <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img"
+                             aria-label="Chart: five quotes for one identical brief, the longest bar roughly five to ten times the shortest">
+                            <text class="pf-lab" x="14" y="18">One brief, five vendors</text>
+                            <rect class="pf-bar" x="14" y="34" width="34" height="12" rx="3"/>
+                            <rect class="pf-bar" x="14" y="52" width="62" height="12" rx="3"/>
+                            <rect class="pf-bar" x="14" y="70" width="118" height="12" rx="3"/>
+                            <rect class="pf-bar" x="14" y="88" width="176" height="12" rx="3"/>
+                            <rect class="pf-bar hi" x="14" y="106" width="262" height="12" rx="3"/>
+                            <text class="pf-note" x="14" y="136">The same document. A 5-10x spread.</text>
+                        </svg>
+                        {% elif a.figure == "journey-cross" %}
+                        {% comment %} Departments run vertically; the person's journey cuts across them. {% endcomment %}
+                        <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img"
+                             aria-label="Diagram: four department columns with a customer journey line cutting across all of them">
+                            <text class="pf-lab" x="14" y="18">Modules the system is built in</text>
+                            <rect class="pf-col" x="14"  y="28" width="62" height="84" rx="5"/>
+                            <rect class="pf-col" x="84"  y="28" width="62" height="84" rx="5"/>
+                            <rect class="pf-col" x="154" y="28" width="62" height="84" rx="5"/>
+                            <rect class="pf-col" x="224" y="28" width="62" height="84" rx="5"/>
+                            <path class="pf-journey" d="M20 96 C60 96 56 44 96 44 S140 100 176 100 S222 48 280 48"/>
+                            <circle class="pf-jdot" cx="20" cy="96" r="4"/>
+                            <circle class="pf-jdot" cx="280" cy="48" r="4"/>
+                            <text class="pf-note" x="14" y="136">The journey people take crosses every one.</text>
+                        </svg>
+                        {% elif a.figure == "motivation" %}
+                        {% comment %} What lifts motivation, and the two mechanics that reliably backfire. {% endcomment %}
+                        <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img"
+                             aria-label="Diagram: competence, autonomy and connection raise motivation; public ranking and points economies reduce it">
+                            <text class="pf-lab" x="14" y="18">Raises motivation</text>
+                            <rect class="pf-good" x="14"  y="26" width="84" height="20" rx="4"/>
+                            <rect class="pf-good" x="106" y="26" width="72" height="20" rx="4"/>
+                            <rect class="pf-good" x="186" y="26" width="94" height="20" rx="4"/>
+                            <text class="pf-in" x="24"  y="40">competence</text>
+                            <text class="pf-in" x="116" y="40">autonomy</text>
+                            <text class="pf-in" x="196" y="40">connection</text>
+                            <line class="pf-rule" x1="14" y1="66" x2="286" y2="66"/>
+                            <text class="pf-lab warn" x="14" y="86">Backfires, in controlled studies</text>
+                            <rect class="pf-bad" x="14"  y="94" width="128" height="20" rx="4"/>
+                            <rect class="pf-bad" x="150" y="94" width="130" height="20" rx="4"/>
+                            <text class="pf-in bad" x="24"  y="108">ranking people</text>
+                            <text class="pf-in bad" x="160" y="108">points economies</text>
+                            <text class="pf-note" x="14" y="138">No badge fixes a workflow.</text>
+                        </svg>
+                        {% endif %}
+                    </span>
                     <span class="pc-kind">White paper</span>
                     <h3>{{ a.title }}</h3>
                     <p>{{ a.description }}</p>
@@ -56,4 +115,8 @@ real and open - lead with what the reader gets. paper-card treatment. {% endcomm
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "hub-viz/hub-viz.js" %}
 {% endblock %}

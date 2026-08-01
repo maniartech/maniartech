@@ -3,19 +3,32 @@
 {% block title %}Insights - Engineering Notes and Write-ups{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
 {% block meta_description %}Engineering notes, applied write-ups and reproducible benchmarks from the ManiarTech team{% if pagination.page > 1 %} - page {{ pagination.page }} of the archive{% endif %}. Read how we build, and check our claims yourself.{% endblock %}
 
-{% comment %} List page for /insights/*. v2: no uniform card grid - an editorial
-index: topic lanes up top (real content at rest), then posts as typographic rows.
-forloop vars CAPITALIZED in this binary. {% endcomment %}
+{% comment %} Insights hub v3. A typographic list is the right shape for a blog,
+so the rows stay. What changed: the four topic lanes used to be dead text that
+linked nowhere - now each one names a real grouping and points at the piece to
+start with. The hero canvas (hub-viz.js, "insights-cadence") states the page's
+own promise: a few pieces worth reading, not a content treadmill.
+
+NOTE: the lane "start here" links are hand-curated - there is no tag taxonomy in
+the content. If you add a post, put it in a lane here or leave the lanes alone;
+do not add counts, they drift silently. forloop vars CAPITALIZED in this binary. {% endcomment %}
 
 {% block content %}
 <header class="main-header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
                 <span class="mt-eyebrow">Insights</span>
                 <h1 class="fw-bold prod-h1">Notes from the workshop - engineering, told straight.</h1>
                 <p class="lead-text mt-20 prod-lead">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build - and check our claims for yourself.</p>
                 <p class="mt-20" style="color:rgba(255,255,255,.5);font-size:14.5px;max-width:62ch;">New here, and growing deliberately. We'd rather publish one piece worth your time than a feed of filler - roughly once or twice a month, not on a content treadmill.</p>
+            </div>
+            <div class="col-lg-6">
+                <figure class="hub-viz">
+                    <canvas data-hub-viz="insights-cadence" data-cap="insightsVizCap" role="img"
+                        aria-label="Animated diagram: a stream of filler drifts past while a few pieces worth publishing lift out of it and stay."></canvas>
+                    <figcaption class="hub-viz-cap" id="insightsVizCap" aria-live="polite">Most of what could be published is filler - it drifts past.</figcaption>
+                </figure>
             </div>
         </div>
     </div>
@@ -23,11 +36,30 @@ forloop vars CAPITALIZED in this binary. {% endcomment %}
 
 <section class="section-padding pt-0 pb-0">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">Why we built it</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">The decisions behind our open-source work - trade-offs, dead ends, reasons.</p></div>
-            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">How it works</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">Walkthroughs of the tools and formats we've made - runnable, verifiable.</p></div>
-            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">How we work</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">Senior-only delivery, a documented process, right-sized engineering.</p></div>
-            <div class="col-lg-3 col-md-6 mb-20"><span class="mt-eyebrow d-block mb-8">What things cost</span><p style="color:rgba(255,255,255,.55);font-size:14px;margin:0;">Honest looks at software cost and the decisions that drive it.</p></div>
+        <div class="sec-head mb-30">
+            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600" style="font-size:clamp(20px,2vw,26px);">What's in here, and where to start</h2></div>
+        </div>
+        <div class="topic-lanes">
+            <a href="/insights/we-author-standards/" class="lane">
+                <span class="lane-name">The formats and tools we author</span>
+                <span class="lane-line">Why we build our own standards and libraries - the trade-offs, the dead ends, and what came out of it.</span>
+                <span class="lane-go">Start with: why a small team authors standards &rarr;</span>
+            </a>
+            <a href="/insights/dogfood-first/" class="lane">
+                <span class="lane-name">How we work</span>
+                <span class="lane-line">Senior-only delivery, a documented process, and how we decide something is actually ready to ship.</span>
+                <span class="lane-go">Start with: dogfood first, then release &rarr;</span>
+            </a>
+            <a href="/insights/cost-drivers-custom-software/" class="lane">
+                <span class="lane-name">What things cost</span>
+                <span class="lane-line">Honest looks at software cost and the decisions that really move it - including when not to build.</span>
+                <span class="lane-go">Start with: what drives the cost &rarr;</span>
+            </a>
+            <a href="/insights/rewrite-vs-refactor-strangler-fig/" class="lane">
+                <span class="lane-name">Aging systems, and the domains we know</span>
+                <span class="lane-line">Modernization without a big-bang rewrite, plus what fifteen years in laboratory and proptech systems taught us.</span>
+                <span class="lane-go">Start with: rewrite or refactor? &rarr;</span>
+            </a>
         </div>
     </div>
 </section>
@@ -36,6 +68,7 @@ forloop vars CAPITALIZED in this binary. {% endcomment %}
     <div class="container">
         <div class="row">
             <div class="col-lg-10">
+                <div class="sec-head mb-20"><span class="mt-eyebrow">Everything, newest first</span></div>
                 {% for a in articles %}
                 <a href="{{ a.url }}" class="post-row">
                     <span class="pr-top">
@@ -68,4 +101,8 @@ forloop vars CAPITALIZED in this binary. {% endcomment %}
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "hub-viz/hub-viz.js" %}
 {% endblock %}

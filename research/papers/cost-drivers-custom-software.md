@@ -1,6 +1,7 @@
 ---
 title: "What actually drives the cost of custom software - and what merely looks like it does"
 description: "Why quotes for the same brief vary 5-10x, where cost really comes from, and how to read an estimate before you sign one. A buyer's framework, with a checklist."
+figure: "cost-range"
 paperStatus: "Published"
 date: "2026-07-30"
 order: 3
