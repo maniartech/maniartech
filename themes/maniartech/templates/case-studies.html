@@ -2,18 +2,33 @@
 
 {% block title %}Case Studies - Real Client Work, Verifiable | {{ site.name }}{% endblock %}
 
-{% comment %} Case-studies hub v2: typographic rows (no uniform card grid),
-each with a verified fact on the right at rest. Data: pageContext.studies
-in site/case-studies/index.md. forloop CAPITALIZED. {% endcomment %}
+{% comment %} Work hub v3 - the cabinet, not the index.
+
+The hero is a canvas piece (hub-viz.js, "work-timeline") that plots the REAL
+engagement record to scale, 2010 -> today. Every year on it is sourced from the
+case page it belongs to; the long mint bar is the 2011 lab system still in daily
+service, which is the strongest honest thing we can show a stranger.
+
+Below it, each case is a file with its strongest artifact at rest - the actual
+screenshot where one exists, a diagram where it honestly does not - instead of a
+title and a sentence. Data: pageContext.studies in work/case-studies/index.md.
+forloop vars are CAPITALIZED in this binary. {% endcomment %}
 
 {% block content %}
 <header class="main-header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-10">
-                <span class="mt-eyebrow">Case Studies</span>
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <span class="mt-eyebrow">Work</span>
                 <h1 class="fw-bold prod-h1">{{ title }}</h1>
                 <p class="lead-text mt-20 prod-lead">{{ description }}</p>
+            </div>
+            <div class="col-lg-7">
+                <figure class="hub-viz is-wide is-interactive">
+                    <canvas data-hub-viz="work-timeline" data-cap="workVizCap" role="img"
+                        aria-label="Timeline of ManiarTech client engagements plotted to scale from 2010 to today: Content Engine 2010-2011, Reliable Analytical Laboratories from 2011 and still in service, Touchpoint Dashboard 2012-2018, UpSport 2019, and Sales Navigator and Chemo Test Laboratory live today."></canvas>
+                    <figcaption class="hub-viz-cap" id="workVizCap" aria-live="polite">Sixteen years of client engineering, plotted to scale.</figcaption>
+                </figure>
             </div>
         </div>
     </div>
@@ -21,22 +36,52 @@ in site/case-studies/index.md. forloop CAPITALIZED. {% endcomment %}
 
 <section class="section-padding pt-0">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-11">
-                {% for s in pageContext.studies %}
-                <a href="{{ s.url }}" class="case-row">
-                    <span>
-                        <span class="d-flex align-items-center mb-8" style="gap:12px;flex-wrap:wrap;">
-                            <span class="mt-badge {% if s.caseStatus == "In production" %}is-live{% endif %}">{{ s.caseStatus }}</span>
-                        </span>
-                        <span class="cr-name d-block">{{ s.title }}</span>
-                        <span class="cr-line d-block">{{ s.body }}</span>
-                    </span>
-                    <span class="cr-fact">{{ s.fact }}</span>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
+        {% for s in pageContext.studies %}
+        <a href="{{ s.url }}" class="case-file">
+            <span class="cf-visual">
+                {% if s.shot %}
+                <img src="{{ s.shot }}" loading="lazy" decoding="async" alt="{{ s.shotAlt }}">
+                {% elif s.viz == "paraphrase" %}
+                {% comment %} Content Engine: a sentence rewritten, sense preserved. {% endcomment %}
+                <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{{ s.vizAlt }}">
+                    <rect class="cfv-w" x="18" y="34" width="42" height="11" rx="3"/>
+                    <rect class="cfv-w on" x="66" y="34" width="30" height="11" rx="3"/>
+                    <rect class="cfv-w" x="102" y="34" width="52" height="11" rx="3"/>
+                    <rect class="cfv-w on" x="160" y="34" width="38" height="11" rx="3"/>
+                    <rect class="cfv-w" x="18" y="52" width="34" height="11" rx="3"/>
+                    <path class="cfv-arrow" d="M112 78 v14 m-6 -6 l6 6 6 -6"/>
+                    <rect class="cfv-w" x="18" y="102" width="42" height="11" rx="3"/>
+                    <rect class="cfv-w new" x="66" y="102" width="36" height="11" rx="3"/>
+                    <rect class="cfv-w" x="108" y="102" width="52" height="11" rx="3"/>
+                    <rect class="cfv-w new" x="166" y="102" width="30" height="11" rx="3"/>
+                    <rect class="cfv-w" x="18" y="120" width="34" height="11" rx="3"/>
+                </svg>
+                {% elif s.viz == "annotate" %}
+                {% comment %} UpSport: ink over running video. {% endcomment %}
+                <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{{ s.vizAlt }}">
+                    <rect class="cfv-frame" x="16" y="18" width="208" height="104" rx="7"/>
+                    <line class="cfv-court" x1="30" y1="104" x2="210" y2="104"/>
+                    <circle class="cfv-player" cx="86" cy="76" r="6"/>
+                    <circle class="cfv-rec" cx="206" cy="32" r="5"/>
+                    <path class="cfv-ink" d="M54 100 Q92 58 128 66 T182 44"/>
+                    <path class="cfv-ink" d="M170 40 l14 4 -8 12"/>
+                    <line class="cfv-track" x1="16" y1="134" x2="224" y2="134"/>
+                    <line class="cfv-played" x1="16" y1="134" x2="150" y2="134"/>
+                </svg>
+                {% endif %}
+            </span>
+            <span class="cf-body">
+                <span class="cf-meta">
+                    <span class="mt-badge {% if s.caseStatus == "In production" %}is-live{% endif %}">{{ s.caseStatus }}</span>
+                    {% if s.years %}<span class="cf-years">{{ s.years }}</span>{% endif %}
+                </span>
+                <span class="cf-name">{{ s.title }}</span>
+                <span class="cf-line">{{ s.body }}</span>
+                <span class="cf-go">Open the case file &rarr;</span>
+            </span>
+            <span class="cf-fact">{{ s.fact }}</span>
+        </a>
+        {% endfor %}
 
         <div class="row">
             <div class="col-lg-10">
@@ -52,4 +97,8 @@ in site/case-studies/index.md. forloop CAPITALIZED. {% endcomment %}
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "hub-viz/hub-viz.js" %}
 {% endblock %}
