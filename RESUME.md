@@ -127,6 +127,53 @@ base.html gained `titleTag:` / `seoDescription:` frontmatter overrides (snippet 
 keep editorial voice) - ~50 pages got crafted snippet text. GOTCHA recorded: NEW frontmatter keys
 need server restart + rm -rf .cache (body edits hot-reload; frontmatter does not).
 
+**2026-08-01 (part 5 - the HUB pass, after Aamir: "the navigator pages ... show their contents as
+list and that too in boring style"):** He was right, and it was measurable: with nav/footer stripped,
+`/services/` `/case-studies/` `/white-papers/` `/insights/` each had **0 images, 0 canvas, 0 SVG, 0
+code**. Every enrichment pass had landed on leaf pages; the hubs the top nav points at were directory
+listings wearing a hero, and all six shared one shape (hero -> card grid -> CTA).
+
+Aamir's brief for the fix: hubs **summarize** (short, push down fast - visuals carry the load, not more
+words); **canvas** for concepts, mini-apps under `themes/maniartech/lib/` welcome, other media allowed
+where it explains better; a **bespoke hero per hub**; home + about explicitly OUT of scope, still frozen.
+
+- **NEW mini-app `lib/hub-viz/hub-viz.js`** - same doctrine as case-viz (R renderer seam, synchronous
+  first draw, play once and rest WHOLE, reduced-motion jumps to the final frame, interaction only after
+  the geometry stops). Unlike case-viz it mounts **every** `canvas[data-hub-viz]`, so a page can host a
+  hero plus body pieces. Four pieces: `services-lanes` (three lanes feed one system, two capability
+  bands crossing all three), `work-timeline` (the REAL 2010->today engagement record to scale, hover a
+  bar for its note - narrow canvases stack the label above the bar), `papers-evidence` (sourced claims
+  keep their citations; unsourced ones stay visible as hollow dashed bars - "we didn't publish these"),
+  `insights-cadence` (filler drifts past, the few worth publishing lift out and stay).
+- **/services/** card grid -> spotlight rows, each with a REAL artifact (Chemo screenshot, Sales
+  Navigator estimate) + a link to the case that proves it; partnership gets a drawn shared-trunk
+  diagram; the two capabilities became panes carrying their service-page hero SVGs.
+- **/case-studies/** -> the cabinet: timeline hero + one row per case carrying its strongest artifact
+  at rest (4 real screenshots; Content Engine + UpSport get drawn artifacts, they have none).
+- **/foundry/** -> the workshop: every shelf opens with a SPECIMEN of what it holds (Indigo before/after,
+  Internet Object vs JSON, a signals snippet, a Booster terminal, and for Products the two public URLs).
+  Specimens are copied from the detail pages so the hub cannot drift from what it summarises.
+- **/white-papers/** -> each paper leads with the figure that carries its argument, drawn from its own
+  TL;DR. **/insights/** -> the four topic lanes were dead text; they now name a real grouping and point
+  at the piece to start with (hand-curated - there is no tag taxonomy; do NOT add counts, they drift).
+
+**Two real bugs found and fixed during this pass (both were live):**
+1. **`categories` is a RESERVED frontmatter key in Taj Mahal** - it is coerced to `[]string`, so a list
+   of MAPS under it parses to an empty slice and the loop renders NOTHING, with no error anywhere. The
+   three service cards had therefore been **missing from the live `/services/` page**. Key renamed to
+   `serviceLines`. Never name a frontmatter list of maps `categories` (or `tags`).
+2. **Foundry mobile overflowed 83px** - grid items default to `min-width:auto`, so the long `signals`
+   code line widened its track and pushed the page sideways. Fixed with `min-width:0` on `.shelf-spec`
+   (the `pre` keeps its own `overflow-x`).
+
+**Verification (all re-run after the pass):** 56 pages crawled, **seo-check 0 FAIL / 7 documented
+advisory**; site-health 75 pass / 1 fail (sitemap.xml, Aamir's); every new link target 200; zero console
+errors; **0 horizontal overflow at 390px on all five hubs**. Visual review was done with real
+screenshots via headless Chrome (`--headless --screenshot`, and `--force-prefers-reduced-motion` to
+capture the resting frame) - note headless enforces a MINIMUM window width, so a `--window-size=390`
+capture is cropped desktop layout, not mobile; measure mobile in the browser pane instead.
+**UNCOMMITTED - Aamir to review.**
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
@@ -190,7 +237,10 @@ The visual language that emerged over a long section-by-section iteration with A
 - **Canvas visuals: WebDoodling-ready.** All drawing goes through a small `R` renderer seam so it can port to WebDoodling (Aamir's own lib) later — the dogfooding story.
 
 ## Gotchas
-- **Taj Mahal:** list-page `content:` must be a bare collection name (`posts`, not `./posts/`) or the server panics; a `---` thematic break in a markdown *body* breaks frontmatter parsing (404); `module.yaml`/routing changes need a restart; `rm -rf .cache` to clear a stuck cache.
+- **Taj Mahal:** list-page `content:` must be a bare collection name (`posts`, not `./posts/`) or the server panics; a `---` thematic break in a markdown *body* breaks frontmatter parsing (404); `module.yaml`/routing changes AND **new frontmatter keys** need a restart (+ `rm -rf .cache`) — body edits hot-reload, frontmatter does not; `rm -rf .cache` to clear a stuck cache.
+- **Taj Mahal RESERVED frontmatter keys — `categories` (and `tags`).** They are coerced to `[]string`. A list of MAPS under such a key parses to an EMPTY slice, so the template loop renders nothing — silently, with no error in the log or the page. This had been eating the three service cards on the live `/services/` page. Name data lists something else (`serviceLines`, `studies`, `sections`).
+- **Grid + long code lines:** grid items default to `min-width:auto`, so a wide `<pre>` widens its track and pushes the whole page sideways on mobile. Put `min-width:0` on the grid item and let the `pre` keep its own `overflow-x`.
+- **Screenshots for visual review:** headless Chrome works and DOES capture canvas — `chrome --headless --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=W,H --screenshot=out.png URL`. Add `--force-prefers-reduced-motion` to capture a piece's RESTING frame (rAF does not finish inside the virtual-time budget). **Headless enforces a minimum window width**, so `--window-size=390` yields cropped desktop layout, not a mobile render — measure mobile in the browser pane (`resize_window` + a scrollWidth/offender probe) instead.
 - **Canvas + this preview environment:** the harness preview tab often runs *hidden*, which pauses `requestAnimationFrame` (canvas looks blank) and makes `preview_screenshot` time out (the theme's GSAP/gear loops keep the compositor busy). Every canvas widget therefore does a **synchronous first draw at boot** so it's never blank; verify via DOM/pixel probes, not screenshots. Not a bug — an environment quirk.
 - **Classifier outages:** the safety classifier intermittently goes "temporarily unavailable," blocking Bash/preview/Agent tools for a bit (Read/Grep/Glob/Edit/Write still work). Retry after a moment.
 
