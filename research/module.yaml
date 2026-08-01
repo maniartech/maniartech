@@ -15,4 +15,6 @@ pages:
       path: /white-papers/*
       content: papers
 
-page_size: 10
+# All 13 insights posts must live on ONE page: the shelf filter is client-side,
+# so a paginated index would silently filter only the current page.
+page_size: 30

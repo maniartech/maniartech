@@ -5,6 +5,12 @@ date: "2026-07-23"
 order: 6
 titleTag: "Rewrite vs Refactor - the Strangler Fig Approach"
 seoDescription: "When a rewrite is justified, when refactoring wins, and how a strangler-fig migration modernizes a legacy system without a go-live gamble."
+thread: "domains"
+shortTitle: "Rewrite or refactor"
+receipts:
+  - "modernization"
+  - "strangler fig"
+keyReceipt: "every step reversible"
 ---
 
 Every company running an aging system eventually faces the same meeting. The system still works - it runs the business, in fact - but it is slow to change, expensive to maintain, and built on technology that gets harder to hire for every year. Someone says the word "rewrite." Someone else remembers the last rewrite. The meeting ends without a decision, and the system ages another quarter.

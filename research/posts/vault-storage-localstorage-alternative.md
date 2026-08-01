@@ -5,6 +5,12 @@ date: "2024-05-14"  # true first publication: Medium, 14 May 2024 (refreshed Nov
 order: 9
 titleTag: "Vault Storage - IndexedDB localStorage Alternative"
 seoDescription: "A ~1.5 KB TypeScript library with localStorage's simplicity and IndexedDB's power: typed values, async API, encryption and TTL middleware."
+thread: "tools"
+shortTitle: "Vault Storage"
+receipts:
+  - "browser storage"
+  - "MIT, on npm"
+keyReceipt: "~1.5 KB gzipped"
 ---
 
 *Adapted from two articles first published in the ManiarTech Engineering Journal on Medium (May 2024 and November 2025), merged and updated for maniartech.com.*

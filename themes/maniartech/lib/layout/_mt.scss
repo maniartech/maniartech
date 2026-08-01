@@ -18,6 +18,11 @@
   --fs-h2:      clamp(24px, 3.4vw, 40px);  /* section headings                */
   --fs-h3:      clamp(21px, 2.6vw, 30px);
   --fs-body:    16px;
+
+  /* The monospace voice: code panes, numerals, labels, receipts. This token was
+     being USED in 17 places and defined in none, so every one of them silently
+     fell back to the body face. Define it here, once. */
+  --mono: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", Menlo, monospace;
 }
 
 /* ---- Section rhythm (one source of truth for every page) ------------------ */
@@ -1496,7 +1501,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .shelf-spec .lang-arrow { display: none; }
 }
 
-/* --- Research hubs: /white-papers/ figures + /insights/ topic lanes -------- */
+/* --- /white-papers/ figures ------------------------------------------------ */
 .paper-card.has-fig {
   display: flex; flex-direction: column;
   .pc-fig {
@@ -1520,17 +1525,186 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .pf-good { fill: rgba($main_color, .16); stroke: rgba($main_color, .5); stroke-width: 1; }
 .pf-bad  { fill: rgba(255, 255, 255, .04); stroke: rgba(255, 255, 255, .16); stroke-width: 1; stroke-dasharray: 3 3; }
 
-/* Topic lanes - real doors into the archive, not decorative headings */
-.topic-lanes { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 2vw, 22px); }
-.lane {
-  display: block; padding: clamp(18px, 2vw, 24px);
-  background: $sub_bg; border: 1px solid rgba(255, 255, 255, .07); border-radius: 14px;
-  transition: transform .4s ease, border-color .4s ease;
-  &:hover { transform: translateY(-4px); border-color: rgba($main_color, .5); }
-  &:hover .lane-go { color: $main_color; }
+/* ===========================================================================
+   /insights/ - THE SHELF.
+   The hero is a control, not a picture: every post is a tile, and picking a
+   thread re-groups the shelf AND filters the index below (lib/shelf/shelf.js).
+   Numerals and "receipts" use the theme's second accent (lime, $main_color2)
+   so there is a warm/cool break from mint without inventing a colour. The
+   reference design used amber for this; amber reads as the brand guide's gold,
+   which this site deliberately does not use.
+   =========================================================================== */
+.insights-hero {
+  position: relative; overflow: hidden;
+  &::before {
+    content: ""; position: absolute; inset: -40px 0 0; pointer-events: none;
+    background:
+      radial-gradient(760px 380px at 10% 0%, rgba($main_color, .09), transparent 66%),
+      radial-gradient(620px 340px at 92% 26%, rgba($main_color2, .035), transparent 64%);
+  }
+  > .container { position: relative; }
 }
-.lane-name { display: block; color: #fff; font-size: 16px; font-weight: 600; line-height: 1.3; }
-.lane-line { display: block; margin-top: 9px; color: rgba(255, 255, 255, .55); font-size: 13.5px; line-height: 1.6; }
-.lane-go   { display: block; margin-top: 14px; color: rgba(255, 255, 255, .5); font-size: 12.5px; font-weight: 600; transition: color .3s ease; }
-@media (max-width: 991px) { .topic-lanes { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 575px) { .topic-lanes { grid-template-columns: 1fr; } }
+.ins-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  &::after { content: ""; flex: 1; height: 1px; max-width: 170px;
+             background: linear-gradient(90deg, rgba(255, 255, 255, .22), transparent); }
+}
+.ins-h1 {
+  font-size: clamp(36px, 5vw, 62px); line-height: 1.02; letter-spacing: -.035em; margin: 0;
+  em { font-style: normal; color: $main_color; position: relative; white-space: nowrap;
+       &::after { content: ""; position: absolute; left: 0; right: 0; bottom: .09em;
+                  height: 3px; background: rgba($main_color, .3); } }
+}
+.ins-cadence {
+  margin: 22px 0 0; padding-left: 14px; max-width: 46ch;
+  border-left: 2px solid rgba(255, 255, 255, .14);
+  font-family: var(--mono); font-size: 12px; line-height: 1.9; color: rgba(255, 255, 255, .42);
+  b { color: $main_color2; font-weight: 500; }
+}
+.ins-h2  { font-size: clamp(22px, 2.6vw, 32px); letter-spacing: -.025em; line-height: 1.12; margin: 0; }
+.ins-sub { margin: 6px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
+           text-transform: uppercase; color: rgba(255, 255, 255, .35); }
+
+/* the shelf itself */
+.shelf {
+  position: relative; overflow: hidden; padding: 16px 16px 14px;
+  border: 1px solid rgba(255, 255, 255, .09); border-radius: 16px; background: $sub_bg;
+  &::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .45;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, .085) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  > * { position: relative; }
+}
+.shelf-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255, 255, 255, .35);
+  b { color: #fff; font-weight: 500; }
+}
+.shelf-lenses { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.lens {
+  display: flex; align-items: center; gap: 7px; cursor: pointer;
+  padding: 7px 13px; border-radius: 99px;
+  background: transparent; border: 1px solid rgba(255, 255, 255, .16);
+  font-family: var(--mono); font-size: 11px; color: rgba(255, 255, 255, .6);
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+  .n { font-size: 10px; color: $main_color2; font-weight: 500; }
+  &:hover { color: #fff; border-color: rgba(255, 255, 255, .4); }
+  &[aria-pressed="true"] {
+    background: rgba($main_color, .12); border-color: $main_color; color: $main_color;
+    .n { color: $main_color; }
+  }
+  &:focus-visible { outline: 2px solid $main_color2; outline-offset: 2px; }
+}
+.shelf-field { position: relative; height: 250px; }
+/* Motion is opt-in, switched on by shelf.js only after a correct first
+   layout is on screen - see the note in that file. */
+.shelf-field.is-ready { transition: height .45s cubic-bezier(.22, 1, .36, 1); }
+.shelf-field.is-ready .shelf-tile { transition: transform .5s cubic-bezier(.22, 1, .36, 1),
+                                    opacity .35s ease, border-color .25s ease, background .25s ease; }
+.shelf-field.no-motion, .shelf-field.no-motion .shelf-tile { transition: none; }
+.shelf-tile {
+  position: absolute; left: 0; top: 0; width: calc(50% - 5px);
+  padding: 8px 11px; border-radius: 9px;
+  background: $sub_bg2; border: 1px solid rgba(255, 255, 255, .12);
+  will-change: transform;
+  .st-n { display: block; margin-bottom: 2px; font-family: var(--mono); font-size: 9.5px;
+          letter-spacing: .1em; color: $main_color2; }
+  .st-t { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+          font-size: 12.5px; line-height: 1.3; color: rgba(255, 255, 255, .9); }
+  &:hover { border-color: $main_color; }
+  &:focus-visible { outline: 2px solid $main_color; outline-offset: 2px; }
+  &.is-hit  { border-color: rgba($main_color, .55); background: rgba($main_color, .07); }
+  &.is-miss { opacity: .26;
+              .st-n { color: rgba(255, 255, 255, .3); } }
+}
+.shelf-foot {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .08);
+  font-family: var(--mono); font-size: 10.5px; color: rgba(255, 255, 255, .35);
+  b { color: $main_color; font-weight: 500; }
+}
+
+/* the four threads, as controls */
+.thread-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.thread-card {
+  display: flex; flex-direction: column; gap: 10px; cursor: pointer;
+  padding: 20px 18px 16px; border-radius: 14px;
+  background: $sub_bg; border: 1px solid rgba(255, 255, 255, .07);
+  transition: border-color .2s ease, transform .2s ease, background .2s ease;
+  &:hover { border-color: rgba($main_color, .6); transform: translateY(-3px); background: $sub_bg2; }
+  &:focus-visible { outline: 2px solid $main_color; outline-offset: 2px; }
+  .tc-i { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; color: $main_color2; }
+  h3 { color: #fff; font-size: 17px; font-weight: 600; line-height: 1.22; letter-spacing: -.01em; margin: 0; }
+  p  { flex: 1; margin: 0; font-size: 13.5px; line-height: 1.55; color: rgba(255, 255, 255, .58); }
+  .tc-go { display: flex; align-items: center; gap: 6px; margin-top: 4px;
+           font-family: var(--mono); font-size: 11px; color: $main_color;
+           span { display: inline-block; transition: transform .2s ease; } }
+  &:hover .tc-go span { transform: translateX(3px); }
+}
+
+/* the index */
+.index-bar { display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+             flex-wrap: wrap; margin-bottom: 8px; }
+.index-count { margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+               text-transform: uppercase; color: rgba(255, 255, 255, .35);
+               b { color: $main_color; font-weight: 500; } }
+.post-rows { margin-top: 26px; border-top: 1px solid rgba(255, 255, 255, .09); }
+.post-row {
+  position: relative;
+  display: grid; grid-template-columns: 74px minmax(0, 1fr) 150px; gap: 28px; align-items: start;
+  padding: 26px 0 24px; border-bottom: 1px solid rgba(255, 255, 255, .09);
+  &::before {
+    content: ""; position: absolute; left: -28px; top: 0; bottom: 0; width: 2px;
+    background: $main_color; transform: scaleY(0); transform-origin: top;
+    transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+  }
+  &:hover::before { transform: scaleY(1); }
+  &:hover h3 { color: $main_color; }
+  &:hover .pr-arrow { border-color: $main_color; color: $main_color; transform: rotate(-45deg); }
+  h3 { margin: 0 0 8px; color: #fff; font-size: clamp(18px, 2vw, 24px); font-weight: 600;
+       line-height: 1.18; letter-spacing: -.02em; transition: color .2s ease; }
+  p  { margin: 0 0 12px; max-width: 74ch; font-size: 14.5px; line-height: 1.6;
+       color: rgba(255, 255, 255, .58); }
+}
+/* The whole row is clickable, but the LINK is the title - so the accessible
+   name is the headline, and the body copy stays selectable. An overlay anchor
+   would have given screen readers an empty link and killed text selection. */
+.post-row h3 a { color: inherit;
+  &::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  &:focus-visible { outline: 2px solid $main_color; outline-offset: 3px; } }
+.pr-meta, .pr-main, .pr-tail { position: relative; z-index: 2; }
+.pr-main { z-index: 0; }
+.pr-main h3, .pr-main p, .pr-receipts { position: relative; z-index: 2; }
+.pr-meta { font-family: var(--mono); font-size: 10.5px; line-height: 1.7;
+           color: rgba(255, 255, 255, .35); letter-spacing: .06em;
+  .pr-n { display: block; color: $main_color2; font-size: 12px; font-weight: 500; } }
+.pr-receipts { display: flex; flex-wrap: wrap; gap: 6px; }
+.rec {
+  padding: 3px 8px; border-radius: 5px; border: 1px solid rgba(255, 255, 255, .16);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .05em; color: rgba(255, 255, 255, .55);
+  &.is-key { color: $main_color2; border-color: rgba($main_color2, .35); }
+}
+.pr-tail { display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+           text-align: right; font-family: var(--mono); font-size: 10.5px;
+           color: rgba(255, 255, 255, .35); }
+.pr-arrow {
+  display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
+  width: 34px; height: 34px; border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, .16); color: rgba(255, 255, 255, .5);
+  transition: border-color .22s ease, color .22s ease, transform .22s ease;
+}
+.rows-empty { padding: 56px 0; text-align: center; font-family: var(--mono);
+              font-size: 12px; color: rgba(255, 255, 255, .35); }
+
+@media (max-width: 1080px) { .thread-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) {
+  .thread-cards { grid-template-columns: 1fr; }
+  .shelf-tile { width: 100%; }
+  .post-row { grid-template-columns: 1fr; gap: 12px;
+              &::before { left: -14px; } }
+  .pr-meta { display: flex; gap: 12px; align-items: baseline;
+             .pr-n { display: inline; } }
+  .pr-tail { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; }
+}

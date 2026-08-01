@@ -5,6 +5,12 @@ date: "2026-07-27"
 order: 11
 titleTag: "Real Estate Presales Software - Build Lessons"
 seoDescription: "What building Sales Navigator taught us about presales platforms: inventory, floor plans, RERA milestone payment plans and estimates a buyer can trust."
+thread: "domains"
+shortTitle: "Presales software"
+receipts:
+  - "proptech"
+  - "RERA"
+keyReceipt: "built in ~4 months"
 ---
 
 Presales is the part of real estate that happens before a booking exists: showing projects, walking a customer through floor plans and pricing, producing an estimate they can take home, and keeping track of which units are actually available. At most developers - including established ones with thousands of homes delivered - this still runs on a mix of printed brochures, slide decks, spreadsheets, and phone calls.

@@ -5,6 +5,12 @@ date: "2026-07-23"
 order: 1
 titleTag: "UExL - Zero-Allocation Expression Evaluation in Go"
 seoDescription: "How our expression engine evaluates boolean and string expressions with zero heap allocations, where it wins and loses, and how to re-run the benchmark."
+thread: "tools"
+shortTitle: "Zero allocations"
+receipts:
+  - "UExL"
+  - "benchmark"
+keyReceipt: "run it yourself"
 ---
 
 UExL is our embeddable expression language for Go - the kind of engine you reach for when business rules, filters, or computed fields need to be evaluated thousands of times per second inside a larger system. This post makes one precise claim about it, shows the numbers behind that claim, tells you exactly where the claim stops, and gives you the harness to check all of it on your own machine.

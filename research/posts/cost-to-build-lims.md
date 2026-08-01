@@ -5,6 +5,12 @@ date: "2026-07-27"
 order: 10
 seoDescription: "An experience-based answer to what a custom LIMS costs: the drivers that move the number, honest ranges with stated assumptions, and when to buy instead."
 titleTag: "What Does a Custom LIMS Cost?"
+thread: "cost"
+shortTitle: "What a LIMS costs"
+receipts:
+  - "cost ranges"
+  - "five drivers"
+keyReceipt: "adapt to your rates"
 ---
 
 If you search for LIMS software development cost, you mostly find two kinds of answers: vendors who will not name a number until you are on a sales call, and content farms quoting figures with no visible basis. Neither helps a laboratory director trying to budget.

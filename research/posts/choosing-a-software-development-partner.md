@@ -5,6 +5,12 @@ date: "2026-07-27"
 order: 12
 seoDescription: "An auditable checklist for choosing a software development partner: how to verify case studies, seniority, ownership terms and process claims yourself."
 titleTag: "How to Choose a Software Development Partner"
+thread: "process"
+shortTitle: "Auditable checklist"
+receipts:
+  - "checklist"
+  - "vendor audit"
+keyReceipt: "includes us"
 ---
 
 Choosing a software development partner is a trust decision made with almost no trustworthy information. Every agency website says senior team, proven process, delighted clients. The sites of good and bad vendors are nearly indistinguishable, because words are free.

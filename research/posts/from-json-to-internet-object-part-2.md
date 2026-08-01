@@ -5,6 +5,11 @@ date: "2025-11-25"  # true first publication: Medium, 25 Nov 2025
 order: 8
 titleTag: "JSON to Internet Object, Part 2 - Schemas and Types"
 seoDescription: "Part 2 of the series: typed schemas, nested objects, optional and nullable members, and the validation the format gives you for free."
+thread: "tools"
+shortTitle: "IO types and structure"
+receipts:
+  - "type system"
+  - "comments"
 ---
 
 *First published in the ManiarTech Engineering Journal on Medium (November 2025); refreshed for maniartech.com.*

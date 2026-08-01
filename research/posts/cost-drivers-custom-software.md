@@ -4,6 +4,11 @@ description: "Scope clarity, integrations, compliance, unknowns, and team senior
 date: "2026-07-22"
 order: 4
 seoDescription: "The practical short version: which factors genuinely drive custom software cost, which only look like they do, and a checklist before you ask for quotes."
+thread: "cost"
+shortTitle: "Cost drivers"
+receipts:
+  - "cost drivers"
+keyReceipt: "no invented numbers"
 ---
 
 Ask five vendors what your project will cost and you will get five numbers, none of which explain themselves. This post is the explanation - the actual drivers that move an estimate up or down, written by people who produce estimates for a living and would rather demystify the process than dramatize it.

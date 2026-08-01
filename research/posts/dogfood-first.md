@@ -5,6 +5,11 @@ date: "2026-07-21"
 order: 3
 titleTag: "Dogfood First - How We Decide Software Is Ready"
 seoDescription: "We rebuilt maniartech.com on our own static-site framework before offering it to anyone. What dogfooding first buys a client, with the specifics."
+thread: "process"
+shortTitle: "Dogfood first"
+receipts:
+  - "release policy"
+keyReceipt: "deliberately pre-1.0"
 ---
 
 There is a question every software vendor should be able to answer and most cannot: **do you use this yourself?**

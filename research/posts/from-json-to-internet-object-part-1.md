@@ -5,6 +5,12 @@ date: "2025-11-17"  # true first publication: Medium, 17 Nov 2025
 order: 7
 titleTag: "JSON to Internet Object, Part 1 - a Leaner Format"
 seoDescription: "A step-by-step walk from JSON to Internet Object: send the schema once, stream validated records, and cut payload size - reproducibly."
+thread: "tools"
+shortTitle: "JSON to Internet Object"
+receipts:
+  - "Internet Object"
+  - "worked example"
+keyReceipt: "628 B -> 273 B"
 ---
 
 *First published in the ManiarTech Engineering Journal on Medium (November 2025); refreshed for maniartech.com.*

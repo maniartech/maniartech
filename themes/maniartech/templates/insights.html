@@ -3,84 +3,141 @@
 {% block title %}Insights - Engineering Notes and Write-ups{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
 {% block meta_description %}Engineering notes, applied write-ups and reproducible benchmarks from the ManiarTech team{% if pagination.page > 1 %} - page {{ pagination.page }} of the archive{% endif %}. Read how we build, and check our claims yourself.{% endblock %}
 
-{% comment %} Insights hub v3. A typographic list is the right shape for a blog,
-so the rows stay. What changed: the four topic lanes used to be dead text that
-linked nowhere - now each one names a real grouping and points at the piece to
-start with. The hero canvas (hub-viz.js, "insights-cadence") states the page's
-own promise: a few pieces worth reading, not a content treadmill.
+{% comment %} Insights hub v4 - the hero is a CONTROL, not a picture.
 
-NOTE: the lane "start here" links are hand-curated - there is no tag taxonomy in
-the content. If you add a post, put it in a lane here or leave the lanes alone;
-do not add counts, they drift silently. forloop vars CAPITALIZED in this binary. {% endcomment %}
+Eight illustrative hero concepts were rejected before this one. The thing they all
+got wrong: they argued a metaphor about the archive instead of showing it. This one
+puts the whole shelf in the hero as real post titles, and makes picking a thread
+re-group the shelf AND filter the index below from one piece of state.
+
+Data comes from post frontmatter - `thread`, `shortTitle`, `receipts`, `keyReceipt`
+(added to all 13 posts). Nothing on this page is hardcoded content. The receipts are
+the checkable thing in each piece, which is the argument the whole site runs on,
+rendered as text beside the post rather than drawn as a diagram.
+
+`page_size` is 30 in research/module.yaml on purpose: the filter is client-side, so a
+paginated index would silently filter only the current page. forloop vars are
+CAPITALIZED in this binary. {% endcomment %}
 
 {% block content %}
-<header class="main-header">
+<header class="main-header insights-hero">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-end">
             <div class="col-lg-6">
-                <span class="mt-eyebrow">Insights</span>
-                <h1 class="fw-bold prod-h1">Notes from the workshop - engineering, told straight.</h1>
-                <p class="lead-text mt-20 prod-lead">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build - and check our claims for yourself.</p>
-                <p class="mt-20" style="color:rgba(255,255,255,.5);font-size:14.5px;max-width:62ch;">New here, and growing deliberately. We'd rather publish one piece worth your time than a feed of filler - roughly once or twice a month, not on a content treadmill.</p>
+                <span class="mt-eyebrow ins-eyebrow">Insights</span>
+                <h1 class="fw-bold ins-h1">Notes from the workshop &mdash;<br>engineering, <em>told straight</em>.</h1>
+                <p class="lead-text mt-20 prod-lead">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build &mdash; and check our claims for yourself.</p>
+                <p class="ins-cadence">New here, and growing deliberately. We'd rather publish one piece worth your time than a feed of filler &mdash; roughly <b>once or twice a month</b>, not on a content treadmill.</p>
             </div>
+
             <div class="col-lg-6">
-                <figure class="hub-viz">
-                    <canvas data-hub-viz="insights-cadence" data-cap="insightsVizCap" role="img"
-                        aria-label="Animated diagram: a stream of filler drifts past while a few pieces worth publishing lift out of it and stay."></canvas>
-                    <figcaption class="hub-viz-cap" id="insightsVizCap" aria-live="polite">Most of what could be published is filler - it drifts past.</figcaption>
-                </figure>
+                <div class="shelf">
+                    <div class="shelf-head">
+                        <b>The whole shelf</b>
+                        <span id="shelfState">{{ articles|length }} pieces - 4 threads</span>
+                    </div>
+
+                    <div class="shelf-lenses" id="shelfLenses" role="group" aria-label="Filter the archive by thread">
+                        <button type="button" class="lens" data-thread="all" data-label="all threads" aria-pressed="true">Everything <span class="n">{{ articles|length }}</span></button>
+                        <button type="button" class="lens" data-thread="tools" data-label="tools we author" aria-pressed="false">Tools we author <span class="n">5</span></button>
+                        <button type="button" class="lens" data-thread="process" data-label="how we work" aria-pressed="false">How we work <span class="n">3</span></button>
+                        <button type="button" class="lens" data-thread="cost" data-label="what things cost" aria-pressed="false">What things cost <span class="n">2</span></button>
+                        <button type="button" class="lens" data-thread="domains" data-label="systems and domains" aria-pressed="false">Systems and domains <span class="n">3</span></button>
+                    </div>
+
+                    <div class="shelf-field" id="shelfField">
+                        {% for a in articles %}
+                        <a href="{{ a.url }}" class="shelf-tile" data-thread="{{ a.thread }}">
+                            <span class="st-n">{% if forloop.Counter < 10 %}0{% endif %}{{ forloop.Counter }}</span>
+                            <span class="st-t">{% if a.shortTitle %}{{ a.shortTitle }}{% else %}{{ a.title }}{% endif %}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                    <div class="shelf-foot">
+                        <span id="shelfHint">Pick a thread - the shelf regroups, and so does the index below.</span>
+                        <span><b id="shelfCount">{{ articles|length }}</b> showing</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </header>
 
-<section class="section-padding pt-0 pb-0">
+<section class="section-padding pt-0">
     <div class="container">
         <div class="sec-head mb-30">
-            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600" style="font-size:clamp(20px,2vw,26px);">What's in here, and where to start</h2></div>
+            <div class="bord pt-25 bord-thin-top">
+                <h2 class="fw-600 ins-h2">What's in here, and where to start</h2>
+                <p class="ins-sub">Four threads - one entry point each</p>
+            </div>
         </div>
-        <div class="topic-lanes">
-            <a href="/insights/we-author-standards/" class="lane">
-                <span class="lane-name">The formats and tools we author</span>
-                <span class="lane-line">Why we build our own standards and libraries - the trade-offs, the dead ends, and what came out of it.</span>
-                <span class="lane-go">Start with: why a small team authors standards &rarr;</span>
-            </a>
-            <a href="/insights/dogfood-first/" class="lane">
-                <span class="lane-name">How we work</span>
-                <span class="lane-line">Senior-only delivery, a documented process, and how we decide something is actually ready to ship.</span>
-                <span class="lane-go">Start with: dogfood first, then release &rarr;</span>
-            </a>
-            <a href="/insights/cost-drivers-custom-software/" class="lane">
-                <span class="lane-name">What things cost</span>
-                <span class="lane-line">Honest looks at software cost and the decisions that really move it - including when not to build.</span>
-                <span class="lane-go">Start with: what drives the cost &rarr;</span>
-            </a>
-            <a href="/insights/rewrite-vs-refactor-strangler-fig/" class="lane">
-                <span class="lane-name">Aging systems, and the domains we know</span>
-                <span class="lane-line">Modernization without a big-bang rewrite, plus what fifteen years in laboratory and proptech systems taught us.</span>
-                <span class="lane-go">Start with: rewrite or refactor? &rarr;</span>
-            </a>
+
+        <div class="thread-cards" id="threadCards">
+            <div class="thread-card" data-thread="tools" role="button" tabindex="0" aria-label="Show the tools we author thread">
+                <span class="tc-i">Thread 01</span>
+                <h3>The formats and tools we author</h3>
+                <p>Why we build our own standards and libraries &mdash; the trade-offs, the dead ends, and what came out of it.</p>
+                <a href="/insights/we-author-standards/" class="tc-go">Why a small team authors standards <span>&rarr;</span></a>
+            </div>
+            <div class="thread-card" data-thread="process" role="button" tabindex="0" aria-label="Show the how we work thread">
+                <span class="tc-i">Thread 02</span>
+                <h3>How we work</h3>
+                <p>Senior-only delivery, a documented process, and how we decide something is actually ready to ship.</p>
+                <a href="/insights/dogfood-first/" class="tc-go">Dogfood first, then release <span>&rarr;</span></a>
+            </div>
+            <div class="thread-card" data-thread="cost" role="button" tabindex="0" aria-label="Show the what things cost thread">
+                <span class="tc-i">Thread 03</span>
+                <h3>What things cost</h3>
+                <p>Honest looks at software cost and the decisions that really move it &mdash; including when not to build.</p>
+                <a href="/insights/cost-drivers-custom-software/" class="tc-go">What drives the cost <span>&rarr;</span></a>
+            </div>
+            <div class="thread-card" data-thread="domains" role="button" tabindex="0" aria-label="Show the systems and domains thread">
+                <span class="tc-i">Thread 04</span>
+                <h3>Aging systems, and the domains we know</h3>
+                <p>Modernization without a big-bang rewrite, plus what fifteen years in laboratory and proptech systems taught us.</p>
+                <a href="/insights/rewrite-vs-refactor-strangler-fig/" class="tc-go">Rewrite or refactor? <span>&rarr;</span></a>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="section-padding pt-40">
+<section class="section-padding pt-0" id="postIndex">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-10">
-                <div class="sec-head mb-20"><span class="mt-eyebrow">Everything, newest first</span></div>
-                {% for a in articles %}
-                <a href="{{ a.url }}" class="post-row">
-                    <span class="pr-top">
-                        <span class="pr-name">{{ a.title }}</span>
-                        {% if a.postStatus %}<span class="mt-badge">{{ a.postStatus }}</span>{% endif %}
-                        {% if site.context.showPostDates %}{% if a.date %}<span class="pr-meta">{{ a.date }}</span>{% endif %}{% endif %}
-                    </span>
-                    <span class="pr-line d-block">{{ a.description }}</span>
-                </a>
-                {% endfor %}
+        <div class="index-bar">
+            <div>
+                <h2 class="fw-600 ins-h2">Everything, newest first</h2>
+                <p class="ins-sub">The full index</p>
             </div>
+            <p class="index-count">Showing <b id="liveCount">{{ articles|length }}</b> of {{ articles|length }} - <span id="liveLens">all threads</span></p>
         </div>
+
+        <div class="post-rows" id="postRows">
+            {% for a in articles %}
+            <article class="post-row" data-thread="{{ a.thread }}">
+                <div class="pr-meta">
+                    <span class="pr-n">{% if forloop.Counter < 10 %}0{% endif %}{{ forloop.Counter }}</span>
+                    {% if site.context.showPostDates %}{% if a.date %}<span>{{ a.date }}</span>{% endif %}{% endif %}
+                </div>
+                <div class="pr-main">
+                    <h3><a href="{{ a.url }}">{{ a.title }}</a></h3>
+                    <p>{{ a.description }}</p>
+                    <div class="pr-receipts">
+                        {% for r in a.receipts %}<span class="rec">{{ r }}</span>{% endfor %}
+                        {% if a.keyReceipt %}<span class="rec is-key">{{ a.keyReceipt }}</span>{% endif %}
+                    </div>
+                </div>
+                <div class="pr-tail">
+                    {% if a.thread == "tools" %}<span>tools we author</span>
+                    {% elif a.thread == "process" %}<span>how we work</span>
+                    {% elif a.thread == "cost" %}<span>what things cost</span>
+                    {% elif a.thread == "domains" %}<span>systems and domains</span>{% endif %}
+                    <span class="pr-arrow" aria-hidden="true">&rarr;</span>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <p class="rows-empty" id="rowsEmpty" hidden>Nothing in that thread yet.</p>
 
         {% if pagination.pages > 1 %}
         <nav class="d-flex mt-40" style="gap:10px;" aria-label="Pagination">
@@ -90,19 +147,15 @@ do not add counts, they drift silently. forloop vars CAPITALIZED in this binary.
         </nav>
         {% endif %}
 
-        <div class="row">
-            <div class="col-lg-10">
-                <div class="mt-actions mt-60 pt-40 bord-thin-top">
-                    <a href="/white-papers/" class="butn butn-md butn-rounded butn-bord text-light"><span>Read the white papers</span></a>
-                    <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>Explore the Foundry</span></a>
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
-                </div>
-            </div>
+        <div class="mt-actions mt-60 pt-40 bord-thin-top">
+            <a href="/white-papers/" class="butn butn-md butn-rounded butn-bord text-light"><span>Read the white papers</span></a>
+            <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>Explore the Foundry</span></a>
+            <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
         </div>
     </div>
 </section>
 {% endblock %}
 
 {% block scripts_extra %}
-{% lib "hub-viz/hub-viz.js" %}
+{% lib "shelf/shelf.js" %}
 {% endblock %}
