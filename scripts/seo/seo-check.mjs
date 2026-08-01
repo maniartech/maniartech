@@ -189,6 +189,53 @@ for (const [path, page] of seen) {
 }
 
 // ---------------------------------------------------------------------------
+// /insights/ shelf integrity
+//
+// The hero filter is client-side and its thread labels come from ONE list in
+// tajmahal.yaml (context.threads). Three things can drift silently as posts are
+// added, and all three are user-visible lies, so they fail the build:
+//   - a post with a `thread` value no lens knows about is unreachable by filter
+//   - a post with no `thread` at all belongs to nothing
+//   - the archive outgrowing page_size means the filter only cuts page one
+// ---------------------------------------------------------------------------
+{
+  const page = seen.get('/insights/');
+  if (!page || page.status !== 200) {
+    W('/insights/ not crawled - skipping shelf integrity checks');
+  } else {
+    const html = page.body;
+    const lensKeys = [...html.matchAll(/class="lens"[^>]*data-thread="([^"]*)"/g)].map((m) => m[1]);
+    const known = new Set(lensKeys.filter((k) => k !== 'all'));
+    const tileThreads = [...html.matchAll(/class="shelf-tile"[^>]*data-thread="([^"]*)"/g)].map((m) => m[1]);
+
+    if (!known.size) F('/insights/ has no thread filters - context.threads is empty or not loaded');
+    if (!tileThreads.length) F('/insights/ shelf has no tiles');
+
+    const missing = tileThreads.filter((t) => !t).length;
+    if (missing) F(`/insights/ ${missing} post(s) have no thread: in frontmatter`);
+
+    const unknown = [...new Set(tileThreads.filter((t) => t && !known.has(t)))];
+    if (unknown.length) F(`/insights/ post(s) use unknown thread(s): ${unknown.join(', ')}`);
+
+    const rowCount = [...html.matchAll(/class="post-row"/g)].length;
+    if (rowCount !== tileThreads.length)
+      F(`/insights/ shelf shows ${tileThreads.length} tiles but the index has ${rowCount} rows`);
+
+    // Pagination would make the client-side filter cut only the visible page.
+    if (/class="butn butn-sm butn-rounded/.test(html) && /aria-label="Pagination"/.test(html))
+      F('/insights/ is paginated - the shelf filter would only cut the current page (raise page_size)');
+
+    // Every thread must actually have something in it, or the lens is a dead end.
+    for (const k of known) {
+      if (!tileThreads.includes(k)) F(`/insights/ thread "${k}" has no posts - remove it or write one`);
+    }
+
+    if (!unknown.length && !missing && rowCount === tileThreads.length)
+      P(`/insights/ shelf integrity: ${tileThreads.length} posts across ${known.size} threads`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Report
 // ---------------------------------------------------------------------------
 const say = (label, arr) => { if (arr.length) { console.log(`\n${label} (${arr.length})`); for (const m of arr) console.log('  ' + m); } };

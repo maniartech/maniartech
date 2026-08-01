@@ -39,6 +39,42 @@ context:
   # archive genuine depth at that point. Reminder tracked at CP-6M in METRICS-AND-CAPA.md.
   showPostDates: false
 
+  # The Insights threads - THE single source of truth. The /insights/ page loops
+  # this for the filter buttons, the four thread cards, and the label on every
+  # index row. Adding or renaming a thread is a change HERE and nowhere else.
+  # `key` must match the `thread:` value in each post's frontmatter.
+  # Counts are never written here - they are computed from the posts at runtime,
+  # because a typed count silently becomes a false claim the day a post is added.
+  threads:
+    - key: tools
+      label: "Tools we author"
+      short: "tools we author"
+      title: "The formats and tools we author"
+      blurb: "Why we build our own standards and libraries - the trade-offs, the dead ends, and what came out of it."
+      lead: "/insights/we-author-standards/"
+      leadLabel: "Why a small team authors standards"
+    - key: process
+      label: "How we work"
+      short: "how we work"
+      title: "How we work"
+      blurb: "Senior-only delivery, a documented process, and how we decide something is actually ready to ship."
+      lead: "/insights/dogfood-first/"
+      leadLabel: "Dogfood first, then release"
+    - key: cost
+      label: "What things cost"
+      short: "what things cost"
+      title: "What things cost"
+      blurb: "Honest looks at software cost and the decisions that really move it - including when not to build."
+      lead: "/insights/cost-drivers-custom-software/"
+      leadLabel: "What drives the cost"
+    - key: domains
+      label: "Systems and domains"
+      short: "systems and domains"
+      title: "Aging systems, and the domains we know"
+      blurb: "Modernization without a big-bang rewrite, plus what fifteen years in laboratory and proptech systems taught us."
+      lead: "/insights/rewrite-vs-refactor-strangler-fig/"
+      leadLabel: "Rewrite or refactor?"
+
 # Dev-server port (`tajmahal start`).
 port: 8080
 

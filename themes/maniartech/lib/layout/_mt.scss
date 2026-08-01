@@ -1597,22 +1597,22 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
   &:focus-visible { outline: 2px solid $main_color2; outline-offset: 2px; }
 }
-.shelf-field { position: relative; height: 250px; }
-/* Motion is opt-in, switched on by shelf.js only after a correct first
-   layout is on screen - see the note in that file. */
-.shelf-field.is-ready { transition: height .45s cubic-bezier(.22, 1, .36, 1); }
-.shelf-field.is-ready .shelf-tile { transition: transform .5s cubic-bezier(.22, 1, .36, 1),
-                                    opacity .35s ease, border-color .25s ease, background .25s ease; }
-.shelf-field.no-motion, .shelf-field.no-motion .shelf-tile { transition: none; }
+/* The shelf is a plain CSS grid. An earlier version positioned every tile
+   absolutely and measured row heights in JS - it shipped two bugs and had to be
+   re-derived whenever the type changed. Grid does the geometry; shelf.js only
+   sets `order` to re-group. */
+.shelf-field { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 10px; }
 .shelf-tile {
-  position: absolute; left: 0; top: 0; width: calc(50% - 5px);
   padding: 8px 11px; border-radius: 9px;
   background: $sub_bg2; border: 1px solid rgba(255, 255, 255, .12);
-  will-change: transform;
+  transition: opacity .3s ease, border-color .25s ease, background .25s ease;
   .st-n { display: block; margin-bottom: 2px; font-family: var(--mono); font-size: 9.5px;
           letter-spacing: .1em; color: $main_color2; }
-  .st-t { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-          font-size: 12.5px; line-height: 1.3; color: rgba(255, 255, 255, .9); }
+  .st-t { display: block; font-size: 12.5px; line-height: 1.3; color: rgba(255, 255, 255, .9);
+          /* A missing shortTitle falls back to the real title - clamp it rather
+             than truncating to an unreadable ellipsis. */
+          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+          overflow: hidden; }
   &:hover { border-color: $main_color; }
   &:focus-visible { outline: 2px solid $main_color; outline-offset: 2px; }
   &.is-hit  { border-color: rgba($main_color, .55); background: rgba($main_color, .07); }
@@ -1701,7 +1701,6 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 @media (max-width: 1080px) { .thread-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 767px) {
   .thread-cards { grid-template-columns: 1fr; }
-  .shelf-tile { width: 100%; }
   .post-row { grid-template-columns: 1fr; gap: 12px;
               &::before { left: -14px; } }
   .pr-meta { display: flex; gap: 12px; align-items: baseline;

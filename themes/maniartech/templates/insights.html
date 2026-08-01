@@ -3,21 +3,28 @@
 {% block title %}Insights - Engineering Notes and Write-ups{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
 {% block meta_description %}Engineering notes, applied write-ups and reproducible benchmarks from the ManiarTech team{% if pagination.page > 1 %} - page {{ pagination.page }} of the archive{% endif %}. Read how we build, and check our claims yourself.{% endblock %}
 
-{% comment %} Insights hub v4 - the hero is a CONTROL, not a picture.
+{% comment %} Insights hub - the hero is a CONTROL, not a picture: the whole shelf
+sits in it as real post titles, and picking a thread re-groups the shelf AND
+filters the index below from one piece of state.
 
-Eight illustrative hero concepts were rejected before this one. The thing they all
-got wrong: they argued a metaphor about the archive instead of showing it. This one
-puts the whole shelf in the hero as real post titles, and makes picking a thread
-re-group the shelf AND filter the index below from one piece of state.
+MAINTENANCE - the only two places anything lives:
 
-Data comes from post frontmatter - `thread`, `shortTitle`, `receipts`, `keyReceipt`
-(added to all 13 posts). Nothing on this page is hardcoded content. The receipts are
-the checkable thing in each piece, which is the argument the whole site runs on,
-rendered as text beside the post rather than drawn as a diagram.
+  1. THREADS  -> tajmahal.yaml, `context.threads`. Filter buttons, thread cards
+     and the label on every index row all loop that one list. Adding or renaming
+     a thread is a change there and nowhere else. (Config is startup-only:
+     restart the server and rm -rf .cache after editing it.)
+  2. POSTS    -> each post's own frontmatter: `thread` (required, must match a
+     thread key), `shortTitle` (optional - the tile falls back to the real title,
+     clamped to two lines), `receipts` / `keyReceipt` (optional).
 
-`page_size` is 30 in research/module.yaml on purpose: the filter is client-side, so a
-paginated index would silently filter only the current page. forloop vars are
-CAPITALIZED in this binary. {% endcomment %}
+NO COUNTS ARE WRITTEN IN THIS FILE. shelf.js derives every number from the posts
+actually on the page, because a typed count silently becomes a false claim the
+day a post is added. `scripts/seo/seo-check.mjs` fails the build if a post
+carries an unknown thread or if the archive outgrows one page.
+
+`page_size` is 30 in research/module.yaml on purpose: the filter is client-side,
+so a paginated index would silently filter only the current page.
+forloop vars are CAPITALIZED in this binary. {% endcomment %}
 
 {% block content %}
 <header class="main-header insights-hero">
@@ -34,15 +41,14 @@ CAPITALIZED in this binary. {% endcomment %}
                 <div class="shelf">
                     <div class="shelf-head">
                         <b>The whole shelf</b>
-                        <span id="shelfState">{{ articles|length }} pieces - 4 threads</span>
+                        <span id="shelfState">{{ articles|length }} pieces</span>
                     </div>
 
                     <div class="shelf-lenses" id="shelfLenses" role="group" aria-label="Filter the archive by thread">
-                        <button type="button" class="lens" data-thread="all" data-label="all threads" aria-pressed="true">Everything <span class="n">{{ articles|length }}</span></button>
-                        <button type="button" class="lens" data-thread="tools" data-label="tools we author" aria-pressed="false">Tools we author <span class="n">5</span></button>
-                        <button type="button" class="lens" data-thread="process" data-label="how we work" aria-pressed="false">How we work <span class="n">3</span></button>
-                        <button type="button" class="lens" data-thread="cost" data-label="what things cost" aria-pressed="false">What things cost <span class="n">2</span></button>
-                        <button type="button" class="lens" data-thread="domains" data-label="systems and domains" aria-pressed="false">Systems and domains <span class="n">3</span></button>
+                        <button type="button" class="lens" data-thread="all" data-label="all threads" aria-pressed="true">Everything <span class="n"></span></button>
+                        {% for t in site.context.threads %}
+                        <button type="button" class="lens" data-thread="{{ t.key }}" data-label="{{ t.short }}" aria-pressed="false">{{ t.label }} <span class="n"></span></button>
+                        {% endfor %}
                     </div>
 
                     <div class="shelf-field" id="shelfField">
@@ -69,35 +75,19 @@ CAPITALIZED in this binary. {% endcomment %}
         <div class="sec-head mb-30">
             <div class="bord pt-25 bord-thin-top">
                 <h2 class="fw-600 ins-h2">What's in here, and where to start</h2>
-                <p class="ins-sub">Four threads - one entry point each</p>
+                <p class="ins-sub">One entry point per thread</p>
             </div>
         </div>
 
         <div class="thread-cards" id="threadCards">
-            <div class="thread-card" data-thread="tools" role="button" tabindex="0" aria-label="Show the tools we author thread">
-                <span class="tc-i">Thread 01</span>
-                <h3>The formats and tools we author</h3>
-                <p>Why we build our own standards and libraries &mdash; the trade-offs, the dead ends, and what came out of it.</p>
-                <a href="/insights/we-author-standards/" class="tc-go">Why a small team authors standards <span>&rarr;</span></a>
+            {% for t in site.context.threads %}
+            <div class="thread-card" data-thread="{{ t.key }}" role="button" tabindex="0" aria-label="Show only the {{ t.short }} thread">
+                <span class="tc-i">Thread {% if forloop.Counter < 10 %}0{% endif %}{{ forloop.Counter }}</span>
+                <h3>{{ t.title }}</h3>
+                <p>{{ t.blurb }}</p>
+                <a href="{{ t.lead }}" class="tc-go">{{ t.leadLabel }} <span>&rarr;</span></a>
             </div>
-            <div class="thread-card" data-thread="process" role="button" tabindex="0" aria-label="Show the how we work thread">
-                <span class="tc-i">Thread 02</span>
-                <h3>How we work</h3>
-                <p>Senior-only delivery, a documented process, and how we decide something is actually ready to ship.</p>
-                <a href="/insights/dogfood-first/" class="tc-go">Dogfood first, then release <span>&rarr;</span></a>
-            </div>
-            <div class="thread-card" data-thread="cost" role="button" tabindex="0" aria-label="Show the what things cost thread">
-                <span class="tc-i">Thread 03</span>
-                <h3>What things cost</h3>
-                <p>Honest looks at software cost and the decisions that really move it &mdash; including when not to build.</p>
-                <a href="/insights/cost-drivers-custom-software/" class="tc-go">What drives the cost <span>&rarr;</span></a>
-            </div>
-            <div class="thread-card" data-thread="domains" role="button" tabindex="0" aria-label="Show the systems and domains thread">
-                <span class="tc-i">Thread 04</span>
-                <h3>Aging systems, and the domains we know</h3>
-                <p>Modernization without a big-bang rewrite, plus what fifteen years in laboratory and proptech systems taught us.</p>
-                <a href="/insights/rewrite-vs-refactor-strangler-fig/" class="tc-go">Rewrite or refactor? <span>&rarr;</span></a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -109,7 +99,7 @@ CAPITALIZED in this binary. {% endcomment %}
                 <h2 class="fw-600 ins-h2">Everything, newest first</h2>
                 <p class="ins-sub">The full index</p>
             </div>
-            <p class="index-count">Showing <b id="liveCount">{{ articles|length }}</b> of {{ articles|length }} - <span id="liveLens">all threads</span></p>
+            <p class="index-count">Showing <b id="liveCount">{{ articles|length }}</b> of <span id="liveTotal">{{ articles|length }}</span> - <span id="liveLens">all threads</span></p>
         </div>
 
         <div class="post-rows" id="postRows">
@@ -128,10 +118,8 @@ CAPITALIZED in this binary. {% endcomment %}
                     </div>
                 </div>
                 <div class="pr-tail">
-                    {% if a.thread == "tools" %}<span>tools we author</span>
-                    {% elif a.thread == "process" %}<span>how we work</span>
-                    {% elif a.thread == "cost" %}<span>what things cost</span>
-                    {% elif a.thread == "domains" %}<span>systems and domains</span>{% endif %}
+                    {% comment %} Label looked up from the one thread list - no if/elif map here. {% endcomment %}
+                    {% for t in site.context.threads %}{% if t.key == a.thread %}<span>{{ t.short }}</span>{% endif %}{% endfor %}
                     <span class="pr-arrow" aria-hidden="true">&rarr;</span>
                 </div>
             </article>
