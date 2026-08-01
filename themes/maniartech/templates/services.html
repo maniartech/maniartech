@@ -2,15 +2,25 @@
 
 {% block title %}Custom and Enterprise Software Development | {{ site.name }}{% endblock %}
 
-{% comment %} Services hub. Cards render from the page's own frontmatter
-(pageContext.categories / pageContext.capabilities) — content lives in
-site/services/index.md, layout lives here. {% endcomment %}
+{% comment %} Services hub v3. The card grid is gone: each service is a spotlight
+row carrying a real artifact (a production screenshot where one exists, a diagram
+where one honestly does not), and the hero diagram shows the page's own structure —
+three service lanes with two capabilities crossing all of them. Content still lives
+in services/services/index.md (pageContext.serviceLines / .capabilities); only layout
+lives here. Hub stays a summary: short rows that push you down fast.
+
+GOTCHA - this had been silently breaking the page: `categories` is a RESERVED
+frontmatter key in Taj Mahal. It is coerced to []string, so a list of MAPS under
+it parses to an empty slice: the loop renders NOTHING and no error appears
+anywhere. That is why the three service cards were missing from the live page.
+The key is now `serviceLines`. Never name a frontmatter list of maps `categories`
+(or `tags`). {% endcomment %}
 
 {% block content %}
 <header class="main-header">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-10">
+        <div class="svc-hero">
+            <div>
                 <span class="mt-eyebrow">Services</span>
                 <h1 class="fw-bold prod-h1">{{ title }}</h1>
                 <p class="lead-text mt-20 prod-lead">{{ description }}</p>
@@ -24,47 +34,113 @@ site/services/index.md, layout lives here. {% endcomment %}
                     27 years building software; founder previously at JP&nbsp;Morgan.
                 </p>
             </div>
+            <figure class="hub-viz">
+                {% comment %} Canvas piece: three lanes of work feed one system; the two
+                capability bands cross all three. hub-viz.js, piece "services-lanes". {% endcomment %}
+                <canvas data-hub-viz="services-lanes" data-cap="hubVizCap" role="img"
+                    aria-label="Animated diagram: three lanes of work - Enterprise, Application and Partnership - carry work into one system, while two capability bands, AI applied and Modernization, cross all three lanes."></canvas>
+                <figcaption class="hub-viz-cap" id="hubVizCap" aria-live="polite">Three kinds of engineering work, running as three lanes.</figcaption>
+            </figure>
         </div>
     </div>
 </header>
 
-<section class="section-padding">
+<section class="section-padding pt-0">
     <div class="container">
-        <div class="sec-head mb-60">
-            <span class="mt-eyebrow">Pick your starting point</span>
-            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600">Three ways we help. Start with the one that fits.</h2></div>
-        </div>
-        <div class="row">
-            {% for c in pageContext.categories %}
-            <div class="col-lg-4 col-md-6 mb-30">
-                <a href="{{ c.url }}" class="mt-cap">
-                    {% if c.featured %}<span class="mt-badge is-live mb-15 d-inline-block">Flagship</span>{% endif %}
-                    <h5>{{ c.title }}</h5>
-                    <p style="color:#fff;font-weight:600;margin-bottom:8px;">{{ c.tag }}</p>
-                    <p>{{ c.body }}</p>
-                    <span class="go">Explore →</span>
-                </a>
+{% for c in pageContext.serviceLines %}
+        <div class="mt-spot{% if forloop.Counter == 2 %} rev{% endif %}">
+            <div class="spot-text">
+                {% if c.featured %}<span class="mt-badge is-live">Flagship</span>{% endif %}
+                <h3>{{ c.title }}</h3>
+                <span class="spot-tag">{{ c.tag }}</span>
+                <p>{{ c.body }}</p>
+                <a href="{{ c.url }}" class="go">Explore {{ c.title }} &rarr;</a>
+                {% if c.proofUrl %}<a href="{{ c.proofUrl }}" class="spot-proof">{{ c.proofLabel }} &rarr;</a>{% endif %}
             </div>
-            {% endfor %}
+            <div class="spot-visual">
+                {% if c.shot %}
+                <figure class="spot-fig">
+                    <div class="mt-frame">
+                        <div class="bar"><i></i><i></i><i></i></div>
+                        <img src="{{ c.shot }}" width="{{ c.shotW }}" height="{{ c.shotH }}" loading="lazy" decoding="async" alt="{{ c.shotAlt }}">
+                    </div>
+                    <figcaption class="spot-cap">{{ c.shotCap }}</figcaption>
+                </figure>
+                {% elif c.viz == "shared-build" %}
+                <figure class="spot-fig">
+                    <div class="svc-viz sb-viz">
+                        {% comment %} Two teams, one trunk — the partnership shape. {% endcomment %}
+                        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg" role="img"
+                             aria-label="Diagram: commits from your team and from our engineers merge into a single trunk - one shared codebase.">
+                            <text class="sb-lab" x="52"  y="20" text-anchor="middle">Your team</text>
+                            <text class="sb-lab" x="268" y="20" text-anchor="middle">Our engineers</text>
+
+                            <path class="sb-branch"    d="M52 34 V70 Q52 100 160 106"/>
+                            <path class="sb-branch r"  d="M268 34 V70 Q268 100 160 106"/>
+                            <path class="sb-trunk"     d="M160 106 V162"/>
+
+                            <circle class="sb-node" cx="52"  cy="44" r="4"/>
+                            <circle class="sb-node" cx="52"  cy="66" r="4"/>
+                            <circle class="sb-node" cx="268" cy="44" r="4"/>
+                            <circle class="sb-node" cx="268" cy="66" r="4"/>
+                            <circle class="sb-merge" cx="160" cy="106" r="6"/>
+                            <circle class="sb-merge" cx="160" cy="134" r="5"/>
+                            <circle class="sb-merge" cx="160" cy="162" r="5"/>
+
+                            <text class="sb-foot" x="160" y="184" text-anchor="middle">One codebase, one backlog</text>
+                        </svg>
+                    </div>
+                    <figcaption class="spot-cap">Not a vendor you manage. A team in the same repository.</figcaption>
+                </figure>
+                {% endif %}
+            </div>
         </div>
+        {% endfor %}
     </div>
 </section>
 
 <section class="section-padding bg-soft">
     <div class="container">
-        <div class="sec-head mb-60">
+        <div class="sec-head mb-40">
             <span class="mt-eyebrow">Brought to every engagement</span>
-            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600">Two capabilities we bring to all of the above.</h2></div>
+            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600">Two capabilities that cross all three.</h2></div>
         </div>
-        <div class="row">
+        <div class="svc-cap-grid">
             {% for cap in pageContext.capabilities %}
-            <div class="col-lg-6 mb-30">
-                <a href="{{ cap.url }}" class="mt-cap">
-                    <h5>{{ cap.title }}</h5>
-                    <p>{{ cap.body }}</p>
-                    <span class="go">Explore →</span>
-                </a>
-            </div>
+            <a href="{{ cap.url }}" class="svc-cap-pane">
+                <div class="svc-cap-viz">
+                    {% if cap.viz == "signal" %}
+                    {% comment %} Noise settles into signal — then holds. {% endcomment %}
+                    <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scattered noise settling into a clear signal line">
+                        <line class="aih-base" x1="24" y1="140" x2="296" y2="140"/>
+                        <circle class="aih-d" cx="40"  cy="122" r="4" style="--nx:-8px;  --ny:-52px"/>
+                        <circle class="aih-d" cx="76"  cy="114" r="4" style="--nx:14px;  --ny:34px"/>
+                        <circle class="aih-d" cx="112" cy="104" r="4" style="--nx:-20px; --ny:22px"/>
+                        <circle class="aih-d" cx="148" cy="94"  r="4" style="--nx:12px;  --ny:-38px"/>
+                        <circle class="aih-d" cx="184" cy="82"  r="4" style="--nx:-10px; --ny:44px"/>
+                        <circle class="aih-d" cx="220" cy="68"  r="4" style="--nx:22px;  --ny:-24px"/>
+                        <circle class="aih-d" cx="256" cy="54"  r="4" style="--nx:-16px; --ny:-46px"/>
+                        <circle class="aih-d" cx="284" cy="40"  r="4" style="--nx:8px;   --ny:30px"/>
+                        <path class="aih-sig" d="M40 122 L76 114 L112 104 L148 94 L184 82 L220 68 L256 54 L284 40"/>
+                    </svg>
+                    {% elif cap.viz == "strangler" %}
+                    {% comment %} Parts renew one by one; the service line never breaks. {% endcomment %}
+                    <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="System parts being replaced one by one while the service line stays unbroken">
+                        <rect class="mdh-b swap d1" x="28"  y="70" width="56" height="62" rx="4"/>
+                        <rect class="mdh-b swap d2" x="96"  y="52" width="56" height="80" rx="4"/>
+                        <rect class="mdh-b swap d3" x="164" y="80" width="56" height="52" rx="4"/>
+                        <rect class="mdh-b swap d4" x="232" y="60" width="56" height="72" rx="4"/>
+                        <path class="mdh-line mdh-pulse" d="M16 30 H304"/>
+                        <circle class="mdh-line" cx="16"  cy="30" r="3" fill="#14cf93"/>
+                        <circle class="mdh-line" cx="304" cy="30" r="3" fill="#14cf93"/>
+                    </svg>
+                    {% endif %}
+                </div>
+                <h3>{{ cap.title }}</h3>
+                <p>{{ cap.body }}</p>
+                <span class="svc-cap-note">{{ cap.vizCap }}</span>
+                <span class="go">Explore &rarr;</span>
+            </a>
             {% endfor %}
         </div>
     </div>
@@ -85,4 +161,8 @@ site/services/index.md, layout lives here. {% endcomment %}
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "hub-viz/hub-viz.js" %}
 {% endblock %}
