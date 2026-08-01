@@ -128,9 +128,25 @@
       ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke();
     },
     label: function (x, y, txt, col, align, weight, size) {
-      ctx.fillStyle = col; ctx.textAlign = align; ctx.textBaseline = 'middle';
       ctx.font = weight + ' ' + size + 'px Poppins, sans-serif';
+      // A dark plate behind each label. The rings rotate, so labels drift across
+      // each other; without this the overlaps read as broken text.
+      var tw = ctx.measureText(txt).width, ph = size + 6;
+      var px = align === 'left' ? x - 4 : x - tw - 4;
+      ctx.fillStyle = 'rgba(16,16,16,.72)';
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(px, y - ph / 2, tw + 8, ph, 4);
+      else ctx.rect(px, y - ph / 2, tw + 8, ph);
+      ctx.fill();
+      ctx.fillStyle = col; ctx.textAlign = align; ctx.textBaseline = 'middle';
       ctx.fillText(txt, x, y);
+    },
+    // widest label at the ring-2 size, used to keep labels inside the canvas
+    widestLabel: function (labels, size) {
+      ctx.font = '600 ' + size + 'px Poppins, sans-serif';
+      var m = 0;
+      for (var i = 0; i < labels.length; i++) m = Math.max(m, ctx.measureText(labels[i]).width);
+      return m;
     }
   };
 
@@ -144,7 +160,14 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     W = w; H = h; CX = w / 2; CY = h / 2;
     var S = Math.min(w, h);
-    RAD = [S * 0.16, S * 0.30, S * 0.44];
+    // The outer ring must leave room for the label that hangs off it, or names
+    // get clipped at the canvas edge (this used to cut "Enterprise DAM" in half).
+    var pad = R.widestLabel(NODES.map(function (n) { return n.label; }), 15) + 20;
+    var maxOuter = Math.max(S * 0.24, (w / 2) - pad);
+    RAD = [0, 0, 0];
+    RAD[2] = Math.min(S * 0.44, maxOuter);
+    RAD[1] = RAD[2] * 0.68;
+    RAD[0] = RAD[2] * 0.36;
   }
 
   // ---- motion + interaction state ----

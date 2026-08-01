@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
-{% comment %} The Foundry hub — one honest showcase of everything we've built.
-Projects render from pageContext.sections (content in labs/foundry/index.md);
-each card carries a status badge + facet tags (a project can be several things).
-Understated voice — see brand guide §4. {% endcomment %}
+{% comment %} The Foundry hub v3 - the workshop, one treatment per shelf.
+
+Projects still render from pageContext.sections (content in foundry/foundry/index.md),
+but each shelf now opens with a SPECIMEN of the thing it holds: the Languages shelf
+shows language, the Standards shelf shows the format beside the JSON it replaces, the
+Libraries shelf shows code you would actually import, the Tools shelf shows a terminal,
+and Products shows the two public URLs anyone can open. A shelf of cards describing a
+language, with no language on it, was the flaw here.
+
+Every specimen below is copied from the detail page it belongs to, so the hub cannot
+drift from the page it summarises. Understated voice - see brand guide section 4. {% endcomment %}
 
 {% block content %}
 <header class="main-header viz-hero foundry-hero">
@@ -40,13 +47,112 @@ Understated voice — see brand guide §4. {% endcomment %}
 {% for s in pageContext.sections %}
 <section class="section-padding foundry-sec" id="{{ s.anchor }}">
     <div class="container">
-        <div class="foundry-sec-head">
-            <div>
+        <div class="foundry-shelf">
+            <div class="shelf-head">
                 <span class="mt-eyebrow">{{ s.name }}</span>
                 <p class="opacity-7">{{ s.blurb }}</p>
+                <a href="{{ s.view }}" class="main-color shelf-all">{{ s.viewLabel }} &rarr;</a>
             </div>
-            <a href="{{ s.view }}" class="main-color">{{ s.viewLabel }} &rarr;</a>
+            <div class="shelf-spec">
+
+                {% if s.anchor == "products" %}
+                {% comment %} Products: the only claim that matters is that you can open it. {% endcomment %}
+                <div class="spec-live">
+                    <span class="spec-kind">Running in production right now</span>
+                    <a href="https://www.chemotestlaboratory.com" target="_blank" rel="noopener"><span class="live-dot"></span> chemotestlaboratory.com</a>
+                    <a href="https://reports.chemotestlaboratory.com" target="_blank" rel="noopener"><span class="live-dot"></span> reports.chemotestlaboratory.com</a>
+                    <p>An accredited laboratory's operations run on Processious - intake, review, and recipient-verified report delivery. Both URLs are public; the second one authenticates a report by its COA number.</p>
+                </div>
+
+                {% elif s.anchor == "languages" %}
+                {% comment %} Languages shelf shows language. Indigo, from /foundry/indigo/. {% endcomment %}
+                <span class="spec-kind">Specimen: Indigo, a Go superset</span>
+                <div class="lang-diff">
+                    <div class="lang-pane">
+                        <div class="lp-bar"><span class="lp-dot"></span> what you write</div>
+<pre class="mt-code"><span class="k">func</span> load(id <span class="k">int</span>) (<span class="k">string</span>, <span class="k">error</span>) {
+    user := fetch(id)<span class="op">!</span>
+    tier := user.Pro <span class="op">?</span> <span class="s">"pro"</span> : <span class="s">"free"</span>
+    <span class="k">return</span> render(tier), <span class="k">nil</span>
+} <span class="k">catch</span> {
+    <span class="k">return</span> <span class="s">""</span>, err
+}</pre>
+                    </div>
+                    <span class="lang-arrow">&rarr;</span>
+                    <div class="lang-pane">
+                        <div class="lp-bar"><span class="lp-dot ok"></span> the Go it compiles to</div>
+<pre class="mt-code"><span class="k">func</span> load(id <span class="k">int</span>) (<span class="k">string</span>, <span class="k">error</span>) {
+    user, err := fetch(id)
+    <span class="k">if</span> err != <span class="k">nil</span> {
+        <span class="k">return</span> <span class="s">""</span>, err
+    }
+    tier := <span class="s">"free"</span>
+    <span class="k">if</span> user.Pro {
+        tier = <span class="s">"pro"</span>
+    }
+    <span class="k">return</span> render(tier), <span class="k">nil</span>
+}</pre>
+                    </div>
+                </div>
+                <p class="spec-note">Ordinary Go comes out the other side - the diff your team reviews is Go they already know.</p>
+
+                {% elif s.anchor == "standards" %}
+                {% comment %} Standards: Internet Object beside the JSON it replaces. {% endcomment %}
+                <span class="spec-kind">Specimen: Internet Object, the same data</span>
+                <div class="lang-diff">
+                    <div class="lang-pane">
+                        <div class="lp-bar"><span class="lp-dot"></span> the JSON you send today</div>
+<pre class="mt-code">[
+  {<span class="s">"name"</span>: <span class="s">"Alice"</span>, <span class="s">"age"</span>: 30},
+  {<span class="s">"name"</span>: <span class="s">"Bob"</span>,   <span class="s">"age"</span>: 25}
+]</pre>
+                    </div>
+                    <span class="lang-arrow">&rarr;</span>
+                    <div class="lang-pane">
+                        <div class="lp-bar"><span class="lp-dot ok"></span> Internet Object</div>
+<pre class="mt-code"><span class="c">name: string, age: int</span>
+<span class="op">---</span>
+<span class="op">~</span> Alice, 30
+<span class="op">~</span> Bob, 25</pre>
+                    </div>
+                </div>
+                <p class="spec-note">The schema is sent once; every <code>~</code> row is validated against it as it parses. <a href="/foundry/internet-object/" class="main-color">See the measured savings &rarr;</a></p>
+
+                {% elif s.anchor == "libraries" %}
+                {% comment %} Libraries: code you would actually import. signals, from /foundry/signals/. {% endcomment %}
+                <span class="spec-kind">Specimen: signals, in a Go service</span>
+                <div class="mt-frame">
+                    <div class="bar"><i></i><i></i><i></i></div>
+<pre class="mt-code"><span class="k">import</span> <span class="s">"github.com/maniartech/signals"</span>
+
+<span class="k">var</span> UserRegistered = signals.New[User]()
+
+UserRegistered.AddListener(<span class="k">func</span>(ctx context.Context, u User) {
+    <span class="c">// send the welcome email</span>
+})
+
+UserRegistered.Emit(ctx, newUser)</pre>
+                </div>
+                <p class="spec-note">Context-aware, type-safe, and used in production. Every library on this shelf is public - read it, run it, or check the tests yourself.</p>
+
+                {% elif s.anchor == "tools" %}
+                {% comment %} Tools: things you run. Booster, from /products/booster/. {% endcomment %}
+                <span class="spec-kind">Specimen: Booster, bringing up a stack</span>
+                <div class="mt-frame">
+                    <div class="bar"><i></i><i></i><i></i></div>
+<pre class="mt-code"><span class="p">$</span> booster up
+<span class="ok">&check;</span> postgres   ready :5432
+<span class="ok">&check;</span> redis      ready :6379
+<span class="ok">&check;</span> api        ready :8080
+<span class="ok">&check;</span> web        ready :3000
+<span class="s">stack ready in 12s</span></pre>
+                </div>
+                <p class="spec-note">One config file, and every engineer on the project runs the identical environment. We run our own products on it - the strongest test we can give a tool.</p>
+                {% endif %}
+
+            </div>
         </div>
+
         <div class="row">
             {% for it in s.items %}
             <div class="col-lg-6 mb-30">
