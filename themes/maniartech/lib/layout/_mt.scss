@@ -1305,3 +1305,232 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .mt-prose .lang-diff { grid-template-columns: 1fr; }
   .mt-prose .lang-diff .lang-arrow { display: none; }
 }
+
+/* ===========================================================================
+   HUB PAGES — the navigator pages (/services/, /case-studies/, /foundry/,
+   /white-papers/, /insights/). They stay summaries: short rows that push you
+   down fast, with a real artifact doing the explaining instead of more prose.
+   Each hub gets its OWN treatment; the point is that no two look alike.
+   =========================================================================== */
+
+/* --- Hub hero canvases (hub-viz.js mini-app) -------------------------------
+   One bespoke piece per navigator page. The canvas owns its own box so the
+   first synchronous draw is never zero-sized, and the caption below it carries
+   the prose (nothing readable is baked into pixels). */
+.hub-viz {
+  margin: 0;
+  canvas {
+    display: block; width: 100%;
+    height: clamp(240px, 26vw, 330px);
+    border: 1px solid rgba(255, 255, 255, .07); border-radius: 14px;
+    background: rgba(255, 255, 255, .015);
+    --viz-accent: #14cf93;
+  }
+  .hub-viz-cap {
+    margin-top: 14px; color: rgba(255, 255, 255, .5);
+    font-size: 13.5px; line-height: 1.55; min-height: 2.9em;
+  }
+  &.is-wide canvas { height: clamp(300px, 34vw, 420px); }
+  &.is-interactive canvas { cursor: crosshair; }
+}
+@media (max-width: 767px) {
+  .hub-viz canvas { height: clamp(220px, 52vw, 280px); }
+  .hub-viz.is-wide canvas { height: clamp(300px, 76vw, 380px); }
+}
+
+/* --- /services/ spotlight extras: proof link + captioned figure ------------ */
+.spot-proof {
+  display: block; margin-top: 10px; color: rgba(255, 255, 255, .55);
+  font-size: 14px; font-weight: 500;
+  &:hover { color: $main_color; }
+}
+.spot-fig { margin: 0; }
+.spot-cap { margin-top: 12px; color: rgba(255, 255, 255, .48); font-size: 13px; line-height: 1.55; }
+
+/* Partnership diagram — two teams' commits merging into one trunk */
+.sb-viz { padding: clamp(12px, 2vw, 20px); }
+.sb-lab  { fill: rgba(255, 255, 255, .6); font-family: "Poppins", sans-serif; font-size: 11.5px; }
+.sb-foot { fill: rgba($main_color, .85); font-family: "Poppins", sans-serif; font-size: 11.5px; letter-spacing: .03em; }
+.sb-branch { fill: none; stroke: rgba(255, 255, 255, .3); stroke-width: 1.6; stroke-linecap: round;
+  stroke-dasharray: 130; stroke-dashoffset: 130; animation: bph-draw 1.1s ease .25s forwards; }
+.sb-branch.r { animation-delay: .5s; }
+.sb-trunk { fill: none; stroke: $main_color; stroke-width: 2; stroke-linecap: round;
+  stroke-dasharray: 60; stroke-dashoffset: 60; animation: bph-draw .8s ease 1.4s forwards; }
+.sb-node  { fill: rgba(255, 255, 255, .38); }
+.sb-merge { fill: $main_color; opacity: 0; animation: bph-in .5s ease 1.5s forwards; }
+.sb-merge:nth-of-type(2) { animation-delay: 1.75s; }
+.sb-merge:nth-of-type(3) { animation-delay: 2s; }
+
+/* --- /services/ capability panes ------------------------------------------ */
+.svc-cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 34px); }
+.svc-cap-pane {
+  display: block; padding: var(--sp-card); background: $sub_bg;
+  border: 1px solid rgba(255, 255, 255, .07); border-radius: 16px;
+  transition: transform .4s ease, border-color .4s ease;
+  &:hover { transform: translateY(-5px); border-color: rgba($main_color, .5); }
+  h3 { color: #fff; font-size: clamp(20px, 2vw, 24px); margin: 0 0 10px; }
+  p  { color: rgba(255, 255, 255, .72); font-size: 15.5px; line-height: 1.65; margin: 0 0 12px; }
+  .go { color: $main_color; font-weight: 600; font-size: 14px; }
+  &:hover .go { text-decoration: underline; }
+}
+.svc-cap-viz {
+  margin-bottom: 20px; border-radius: 10px; padding: 8px 4px;
+  background: rgba(255, 255, 255, .025); border: 1px solid rgba(255, 255, 255, .05);
+  svg { display: block; width: 100%; height: auto; }
+  svg * { vector-effect: non-scaling-stroke; }
+}
+.svc-cap-note { display: block; margin-bottom: 16px; color: rgba(255, 255, 255, .45); font-size: 13px; font-style: italic; }
+@media (max-width: 767px) {
+  .svc-cap-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sb-branch, .sb-trunk { animation: none; stroke-dashoffset: 0; }
+  .sb-merge { animation: none; opacity: 1; }
+}
+
+/* --- /case-studies/ : the cabinet. Each case is a FILE with its strongest
+   artifact at rest - a real screenshot where one exists, a diagram where one
+   honestly does not. Rows, not a card grid, so the hub stays scannable. --- */
+.case-file {
+  display: grid; grid-template-columns: 232px 1fr 150px;
+  gap: clamp(20px, 3vw, 38px); align-items: center;
+  padding: clamp(22px, 3vw, 30px) 0;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+  &:last-of-type { border-bottom: 1px solid rgba(255, 255, 255, .09); }
+  &:hover .cf-name { color: $main_color; }
+  &:hover .cf-visual { border-color: rgba($main_color, .45); transform: translateY(-3px); }
+  &:hover .cf-go { opacity: 1; }
+}
+.cf-visual {
+  display: block; overflow: hidden; border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, .10); background: #0d0d0d;
+  transition: transform .4s ease, border-color .4s ease;
+  img, svg { display: block; width: 100%; height: 146px; object-fit: cover; object-position: top left; }
+  svg { height: auto; background: #121212; }
+}
+.cf-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.cf-years { color: rgba(255, 255, 255, .42); font-size: 12.5px; letter-spacing: .03em; font-variant-numeric: tabular-nums; }
+.cf-name { display: block; color: #fff; font-size: clamp(19px, 1.9vw, 23px); font-weight: 600; line-height: 1.25; transition: color .3s ease; }
+.cf-line { display: block; margin-top: 8px; color: rgba(255, 255, 255, .62); font-size: 15px; line-height: 1.6; max-width: 62ch; }
+.cf-go { display: block; margin-top: 12px; color: $main_color; font-size: 13.5px; font-weight: 600; opacity: .55; transition: opacity .3s ease; }
+.cf-fact {
+  color: $main_color; font-size: 15px; font-weight: 600; line-height: 1.35;
+  text-align: right; font-variant-numeric: tabular-nums;
+}
+
+/* the two cases with no screenshot get a drawn artifact instead */
+.cfv-w { fill: rgba(255, 255, 255, .16); }
+.cfv-w.on { fill: rgba(255, 255, 255, .34); }
+.cfv-w.new { fill: rgba($main_color, .75); }
+.cfv-arrow { fill: none; stroke: rgba($main_color, .7); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.cfv-frame { fill: rgba(255, 255, 255, .03); stroke: rgba(255, 255, 255, .2); stroke-width: 1.2; }
+.cfv-court { stroke: rgba(255, 255, 255, .18); stroke-width: 2; }
+.cfv-player { fill: rgba(255, 255, 255, .6); }
+.cfv-rec { fill: rgba(240, 90, 90, .85); }
+.cfv-ink { fill: none; stroke: $main_color; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.cfv-track { stroke: rgba(255, 255, 255, .14); stroke-width: 3; stroke-linecap: round; }
+.cfv-played { stroke: rgba($main_color, .8); stroke-width: 3; stroke-linecap: round; }
+
+@media (max-width: 991px) {
+  .case-file { grid-template-columns: 180px 1fr; }
+  .cf-fact { grid-column: 2; text-align: left; margin-top: -6px; }
+  .cf-visual img, .cf-visual svg { height: 118px; }
+}
+@media (max-width: 575px) {
+  .case-file { grid-template-columns: 1fr; gap: 16px; }
+  .cf-fact { grid-column: 1; }
+  .cf-visual img { height: 150px; }
+}
+
+/* --- /foundry/ : the workshop. Each shelf opens with a SPECIMEN of what it
+   holds, so a shelf of languages actually shows language. The cards stay -
+   they are the index - but they are no longer the whole page. --- */
+.foundry-shelf {
+  display: grid; grid-template-columns: 0.72fr 1.28fr;
+  gap: clamp(24px, 4vw, 56px); align-items: start;
+  margin-bottom: clamp(28px, 4vw, 46px);
+}
+.shelf-head {
+  .mt-eyebrow { margin-bottom: 8px; }
+  p { margin: 0 0 14px; font-size: 15px; line-height: 1.6; }
+  .shelf-all { font-weight: 600; font-size: 14.5px; white-space: nowrap; }
+}
+.shelf-spec {
+  /* Grid items default to min-width:auto, so a long code line (the signals
+     snippet) widened the track and pushed the whole page sideways on mobile.
+     min-width:0 lets the pre keep its own overflow-x instead. */
+  min-width: 0;
+  .lang-diff { margin-top: 12px; align-items: stretch; min-width: 0; }
+  .lang-pane, .mt-frame, pre { min-width: 0; max-width: 100%; }
+  .lang-pane { display: flex; flex-direction: column; }
+  .mt-frame { margin-top: 12px; }
+  .mt-code { font-size: 12.5px; line-height: 1.7; }
+}
+.spec-kind {
+  display: block; color: rgba(255, 255, 255, .38);
+  font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+}
+.spec-note {
+  margin: 14px 0 0; color: rgba(255, 255, 255, .55); font-size: 13.5px; line-height: 1.6;
+  code { font-family: var(--mono); color: rgba(255, 255, 255, .8); font-size: .95em; }
+}
+.spec-live {
+  a {
+    display: flex; align-items: center; gap: 10px; margin-top: 12px;
+    padding: 13px 16px; border-radius: 10px;
+    background: $sub_bg; border: 1px solid rgba(255, 255, 255, .08);
+    color: rgba(255, 255, 255, .82); font-family: var(--mono); font-size: 13.5px;
+    transition: border-color .3s ease, color .3s ease;
+    &:hover { border-color: rgba($main_color, .55); color: #fff; }
+  }
+  p { margin: 14px 0 0; color: rgba(255, 255, 255, .55); font-size: 13.5px; line-height: 1.6; }
+}
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: $main_color; flex: 0 0 auto;
+  box-shadow: 0 0 0 0 rgba($main_color, .55); animation: mt-pulse 2.4s ease-out infinite;
+}
+@media (max-width: 991px) {
+  .foundry-shelf { grid-template-columns: 1fr; }
+  .shelf-spec .lang-diff { grid-template-columns: 1fr; }
+  .shelf-spec .lang-arrow { display: none; }
+}
+
+/* --- Research hubs: /white-papers/ figures + /insights/ topic lanes -------- */
+.paper-card.has-fig {
+  display: flex; flex-direction: column;
+  .pc-fig {
+    display: block; margin: -4px -4px 18px; border-radius: 10px; overflow: hidden;
+    background: #121212; border: 1px solid rgba(255, 255, 255, .07);
+    svg { display: block; width: 100%; height: auto; }
+  }
+  h3 { font-size: clamp(18px, 1.7vw, 21px); line-height: 1.3; }
+}
+.pf-lab  { fill: rgba(255, 255, 255, .62); font-family: "Poppins", sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .04em; }
+.pf-lab.warn { fill: rgba(255, 255, 255, .45); }
+.pf-note { fill: rgba(255, 255, 255, .42); font-family: "Poppins", sans-serif; font-size: 10px; }
+.pf-in   { fill: rgba(255, 255, 255, .85); font-family: "Poppins", sans-serif; font-size: 9.5px; font-weight: 500; }
+.pf-in.bad { fill: rgba(255, 255, 255, .55); }
+.pf-bar  { fill: rgba(255, 255, 255, .2); }
+.pf-bar.hi { fill: rgba($main_color, .8); }
+.pf-col  { fill: rgba(255, 255, 255, .045); stroke: rgba(255, 255, 255, .13); stroke-width: 1; }
+.pf-journey { fill: none; stroke: $main_color; stroke-width: 2.2; stroke-linecap: round; }
+.pf-jdot { fill: $main_color; }
+.pf-rule { stroke: rgba(255, 255, 255, .1); stroke-width: 1; }
+.pf-good { fill: rgba($main_color, .16); stroke: rgba($main_color, .5); stroke-width: 1; }
+.pf-bad  { fill: rgba(255, 255, 255, .04); stroke: rgba(255, 255, 255, .16); stroke-width: 1; stroke-dasharray: 3 3; }
+
+/* Topic lanes - real doors into the archive, not decorative headings */
+.topic-lanes { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 2vw, 22px); }
+.lane {
+  display: block; padding: clamp(18px, 2vw, 24px);
+  background: $sub_bg; border: 1px solid rgba(255, 255, 255, .07); border-radius: 14px;
+  transition: transform .4s ease, border-color .4s ease;
+  &:hover { transform: translateY(-4px); border-color: rgba($main_color, .5); }
+  &:hover .lane-go { color: $main_color; }
+}
+.lane-name { display: block; color: #fff; font-size: 16px; font-weight: 600; line-height: 1.3; }
+.lane-line { display: block; margin-top: 9px; color: rgba(255, 255, 255, .55); font-size: 13.5px; line-height: 1.6; }
+.lane-go   { display: block; margin-top: 14px; color: rgba(255, 255, 255, .5); font-size: 12.5px; font-weight: 600; transition: color .3s ease; }
+@media (max-width: 991px) { .topic-lanes { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 575px) { .topic-lanes { grid-template-columns: 1fr; } }
