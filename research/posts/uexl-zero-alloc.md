@@ -11,6 +11,8 @@ receipts:
   - "UExL"
   - "benchmark"
 keyReceipt: "run it yourself"
+heroProof: "108 ns, zero allocations"
+heroProofNote: "measured against cel-go and expr, with the harness to re-run it"
 ---
 
 UExL is our embeddable expression language for Go - the kind of engine you reach for when business rules, filters, or computed fields need to be evaluated thousands of times per second inside a larger system. This post makes one precise claim about it, shows the numbers behind that claim, tells you exactly where the claim stops, and gives you the harness to check all of it on your own machine.

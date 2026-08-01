@@ -189,49 +189,54 @@ for (const [path, page] of seen) {
 }
 
 // ---------------------------------------------------------------------------
-// /insights/ shelf integrity
+// /insights/ integrity
 //
-// The hero filter is client-side and its thread labels come from ONE list in
-// tajmahal.yaml (context.threads). Three things can drift silently as posts are
-// added, and all three are user-visible lies, so they fail the build:
-//   - a post with a `thread` value no lens knows about is unreachable by filter
+// The thread filter is client-side and its labels come from ONE list in
+// tajmahal.yaml (context.threads). Things that can drift silently as posts are
+// added - all of them user-visible lies, so they fail the build:
+//   - a post with a `thread` no filter knows about is unreachable
 //   - a post with no `thread` at all belongs to nothing
 //   - the archive outgrowing page_size means the filter only cuts page one
+//   - a `heroProof` figure with no note, or no proof rows at all
 // ---------------------------------------------------------------------------
 {
   const page = seen.get('/insights/');
   if (!page || page.status !== 200) {
-    W('/insights/ not crawled - skipping shelf integrity checks');
+    W('/insights/ not crawled - skipping integrity checks');
   } else {
     const html = page.body;
-    const lensKeys = [...html.matchAll(/class="lens"[^>]*data-thread="([^"]*)"/g)].map((m) => m[1]);
-    const known = new Set(lensKeys.filter((k) => k !== 'all'));
-    const tileThreads = [...html.matchAll(/class="shelf-tile"[^>]*data-thread="([^"]*)"/g)].map((m) => m[1]);
+    const known = new Set(
+      [...html.matchAll(/class="lens"[^>]*data-thread="([^"]*)"/g)].map((m) => m[1]).filter((k) => k !== 'all')
+    );
+    const rowThreads = [...html.matchAll(/class="post-row"[^>]*data-thread="([^"]*)"/g)].map((m) => m[1]);
 
     if (!known.size) F('/insights/ has no thread filters - context.threads is empty or not loaded');
-    if (!tileThreads.length) F('/insights/ shelf has no tiles');
+    if (!rowThreads.length) F('/insights/ index has no rows');
 
-    const missing = tileThreads.filter((t) => !t).length;
+    const missing = rowThreads.filter((t) => !t).length;
     if (missing) F(`/insights/ ${missing} post(s) have no thread: in frontmatter`);
 
-    const unknown = [...new Set(tileThreads.filter((t) => t && !known.has(t)))];
+    const unknown = [...new Set(rowThreads.filter((t) => t && !known.has(t)))];
     if (unknown.length) F(`/insights/ post(s) use unknown thread(s): ${unknown.join(', ')}`);
 
-    const rowCount = [...html.matchAll(/class="post-row"/g)].length;
-    if (rowCount !== tileThreads.length)
-      F(`/insights/ shelf shows ${tileThreads.length} tiles but the index has ${rowCount} rows`);
-
-    // Pagination would make the client-side filter cut only the visible page.
-    if (/class="butn butn-sm butn-rounded/.test(html) && /aria-label="Pagination"/.test(html))
-      F('/insights/ is paginated - the shelf filter would only cut the current page (raise page_size)');
-
-    // Every thread must actually have something in it, or the lens is a dead end.
     for (const k of known) {
-      if (!tileThreads.includes(k)) F(`/insights/ thread "${k}" has no posts - remove it or write one`);
+      if (!rowThreads.includes(k)) F(`/insights/ thread "${k}" has no posts - remove it or write one`);
     }
 
-    if (!unknown.length && !missing && rowCount === tileThreads.length)
-      P(`/insights/ shelf integrity: ${tileThreads.length} posts across ${known.size} threads`);
+    // Pagination would make the client-side filter cut only the visible page.
+    if (/aria-label="Pagination"/.test(html))
+      F('/insights/ is paginated - the thread filter would only cut the current page (raise page_size)');
+
+    // The hero's proof rows: every figure needs its explanatory note, or the
+    // number stands unqualified - which is exactly what we tell people not to do.
+    const figs = [...html.matchAll(/class="pv-fig">([^<]*)</g)].map((m) => m[1].trim());
+    const notes = [...html.matchAll(/class="pv-note">([^<]*)</g)].map((m) => m[1].trim());
+    if (!figs.length) F('/insights/ hero has no proof rows - no post carries heroProof');
+    if (figs.length !== notes.length || notes.some((n) => !n))
+      F(`/insights/ ${figs.length} heroProof figure(s) but ${notes.filter(Boolean).length} note(s) - each needs heroProofNote`);
+
+    if (!unknown.length && !missing && figs.length && figs.length === notes.length)
+      P(`/insights/ integrity: ${rowThreads.length} posts, ${known.size} threads, ${figs.length} proof rows`);
   }
 }
 

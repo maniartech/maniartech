@@ -1565,24 +1565,46 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .ins-sub { margin: 6px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
            text-transform: uppercase; color: rgba(255, 255, 255, .35); }
 
-/* the shelf itself */
-.shelf {
-  position: relative; overflow: hidden; padding: 16px 16px 14px;
-  border: 1px solid rgba(255, 255, 255, .09); border-radius: 16px; background: $sub_bg;
-  &::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .45;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, .085) 1px, transparent 1px);
-    background-size: 18px 18px;
+/* The hero's right column: aggregate PROOF, not a second copy of the index.
+   Deliberately not a panel - no border, no fill, no texture. It is type on the
+   page, so it reads as part of the hero rather than a widget parked beside it.
+   Content comes from `heroProof` on the posts that carry a checkable number. */
+.proof { margin: 0; }
+.proof-head {
+  margin: 0 0 4px; font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: .18em; text-transform: uppercase; color: rgba(255, 255, 255, .35);
+}
+.proof-list {
+  list-style: none; margin: 0; padding: 0;
+  li { border-top: 1px solid rgba(255, 255, 255, .09); }
+  a {
+    display: block; padding: clamp(14px, 1.8vw, 20px) 0;
+    transition: padding-left .25s ease;
+    &:hover { padding-left: 10px;
+      .pv-fig { color: $main_color; }
+      .pv-note { color: rgba(255, 255, 255, .72); } }
+    &:focus-visible { outline: 2px solid $main_color; outline-offset: 3px; }
   }
-  > * { position: relative; }
 }
-.shelf-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px;
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(255, 255, 255, .35);
-  b { color: #fff; font-weight: 500; }
+.pv-fig {
+  display: block; font-family: var(--mono);
+  font-size: clamp(21px, 2.4vw, 30px); font-weight: 500; line-height: 1.1;
+  letter-spacing: -.02em; color: rgba(255, 255, 255, .95);
+  font-variant-numeric: tabular-nums; transition: color .25s ease;
 }
-.shelf-lenses { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.pv-note {
+  display: block; margin-top: 7px; max-width: 46ch;
+  font-size: 13.5px; line-height: 1.55; color: rgba(255, 255, 255, .5);
+  transition: color .25s ease;
+}
+.proof-foot {
+  margin: 18px 0 0; padding-top: 16px; max-width: 52ch;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+  font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, .42);
+}
+
+/* The thread filter, now sitting directly above the rows it filters. */
+.shelf-lenses { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
 .lens {
   display: flex; align-items: center; gap: 7px; cursor: pointer;
   padding: 7px 13px; border-radius: 99px;
@@ -1596,34 +1618,6 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
     .n { color: $main_color; }
   }
   &:focus-visible { outline: 2px solid $main_color2; outline-offset: 2px; }
-}
-/* The shelf is a plain CSS grid. An earlier version positioned every tile
-   absolutely and measured row heights in JS - it shipped two bugs and had to be
-   re-derived whenever the type changed. Grid does the geometry; shelf.js only
-   sets `order` to re-group. */
-.shelf-field { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 10px; }
-.shelf-tile {
-  padding: 8px 11px; border-radius: 9px;
-  background: $sub_bg2; border: 1px solid rgba(255, 255, 255, .12);
-  transition: opacity .3s ease, border-color .25s ease, background .25s ease;
-  .st-n { display: block; margin-bottom: 2px; font-family: var(--mono); font-size: 9.5px;
-          letter-spacing: .1em; color: $main_color2; }
-  .st-t { display: block; font-size: 12.5px; line-height: 1.3; color: rgba(255, 255, 255, .9);
-          /* A missing shortTitle falls back to the real title - clamp it rather
-             than truncating to an unreadable ellipsis. */
-          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-          overflow: hidden; }
-  &:hover { border-color: $main_color; }
-  &:focus-visible { outline: 2px solid $main_color; outline-offset: 2px; }
-  &.is-hit  { border-color: rgba($main_color, .55); background: rgba($main_color, .07); }
-  &.is-miss { opacity: .26;
-              .st-n { color: rgba(255, 255, 255, .3); } }
-}
-.shelf-foot {
-  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .08);
-  font-family: var(--mono); font-size: 10.5px; color: rgba(255, 255, 255, .35);
-  b { color: $main_color; font-weight: 500; }
 }
 
 /* the four threads, as controls */

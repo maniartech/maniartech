@@ -11,6 +11,8 @@ receipts:
   - "Internet Object"
   - "worked example"
 keyReceipt: "628 B -> 273 B"
+heroProof: "628 B -> 273 B"
+heroProofNote: "a JSON collection rewritten, worked through byte by byte"
 ---
 
 *First published in the ManiarTech Engineering Journal on Medium (November 2025); refreshed for maniartech.com.*

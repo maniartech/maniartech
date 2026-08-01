@@ -11,6 +11,8 @@ receipts:
   - "LIMS"
   - "since 2011"
 keyReceipt: "two real systems"
+heroProof: "~15 years"
+heroProofNote: "one laboratory system, still in daily service"
 ---
 
 Laboratory software is a niche with an unforgiving audience. A testing laboratory lives and dies by the integrity of its results: samples must be traceable, reviews must be enforced, reports must be tamper-proof, and the whole chain must survive an auditor's visit. Software that merely *mostly* works is not an option in a business whose product is trust.

@@ -11,6 +11,8 @@ receipts:
   - "browser storage"
   - "MIT, on npm"
 keyReceipt: "~1.5 KB gzipped"
+heroProof: "~1.5 KB gzipped"
+heroProofNote: "zero dependencies, MIT, published on npm"
 ---
 
 *Adapted from two articles first published in the ManiarTech Engineering Journal on Medium (May 2024 and November 2025), merged and updated for maniartech.com.*

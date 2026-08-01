@@ -38,32 +38,24 @@ forloop vars are CAPITALIZED in this binary. {% endcomment %}
             </div>
 
             <div class="col-lg-6">
-                <div class="shelf">
-                    <div class="shelf-head">
-                        <b>The whole shelf</b>
-                        <span id="shelfState">{{ articles|length }} pieces</span>
-                    </div>
-
-                    <div class="shelf-lenses" id="shelfLenses" role="group" aria-label="Filter the archive by thread">
-                        <button type="button" class="lens" data-thread="all" data-label="all threads" aria-pressed="true">Everything <span class="n"></span></button>
-                        {% for t in site.context.threads %}
-                        <button type="button" class="lens" data-thread="{{ t.key }}" data-label="{{ t.short }}" aria-pressed="false">{{ t.label }} <span class="n"></span></button>
-                        {% endfor %}
-                    </div>
-
-                    <div class="shelf-field" id="shelfField">
-                        {% for a in articles %}
-                        <a href="{{ a.url }}" class="shelf-tile" data-thread="{{ a.thread }}">
-                            <span class="st-n">{% if forloop.Counter < 10 %}0{% endif %}{{ forloop.Counter }}</span>
-                            <span class="st-t">{% if a.shortTitle %}{{ a.shortTitle }}{% else %}{{ a.title }}{% endif %}</span>
-                        </a>
-                        {% endfor %}
-                    </div>
-
-                    <div class="shelf-foot">
-                        <span id="shelfHint">Pick a thread - the shelf regroups, and so does the index below.</span>
-                        <span><b id="shelfCount">{{ articles|length }}</b> showing</span>
-                    </div>
+                {% comment %} The hero does NOT list the posts - the index below does that
+                properly, and a second, lower-fidelity copy of it was the flaw here. It shows
+                what a list of titles cannot: the archive's strongest checkable numbers,
+                each one sourced from the post that proves it (`heroProof` in frontmatter).
+                Add or remove the key and this list follows. {% endcomment %}
+                <div class="proof">
+                    <p class="proof-head">What is actually in here</p>
+                    <ul class="proof-list">
+                        {% for a in articles %}{% if a.heroProof %}
+                        <li>
+                            <a href="{{ a.url }}">
+                                <span class="pv-fig">{{ a.heroProof }}</span>
+                                <span class="pv-note">{{ a.heroProofNote }}</span>
+                            </a>
+                        </li>
+                        {% endif %}{% endfor %}
+                    </ul>
+                    <p class="proof-foot">Every number here is worked through in the piece it comes from &mdash; with the command, the data, or the client system behind it.</p>
                 </div>
             </div>
         </div>
@@ -100,6 +92,15 @@ forloop vars are CAPITALIZED in this binary. {% endcomment %}
                 <p class="ins-sub">The full index</p>
             </div>
             <p class="index-count">Showing <b id="liveCount">{{ articles|length }}</b> of <span id="liveTotal">{{ articles|length }}</span> - <span id="liveLens">all threads</span></p>
+        </div>
+
+        {% comment %} The filter sits with the thing it filters. It used to live up in the
+        hero, away from the rows it acts on. {% endcomment %}
+        <div class="shelf-lenses" id="shelfLenses" role="group" aria-label="Filter the index by thread">
+            <button type="button" class="lens" data-thread="all" data-label="all threads" aria-pressed="true">Everything <span class="n"></span></button>
+            {% for t in site.context.threads %}
+            <button type="button" class="lens" data-thread="{{ t.key }}" data-label="{{ t.short }}" aria-pressed="false">{{ t.label }} <span class="n"></span></button>
+            {% endfor %}
         </div>
 
         <div class="post-rows" id="postRows">
