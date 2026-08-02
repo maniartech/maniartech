@@ -27,43 +27,50 @@ so a paginated index would silently filter only the current page.
 forloop vars are CAPITALIZED in this binary. {% endcomment %}
 
 {% block content %}
-<header class="main-header insights-hero">
-    <div class="container">
-        <div class="row align-items-end">
-            <div class="col-lg-6">
-                <span class="mt-eyebrow ins-eyebrow">Insights</span>
-                <h1 class="fw-bold ins-h1">Notes from the workshop &mdash;<br>engineering, <em>told straight</em>.</h1>
-                <p class="lead-text mt-20 prod-lead">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build &mdash; and check our claims for yourself.</p>
-                {% comment %} No publishing cadence is stated here, deliberately. A frequency is
-                a promise about the future that cannot be verified when it is made and is
-                plainly visible when it breaks - Governing Rule #1 cuts against it. What
-                replaces it is a standard (which we control) and an invitation to falsify us
-                (which is the strongest thing we can offer a stranger). {% endcomment %}
-                <p class="ins-invite">New here, and growing deliberately. Nothing goes up to fill a schedule &mdash; there isn't one. If a claim in any piece doesn't hold up, <b>tell us</b> and we'll correct it in the post.</p>
-            </div>
+{% comment %} The hero owns the viewport: 100svh, with the statement at the top of
+the stage and the proof pinned to the bottom of it.
 
-            <div class="col-lg-6">
-                {% comment %} The hero does NOT list the posts - the index below does that
-                properly, and a second, lower-fidelity copy of it was the flaw here. It shows
-                what a list of titles cannot: the archive's strongest checkable numbers,
-                each one sourced from the post that proves it (`heroProof` in frontmatter).
-                Add or remove the key and this list follows. {% endcomment %}
-                <div class="proof">
-                    <p class="proof-head">What is actually in here</p>
-                    <ul class="proof-list">
-                        {% for a in articles %}{% if a.heroProof %}
-                        <li>
-                            <a href="{{ a.url }}">
-                                <span class="pv-fig">{{ a.heroProof }}</span>
-                                <span class="pv-note">{{ a.heroProofNote }}</span>
-                            </a>
-                        </li>
-                        {% endif %}{% endfor %}
-                    </ul>
-                    <p class="proof-foot">Every number here is worked through in the piece it comes from &mdash; with the command, the data, or the client system behind it.</p>
-                </div>
-            </div>
+It is BANDS, not columns, and that is the whole point. Six of this site's seven
+heroes were "text left, thing right", which forces you to find filler for the
+right half - and anything whose natural width is under half the container leaves
+a ragged hole. Measured on the previous version: the invite was 330px of content
+in a 660px column, and every proof rule ran ~206px past its own text. A band is
+sized by its own content and spans the full width by construction, so neither
+hole can occur. {% endcomment %}
+<header class="main-header insights-hero">
+    <div class="container ins-stage">
+
+        <div class="ins-say">
+            <span class="mt-eyebrow ins-eyebrow">Insights</span>
+            <h1 class="fw-bold ins-h1">Notes from the workshop &mdash; engineering, <em>told straight</em>.</h1>
+            <p class="ins-dek">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build &mdash; and check our claims for yourself.</p>
+            {% comment %} No publishing cadence is stated here, deliberately. A frequency is
+            a promise about the future that cannot be verified when it is made and is plainly
+            visible when it breaks - Governing Rule #1 cuts against it. What replaces it is a
+            standard (which we control) and an invitation to falsify us (the strongest thing
+            we can offer a stranger). {% endcomment %}
+            <p class="ins-invite">Nothing goes up here to fill a schedule &mdash; there isn't one. If a claim in any piece doesn't hold up, <b>tell us</b> and we'll correct it in the post.</p>
         </div>
+
+        {% comment %} The proof strip. Not a list of the posts - the index below does that
+        properly, and a second, lower-fidelity copy of it was the earlier flaw. It carries
+        what a list of titles cannot: the archive's strongest checkable numbers, each from
+        the post that proves it (`heroProof` in frontmatter). Dividers run BETWEEN cells,
+        vertically, so no rule can ever run over empty space. {% endcomment %}
+        <div class="proof-strip">
+            <p class="proof-head">What is actually in here &mdash; every number worked through in the piece it comes from</p>
+            <ul class="proof-row">
+                {% for a in articles %}{% if a.heroProof %}
+                <li>
+                    <a href="{{ a.url }}">
+                        <span class="pv-fig">{{ a.heroProof }}</span>
+                        <span class="pv-note">{{ a.heroProofNote }}</span>
+                    </a>
+                </li>
+                {% endif %}{% endfor %}
+            </ul>
+        </div>
+
     </div>
 </header>
 

@@ -1526,86 +1526,120 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .pf-bad  { fill: rgba(255, 255, 255, .04); stroke: rgba(255, 255, 255, .16); stroke-width: 1; stroke-dasharray: 3 3; }
 
 /* ===========================================================================
-   /insights/ - THE SHELF.
-   The hero is a control, not a picture: every post is a tile, and picking a
-   thread re-groups the shelf AND filters the index below (lib/shelf/shelf.js).
-   Numerals and "receipts" use the theme's second accent (lime, $main_color2)
-   so there is a warm/cool break from mint without inventing a colour. The
-   reference design used amber for this; amber reads as the brand guide's gold,
-   which this site deliberately does not use.
+   /insights/ hero - owns the viewport, built as BANDS not columns.
+
+   The navbar is position:absolute and 73px tall, so it overlays the hero rather
+   than displacing it: 100svh here IS the full view, and the stage's top padding
+   is what keeps the statement clear of the bar. svh (not vh) so mobile browser
+   chrome collapsing does not make the hero jump.
+
+   Bands are sized by their own content and span the full width by construction.
+   The two-column version left a 328px hole beside the invite and ran every
+   proof rule ~206px past its own text; neither is possible here.
    =========================================================================== */
 .insights-hero {
   position: relative; overflow: hidden;
+  display: flex; align-items: stretch;
+  min-height: 100svh;
+  padding: 0;                                  /* the stage owns the spacing */
   &::before {
-    content: ""; position: absolute; inset: -40px 0 0; pointer-events: none;
+    content: ""; position: absolute; inset: 0; pointer-events: none;
     background:
-      radial-gradient(760px 380px at 10% 0%, rgba($main_color, .09), transparent 66%),
-      radial-gradient(620px 340px at 92% 26%, rgba($main_color2, .035), transparent 64%);
+      radial-gradient(820px 420px at 8% 4%, rgba($main_color, .09), transparent 66%),
+      radial-gradient(680px 380px at 94% 30%, rgba($main_color2, .035), transparent 64%);
   }
-  > .container { position: relative; }
 }
+@supports not (height: 100svh) { .insights-hero { min-height: 100vh; } }
+
+.ins-stage {
+  position: relative; width: 100%;
+  display: flex; flex-direction: column;
+  gap: clamp(28px, 4vh, 48px);
+  /* top clears the 73px absolute navbar and then breathes */
+  padding-top: clamp(112px, 15vh, 180px);
+  padding-bottom: clamp(34px, 5vh, 60px);
+}
+/* The statement takes ALL the space above the strip and centres itself in it.
+   Pinning the strip to the bottom with space-between instead left the headline
+   stranded at the top over a ~250px hole - the air belongs around the words,
+   not under them. */
+.ins-say { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+.proof-strip { flex: 0 0 auto; }
+
 .ins-eyebrow {
   display: flex; align-items: center; gap: 12px;
-  &::after { content: ""; flex: 1; height: 1px; max-width: 170px;
+  &::after { content: ""; flex: 1; height: 1px; max-width: 190px;
              background: linear-gradient(90deg, rgba(255, 255, 255, .22), transparent); }
 }
 .ins-h1 {
-  font-size: clamp(36px, 5vw, 62px); line-height: 1.02; letter-spacing: -.035em; margin: 0;
+  margin: 0; max-width: 21ch;
+  font-size: clamp(38px, 6.2vw, 86px); line-height: 1.0; letter-spacing: -.04em;
   em { font-style: normal; color: $main_color; position: relative; white-space: nowrap;
-       &::after { content: ""; position: absolute; left: 0; right: 0; bottom: .09em;
+       &::after { content: ""; position: absolute; left: 0; right: 0; bottom: .08em;
                   height: 3px; background: rgba($main_color, .3); } }
 }
-/* The margin note beside the headline. It states a STANDARD and invites
-   correction - it does not promise a publishing frequency (see the note in
-   insights.html). The mint on "tell us" is the only accent here, because the
-   invitation is the point of the sentence. */
+.ins-dek {
+  margin: clamp(20px, 2.4vh, 30px) 0 0; max-width: 58ch;
+  font-size: clamp(16px, 1.15vw, 19px); line-height: 1.6; color: rgba(255, 255, 255, .72);
+}
+/* One full-width line now - it used to be 330px of text marooned in a 660px column. */
 .ins-invite {
-  margin: 22px 0 0; padding-left: 14px; max-width: 48ch;
-  border-left: 2px solid rgba($main_color, .35);
-  font-family: var(--mono); font-size: 12px; line-height: 1.9; color: rgba(255, 255, 255, .42);
+  margin: clamp(16px, 2vh, 24px) 0 0; max-width: 96ch;
+  font-family: var(--mono); font-size: 12px; line-height: 1.85; color: rgba(255, 255, 255, .4);
   b { color: $main_color; font-weight: 500; white-space: nowrap; }
 }
-.ins-h2  { font-size: clamp(22px, 2.6vw, 32px); letter-spacing: -.025em; line-height: 1.12; margin: 0; }
-.ins-sub { margin: 6px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
-           text-transform: uppercase; color: rgba(255, 255, 255, .35); }
 
-/* The hero's right column: aggregate PROOF, not a second copy of the index.
-   Deliberately not a panel - no border, no fill, no texture. It is type on the
-   page, so it reads as part of the hero rather than a widget parked beside it.
-   Content comes from `heroProof` on the posts that carry a checkable number. */
-.proof { margin: 0; }
+/* --- the proof strip, pinned to the foot of the stage --------------------- */
+.proof-strip { border-top: 1px solid rgba(255, 255, 255, .10); padding-top: clamp(16px, 2vh, 24px); }
 .proof-head {
-  margin: 0 0 4px; font-family: var(--mono); font-size: 10.5px;
-  letter-spacing: .18em; text-transform: uppercase; color: rgba(255, 255, 255, .35);
+  margin: 0 0 clamp(14px, 2vh, 22px);
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(255, 255, 255, .32);
 }
-.proof-list {
+.proof-row {
   list-style: none; margin: 0; padding: 0;
-  li { border-top: 1px solid rgba(255, 255, 255, .09); }
-  a {
-    display: block; padding: clamp(14px, 1.8vw, 20px) 0;
-    transition: padding-left .25s ease;
-    &:hover { padding-left: 10px;
-      .pv-fig { color: $main_color; }
-      .pv-note { color: rgba(255, 255, 255, .72); } }
-    &:focus-visible { outline: 2px solid $main_color; outline-offset: 3px; }
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  li {
+    padding-left: clamp(16px, 2vw, 30px);
+    border-left: 1px solid rgba(255, 255, 255, .10);
+    &:first-child { padding-left: 0; border-left: 0; }
   }
+  a { display: block;
+      &:hover .pv-fig { color: $main_color; }
+      &:hover .pv-note { color: rgba(255, 255, 255, .7); }
+      &:focus-visible { outline: 2px solid $main_color; outline-offset: 4px; } }
 }
 .pv-fig {
   display: block; font-family: var(--mono);
-  font-size: clamp(21px, 2.4vw, 30px); font-weight: 500; line-height: 1.1;
+  font-size: clamp(15px, 1.35vw, 23px); font-weight: 500; line-height: 1.15;
   letter-spacing: -.02em; color: rgba(255, 255, 255, .95);
   font-variant-numeric: tabular-nums; transition: color .25s ease;
 }
 .pv-note {
-  display: block; margin-top: 7px; max-width: 46ch;
-  font-size: 13.5px; line-height: 1.55; color: rgba(255, 255, 255, .5);
+  display: block; margin-top: 8px; max-width: 30ch;
+  font-size: 12.5px; line-height: 1.5; color: rgba(255, 255, 255, .46);
   transition: color .25s ease;
 }
-.proof-foot {
-  margin: 18px 0 0; padding-top: 16px; max-width: 52ch;
-  border-top: 1px solid rgba(255, 255, 255, .09);
-  font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, .42);
+
+@media (max-width: 991px) {
+  .proof-row { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: clamp(18px, 3vh, 26px); }
+  .proof-row li:nth-child(3) { padding-left: 0; border-left: 0; }
 }
+@media (max-width: 575px) {
+  /* min-height (not height) everywhere: the hero always FILLS the viewport, and
+     on a small screen where the type cannot legibly fit in one, it grows rather
+     than trapping or shrinking the content. */
+  .ins-stage { padding-top: 96px; padding-bottom: 28px; gap: 28px; }
+  .proof-row { grid-template-columns: 1fr; }
+  .proof-row li { padding-left: 0; border-left: 0;
+                  padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .09); }
+  .proof-row li:first-child { padding-top: 0; border-top: 0; }
+  .pv-note { max-width: none; }
+}
+
+.ins-h2  { font-size: clamp(22px, 2.6vw, 32px); letter-spacing: -.025em; line-height: 1.12; margin: 0; }
+.ins-sub { margin: 6px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
+           text-transform: uppercase; color: rgba(255, 255, 255, .35); }
 
 /* The thread filter, now sitting directly above the rows it filters. */
 .shelf-lenses { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
