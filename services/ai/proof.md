@@ -1,10 +1,6 @@
 ---
 heading: "See the AI we engineer"
 cases:
-  - name: "Chemo Test Laboratory"
-    label: "Live in production"
-    outcome: "A full laboratory management system on our own Processious platform - sample intake through testing, authorization, and secure recipient-verified report delivery - running in production today."
-    href: "/case-studies/chemo/"
   - name: "Content Engine, Euclid Infotech"
     label: "Applied NLP - 2010"
     outcome: "Grammar- and context-aware paraphrasing built into an editorial pipeline on classical natural-language processing, a decade before generative AI. Built in three months, run in production about two years."
@@ -19,4 +15,4 @@ quoteRole: "AVP Information Technology, TendersInfo.com"
 quoteHref: "/case-studies/content-engine/"
 ---
 
-The fastest way to judge whether a team can engineer AI is to look at AI it has already built. Here is ours - one running in production today, one from a decade before generative AI, and one we are building in the open. The quote below is from TendersInfo.com, the procurement portal behind our Content Engine work - it speaks to a multi-project client relationship, not to the tool itself.
+The fastest way to judge whether a team can engineer AI is to look at AI it has already built. Here is ours - one from a decade before generative AI, and one we are building in the open right now, with its honest status on the label. The quote below is from TendersInfo.com, the procurement portal behind our Content Engine work - it speaks to a multi-project client relationship, not to the tool itself.

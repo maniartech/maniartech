@@ -10,7 +10,7 @@ faqs:
   - q: "Can you build AI into the systems we already run?"
     a: "Yes. AI is a capability we weave into the software we build and connect to the systems you already have, rather than handing you a separate tool to bolt on."
   - q: "Have you actually shipped AI, or only slideware?"
-    a: "Both live and historic. Chemo Test Laboratory runs on our own Processious platform in production today, and back in 2010 we built a context-aware natural-language tool for Euclid Infotech that ran in production for about two years. We are also building our own AI document platform, Documentor."
+    a: "Shipped, and we label the status honestly. In 2010 we built a grammar- and context-aware natural-language tool for Euclid Infotech that ran in an editorial pipeline in production for about two years - a decade before generative AI. Today we are building Documentor, our own AI document platform, on exactly the grounded, human-in-the-loop mechanics described on this page."
   - q: "What is Documentor, and can we use it now?"
     a: "Documentor is an early-stage AI document platform we are building: you describe the document you want and an AI assistant develops it through conversation, grounded in your own uploaded knowledge. It is in development, not a live service you can sign up for today. We show it as an example of how we engineer AI."
   - q: "How do we get an estimate for an AI project?"

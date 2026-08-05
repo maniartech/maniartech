@@ -1,1 +1,67 @@
-{% extends "page.html" %}
+{% extends "base.html" %}
+
+{% comment %} Technology Partnership - the co-founder track. Rebuilt off the
+generic page.html shim onto the vh frame per the CLAUDE.md thumb rules: a
+partnership page's content type is a RELATIONSHIP, so the hero strip carries
+the three things prose cannot claim for itself - the longest engagement we can
+prove, the founder who came back, and the stance - and the record section puts
+the two checkable engagements plus the partner-voiced quote (Strativity's CPO)
+before any of our own words. Facts/record live in index.md frontmatter (data
+lives once); the essay body remains markdown below. {% endcomment %}
+
+{% block content %}
+<header class="main-header view-hero article-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <span class="mt-eyebrow vh-eyebrow">{{ pageContext.eyebrow }}</span>
+            <h1 class="fw-bold vh-h1 ah-h1">{{ title }}</h1>
+            {% if description %}<p class="vh-dek ah-dek">{{ description }}</p>{% endif %}
+        </div>
+
+        <div class="vh-strip">
+            <p class="vh-kicker">Up front &mdash; how we have behaved as a partner, on the record</p>
+            <ul class="ah-facts">
+                {% for f in pageContext.facts %}
+                <li>
+                    <span class="ahf-tag">{{ f.tag }}</span>
+                    <span class="ahf-k{% if f.proof %} is-proof{% endif %}">{{ f.k }}</span>
+                    <span class="ahf-note">{{ f.note }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0 article-region">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><h2 class="fw-600">{{ pageContext.recordHeading }}</h2><p class="mt-10" style="color:rgba(255,255,255,.65);max-width:72ch;">{{ pageContext.recordLead }}</p></div>
+        </div>
+        <div class="row mt-30">
+            {% for c in pageContext.record %}
+            <div class="col-lg-6 mb-30">
+                <a href="{{ c.href }}" class="d-block h-100" style="border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:24px;">
+                    <span class="mt-eyebrow d-block mb-10">{{ c.label }}</span>
+                    <h3 class="fw-600 fz-20 mb-10 text-light">{{ c.name }}</h3>
+                    <p style="color:rgba(255,255,255,.65);">{{ c.outcome }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <blockquote class="mt-10 mb-30" style="border-left:3px solid #14cf93;padding-left:24px;">
+                    <p class="fz-20" style="color:rgba(255,255,255,.85);">"{{ pageContext.recordQuote }}"</p>
+                    <footer class="mt-10" style="color:rgba(255,255,255,.5);">{{ pageContext.recordQuoteBy }} - {{ pageContext.recordQuoteRole }} &nbsp;&middot;&nbsp; <a href="{{ pageContext.recordQuoteHref }}">the full story</a></footer>
+                </blockquote>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="article-body mt-prose bord pt-30 bord-thin-top">{{ content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

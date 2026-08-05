@@ -9,9 +9,6 @@ cases:
     label: "Our own system, in the open"
     outcome: "Our own process-automation platform, the one running a client laboratory system in production today, is being re-architected onto a modular Go core using this exact method. Active development, shown as method - not a finished result."
     href: "/products/processious/"
-quote: "Its been about 2 years we have been working with them and absolutely no complaints."
-quoteBy: "Ashish Singh"
-quoteRole: "Owner, Digi Mind Media"
 ---
 
 The truest test of how a system is modernized is how long it keeps working afterward. We also run this method on our own systems where you can check the work - a digital-asset-management platform of ours was moved module by module onto a current, supported Python and PostgreSQL stack, and Processious onto Go. Same method, two destinations, each chosen by what the workload needed.
