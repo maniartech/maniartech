@@ -296,6 +296,18 @@ quote the site never used; essay updated ("testimonial we don't have yet" contra
 quote now above it). Facts/record in frontmatter. Partnership framing stays honest: no
 completed equity deal is claimed - the record shows BEHAVIOR inside long engagements.
 
+**2026-08-05 (part 12 - partnership terms made real):** Aamir shared his actual reply to a
+partnership inquiry ("Joe"); the page now carries those terms verbatim-in-spirit (`43ba837`):
+capital/opex/direct dev costs funded from the partner's side (the page had CLAIMED "we can
+bring the network and capital ourselves" - contradiction removed); hybrid cash+equity with a
+cash floor covering the technical team's direct cost, remainder as meaningful founder equity
+vesting on delivery; PAID DISCOVERY & FEASIBILITY phase before any co-founder commitment; the
+five yes-criteria (legal / ethical / genuinely useful / sustainable / serious long-term); and
+the full 13-item disclosure list grouped four ways, with due diligence running both ways.
+The confidential venture briefing (`_inbox/service-technology-partnership.md` guardrail: the
+"Love and Beyond" matrimony-app proposal) remains unnamed - only generalized method on the
+page. If Aamir's email register changes, THIS page must follow: it is his voice, not ours.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
