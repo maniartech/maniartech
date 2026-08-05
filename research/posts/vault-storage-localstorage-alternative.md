@@ -23,7 +23,7 @@ Choosing your client-side storage layer is an architectural decision, not someth
 
 The one-glance comparison:
 
-```
+```js
 // LocalStorage: simple, but limited
 localStorage.theme = 'dark';
 localStorage.user = JSON.stringify({ name: 'John' });
@@ -36,7 +36,7 @@ const user = await vault.user;        // already an object
 
 ## Level 1: start exactly where LocalStorage left you
 
-```
+```js
 import vault from 'vault-storage';
 
 vault.theme = 'dark';
@@ -58,7 +58,7 @@ Most applications can stop here. The rest of the library exists for the day they
 
 Storing tokens in LocalStorage is the finding every security review writes up. With Vault:
 
-```
+```js
 import { EncryptedVault } from 'vault-storage/encrypted-vault';
 
 const authVault = new EncryptedVault('auth', {
@@ -78,7 +78,7 @@ One honest caveat, straight from the README: the backup/export feature currently
 
 Caches grow; stale data accumulates. Vault's expiration middleware handles the lifecycle:
 
-```
+```js
 import { Vault } from 'vault-storage/vault';
 import { createExpiration } from 'vault-storage/middlewares';
 
@@ -95,7 +95,7 @@ Expired entries clean themselves up - four cleanup strategies (immediate, backgr
 
 The v2.0 architecture is middleware all the way down - validation, encryption, expiration, or anything custom, layered like Express middleware:
 
-```
+```js
 vault
   .use(validationMiddleware({ /* your rules */ }))
   .use(encryptionMiddleware({ /* ... */ }))
@@ -108,7 +108,7 @@ Add to that isolated multi-store support (a separate vault per user or per conte
 
 The pattern every LocalStorage app accumulates - manual JSON parsing, manual timestamps, manual expiration checks, try/catch around everything - collapses to:
 
-```
+```js
 import vault from 'vault-storage';
 import { expirationMiddleware } from 'vault-storage/middlewares';
 
@@ -124,7 +124,7 @@ async function getUserPreferences() {
 }
 ```
 
-Roughly thirty lines of error-prone boilerplate become three that state their intent.
+<p class="mt-pull">Roughly thirty lines of error-prone boilerplate become <em>three that state their intent</em>.</p>
 
 ## Where it fits
 
@@ -132,7 +132,7 @@ Offline-first PWAs and API caching, encrypted token and session storage, form-dr
 
 Vault Storage follows the same path as everything we publish: built for our own needs first, released when it stopped surprising us - the [dogfood-first model](/insights/dogfood-first/). It is one of the open-source libraries in the [ManiarTech Foundry](/foundry/vault-storage/), alongside our Go libraries and the specifications we author.
 
-```
+```bash
 npm install vault-storage
 ```
 

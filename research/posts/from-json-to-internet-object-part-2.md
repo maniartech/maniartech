@@ -115,7 +115,9 @@ One honest note: this article covers the common constraints; the complete list p
 
 ## Why this matters beyond bytes
 
-Part 1's argument was economic - fewer bytes, fewer tokens. This part's argument is engineering: with comments you document intent where the data lives; with mixed definitions you balance brevity against readability per record; and with types and constraints the data validates itself at the boundary. Bad data gets rejected by the parser, not discovered three layers into your application.
+Part 1's argument was economic - fewer bytes, fewer tokens. This part's argument is engineering: with comments you document intent where the data lives; with mixed definitions you balance brevity against readability per record; and with types and constraints the data validates itself at the boundary.
+
+<p class="mt-pull">Bad data gets rejected by the parser - <em>not discovered three layers into your application</em>.</p>
 
 More parts of this series are on the way, covering document metadata, variables, and definitions. Meanwhile, everything above runs live in the [Internet Object playground](https://play.internetobject.org) - the fastest way to get a feel for the format is to type into it.
 

@@ -27,11 +27,49 @@ Buyers often estimate by screens. Builders estimate by **decisions**: approval c
 
 A useful self-test: for the process you want to automate, write down who can do what, in which order, and what happens when something is rejected. The length of that answer predicts cost better than any screen count.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two sketches side by side: thirty static screens as a plain grid, versus ten screens whose records flow through review, authorization and dispatch with a rejection loop - the second costs more and is worth more">
+  <g font-family="Consolas, monospace" font-size="11">
+    <text x="20" y="26" fill="rgba(255,255,255,.8)" font-size="12.5" font-weight="600" font-family="inherit">What buyers count</text>
+    <g fill="rgba(255,255,255,.14)">
+      <rect x="20" y="42" width="40" height="26" rx="4"/><rect x="66" y="42" width="40" height="26" rx="4"/><rect x="112" y="42" width="40" height="26" rx="4"/><rect x="158" y="42" width="40" height="26" rx="4"/><rect x="204" y="42" width="40" height="26" rx="4"/><rect x="250" y="42" width="40" height="26" rx="4"/>
+      <rect x="20" y="74" width="40" height="26" rx="4"/><rect x="66" y="74" width="40" height="26" rx="4"/><rect x="112" y="74" width="40" height="26" rx="4"/><rect x="158" y="74" width="40" height="26" rx="4"/><rect x="204" y="74" width="40" height="26" rx="4"/><rect x="250" y="74" width="40" height="26" rx="4"/>
+      <rect x="20" y="106" width="40" height="26" rx="4"/><rect x="66" y="106" width="40" height="26" rx="4"/><rect x="112" y="106" width="40" height="26" rx="4"/><rect x="158" y="106" width="40" height="26" rx="4"/><rect x="204" y="106" width="40" height="26" rx="4"/><rect x="250" y="106" width="40" height="26" rx="4"/>
+      <rect x="20" y="138" width="40" height="26" rx="4"/><rect x="66" y="138" width="40" height="26" rx="4"/><rect x="112" y="138" width="40" height="26" rx="4"/><rect x="158" y="138" width="40" height="26" rx="4"/><rect x="204" y="138" width="40" height="26" rx="4"/><rect x="250" y="138" width="40" height="26" rx="4"/>
+      <rect x="20" y="170" width="40" height="26" rx="4"/><rect x="66" y="170" width="40" height="26" rx="4"/><rect x="112" y="170" width="40" height="26" rx="4"/><rect x="158" y="170" width="40" height="26" rx="4"/><rect x="204" y="170" width="40" height="26" rx="4"/><rect x="250" y="170" width="40" height="26" rx="4"/>
+    </g>
+    <text x="20" y="222" fill="rgba(255,255,255,.55)">30 screens, static - a brochure</text>
+    <line x1="380" y1="30" x2="380" y2="210" stroke="rgba(255,255,255,.12)"/>
+    <text x="420" y="26" fill="rgba(255,255,255,.8)" font-size="12.5" font-weight="600" font-family="inherit">What builders count</text>
+    <rect x="420" y="52" width="90" height="34" rx="6" fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.55)"/>
+    <text x="434" y="73" fill="#fff">submit</text>
+    <path d="M510 69 h34 M544 69 l-7 -4 v8 z" stroke="rgba(255,255,255,.45)" fill="rgba(255,255,255,.45)"/>
+    <rect x="551" y="52" width="90" height="34" rx="6" fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.55)"/>
+    <text x="565" y="73" fill="#fff">review</text>
+    <path d="M596 86 v28 M596 114 l-4 -7 h8 z" stroke="rgba(255,255,255,.45)" fill="rgba(255,255,255,.45)"/>
+    <rect x="551" y="118" width="90" height="34" rx="6" fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.55)"/>
+    <text x="560" y="139" fill="#fff">authorize</text>
+    <path d="M641 135 h34 M675 135 l-7 -4 v8 z" stroke="rgba(255,255,255,.45)" fill="rgba(255,255,255,.45)"/>
+    <rect x="682" y="118" width="60" height="34" rx="6" fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.55)"/>
+    <text x="691" y="139" fill="#fff">send</text>
+    <path d="M551 135 H465 V92" stroke="rgba(255,183,77,.5)" fill="none" stroke-dasharray="4 4"/>
+    <path d="M465 88 l-4 7 h8 z" fill="rgba(255,183,77,.6)"/>
+    <text x="420" y="175" fill="rgba(255,183,77,.75)" font-size="10.5">rejected? back to the start -</text>
+    <text x="420" y="191" fill="rgba(255,183,77,.75)" font-size="10.5">every loop is a decision to build</text>
+    <text x="420" y="222" fill="rgba(255,255,255,.55)">10 screens, every record governed</text>
+  </g>
+</svg>
+<figcaption><strong>Decisions, not screens.</strong> The right-hand system costs more than the left one and is worth more - approval chains, permissions and exception paths are where operations actually live.</figcaption>
+</figure>
+
 ## Driver 3: Integration surface
 
 Every external system your software must talk to - accounting, ERP, payment gateways, messaging, legacy databases - adds a seam. Seams cost in three ways: the connection itself, the error handling when the other side misbehaves, and the testing of both. Two integrations are rarely twice the cost of one; they are often more, because combinations multiply.
 
-The honest question to ask any vendor: not "can you integrate with X?" (the answer is always yes) but "what happens to my data when X is down?" The quality of that answer predicts the quality of the build.
+<aside class="mt-callout">
+<span class="co-tag">The question to ask any vendor</span>
+<p>Not "can you integrate with X?" - the answer is always yes. Ask "what happens to my data when X is down?" The quality of that answer predicts the quality of the build.</p>
+</aside>
 
 ## Driver 4: Compliance, security, and audit depth
 
@@ -51,7 +89,9 @@ Our approach is to name the unknowns in the estimate itself - what we are confid
 
 ## Driver 7: Who does the work - the seniority economics
 
-Junior-heavy teams quote lower hourly rates and routinely deliver higher total cost: more rework, more supervision, more defects that surface after handoff. Experienced engineers cost more per hour and less per outcome - they build it right closer to the first time. We staff senior engineers only, and this is precisely why: the cheapest hour is the one you do not have to buy twice.
+Junior-heavy teams quote lower hourly rates and routinely deliver higher total cost: more rework, more supervision, more defects that surface after handoff. Experienced engineers cost more per hour and less per outcome - they build it right closer to the first time. We staff senior engineers only, and this is precisely why:
+
+<p class="mt-pull">The cheapest hour is the one you <em>do not have to buy twice</em>.</p>
 
 ## What moves cost DOWN
 

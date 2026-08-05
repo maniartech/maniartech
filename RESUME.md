@@ -191,8 +191,43 @@ Rule #1 - replaced by a standard + an invitation to correct us; (6) hero now own
 space above the strip (measured 105px air above = below), proof as four equal cells with
 dividers BETWEEN them so no rule can cross empty space; (7) final review measured alpha-blended
 WCAG contrast and fixed six failing styles (2.9-3.8:1 -> 5.2-6.2:1). Every claim on the hero
-traces to a post; the gate proves it stays that way. Only /insights/ has the full-view band
-hero - Aamir to judge it before Work/Foundry/White Papers/Services follow.
+traces to a post; the gate proves it stays that way.
+
+**2026-08-05 (part 7 - full-view heroes rolled onward, thumb rules codified):** `3b3cf75`.
+The insights lessons became the **8 page-design thumb rules in CLAUDE.md** (100svh hero /
+bands not columns / measured air / design for the content type / hero shows what the page
+cannot / data lives once / alpha-blended AA floor / no future promises), and a shared
+`.view-hero`/`.vh-*` frame in `_mt.scss`. Applied per content type: /white-papers/ strip =
+each paper's METHOD in its own words (`method`/`methodNote` frontmatter); /standards/ went
+from a bare page.html shim to a registry-board hero (`registry:` frontmatter, six rows,
+mint = something public to open); /foundry/languages/ strip = four one-line SPECIMENS
+(real syntax only - PressML's cell says "syntax unpublished" because showing unreadable
+code would lie). Work/Foundry/Services hubs still have the older two-column heroes.
+
+**2026-08-05 (part 8 - the ARTICLE pages, "people will often come here"):** Aamir: article
+pages were plain (bare title + prose + dead right half); wanted a beautiful working sidebar,
+real header, and support for images/diagrams/code in articles. Both article templates
+(`insights-article.html`, `white-papers-article.html`) rebuilt on the vh frame:
+- **Full-view article hero** - title at article scale (`.ah-h1`), dek, byline, and an
+  `.ah-facts` strip: THE THREAD (from `context.threads`) / THE READ (minutes derived from
+  `content|striptags|wordcount`, stamped by JS - never typed) / THE RECEIPT (`heroProof` ->
+  `keyReceipt` -> receipts). Papers: THE METHOD / THE READ / THE RULE.
+- **NEW `lib/article/article.js`** - builds "On this page" from the h2s actually rendered
+  (markdown auto-IDs), scrollspy at a 30%-viewport reading line, top reading-progress bar,
+  copy-link control, `data-lang` chips stamped from fenced-code classes. Everything derived,
+  nothing typed. GOTCHA fixed: `align-items:start` on the grid made the aside as short as
+  its content so `position:sticky` had no track - the aside must stretch.
+- **Prose furniture** in `_mt.scss`: `.mt-callout` (+`.is-flip` sky variant), `.mt-pull`,
+  code-chip styling, `article-cover` (optional `heroImage`/`heroImageAlt`/`heroImageCaption`
+  frontmatter -> cover figure + og:image + schema; base.html og:image is now a block).
+- **All 13 posts enriched** (Governing Rule #1 - only structures already in the text): new
+  SVG diagrams (dogfood release gate, presales journey w/ scope boundary, decisions-vs-
+  screens), NITES casing code, LIMS rate arithmetic block, pulls + callouts everywhere;
+  vault-storage fences labeled js/bash. Verified: 16 article pages 200, seo-check 0 FAIL,
+  no console errors, sticky TOC + scrollspy + progress verified in screenshots, one contrast
+  fix (red flags text 4.26 -> 5.7). Screenshot workaround recorded: headless Chrome ignores
+  URL fragments when capturing - wrap the target in a local `frame.html` iframe (fragment
+  scrolls inside the iframe) and screenshot that.
 
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template

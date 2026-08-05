@@ -29,6 +29,31 @@ This is not a slogan for us; it is an inventory.
 
 The pattern is consistent: build the tool because the work demands it, run it until it stops surprising us, and only then let it near anyone else's project.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow diagram of the dogfood-first release gate: build because our work demands it, run it in our own production, and only when the surprises run out does it get released or recommended; while surprises remain it loops back to running">
+  <g font-family="Consolas, monospace" font-size="12">
+    <rect x="20" y="52" width="180" height="58" rx="10" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.25)"/>
+    <text x="40" y="78" fill="#fff" font-weight="600">BUILD</text>
+    <text x="40" y="96" fill="rgba(255,255,255,.55)" font-size="11">because our work demands it</text>
+    <path d="M200 81 h44" stroke="rgba(255,255,255,.4)" fill="none"/>
+    <path d="M244 81 l-7 -4 v8 z" fill="rgba(255,255,255,.4)"/>
+    <rect x="248" y="52" width="180" height="58" rx="10" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.25)"/>
+    <text x="268" y="78" fill="#fff" font-weight="600">RUN</text>
+    <text x="268" y="96" fill="rgba(255,255,255,.55)" font-size="11">in our own production</text>
+    <path d="M428 81 h44" stroke="rgba(255,255,255,.4)" fill="none"/>
+    <path d="M472 81 l-7 -4 v8 z" fill="rgba(255,255,255,.4)"/>
+    <text x="443" y="66" fill="rgba(255,255,255,.5)" font-size="10.5" text-anchor="middle">the gate</text>
+    <rect x="476" y="52" width="264" height="58" rx="10" fill="rgba(20,207,147,.08)" stroke="rgba(20,207,147,.6)"/>
+    <text x="496" y="78" fill="#14cf93" font-weight="600">RELEASE / RECOMMEND</text>
+    <text x="496" y="96" fill="rgba(255,255,255,.55)" font-size="11">only when the surprises run out</text>
+    <path d="M338 110 v34 h134 M338 144 v0" stroke="rgba(255,255,255,.3)" fill="none" stroke-dasharray="4 4"/>
+    <path d="M472 144 l-7 -4 v8 z" fill="rgba(255,255,255,.3)"/>
+    <text x="352" y="162" fill="rgba(255,255,255,.5)" font-size="10.5">still producing incident notes? keep running - it is not ready</text>
+  </g>
+</svg>
+<figcaption><strong>The release gate, drawn.</strong> Nothing skips the middle box: this website, a client laboratory's operations platform, and every published library went through it before being let near anyone else's project.</figcaption>
+</figure>
+
 ## Case in point: this site runs on a framework we have not released yet
 
 Taj Mahal is worth a closer look, because it is the dogfood gate operating in plain view, right now.
@@ -37,6 +62,11 @@ It is a static-site generator with a specific opinion: every section of a site -
 
 It is not open source yet. Not because it is secret - because it has not passed its own gate.
 
+<aside class="mt-callout">
+<span class="co-tag">Live specimen</span>
+<p>You are looking at the dogfood right now: this page is rendered by that unreleased framework. If it fails, it fails on us first - which is exactly what the gate is for.</p>
+</aside>
+
 Rebuilding maniartech.com on it has been the hardest workout the framework has had: a multi-section site with a blog, case studies, long-form documents, and a custom theme, built under real deadline pressure by people with no patience for their own tool's excuses. A framework that survives that is shaped differently from one designed on a whiteboard:
 
 - **Content ordering is strictly deterministic** - numeric filename prefix, then frontmatter order, then timestamp - because "mostly alphabetical" is tolerable on a five-page demo and maddening on a two-hundred-page site.
@@ -44,7 +74,9 @@ Rebuilding maniartech.com on it has been the hardest workout the framework has h
 - **Documentation is part of the definition of done.** Taj Mahal ships with a full manual - an eight-part book, around twenty-nine chapters - written by the people who operate the tool daily, covering the failure modes we actually hit, not the happy path we hoped for.
 - **We know its remaining rough edges precisely.** Which configuration changes need a restart. How to recover when the content cache gets into a bad state. Our own build notes record every surprise, and that list is the honest release checklist: the framework goes public when the surprises run out, not when a launch date arrives.
 
-That last point is the whole model in one sentence. Most software is released when the roadmap says so. Ours is released when the dogfooding stops producing incident notes.
+That last point is the whole model in one sentence:
+
+<p class="mt-pull">Most software is released when the roadmap says so. Ours is released when the <em>dogfooding stops producing incident notes</em>.</p>
 
 ## Why so much of our work is pre-1.0 - deliberately
 

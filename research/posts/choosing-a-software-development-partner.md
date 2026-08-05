@@ -13,7 +13,9 @@ receipts:
 keyReceipt: "includes us"
 ---
 
-Choosing a software development partner is a trust decision made with almost no trustworthy information. Every agency website says senior team, proven process, delighted clients. The sites of good and bad vendors are nearly indistinguishable, because words are free.
+Choosing a software development partner is a trust decision made with almost no trustworthy information. Every agency website says senior team, proven process, delighted clients.
+
+<p class="mt-pull">The sites of good and bad vendors are nearly indistinguishable, because <em>words are free</em>.</p>
 
 So this post takes a different approach: instead of telling you what to look for in a partner, it teaches you how to audit one - any one. The test of the checklist is that it should be usable against us. At the end we run it against ourselves, briefly, with links; everything before that is vendor-neutral.
 
@@ -66,13 +68,13 @@ A practical rule: for every major claim on a vendor's site, ask "could I verify 
     <g text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="14">
       <text x="186" y="68">&rarr;</text><text x="380" y="68">&rarr;</text><text x="574" y="68">&rarr;</text>
     </g>
-    <text x="380" y="132" text-anchor="middle" fill="rgba(240,90,90,.75)" font-size="11">When no artifact ever arrives, you are looking at the red flags:</text>
+    <text x="380" y="132" text-anchor="middle" fill="rgba(255,120,120,.9)" font-size="11">When no artifact ever arrives, you are looking at the red flags:</text>
     <g fill="rgba(240,90,90,.10)" stroke="rgba(240,90,90,.55)" stroke-width="1.2">
       <rect x="75" y="142" width="190" height="30" rx="6"/>
       <rect x="285" y="142" width="190" height="30" rx="6"/>
       <rect x="495" y="142" width="190" height="30" rx="6"/>
     </g>
-    <g text-anchor="middle" fill="rgba(240,90,90,.85)" font-size="11">
+    <g text-anchor="middle" fill="rgba(255,120,120,.9)" font-size="11">
       <text x="170" y="161">logo walls, no story</text>
       <text x="380" y="161">uncheckable superlatives</text>
       <text x="590" y="161">no named humans</text>
@@ -129,4 +131,7 @@ We are ManiarTech, we sell software development, and fairness requires we take t
 
 Our [case studies](/case-studies/) name clients where we can and say why when we cannot; claims are hedged where the honest claim is hedged. Verifiable proof: live client systems you can visit, a client's own site crediting us in its footer, and [published standards and open-source work](/standards/) you can judge directly. Seniority: we are a deliberately small senior team - the people who scope your project build it, and you can meet them before signing. Lock-in: your accounts, your IP, mainstream stacks (Go, Python, React, PostgreSQL), documented handover - and where our own platforms are involved, the same open-and-verifiable test applies. Process: ISO 9001 and ISO 27001 certified, and [how we work](/how-we-work/) is written down.
 
-And the checklist's own test: [send us your project](/estimate/) - the reply comes from a senior engineer within one business day, and it will contain real questions, stated assumptions, and no expiring discount. Judge the sample.
+<aside class="mt-callout">
+<span class="co-tag">The checklist's own test</span>
+<p><a href="/estimate/">Send us your project</a> - the reply comes from a senior engineer within one business day, and it will contain real questions, stated assumptions, and no expiring discount. Judge the sample.</p>
+</aside>

@@ -100,9 +100,17 @@ If your workload is one-shot, allocation-insensitive, and simple, any of the thr
 
 ## Run the benchmark yourself
 
-The harness and methodology are public: the repository at [github.com/maniartech/uexl-go](https://github.com/maniartech/uexl-go#performance) documents the setup - clone the shared comparison suite, add the UExL benchmark file from the repo, and run `go test -bench=. -benchmem -benchtime=2s -count=6`. Your absolute timings will differ from the figures above; the zero-allocation behavior on the boolean and string paths should reproduce exactly, because that is the nature of the claim.
+The harness and methodology are public: the repository at [github.com/maniartech/uexl-go](https://github.com/maniartech/uexl-go#performance) documents the setup - clone the shared comparison suite, add the UExL benchmark file from the repo, and run:
 
-If you find a case where it does not reproduce, we genuinely want the issue report - a benchmark that cannot survive strangers is not a benchmark.
+```bash
+go test -bench=. -benchmem -benchtime=2s -count=6
+```
+
+Your absolute timings will differ from the figures above; the zero-allocation behavior on the boolean and string paths should reproduce exactly, because that is the nature of the claim.
+
+If you find a case where it does not reproduce, we genuinely want the issue report.
+
+<p class="mt-pull">A benchmark that cannot survive strangers is <em>not a benchmark</em>.</p>
 
 ## An honest status label
 

@@ -45,7 +45,9 @@ The strangler fig is a tree that grows around a host, gradually taking over its 
 
 **Migrate one piece at a time.** Take a module, rebuild it on the modern stack, and route its traffic across. The rest of the system keeps running untouched. Risk stays small and visible at every step - a problem affects one module, not the business.
 
-**Old and new run side by side.** The legacy system keeps serving while the modern one comes up behind it, with traffic switched gradually - which means the "cutover" never happens as an event. One day you notice the old system is no longer doing anything, and that is the whole ceremony.
+**Old and new run side by side.** The legacy system keeps serving while the modern one comes up behind it, with traffic switched gradually - which means the "cutover" never happens as an event.
+
+<p class="mt-pull">One day you notice the old system is no longer doing anything - <em>and that is the whole ceremony</em>.</p>
 
 **Every step is reversible.** If a migrated piece misbehaves, route back and fix it calmly. No point of no return, no praying on a Saturday night.
 
@@ -92,7 +94,10 @@ Honesty requires the other half of the framework. A full rewrite is legitimate w
 - **The business logic is genuinely simple** and fully known - the rare case where the old system holds no secrets.
 - **Nothing depends on continuity** - internal tools with tolerant users and forgiving downtime windows.
 
-If a vendor prescribes a full rewrite for a large, business-critical system without walking through the strangler-fig option first, ask them who carries the risk of the cutover weekend. It is rarely them.
+<aside class="mt-callout is-flip">
+<span class="co-tag">Ask the vendor</span>
+<p>If a vendor prescribes a full rewrite for a large, business-critical system without walking through the strangler-fig option first, ask them who carries the risk of the cutover weekend. It is rarely them.</p>
+</aside>
 
 ## What the destination should be - and an honest note on stacks
 

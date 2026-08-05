@@ -12,7 +12,10 @@ receipts:
   - "risk map"
 ---
 
-A disclosure before the framework: we sell outsourced software development. Every incentive we have points toward telling you to outsource. So treat this post the way you would treat a butcher's essay on vegetarianism - and note that the butcher who writes one fairly is probably safe to buy from. We have tried to be fair; several sections below argue against hiring us.
+<aside class="mt-callout is-flip">
+<span class="co-tag">Disclosure, before the framework</span>
+<p>We sell outsourced software development. Every incentive we have points toward telling you to outsource. So treat this post the way you would treat a butcher's essay on vegetarianism - and note that the butcher who writes one fairly is probably safe to buy from. We have tried to be fair; several sections below argue against hiring us.</p>
+</aside>
 
 The question itself is badly framed as a binary. "In-house vs outsourced" is really three questions: what kind of work is it, what horizon does it live on, and what can you realistically hire? Answer those and the sourcing decision mostly makes itself.
 
@@ -57,7 +60,9 @@ Both paths carry a version of the same risk: critical knowledge concentrated whe
 
 **Outsourced: partner lock-in.** The vendor equivalent is dependence you cannot exit: code you technically own but practically cannot run, infrastructure in the vendor's accounts, an exotic stack only they staff, documentation that never quite exists. Mitigations belong in the contract and the first week, not the divorce: IP assignment in writing, repositories and cloud accounts owned by you with the vendor as collaborator, a mainstream hireable stack, documentation as a deliverable, and a handover procedure agreed while everyone is still friendly. Then test the exit cheaply: ask the vendor to walk a third party (or your own future hire) through the system. A partner who welcomes that test has little to hide.
 
-Note the symmetry: the mitigations are nearly the same list - ownership, documentation, no single head holding everything. Sourcing changes where the risk sits, not what it is.
+Note the symmetry: the mitigations are nearly the same list - ownership, documentation, no single head holding everything.
+
+<p class="mt-pull">Sourcing changes <em>where the risk sits</em>, not what it is.</p>
 
 ## A short decision checklist
 

@@ -93,13 +93,25 @@ With those assumptions, our experience-based bands:
 - **Full laboratory platform** - multi-stage review chain, a real certificate/report engine, customer portal, integrated accounts: roughly **15 to 30 senior person-months**, typically 7 to 14 elapsed months, often phased.
 - **Compliance-heavy, integrated platform** - instrument interfaces, audit-grade histories, secure report delivery and verification, multi-lab support: **30 to 60+ senior person-months**, delivered in stages over a year or more.
 
-To turn effort into money, multiply by the monthly cost of the team you are actually quoted - that single variable moves the total several-fold, which is why dollar figures without stated rates are meaningless. As worked arithmetic: at $6,000 per person-month, a 10 person-month core build is about $60,000; at $20,000 per person-month, the identical scope is about $200,000. Same software, different rate card. In our own engagements, with a senior offshore team, core builds have landed in the mid five figures in USD and full platforms in the low-to-mid six figures - again, our experience, not market data.
+To turn effort into money, multiply by the monthly cost of the team you are actually quoted - that single variable moves the total several-fold, which is why dollar figures without stated rates are meaningless. The worked arithmetic, on the same 10 person-month core build:
 
-Treat all of this as calibration for your budget conversations, not as a quote. A real number requires understanding your lab's actual workflow, and any vendor who gives you a firm price before doing that is guessing.
+```text
+10 person-months x  $6,000 /pm  ~  $60,000
+10 person-months x $20,000 /pm  ~ $200,000    <- same software, different rate card
+```
+
+In our own engagements, with a senior offshore team, core builds have landed in the mid five figures in USD and full platforms in the low-to-mid six figures - again, our experience, not market data.
+
+<aside class="mt-callout is-flip">
+<span class="co-tag">Calibration, not a quote</span>
+<p>Treat all of this as calibration for your budget conversations. A real number requires understanding your lab's actual workflow - and any vendor who gives you a firm price before doing that is guessing.</p>
+</aside>
 
 ## Custom LIMS or off-the-shelf?
 
-Honesty requires this section: not every lab should build. Commercial LIMS products exist, and if one matches your workflow closely, subscribing is cheaper than building. Custom wins when the workflow is genuinely yours - when the off-the-shelf option would force the lab to work the product's way, when per-seat licensing compounds past a build's cost over the years you will run it, or when report integrity and customer-facing delivery need engineering no product offers. The 15-year production run of our 2011 system is the argument in one line: software shaped to the lab's own workflow is the software nobody has a reason to replace.
+Honesty requires this section: not every lab should build. Commercial LIMS products exist, and if one matches your workflow closely, subscribing is cheaper than building. Custom wins when the workflow is genuinely yours - when the off-the-shelf option would force the lab to work the product's way, when per-seat licensing compounds past a build's cost over the years you will run it, or when report integrity and customer-facing delivery need engineering no product offers. The 15-year production run of our 2011 system is the argument in one line:
+
+<p class="mt-pull">Software shaped to the lab's own workflow is the software <em>nobody has a reason to replace</em>.</p>
 
 ## Getting a real number
 

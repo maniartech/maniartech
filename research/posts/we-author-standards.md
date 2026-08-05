@@ -40,11 +40,18 @@ That last point deserves examples, because "specs force rigor" is exactly the ki
 
 **Internet Object: one bad record must not break the rest.** The spec makes record independence a design objective, not an implementation nicety - in a streamed collection, a malformed record is isolated and reported while the records around it keep parsing. That rule exists because we asked the un-glamorous question early: what happens at record 40,000 of 100,000 when one row is corrupt? Most formats answer "the whole document fails." Writing the spec forced us to answer better, once, for every implementation.
 
-**NITES: the most common date bug is a casing bug.** In `strftime`, `%m` is months and `%M` is minutes - a one-shift-key mistake that ships to production constantly, in every language that inherited the convention. NITES specifiers are case-insensitive by design, and minutes get their own letter (`i`) precisely so the month/minute collision cannot exist. It also defines named layouts - `iso`, `rfc`, `http` - so the most common formats need no format string at all. A whole bug class, deleted at the grammar level.
+**NITES: the most common date bug is a casing bug.** In `strftime`, `%m` is months and `%M` is minutes - a one-shift-key mistake that ships to production constantly, in every language that inherited the convention. NITES specifiers are case-insensitive by design, and minutes get their own letter (`i`) precisely so the month/minute collision cannot exist.
+
+```text
+strftime   %m = month    %M = minute     one shift key from a production bug
+NITES       m = month     i = minute     case-insensitive - the collision cannot exist
+``` It also defines named layouts - `iso`, `rfc`, `http` - so the most common formats need no format string at all. A whole bug class, deleted at the grammar level.
 
 **UExL: define what "missing" means before someone finds out in production.** The engine's null-coalescing operator falls back *only* on null or absent values - it deliberately preserves `0`, empty strings, and `false`, because "zero" is data, not absence. Optional chaining returns null instead of panicking. These sound obvious written down; they are exactly the semantics that most hand-rolled expression evaluators get subtly wrong, because nobody wrote them down.
 
-None of these decisions is heroic. That is the point. A specification is a machine for making hundreds of small decisions explicitly, early, and once - instead of implicitly, late, and repeatedly in production.
+None of these decisions is heroic. That is the point.
+
+<p class="mt-pull">A specification is a machine for making hundreds of small decisions <em>explicitly, early, and once</em> - instead of implicitly, late, and repeatedly in production.</p>
 
 ## What this does to ordinary client work
 
@@ -54,7 +61,10 @@ This is the part that matters if you are evaluating us for a business system rat
 
 **The ceiling is demonstrated, not claimed.** Any agency can say "we handle complex work." A published grammar, a benchmarked engine, and a playground you can type into are a different kind of sentence. You are not asked to believe anything - you are invited to check. That is the standard we hold our claims to generally, and it starts with the technical work being public.
 
-**And none of it is imposed on you.** Worth stating plainly: your project is built on mainstream, hireable technology - Go, Python, React, PostgreSQL, MongoDB. Our specifications enter your codebase only if you choose them, with eyes open. The depth is why hard problems are comfortably in range; it is never a dependency you inherit by accident.
+<aside class="mt-callout is-flip">
+<span class="co-tag">None of it is imposed on you</span>
+<p>Your project is built on mainstream, hireable technology - Go, Python, React, PostgreSQL, MongoDB. Our specifications enter your codebase only if you choose them, with eyes open. The depth is why hard problems are comfortably in range; it is never a dependency you inherit by accident.</p>
+</aside>
 
 ## The quiet economics of it
 

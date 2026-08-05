@@ -1,39 +1,78 @@
 {% extends "base.html" %}
 
-{% comment %} Inferred article page for /insights/:slug/. v2: reading-focused
-typography (article-head/body/foot), gated dates, BlogPosting schema. {% endcomment %}
+{% comment %} Inferred article page for /insights/:slug/. v3 - the reading page,
+built per the CLAUDE.md page-design thumb rules: a full-view band hero (vh frame)
+whose strip shows what the prose below cannot - the thread it belongs to, the
+length of the read, and the receipt the post stands on (heroProof/keyReceipt
+frontmatter). Below: a two-column reading layout - measured prose plus a sticky
+sidebar with a derived "On this page" nav (article/article.js builds it from the
+h2s actually present; scrollspy tracks the reading line), keep-reading links from
+site.context.threads (data lives once), a copy-link control and a quiet CTA.
+Optional cover image via `heroImage`/`heroImageAlt`/`heroImageCaption`
+frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment %}
 
 {% block og_type %}<meta property="og:type" content="article">{% endblock %}
+{% block og_image %}{% if pageContext.heroImage %}<meta property="og:image" content="{{ site.url }}{{ pageContext.heroImage }}">{% else %}<meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">{% endif %}{% endblock %}
 {% comment %} Dates are gated on site.context.showPostDates - see tajmahal.yaml for the why. True dates stay in frontmatter regardless. {% endcomment %}
 {% block og_extra %}{% if site.context.showPostDates %}<meta property="article:published_time" content="{{ pageContext.date }}">{% endif %}<meta property="article:publisher" content="https://maniartech.com/"><meta property="article:section" content="Insights">{% endblock %}
-{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
+{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"{% if pageContext.heroImage %}{{ site.url }}{{ pageContext.heroImage }}{% else %}https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png{% endif %}","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
 
 {% block content %}
-<header class="main-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <a href="/insights/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; Insights</a>
-                <div class="article-head">
-                    <div class="mt-15">
-                        {% if pageContext.postStatus %}<span class="mt-badge">{{ pageContext.postStatus }}</span>{% endif %}
-                    </div>
-                    <h1 class="fw-bold mt-20 mb-20">{{ title }}</h1>
-                    {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
-                    <div class="ah-meta">
-                        <span>By the ManiarTech team</span>
-                        {% if site.context.showPostDates %}{% if pageContext.date %}<span>{{ pageContext.date }}</span>{% endif %}{% endif %}
-                    </div>
-                </div>
+<div class="read-progress" aria-hidden="true"></div>
+
+<header class="main-header view-hero article-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <a href="/insights/" class="mt-eyebrow vh-eyebrow" style="color:rgba(255,255,255,.55);">&larr; Insights</a>
+            <h1 class="fw-bold vh-h1 ah-h1">{{ title }}</h1>
+            {% if description %}<p class="vh-dek ah-dek">{{ description }}</p>{% endif %}
+            <div class="ah-byline">
+                <span>By the ManiarTech team</span>
+                {% if pageContext.postStatus %}<span class="ahb-status">{{ pageContext.postStatus }}</span>{% endif %}
+                {% if site.context.showPostDates %}{% if pageContext.date %}<span>{{ pageContext.date }}</span>{% endif %}{% endif %}
             </div>
+        </div>
+
+        <div class="vh-strip">
+            <p class="vh-kicker">Up front &mdash; the thread it belongs to, the time it takes, the receipt it stands on</p>
+            <ul class="ah-facts">
+                <li>
+                    <span class="ahf-tag">The thread</span>
+                    {% for t in site.context.threads %}{% if t.key == pageContext.thread %}
+                    <a class="ahf-k" href="/insights/">{{ t.label }}</a>
+                    <span class="ahf-note">{{ t.blurb }}</span>
+                    {% endif %}{% endfor %}
+                </li>
+                <li>
+                    <span class="ahf-tag">The read</span>
+                    <span class="ahf-k"><span data-read-mins data-words="{{ content|striptags|wordcount }}">A few</span> minutes &mdash; no sign-up wall</span>
+                    <span class="ahf-note">Read it in full, quote it, share it. Nothing here is gated, and judgment is labeled as judgment.</span>
+                </li>
+                <li>
+                    <span class="ahf-tag">The receipt</span>
+                    {% if pageContext.heroProof %}
+                    <span class="ahf-k is-proof">{{ pageContext.heroProof }}</span>
+                    <span class="ahf-note">{{ pageContext.heroProofNote }}</span>
+                    {% else %}
+                    <span class="ahf-k">{{ pageContext.keyReceipt|default:"every claim sourced" }}</span>
+                    <span class="ahf-note">What this post stands on: {{ pageContext.receipts|join:", " }}.</span>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </div>
 </header>
 
-<section class="section-padding pt-0">
+<section class="section-padding pt-0 article-region">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
+        <div class="article-layout">
+            <div class="article-main">
+                {% if pageContext.heroImage %}
+                <figure class="mt-figure article-cover">
+                    <img src="{{ pageContext.heroImage }}" alt="{{ pageContext.heroImageAlt }}" loading="eager">
+                    {% if pageContext.heroImageCaption %}<figcaption>{{ pageContext.heroImageCaption }}</figcaption>{% endif %}
+                </figure>
+                {% endif %}
                 <div class="article-body mt-prose">{{ content|safe }}</div>
                 <div class="article-foot">
                     <p style="color:rgba(255,255,255,.6);font-size:15px;">Working on something in this territory? Tell us what you're building - a senior engineer reads it and replies within one business day with a ballpark and an honest take.</p>
@@ -43,7 +82,33 @@ typography (article-head/body/foot), gated dates, BlogPosting schema. {% endcomm
                     </div>
                 </div>
             </div>
+
+            <aside class="article-aside">
+                <div class="aside-inner">
+                    <nav class="toc" aria-label="On this page" hidden>
+                        <p class="aside-kicker">On this page</p>
+                        <ol class="toc-list"></ol>
+                    </nav>
+                    <div class="aside-block">
+                        <p class="aside-kicker">Keep reading</p>
+                        {% for t in site.context.threads %}{% if t.key == pageContext.thread %}{% if t.lead != uri %}
+                        <a class="am-link" href="{{ t.lead }}"><b>{{ t.leadLabel }}</b><span>where this thread starts</span></a>
+                        {% endif %}{% endif %}{% endfor %}
+                        <a class="am-link" href="/insights/"><b>All insights</b><span>the full shelf, filterable by thread</span></a>
+                        <button class="copy-link" type="button">Copy link to this post</button>
+                    </div>
+                    <a class="aside-cta" href="/estimate/">
+                        <b>Working in this territory?</b>
+                        <span>A senior engineer reads it and replies within one business day.</span>
+                        <em>Estimate a project &rarr;</em>
+                    </a>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "article/article.js" %}
 {% endblock %}

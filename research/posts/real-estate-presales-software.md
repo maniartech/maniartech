@@ -27,6 +27,33 @@ The naive version of the brief is "a website with our projects on it." The real 
 - **Presentation.** Real-estate selling is performance: a sales executive with a tablet, walking a family through a project. The software has to serve that moment, not just store data.
 - **Sharing and follow-up.** Whatever the customer saw - the estimate above all - has to reach them over the channels they actually use. Here that means WhatsApp and email, as branded, professional documents.
 
+<figure class="mt-figure mt-fig-diagram">
+<svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The presales journey the platform is organised around: present, explore, estimate, share - with bookings, payments and post-sales deliberately outside the version-one boundary">
+  <g font-family="Consolas, monospace" font-size="12">
+    <text x="20" y="30" fill="rgba(255,255,255,.8)" font-size="12.5" font-weight="600" font-family="inherit">The selling journey the system is organised around - not the database entities</text>
+    <rect x="20" y="52" width="150" height="56" rx="10" fill="rgba(20,207,147,.08)" stroke="rgba(20,207,147,.5)"/>
+    <text x="38" y="76" fill="#fff" font-weight="600">PRESENT</text>
+    <text x="38" y="94" fill="rgba(255,255,255,.55)" font-size="10.5">tablet, in the room</text>
+    <path d="M170 80 h22 M192 80 l-7 -4 v8 z" stroke="rgba(255,255,255,.4)" fill="rgba(255,255,255,.4)"/>
+    <rect x="199" y="52" width="150" height="56" rx="10" fill="rgba(20,207,147,.08)" stroke="rgba(20,207,147,.5)"/>
+    <text x="217" y="76" fill="#fff" font-weight="600">EXPLORE</text>
+    <text x="217" y="94" fill="rgba(255,255,255,.55)" font-size="10.5">floor plans, live units</text>
+    <path d="M349 80 h22 M371 80 l-7 -4 v8 z" stroke="rgba(255,255,255,.4)" fill="rgba(255,255,255,.4)"/>
+    <rect x="378" y="52" width="150" height="56" rx="10" fill="rgba(20,207,147,.08)" stroke="rgba(20,207,147,.5)"/>
+    <text x="396" y="76" fill="#fff" font-weight="600">ESTIMATE</text>
+    <text x="396" y="94" fill="rgba(255,255,255,.55)" font-size="10.5">costs + RERA schedule</text>
+    <path d="M528 80 h22 M550 80 l-7 -4 v8 z" stroke="rgba(255,255,255,.4)" fill="rgba(255,255,255,.4)"/>
+    <rect x="557" y="52" width="150" height="56" rx="10" fill="rgba(20,207,147,.08)" stroke="rgba(20,207,147,.5)"/>
+    <text x="575" y="76" fill="#fff" font-weight="600">SHARE</text>
+    <text x="575" y="94" fill="rgba(255,255,255,.55)" font-size="10.5">WhatsApp + email</text>
+    <line x1="20" y1="138" x2="740" y2="138" stroke="rgba(255,255,255,.2)" stroke-dasharray="5 5"/>
+    <text x="20" y="164" fill="rgba(255,255,255,.5)" font-size="10.5">below this line - bookings, payments, post-sales, construction tracking: OUT of v1 by decision, not omission.</text>
+    <text x="20" y="182" fill="rgba(255,255,255,.5)" font-size="10.5">cutting at the presales boundary is why it shipped in months.</text>
+  </g>
+</svg>
+<figcaption><strong>The scope, drawn.</strong> Four stages in, everything else deliberately out - the boundary is the reason the platform went from proposal to production in roughly four months.</figcaption>
+</figure>
+
 ## RERA payment plan software: why the estimation engine is the hard part
 
 A real-estate estimate in India is not "price times area." A complete one covers the agreement value at a per-square-foot rate, GST, stamp duty, registration charges, development and legal charges, amenities and maintenance - each governed by its own rules, some varying by jurisdiction. We built the tax and charge structures as configurable masters rather than hardcoded logic, because these rules change and the sales team cannot wait for a developer every time they do.
@@ -41,13 +68,20 @@ If you are evaluating RERA payment plan software, this is the checklist we would
 
 Because the primary user is a sales executive holding a tablet in front of a customer, the platform includes a slide-based presentation builder - the sales team composes branded project "stories" (themes, transitions, per-slide media) and publishes them without touching a designer. Behind it sits a digital asset library for images, brochures, floor plans, and video, so every artifact a presentation needs lives in one managed place.
 
-The lesson: in this domain, the demo is the product. A presales platform that is merely a good database will not be used in the room where selling happens - and software that is not in that room decays into an admin chore.
+<p class="mt-pull">The lesson: in this domain, <em>the demo is the product</em>. A platform that is merely a good database will not be used in the room where selling happens.</p>
+
+Software that is not in that room decays into an admin chore - however complete its data model.
 
 ## Role-based access: what the customer must never see
 
 Presales software has two audiences with opposite needs. The customer should see a polished showcase; the sales team additionally needs live unit availability - available, on hold, sold. That inventory status is commercially sensitive and customer-invisible by design: staff see it, buyers never do. Role-based users and groups govern the rest - who edits content, who approves discounts, who manages masters.
 
-This sounds like a standard access-control exercise, and mechanically it is. The domain lesson is how much of the client's trust rode on it. "Can a customer ever see the sold board?" was among the first questions asked, and the answer had to be architectural, not procedural.
+This sounds like a standard access-control exercise, and mechanically it is. The domain lesson is how much of the client's trust rode on it.
+
+<aside class="mt-callout is-flip">
+<span class="co-tag">The question that mattered</span>
+<p>"Can a customer ever see the sold board?" was among the first questions the client asked - and the answer had to be architectural, not procedural. A policy can be forgotten; a permission model cannot.</p>
+</aside>
 
 ## What four months taught us
 

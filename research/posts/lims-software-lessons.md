@@ -74,13 +74,20 @@ None of this is the tools' fault; they were not built for a business whose produ
 
 An accredited laboratory's credibility rests on a simple rule: results are not results until the right people have reviewed and authorized them, in order. In the platform we run in production today, that chain is structural - **sample intake, multi-stage technical review, authorization, and only then report release**. A result physically cannot skip a stage, because the software will not construct a releasable report from an unauthorized result.
 
-The design principle generalizes far beyond labs: when a process step exists to protect integrity, implement it as something the system *enforces*, not something it *displays*. Checkboxes get checked; state machines get obeyed. Auditors know the difference, and so do the failures.
+The design principle generalizes far beyond labs: when a process step exists to protect integrity, implement it as something the system *enforces*, not something it *displays*.
+
+<p class="mt-pull">Checkboxes get checked; <em>state machines get obeyed</em>. Auditors know the difference, and so do the failures.</p>
 
 ## Lesson 3: A report is a promise - engineer its integrity end to end
 
 A test report leaves the lab and enters the world, where the lab can no longer defend it. Forwarded PDFs, edited copies, results quoted out of context - every lab knows these risks.
 
-For the current platform we engineered report delivery as a chain of custody: reports are **recipient-bound, gated on authorization, and delivered through one-time-password verification to the authorized recipient only** - a forwarded link fails, by design. Alongside it runs a **public report-authenticity checker**, where anyone holding a report can verify it is genuine ([reports.chemotestlaboratory.com](https://reports.chemotestlaboratory.com) - live, try it).
+For the current platform we engineered report delivery as a chain of custody: reports are **recipient-bound, gated on authorization, and delivered through one-time-password verification to the authorized recipient only** - a forwarded link fails, by design.
+
+<aside class="mt-callout">
+<span class="co-tag">Check it yourself</span>
+<p>Alongside the delivery chain runs a public report-authenticity checker, where anyone holding a report can verify it is genuine: <a href="https://reports.chemotestlaboratory.com" target="_blank" rel="noopener">reports.chemotestlaboratory.com</a> - live, try it.</p>
+</aside>
 
 The lesson: in any domain where a document carries authority - certificates, approvals, compliance attestations - delivery and verifiability are not features bolted on after the "real" system. They are the point.
 

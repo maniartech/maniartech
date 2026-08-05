@@ -1,35 +1,66 @@
 {% extends "base.html" %}
 
-{% comment %} Inferred article page for /white-papers/:slug/. v2: reads like a
-paper - byline row, article typography, closing CTA. Article schema. {% endcomment %}
+{% comment %} Inferred article page for /white-papers/:slug/. v3 - same reading
+frame as the insights article (full-view band hero + prose/sidebar layout,
+article/article.js drives the derived "On this page" nav): a paper is an
+evidence document, so its strip leads with the METHOD, honestly labeled
+(`method`/`methodNote` frontmatter, quoted from the paper's own "Method and
+sources" section), then the length of the read, then the writing rule every
+paper is held to. TL;DR block stays at the top of the prose column. {% endcomment %}
 
 {% block og_type %}<meta property="og:type" content="article">{% endblock %}
+{% block og_image %}{% if pageContext.heroImage %}<meta property="og:image" content="{{ site.url }}{{ pageContext.heroImage }}">{% else %}<meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">{% endif %}{% endblock %}
 {% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}",{% endif %}"author":{"@type":"Person","name":"Aamir Maniar","url":"https://www.linkedin.com/in/aamironline"},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
 
 {% block content %}
-<header class="main-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <a href="/white-papers/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">&larr; White Papers</a>
-                <div class="article-head">
-                    <h1 class="fw-bold mt-20 mb-20">{{ title }}</h1>
-                    {% if description %}<p class="lead-text prod-lead">{{ description }}</p>{% endif %}
-                    <div class="ah-meta">
-                        {% if pageContext.author %}<span>By <b style="color:rgba(255,255,255,.8);">{{ pageContext.author }}</b>, Founder, ManiarTech</span>{% endif %}
-                        <span>ManiarTech Research</span>
-                        <span>Open access</span>
-                    </div>
-                </div>
+<div class="read-progress" aria-hidden="true"></div>
+
+<header class="main-header view-hero article-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <a href="/white-papers/" class="mt-eyebrow vh-eyebrow" style="color:rgba(255,255,255,.55);">&larr; White Papers</a>
+            <h1 class="fw-bold vh-h1 ah-h1">{{ title }}</h1>
+            {% if description %}<p class="vh-dek ah-dek">{{ description }}</p>{% endif %}
+            <div class="ah-byline">
+                {% if pageContext.author %}<span>By {{ pageContext.author }}, Founder, ManiarTech</span>{% endif %}
+                <span>ManiarTech Research</span>
+                <span>Open access</span>
             </div>
+        </div>
+
+        <div class="vh-strip">
+            <p class="vh-kicker">Up front &mdash; how it was written, how long it takes, the rule it is held to</p>
+            <ul class="ah-facts">
+                <li>
+                    <span class="ahf-tag">The method</span>
+                    <span class="ahf-k">{{ pageContext.method|default:"stated in the paper" }}</span>
+                    <span class="ahf-note">{{ pageContext.methodNote|default:"Every paper opens with its own method and sources section." }}</span>
+                </li>
+                <li>
+                    <span class="ahf-tag">The read</span>
+                    <span class="ahf-k"><span data-read-mins data-words="{{ content|striptags|wordcount }}">A few</span> minutes &mdash; no sign-up wall</span>
+                    <span class="ahf-note">Read it in full, quote it, share it. Nothing here is gated.</span>
+                </li>
+                <li>
+                    <span class="ahf-tag">The rule</span>
+                    <span class="ahf-k">sourced, or labeled judgment</span>
+                    <span class="ahf-note">Claims carry their sources; where we exercise judgment, it is labeled as judgment. Disagreement is welcome.</span>
+                </li>
+            </ul>
         </div>
     </div>
 </header>
 
-<section class="section-padding pt-0">
+<section class="section-padding pt-0 article-region">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
+        <div class="article-layout">
+            <div class="article-main">
+                {% if pageContext.heroImage %}
+                <figure class="mt-figure article-cover">
+                    <img src="{{ pageContext.heroImage }}" alt="{{ pageContext.heroImageAlt }}" loading="eager">
+                    {% if pageContext.heroImageCaption %}<figcaption>{{ pageContext.heroImageCaption }}</figcaption>{% endif %}
+                </figure>
+                {% endif %}
                 {% if pageContext.tldr %}
                 <div class="paper-tldr">
                     <span class="pt-lbl">TL;DR</span>
@@ -45,7 +76,31 @@ paper - byline row, article typography, closing CTA. Article schema. {% endcomme
                     </div>
                 </div>
             </div>
+
+            <aside class="article-aside">
+                <div class="aside-inner">
+                    <nav class="toc" aria-label="On this page" hidden>
+                        <p class="aside-kicker">On this page</p>
+                        <ol class="toc-list"></ol>
+                    </nav>
+                    <div class="aside-block">
+                        <p class="aside-kicker">Keep reading</p>
+                        <a class="am-link" href="/white-papers/"><b>All white papers</b><span>applied research, open access</span></a>
+                        <a class="am-link" href="/insights/"><b>Insights</b><span>lighter engineering write-ups</span></a>
+                        <button class="copy-link" type="button">Copy link to this paper</button>
+                    </div>
+                    <a class="aside-cta" href="/estimate/">
+                        <b>Facing this decision?</b>
+                        <span>A senior engineer reads it and replies within one business day - no pitch attached.</span>
+                        <em>Estimate a project &rarr;</em>
+                    </a>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "article/article.js" %}
 {% endblock %}
