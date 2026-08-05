@@ -6,7 +6,7 @@ stages:
     gives: "A scoped, honest estimate you can challenge."
   - name: "Architecture"
     what: "Design decisions made and written down - stack, structure, integrations, and the trade-offs explained in plain language."
-    gives: "A design you own and understand."
+    gives: "A design written down in language you can challenge."
   - name: "Build"
     what: "Senior engineers build in reviewed increments. You see working software as it grows - not a reveal at the end."
     gives: "Working increments, reviewed before they reach you."

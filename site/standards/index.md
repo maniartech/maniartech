@@ -75,7 +75,7 @@ It removes the friction every Go developer feels daily — error-handling boiler
 
 - **Every valid Go file is already valid Indigo.** Adoption is zero-friction; you opt in feature by feature.
 - **The output is plain Go.** It works with your existing toolchain, linters, and editors unchanged.
-- **No runtime. No lock-in.** Nothing is injected into your code. Stop using Indigo any time and keep the generated Go forever.
+- **No runtime.** Nothing is injected into your code. Stop using Indigo any time and the generated Go keeps compiling and running on the standard toolchain.
 
 A few of the ergonomics it adds — and exactly what each compiles down to. This table *is* the proof; the right column is the Go you'd read in the output:
 

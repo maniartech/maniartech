@@ -5,6 +5,6 @@ faqs:
     a: "It is current. Maniar Technologies Private Limited holds ISO/IEC 27001:2022 certification, certificate number 123961/A/0001, issued by URS under UKAS (0043) accreditation, with the scope Software Design, Development and Consultancy Services. To verify it independently, email the registrar at info@urs-certification.com and quote the certificate number."
   - q: "Will you sign our NDA before we share project details?"
     a: "Yes. NDAs are routine for us. Send yours before the first detailed conversation and we will sign it."
-  - q: "Who owns the code, and can we leave with it?"
-    a: "You own the code and the IP from day one. We build on mainstream technology rather than private tooling, so a future team can maintain the system without us - and if you end the engagement, everything goes with you."
+  - q: "Does security show up in the software itself, or only in your process?"
+    a: "Both, and the software half is public. The laboratory system we built for Chemo Test Laboratory binds each test report to its authorized recipient - a forwarded link is useless, because the one-time password never reaches whoever is holding it - and anyone can verify a report's authenticity at the lab's public report checker. It is live; try it before you take our word for anything."
 ---

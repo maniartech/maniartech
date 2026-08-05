@@ -1,9 +1,9 @@
 ---
 title: "How to choose a software development partner: an auditable checklist"
-description: "How to read case studies, what verifiable proof looks like, the seniority and lock-in questions worth asking, process signals, and the red flags - a checklist for auditing any vendor, including us."
+description: "How to read case studies, what verifiable proof looks like, the seniority and continuity questions worth asking, process signals, and the red flags - a checklist for auditing any vendor, including us."
 date: "2026-07-27"
 order: 12
-seoDescription: "An auditable checklist for choosing a software development partner: how to verify case studies, seniority, ownership terms and process claims yourself."
+seoDescription: "An auditable checklist for choosing a software development partner: how to verify case studies, seniority, continuity and process claims yourself."
 titleTag: "How to Choose a Software Development Partner"
 thread: "process"
 shortTitle: "Auditable checklist"
@@ -94,15 +94,15 @@ The most common failure mode in outsourced software is the bait-and-switch: impr
 - **"What happens if my assigned engineer leaves?"** You are listening for an answer about documentation and handover, not "we have a large bench" - a large bench is how you got juniors in the first place.
 - **Have your most technical person talk to their most technical person.** Thirty minutes of real technical conversation is difficult to fake and routinely decisive.
 
-## Ownership and lock-in questions
+## Continuity questions
 
-Lock-in rarely announces itself in the contract; it accumulates in the practicalities. Ask, in writing:
+Software outlives the project that produced it. These questions are about whether the thing you are buying stays maintainable after the build team's attention moves on:
 
-- **Who owns the code and IP on delivery** - and is that unambiguous in the contract?
-- **Where do the repositories, cloud accounts, and domains live?** The correct answer is: in accounts you own, with the vendor as an invited collaborator. If the vendor owns the infrastructure, leaving them means migrating everything.
-- **What stack is it built on, and could another team maintain it?** Mainstream, hireable technology is your exit guarantee. A proprietary framework only the vendor understands is lock-in even with perfect contracts - unless it is open, documented, and runnable without them, so weigh any vendor-owned platform by exactly that test.
-- **What documentation ships with the system** - architecture, setup, runbooks - and can you see a sample from a past project?
-- **"Walk me through what happens if we part ways in a year."** A good partner has a boring, specific answer. Hesitation is data.
+- **What stack is it built on, and could another team maintain it?** Mainstream, hireable technology is what keeps your options open. A framework only the vendor understands is a maintenance problem even when everything else goes well - unless it is open, documented, and runnable without them, so weigh any vendor-owned platform by exactly that test.
+- **What documentation ships with the system** - architecture, setup, runbooks - and can you see a sample from a past project? Documentation written at the end is documentation nobody wrote.
+- **Who maintains this in year three, and how would they learn it?** The answer tells you whether the system is being built to be understood or merely to be delivered.
+- **Is the knowledge spread across their team, or held by one person?** Ask what happens if that person is unavailable for a month. Small teams are fine; single points of knowledge are not.
+- **Ask them to walk a third party through the system** - your own future hire, or an engineer you trust. A team that welcomes that test has built something legible.
 
 ## Process signals
 
@@ -129,7 +129,7 @@ Any one of these is a caution; several together are an answer:
 
 We are ManiarTech, we sell software development, and fairness requires we take the audit too - briefly, and you should verify rather than believe:
 
-Our [case studies](/case-studies/) name clients where we can and say why when we cannot; claims are hedged where the honest claim is hedged. Verifiable proof: live client systems you can visit, a client's own site crediting us in its footer, and [published standards and open-source work](/standards/) you can judge directly. Seniority: we are a deliberately small senior team - the people who scope your project build it, and you can meet them before signing. Lock-in: your accounts, your IP, mainstream stacks (Go, Python, React, PostgreSQL), documented handover - and where our own platforms are involved, the same open-and-verifiable test applies. Process: ISO 9001 and ISO 27001 certified, and [how we work](/how-we-work/) is written down.
+Our [case studies](/case-studies/) name clients where we can and say why when we cannot; claims are hedged where the honest claim is hedged. Verifiable proof: live client systems you can visit, a client's own site crediting us in its footer, and [published standards and open-source work](/standards/) you can judge directly. Seniority: we are a deliberately small senior team - the people who scope your project build it, and you can meet them before signing. Continuity: mainstream stacks (Go, Python, React, PostgreSQL), documentation written as the work happens, and where our own platforms are involved, the same open-and-verifiable test applies. Process: ISO 9001 and ISO 27001 certified, and [how we work](/how-we-work/) is written down.
 
 <aside class="mt-callout">
 <span class="co-tag">The checklist's own test</span>

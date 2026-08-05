@@ -1,6 +1,6 @@
 ---
 title: "Modernization & Migration"
-description: "Bring the system your business depends on up to date - piece by piece, in production, with old and new running side by side and every step reversible. No big-bang rewrite. No lock-in."
+description: "Bring the system your business depends on up to date - piece by piece, in production, with old and new running side by side and every step reversible. No big-bang rewrite, no go-live weekend."
 order: 4
 seoDescription: "Legacy systems brought onto modern, maintainable stacks piece by piece - no big-bang rewrite, no go-live weekend, every step reversible."
 ---

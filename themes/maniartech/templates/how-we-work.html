@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
-{% comment %} How We Work - the SUBSTANCE page every service page links to (spine: engagement models, delivery process, quality-as-behaviors, ethics, ISO, no-lock-in). {% endcomment %}
-{% comment %} Content directory: site/how-we-work/ - one .md per section (index, engage, process, quality, ethics, iso, ownership, faq). {% endcomment %}
+{% comment %} How We Work - the SUBSTANCE page every service page links to (spine: engagement models, delivery process, quality-as-behaviors, ethics, ISO, handover). NOTE: the site takes NO public position on code/IP ownership or lock-in - those are deal-dependent (see CLAUDE.md). {% endcomment %}
+{% comment %} Content directory: site/how-we-work/ - one .md per section (index, engage, process, quality, ethics, iso, handover, faq). {% endcomment %}
 {% comment %} SEO: title tag = buyer vocabulary; Service + FAQPage JSON-LD below. No proof strip and no mid-page CTA on this page by design. {% endcomment %}
 
 {% block title %}How We Work - Process, Quality and Engagement Models | {{ site.name }}{% endblock %}
@@ -154,7 +154,7 @@
 <section class="section-padding pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ ownership.heading }}</h2><div class="mt-prose mt-15">{{ ownership.content|safe }}</div></div></div>
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ handover.heading }}</h2><div class="mt-prose mt-15">{{ handover.content|safe }}</div></div></div>
         </div>
     </div>
 </section>

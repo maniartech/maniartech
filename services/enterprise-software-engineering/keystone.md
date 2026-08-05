@@ -6,7 +6,7 @@ stages:
     gives: "A process inventory and role map of the department as it actually works."
   - name: "Document"
     what: "We write down the processes, record formats, and rules - who may do what, in which order, and what happens on rejection - so the knowledge stops living in one person's head."
-    gives: "Documented workflows, a role/permission matrix, and record definitions you own."
+    gives: "Documented workflows, a role/permission matrix, and record definitions in writing."
   - name: "Design"
     what: "We design the system around the states the work moves through, and make the honest calls: where automation genuinely helps, where a plain form is enough, and what should not be built at all."
     gives: "A system design with the workflow model, integration points, and the no-build calls written down."

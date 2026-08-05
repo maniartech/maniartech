@@ -241,6 +241,59 @@ for (const [path, page] of seen) {
 }
 
 // ---------------------------------------------------------------------------
+// No public stand on code/IP ownership or lock-in (Aamir, 2026-08-05)
+//
+// The honest answer is "it depends on the project type and the deal", so the
+// site must never state one - not in copy, not in an FAQ answer, not in a meta
+// description or JSON-LD blob. Ownership and exit terms are negotiated per
+// engagement and belong in the contract. This gate exists because the claims
+// are easy to re-add in good faith (they read like reassurance) and impossible
+// to spot by eye across 55 pages. See the Non-negotiables in CLAUDE.md.
+//
+// What we DO say - mainstream hireable technology, documentation as a
+// deliverable, decisions written down, handover - is true regardless of terms
+// and is deliberately NOT matched here.
+// ---------------------------------------------------------------------------
+{
+  const BANNED = [
+    /\block[- ]?in\b/i,           // \b prevents matching "blocking" / "interlocking"
+    /locked (?:in|to|into)\b/i,
+    /lock you\b/i,
+    /owns? the code\b/i,
+    /the code (?:and|&) (?:the )?IP\b/i,
+    /\byour IP\b/i,
+    /IP (?:is|are) yours\b/i,
+    /code and IP\b/i,
+    /\byou own\b/i,
+    /you can walk\b/i,
+    /walk away (?:with|owning)\b/i,
+    /goes with you\b/i,
+    /trap you\b/i,
+  ];
+  const strip = (html) =>
+    html
+      .replace(/<script(?![^>]*ld\+json)[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<!--[\s\S]*?-->/g, ' ')
+      .replace(/<[^>]+>/g, ' ');
+
+  let hits = 0;
+  for (const [path, page] of seen) {
+    if (page.status !== 200 || !page.body) continue;
+    const meta = [...page.body.matchAll(/<meta[^>]+content="([^"]*)"/g)].map((m) => m[1]).join(' ');
+    const text = strip(page.body) + ' \n ' + meta;
+    for (const re of BANNED) {
+      const m = text.match(re);
+      if (m) {
+        hits++;
+        F(`${path} states a code/IP ownership or lock-in position ("${m[0].trim()}") - deal-dependent, must not appear publicly`);
+      }
+    }
+  }
+  if (!hits) P('no public code/IP ownership or lock-in stand on any page');
+}
+
+// ---------------------------------------------------------------------------
 // Report
 // ---------------------------------------------------------------------------
 const say = (label, arr) => { if (arr.length) { console.log(`\n${label} (${arr.length})`); for (const m of arr) console.log('  ' + m); } };

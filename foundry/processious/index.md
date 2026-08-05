@@ -74,7 +74,7 @@ reconstructed later when someone asks.
 
 ## Why it's safe to build on
 
-- **No lock-in.** Processious is built on mainstream technology your own team - or any team - can hire for and maintain (Go, MongoDB, React). The systems we deliver are maintainable software you own, not a black box only we can touch.
+- **Mainstream, maintainable technology.** Processious is built on technology your own team - or any team - can hire for and maintain (Go, MongoDB, React). What we deliver is comprehensible software, not a black box only we can reason about.
 - **Right-sized, never over-engineered.** We start at the scale your problem actually needs and grow only as it earns it.
 - **Senior engineers build your system.** Experienced people do the work - we don't learn on your project.
 - **Delivered on an ISO-certified process.** ISO 9001:2015 (quality) and ISO/IEC 27001:2022 (information security), certified by URS under UKAS accreditation - a documented, repeatable delivery process and a defined way your data is handled.

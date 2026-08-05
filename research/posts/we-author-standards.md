@@ -72,4 +72,4 @@ Authored foundations compound. The data format, the time library, the expression
 
 That compounding is, in the end, the business case for the whole habit - and it is your project that collects the interest.
 
-If you want the depth without the lock-in, [tell us what you are building](/estimate/). A senior engineer replies within one business day with a ballpark and an honest take.
+If you want that depth pointed at your problem, [tell us what you are building](/estimate/). A senior engineer replies within one business day with a ballpark and an honest take.

@@ -229,6 +229,43 @@ real header, and support for images/diagrams/code in articles. Both article temp
   URL fragments when capturing - wrap the target in a local `frame.html` iframe (fragment
   scrolls inside the iframe) and screenshot that.
 
+**2026-08-05 (part 9 - services rewritten, then the IP/lock-in stand cleared):** Two things.
+
+(a) **Services pages were generic** (Aamir: "content is pathetic ... client will in one second
+[see] that this company does not know about these jobs"). Diagnosis: posture, not practice -
+no domain vocabulary, no named deliverables, phrases recycled verbatim across pages, and the
+honesty doctrine curdled into hedging ("as the goal of a method, never a guaranteed outcome"
+appeared TWICE on one page). Fixed by writing from the work: /services/enterprise-software-
+engineering/ now presents the COMPLETE surface Aamir named - a nine-card catalog (process
+automation, enterprise workflows, enterprise integration, analytics & dashboards, document/
+report engines, portals, gamification, DAM, access control & audit) plus five full-width deep
+dives using the trade's own words (maker-checker, delegation on leave, exception queues, SLA
+escalation, idempotent retries, reconciliation, state-derived metrics, asset renditions), with
+an enforced-approval-chain figure drawn from the Processious production reality. Application =
+domain model first + a written advisory verdict; AI = stated mechanics (grounded answers with
+citations that can say "not in your documents", confidence thresholds, human review queue,
+evals on the client's own cases); Modernization intro cut from nine sentences to three with the
+RTL proof pulled up. Header menu now lists the five enterprise anchors. `865b03f`.
+
+(b) **The code/IP ownership + lock-in stand is GONE from the entire public site** (Aamir: the
+honest answer is "it depends on the project type and the deal", so we must never take a public
+position). Removed from ~27 places across copy, FAQs, meta descriptions, home/services/products/
+languages templates, and three insights posts. Section files renamed `ownership.md` ->
+`handover.md` (both `site/how-we-work/` and `services/application-software-engineering/`) so the
+concept is out of the codebase too. Replacement framing everywhere is the substance that is true
+regardless of terms: mainstream hireable technology, documentation as a deliverable, decisions
+written down, handover built in. Blog posts kept their buyer-education value - "Ownership and
+lock-in questions" became "Continuity questions" (maintainability, docs, who maintains it in
+year three, is knowledge held by one person); in-house-vs-outsourced's "partner lock-in" risk
+became "the knowledge sits outside" with the IP/accounts contract advice dropped.
+**Enforced by a new FAIL block in `scripts/seo/seo-check.mjs`** (13 banned patterns over rendered
+text + meta + JSON-LD; `\b` guards stop "blocking"/"interlocking" false positives) - verified by
+deliberately re-adding the claim (3 FAILs) and restoring. Rule recorded in CLAUDE.md
+Non-negotiables. **Left alone deliberately, flag for Aamir:** `/partnerships/` still says a
+partnership's code and documentation are "protected for you ... continuity is a written term of
+the deal" - that is escrow/continuity in a negotiated equity deal, explicitly deal-scoped, not a
+blanket ownership promise. Say the word if it should go too.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:

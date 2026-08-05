@@ -1,6 +1,6 @@
 ---
 title: "In-house vs outsourced development: an honest comparison"
-description: "When hiring your own engineers wins, when outsourcing wins, the hybrid patterns in between, and the real risks of each - knowledge walkout vs partner lock-in - with mitigations for both."
+description: "When hiring your own engineers wins, when outsourcing wins, the hybrid patterns in between, and the real risk on both paths - critical knowledge sitting somewhere you do not control - with mitigations for each."
 date: "2026-07-27"
 order: 13
 seoDescription: "When in-house wins, when outsourcing wins, and the hybrid patterns between - an honest comparison with the risks and mitigations of each path."
@@ -49,7 +49,7 @@ Most real organizations land between the poles, and the workable patterns are we
 
 - **Dedicated external team, your product ownership.** The partner supplies engineers; direction, priorities, and domain decisions stay with your PM or founder. You keep the steering wheel; they supply the engine. This is the most common healthy shape - and it fails when product ownership is abdicated to the vendor, because no partner should be deciding what your business needs next.
 - **In-house core, outsourced spikes.** A small internal team owns the product and its knowledge; partners take bounded projects - a migration, a subsystem, an integration - with explicit handover back into the core team.
-- **Outsource first, insource later.** Common for non-software companies building their first serious system: a partner builds v1 and runs it; as the system proves central, you hire one or two engineers and the partner hands over. This only works if it is planned from day one - mainstream stack, documentation, your accounts - which is a test to apply to the partner *before* v1, not after.
+- **Outsource first, insource later.** Common for non-software companies building their first serious system: a partner builds v1 and runs it; as the system proves central, you hire one or two engineers and the partner hands over. This only works if it is planned from day one - mainstream stack, documentation as a deliverable, a named handover - which is a test to apply to the partner *before* v1, not after.
 - **Partner as senior layer.** Your team writes most of the code; the partner provides architecture, review, and the experience your team has not accumulated yet. Cheaper than a principal-engineer hire you probably cannot close anyway.
 
 ## The real risks - and the mitigations
@@ -58,7 +58,7 @@ Both paths carry a version of the same risk: critical knowledge concentrated whe
 
 **In-house: the knowledge walkout.** Your systems live in a few heads, and heads resign. A two-engineer team losing one has lost half its knowledge, often with a 30-day fuse - and small teams rarely have the slack to document. Mitigations are unglamorous and effective: documentation as part of the work rather than a someday project, no system understood by exactly one person, code review as knowledge-spreading, and realistic retention economics for the people who matter.
 
-**Outsourced: partner lock-in.** The vendor equivalent is dependence you cannot exit: code you technically own but practically cannot run, infrastructure in the vendor's accounts, an exotic stack only they staff, documentation that never quite exists. Mitigations belong in the contract and the first week, not the divorce: IP assignment in writing, repositories and cloud accounts owned by you with the vendor as collaborator, a mainstream hireable stack, documentation as a deliverable, and a handover procedure agreed while everyone is still friendly. Then test the exit cheaply: ask the vendor to walk a third party (or your own future hire) through the system. A partner who welcomes that test has little to hide.
+**Outsourced: the knowledge sits outside.** The vendor equivalent is a system nobody inside your company can reason about: an exotic stack only they staff, documentation that never quite exists, and architecture decisions whose reasons live in someone else's head. The mitigations belong in the first week, not the last: a mainstream, hireable stack, documentation as a named deliverable rather than a someday task, decisions written down as they are made, and a handover procedure agreed while everyone is still friendly. Then test it cheaply - ask the vendor to walk a third party (or your own future hire) through the system. A partner who welcomes that test has built something legible.
 
 Note the symmetry: the mitigations are nearly the same list - ownership, documentation, no single head holding everything.
 
@@ -71,7 +71,7 @@ Note the symmetry: the mitigations are nearly the same list - ownership, documen
 3. Can you actually hire the seniority you need, at your location and budget, in time? (Be brutal here - this gate decides more cases than any other.)
 4. What is your speed constraint - months of recruiting acceptable, or weeks to start?
 5. Where must the knowledge live in three years - and does your plan (docs, ownership, handover) actually put it there?
-6. Whichever path you pick: what is your exit? If you cannot describe how you would leave your vendor - or survive your lead engineer resigning - fix that before it is tested.
+6. Whichever path you pick: could someone new take this system over? If you cannot describe how a fresh team - or your own next hire - would pick it up, fix that before it is tested for you.
 
 <figure class="mt-figure mt-fig-diagram">
 <svg viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A two-by-two quadrant: how core the software is against how long the horizon runs. Core plus steady-for-years leans in-house; supporting plus spike leans outsourced; core plus spike suggests outsourcing v1 and insourcing later; supporting plus steady is decided by whether you can actually hire">
@@ -118,4 +118,4 @@ Note the symmetry: the mitigations are nearly the same list - ownership, documen
 
 ## Where we obviously stand
 
-We are the outsourced option in this comparison - a small senior team that takes on exactly the spiky, senior-skill, built-before work described above, structured against lock-in on purpose: your accounts, your IP, mainstream stacks, documented handover ([how we work](/how-we-work/) spells it out). If your situation reads in-house by this framework, hire - genuinely. If it reads outsourced or hybrid, [tell us what you are weighing](/estimate/) - a senior engineer replies within one business day, including "hire instead" if that is the honest answer.
+We are the outsourced option in this comparison - a small senior team that takes on exactly the spiky, senior-skill, built-before work described above, and we work the way this section recommends: mainstream stacks, documentation written as the work happens, decisions recorded ([how we work](/how-we-work/) spells it out). If your situation reads in-house by this framework, hire - genuinely. If it reads outsourced or hybrid, [tell us what you are weighing](/estimate/) - a senior engineer replies within one business day, including "hire instead" if that is the honest answer.

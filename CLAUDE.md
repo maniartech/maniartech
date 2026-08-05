@@ -45,6 +45,14 @@ vary treatments; no interaction on moving geometry.
    a schedule we might miss.
 
 ## Non-negotiables
+- **No public stand on code/IP ownership or lock-in (Aamir, 2026-08-05).** The honest answer is
+  "it depends on the project type and the deal", so the site must never state one — no "you own the
+  code", no "the IP is yours", no "no lock-in", no "you can walk", on ANY page, blog post, FAQ,
+  meta description or JSON-LD. Ownership and exit terms are negotiated per engagement and belong in
+  the contract, not in marketing copy. What we DO say publicly is the engineering substance that is
+  true regardless of the deal: mainstream hireable technology, documentation as a deliverable,
+  decisions written down, handover built in. Section files are named `handover.md`, never
+  `ownership.md`.
 - **Brand = dark (#1a1a1a) + mint (#14cf93). NOT navy/gold.** Keep dark+mint even though the brand guide is navy/gold.
 - **Never exaggerate (Governing Rule #1).** Every claim true, sourced, calibrated; honest status labels; no fabricated proof. Understated maker-tone.
 - **CSS: never `!important`** — `_mt.scss` loads last; win by specificity. Fluid `clamp()` tokens.
