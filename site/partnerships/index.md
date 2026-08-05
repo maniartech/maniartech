@@ -40,14 +40,20 @@ We've never done one of these on autopilot, and we won't start now. This page is
 
 ## Is this you?
 
-This is for you if:
+Four statements. Tick the ones that are true of you — the routing below is honest, both ways.
 
-- **You've got a genuine market edge** — distribution, a brand, demand, domain access — but building the technology is the missing piece.
-- **You don't want a vendor; you want a partner** — someone whose upside is tied to yours, not just someone billing hours.
-- **You can fund the venture's direct costs** — and would rather have a technology partner whose reward rides on the outcome than pay full commercial fees to someone with no stake in it.
-- **You want a technical co-founder who'll give you a plan you can actually trust** — hedges, unknowns, and risks included.
-
-If that's the situation, this is the conversation to have.
+<div class="pf" id="partnerFit">
+<div class="pf-item"><input type="checkbox" id="pf1"><label for="pf1"><b>You've got a genuine market edge</b> — distribution, a brand, demand, domain access — but building the technology is the missing piece.</label></div>
+<div class="pf-item"><input type="checkbox" id="pf2"><label for="pf2"><b>You don't want a vendor; you want a partner</b> — someone whose upside is tied to yours, not just someone billing hours.</label></div>
+<div class="pf-item"><input type="checkbox" id="pf3"><label for="pf3"><b>You can fund the venture's direct costs</b> — and would rather have a technology partner whose reward rides on the outcome than pay full commercial fees to someone with no stake in it.</label></div>
+<div class="pf-item"><input type="checkbox" id="pf4"><label for="pf4"><b>You want a technical co-founder who'll give you a plan you can actually trust</b> — hedges, unknowns, and risks included.</label></div>
+<div class="pf-verdicts">
+<p class="pf-v-rest">If most of these are true of you, this is the conversation to have. If most are not, a conventional engagement will serve you better.</p>
+<p class="pf-v-low" hidden>Honestly: with only one of the four true, a <b>conventional engagement</b> fits you better than a partnership — <a href="/estimate/">get an estimate instead</a>. It is the faster, cheaper way to get what you need.</p>
+<p class="pf-v-mid" hidden>Close. The unticked lines are exactly what to name in your first message — <a href="/contact/">start the conversation</a> and tell us where you differ; that is a better opening than pretending a fit.</p>
+<p class="pf-v-high" hidden><b>All four true.</b> This is precisely the conversation this page exists for — <a href="/contact/">start it</a>. Bring the checklist from further down and it goes twice as fast.</p>
+</div>
+</div>
 
 ## And we build like founders ourselves
 
@@ -114,15 +120,16 @@ What we put in is the contribution that's hardest to get back: skilled senior bu
 
 ## What we say yes to
 
-We consider a venture only if the product and the business model are:
+Five gates, in order. A venture passes all five, or we pass.
 
-- **legal, and compliant** with the regulations that apply to it;
-- **ethical and morally acceptable** — to us, not just to a lawyer;
-- **genuinely useful**, rather than primarily hype-driven;
-- **future-oriented and commercially sustainable**; and
-- **capable of being pursued as a serious long-term company** — not a landing page looking for an exit.
-
-None of these bend. The fastest way to save both of us time is to check your idea against this list before writing to us.
+<ul class="gate-strip">
+<li><b>GATE 01</b><strong>Legal & compliant</strong><span>with the regulations that actually apply to it</span></li>
+<li><b>GATE 02</b><strong>Ethical</strong><span>morally acceptable to us, not just to a lawyer</span></li>
+<li><b>GATE 03</b><strong>Genuinely useful</strong><span>solves a real problem, rather than riding hype</span></li>
+<li><b>GATE 04</b><strong>Sustainable</strong><span>future-oriented, with a business model that can carry it</span></li>
+<li><b>GATE 05</b><strong>A serious company</strong><span>pursued long-term - not a landing page looking for an exit</span></li>
+</ul>
+<p class="gate-note"><b>None of these bend.</b> The fastest way to save both of us time is to check your idea against the gates before writing to us.</p>
 
 ## How we work — shown, not claimed
 
@@ -136,15 +143,31 @@ We're glad to walk you through a redacted example of each in a conversation, wit
 
 ## Why it's safe — a written, de-risked structure
 
-Good fences make good partners. The riskiest part of a partnership isn't the build — it's what happens when money, ownership, and commitment meet uncertainty. So we put the structure in writing from the first conversation:
+The riskiest part of a partnership isn't the build — it's what happens when money, ownership, and commitment meet uncertainty.
+
+<p class="mt-pull">Good fences make <em>good partners</em>. The structure is in writing from the first conversation.</p>
+
+Here is that structure, laid along the life of the deal:
+
+<span class="ph-k">Before anything is signed</span>
+
+- **Clear written responsibilities** — and every contribution, including time, given a fair, recorded value.
+- **Self-dealing is agreed openly, or not at all.** Where a partner's own company is paid to provide services to the venture, the terms — at cost, discounted, or counted as contribution — are agreed up front, so no one earns ownership and separately profits from the venture's spending without everyone knowing.
+- **Backing off is defined in advance** — what counts as not delivering, and how a partner exits, agreed before anyone needs it, so there are no bitter disputes later.
+
+<span class="ph-k">At signing</span>
+
+- **Funding secured up front, released against milestones (escrow).** We build against money that's actually secured, not a promise.
+
+<span class="ph-k">While we build</span>
 
 - **Staged and gated.** The next stage isn't funded until the last one shows real signs of working — the paid discovery phase above is stage one of exactly this discipline.
 - **Earned ownership over time (vesting).** Each partner's share builds as they deliver. Step away early and you keep only what you genuinely earned — which protects whoever stays.
-- **Funding secured up front, released against milestones (escrow).** We build against money that's actually secured, not a promise.
-- **Clear written responsibilities** — and every contribution, including time, given a fair, recorded value.
-- **Backing off is defined in advance.** Work already done is honored — if the venture stops because someone else stepped back, the builder is not left having worked for nothing — and how a partner exits is agreed before anyone needs it, so there are no bitter disputes.
-- **Self-dealing is agreed openly, or not at all.** Where a partner's own company is paid to provide services to the venture, the terms — at cost, discounted, or counted as contribution — are agreed up front, so no one earns ownership and separately profits from the venture's spending without everyone knowing.
 - **Lean and pay-as-you-grow.** Modest tech costs; spend where it's the edge, keep the rest cheap.
+
+<span class="ph-k">If someone steps back</span>
+
+- **Work already done is honored.** If the venture stops because someone else stepped back, the recorded value of completed work is settled first from the fund — the builder is not left having worked for nothing, and the same protection runs in every direction.
 
 This is a framework we structure each partnership around — not a deal we can point to as a completed case yet. We're showing you the template we'd hold ourselves to, plainly, so you can judge it before anything is signed.
 
@@ -160,32 +183,32 @@ It's a founder-led team: **Aamir Maniar (Managing Director & Engineering Head)**
 
 ## Bring this to the first serious conversation
 
-A partnership conversation goes fast when the facts arrive with it. Before we schedule a detailed discussion, this is what we ask every prospective partner to share — and if assembling it feels like too much work, that itself answers whether the venture is ready for a co-founder:
+A partnership conversation goes fast when the facts arrive with it. Before we schedule a detailed discussion, this is what we ask every prospective partner to share. Tick off what you already have — and if assembling it feels like too much work, that itself answers whether the venture is ready for a co-founder.
 
-**The venture**
-
-- the precise problem, the proposed solution, and the target customers;
-- the validation completed so far — traction, pilots, paying customers, or customer commitments;
-- your distribution capabilities and the operational contribution you expect to make;
-- the legal and regulatory considerations relevant to the product.
-
-**The money**
-
-- the available development and operating budget;
-- the source and amount of committed capital;
-- any existing liabilities, commitments, intellectual property, or third-party ownership.
-
-**The people and the company**
-
-- your full professional background and LinkedIn profile;
-- the company's complete legal name, registered address, jurisdiction, registration number, and website;
-- its founders, directors, shareholders, and existing investors;
-- independently verifiable professional, business, and customer references.
-
-**The build and the terms**
-
-- the expected technical scope and timeline;
-- the proposed equity, vesting, governance, and decision-making structure.
+<div class="bc" id="partnerBrief">
+<div class="bc-group"><p class="bc-h">The venture</p>
+<div class="bc-item"><input type="checkbox" id="bc1"><label for="bc1">the precise problem, the proposed solution, and the target customers</label></div>
+<div class="bc-item"><input type="checkbox" id="bc2"><label for="bc2">the validation completed so far - traction, pilots, paying customers, or customer commitments</label></div>
+<div class="bc-item"><input type="checkbox" id="bc3"><label for="bc3">your distribution capabilities and the operational contribution you expect to make</label></div>
+<div class="bc-item"><input type="checkbox" id="bc4"><label for="bc4">the legal and regulatory considerations relevant to the product</label></div>
+</div>
+<div class="bc-group"><p class="bc-h">The money</p>
+<div class="bc-item"><input type="checkbox" id="bc5"><label for="bc5">the available development and operating budget</label></div>
+<div class="bc-item"><input type="checkbox" id="bc6"><label for="bc6">the source and amount of committed capital</label></div>
+<div class="bc-item"><input type="checkbox" id="bc7"><label for="bc7">any existing liabilities, commitments, intellectual property, or third-party ownership</label></div>
+</div>
+<div class="bc-group"><p class="bc-h">The people and the company</p>
+<div class="bc-item"><input type="checkbox" id="bc8"><label for="bc8">your full professional background and LinkedIn profile</label></div>
+<div class="bc-item"><input type="checkbox" id="bc9"><label for="bc9">the company's complete legal name, registered address, jurisdiction, registration number, and website</label></div>
+<div class="bc-item"><input type="checkbox" id="bc10"><label for="bc10">its founders, directors, shareholders, and existing investors</label></div>
+<div class="bc-item"><input type="checkbox" id="bc11"><label for="bc11">independently verifiable professional, business, and customer references</label></div>
+</div>
+<div class="bc-group"><p class="bc-h">The build and the terms</p>
+<div class="bc-item"><input type="checkbox" id="bc12"><label for="bc12">the expected technical scope and timeline</label></div>
+<div class="bc-item"><input type="checkbox" id="bc13"><label for="bc13">the proposed equity, vesting, governance, and decision-making structure</label></div>
+</div>
+<div class="bc-foot"><span class="bc-progress">assemble the list above</span><button class="bc-copy" type="button">Copy the checklist for your notes</button></div>
+</div>
 
 Material claims — company information, customer traction, funding commitments — are independently verified as part of due diligence. And diligence runs both ways: verify us the same day, against [the registrar](/security/), [the case studies](/case-studies/), and the live systems they link to.
 

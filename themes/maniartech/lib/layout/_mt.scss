@@ -1907,6 +1907,89 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
          &:first-child { padding-top: 0; border-top: 0; } } }
 }
 
+/* ===========================================================================
+   Partnerships page - two working controls + the gate strip. Content lives in
+   the markup; partner/partner.js only toggles visibility and derives counts.
+   =========================================================================== */
+
+/* The fit check: four statements you can actually tick; verdict routes you. */
+.pf {
+  margin: clamp(20px, 3vw, 30px) 0;
+  border: 1px solid rgba(255, 255, 255, .12); border-radius: 14px;
+  padding: clamp(18px, 2.6vw, 28px);
+  background: $sub_bg;
+}
+.pf-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 12px 0; border-top: 1px solid rgba(255, 255, 255, .07);
+  &:first-of-type { border-top: 0; padding-top: 0; }
+  input { width: 18px; height: 18px; margin-top: 3px; flex: 0 0 auto; accent-color: $main_color; cursor: pointer; }
+  label { cursor: pointer; color: rgba(255, 255, 255, .75); font-size: 15px; line-height: 1.6; margin: 0;
+    b { color: #fff; } }
+}
+.pf-verdicts { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.pf-verdicts p { margin: 0; font-size: 15px; line-height: 1.65; color: rgba(255, 255, 255, .7);
+  a { color: $main_color; text-decoration: underline; text-underline-offset: 3px; } }
+.pf-verdicts .pf-v-high { color: $main_color; }
+.pf-v-high, .pf-v-mid, .pf-v-low { b { color: #fff; } }
+
+/* The five gates: what we say yes to, as a strip instead of a wall. */
+.gate-strip {
+  list-style: none; margin: clamp(20px, 3vw, 30px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  li { padding: 0 clamp(10px, 1.4vw, 18px); border-left: 1px solid rgba(255, 255, 255, .10);
+       &:first-child { padding-left: 0; border-left: 0; }
+       &::before { display: none; }
+  }
+  b { display: block; font-family: var(--mono); font-size: 11px; color: $main_color; margin-bottom: 6px; }
+  strong { display: block; color: #fff; font-size: 14px; line-height: 1.35; margin-bottom: 6px; }
+  span { display: block; color: rgba(255, 255, 255, .55); font-size: 12.5px; line-height: 1.5; }
+}
+.gate-note { margin-top: 14px; font-family: var(--mono); font-size: 12px; color: rgba(255, 255, 255, .6);
+  b { color: $main_color; font-weight: 500; } }
+@media (max-width: 767px) {
+  .gate-strip { grid-template-columns: 1fr;
+    li { padding: 12px 0 0; border-left: 0; border-top: 1px solid rgba(255, 255, 255, .09); margin-bottom: 12px;
+         &:first-child { padding-top: 0; border-top: 0; } } }
+}
+
+/* Deal-phase kickers inside the safe-structure section. */
+.ph-k {
+  display: block; margin: clamp(24px, 3vw, 34px) 0 10px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+  text-transform: uppercase; color: $main_color;
+}
+
+/* The briefing checklist: tickable, progress derived, copyable. */
+.bc {
+  margin: clamp(20px, 3vw, 30px) 0;
+  border: 1px solid rgba(255, 255, 255, .12); border-radius: 14px;
+  padding: clamp(18px, 2.6vw, 28px);
+  background: $sub_bg;
+}
+.bc-group { margin-top: 18px; &:first-of-type { margin-top: 0; } }
+.bc-h { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 255, 255, .55); margin: 0 0 6px; }
+.bc-item {
+  display: flex; gap: 12px; align-items: flex-start; padding: 7px 0;
+  input { width: 16px; height: 16px; margin-top: 3px; flex: 0 0 auto; accent-color: $main_color; cursor: pointer; }
+  label { cursor: pointer; color: rgba(255, 255, 255, .72); font-size: 14.5px; line-height: 1.55; margin: 0; }
+  input:checked + label { color: rgba(255, 255, 255, .45); }
+}
+.bc-foot {
+  display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center;
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .1);
+}
+.bc-progress { font-family: var(--mono); font-size: 12.5px; color: rgba(255, 255, 255, .6);
+  &.is-done { color: $main_color; } }
+.bc-copy {
+  padding: 7px 16px; background: none;
+  border: 1px solid rgba(255, 255, 255, .16); border-radius: 40px;
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: rgba(255, 255, 255, .62);
+  cursor: pointer; transition: color .2s ease, border-color .2s ease;
+  &:hover { color: #fff; border-color: rgba(255, 255, 255, .34); }
+  &.is-done { color: $main_color; border-color: rgba($main_color, .5); }
+}
+
 /* /standards/ body: the prose page furniture the generic template lacked */
 .standards-body { max-width: 820px;
   .mt-prose > h2 { margin-top: clamp(44px, 6vw, 64px); }
