@@ -308,6 +308,17 @@ The confidential venture briefing (`_inbox/service-technology-partnership.md` gu
 "Love and Beyond" matrimony-app proposal) remains unnamed - only generalized method on the
 page. If Aamir's email register changes, THIS page must follow: it is his voice, not ours.
 
+**2026-08-05 (part 13 - partnerships made OPERABLE):** Aamir: content good, page needs to be
+interesting - interactive where it applies. The page IS a filter and a checklist, so those became
+working controls (`63bb0dd`, NEW `lib/partner/partner.js` - verdict text lives in markup, JS only
+toggles visibility, counts derived from DOM): the "Is this you?" fit check routes honestly BOTH
+ways (0-1 ticks -> estimate page; all 4 -> the conversation); the 13-item disclosure list ticks
+with derived progress + a copy-as-ASCII button; five-gate strip replaces the criteria wall; safe
+section regrouped along the life of the deal. TESTED PROGRAMMATICALLY (Aamir: "test it yourself
+and then confirm") - verdicts asserted at every tick count, copy builder spied, refusal path
+checked, 0 overflow at 390. Also this date: pushed everything after rebasing over Nomaan's
+accidental .sass-cache commit, then untracked + gitignored .sass-cache/ (`7968acb`).
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
