@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% comment %} Technology Partnership - the co-founder track. Rebuilt off the
-generic page.html shim onto the vh frame per the CLAUDE.md thumb rules: a
-partnership page's content type is a RELATIONSHIP, so the hero strip carries
-the three things prose cannot claim for itself - the longest engagement we can
-prove, the founder who came back, and the stance - and the record section puts
-the two checkable engagements plus the partner-voiced quote (Strativity's CPO)
-before any of our own words. Facts/record live in index.md frontmatter (data
-lives once); the essay body remains markdown below. {% endcomment %}
+{% comment %} Technology Partnership - the co-founder track, as designed BANDS
+(Aamir: the single prose column was boring). Content directory:
+site/partnerships/ - index.md (hero frontmatter + opening) plus one .md per
+band: fit / deal / gates / shown / safe / build / stay / bring / who. Numbered
+movements, alternating backgrounds, varied treatments per band: two working
+controls (partner/partner.js), the fair-commitment figure, three illustrative
+document specimens, a 2x2 deal-phase grid. The hero strip carries the three
+things prose cannot claim - the record, the returning founder, the stance. {% endcomment %}
 
 {% block content %}
 <header class="main-header view-hero article-hero">
@@ -33,10 +33,20 @@ lives once); the essay body remains markdown below. {% endcomment %}
     </div>
 </header>
 
+{% comment %} Opening invitation - the page document's own prose. {% endcomment %}
 <section class="section-padding pt-0 article-region">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9"><h2 class="fw-600">{{ pageContext.recordHeading }}</h2><p class="mt-10" style="color:rgba(255,255,255,.65);max-width:72ch;">{{ pageContext.recordLead }}</p></div>
+            <div class="col-lg-8"><div class="mt-prose">{{ content|safe }}</div></div>
+        </div>
+    </div>
+</section>
+
+{% comment %} 01 - the record: cards + the partner-voiced quote. {% endcomment %}
+<section class="section-padding bg-soft" id="record" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">01 &mdash; The record</span><h2 class="fw-600">{{ pageContext.recordHeading }}</h2><p class="mt-10" style="color:rgba(255,255,255,.65);max-width:72ch;">{{ pageContext.recordLead }}</p></div>
         </div>
         <div class="row mt-30">
             {% for c in pageContext.record %}
@@ -51,15 +61,133 @@ lives once); the essay body remains markdown below. {% endcomment %}
         </div>
         <div class="row">
             <div class="col-lg-9">
-                <blockquote class="mt-10 mb-30" style="border-left:3px solid #14cf93;padding-left:24px;">
+                <blockquote class="mt-10" style="border-left:3px solid #14cf93;padding-left:24px;">
                     <p class="fz-20" style="color:rgba(255,255,255,.85);">"{{ pageContext.recordQuote }}"</p>
                     <footer class="mt-10" style="color:rgba(255,255,255,.5);">{{ pageContext.recordQuoteBy }} - {{ pageContext.recordQuoteRole }} &nbsp;&middot;&nbsp; <a href="{{ pageContext.recordQuoteHref }}">the full story</a></footer>
                 </blockquote>
             </div>
         </div>
+    </div>
+</section>
+
+{% comment %} 02 - the fit check (working control). {% endcomment %}
+<section class="section-padding" id="fit" style="scroll-margin-top:88px;">
+    <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="article-body mt-prose bord pt-30 bord-thin-top">{{ content|safe }}</div>
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">02 &mdash; The fit</span>
+                <h2 class="fw-600">{{ fit.heading }}</h2>
+                <div class="mt-prose mt-10">{{ fit.content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} 03 - the deal + the fair-commitment figure. {% endcomment %}
+<section class="section-padding bg-soft" id="deal" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">03 &mdash; The deal</span>
+                <h2 class="fw-600">{{ deal.heading }}</h2>
+                <div class="mt-prose mt-10">{{ deal.content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} 04 - the five gates, full width. {% endcomment %}
+<section class="section-padding" id="gates" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">04 &mdash; The gates</span>
+                <h2 class="fw-600">{{ gates.heading }}</h2>
+                <div class="mt-prose mt-10">{{ gates.content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} 05 - shown, not claimed: three illustrative document specimens. {% endcomment %}
+<section class="section-padding bg-soft" id="shown" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">05 &mdash; The working documents</span>
+                <h2 class="fw-600">{{ shown.heading }}</h2>
+                <div class="mt-prose mt-10">{{ shown.content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} 06 - the de-risked structure along the life of the deal (2x2). {% endcomment %}
+<section class="section-padding" id="structure" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">06 &mdash; The structure</span>
+                <h2 class="fw-600">{{ safe.heading }}</h2>
+                <div class="mt-prose mt-10">{{ safe.content|safe }}</div>
+            </div>
+        </div>
+        <div class="row mt-20">
+            {% for p in safe.phases %}
+            <div class="col-lg-6 mb-25">
+                <span class="ph-k" style="margin-top:0;">{{ p.name }}</span>
+                <ul class="mt-prose" style="margin:0;">
+                    {% for it in p.items %}<li style="color:rgba(255,255,255,.72);font-size:15px;">{{ it|safe }}</li>{% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% comment %} 07 - builders ourselves + can we be trusted to stay, side by side. {% endcomment %}
+<section class="section-padding bg-soft" id="builder" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-30">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">07 &mdash; The builder</span>
+                <h2 class="fw-600">{{ build.heading }}</h2>
+                <div class="mt-prose mt-10">{{ build.content|safe }}</div>
+            </div>
+            <div class="col-lg-6 mb-30">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">08 &mdash; The continuity</span>
+                <h2 class="fw-600">{{ stay.heading }}</h2>
+                <div class="mt-prose mt-10">{{ stay.content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} 09 - the briefing checklist (working control). {% endcomment %}
+<section class="section-padding" id="homework" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">09 &mdash; The homework</span>
+                <h2 class="fw-600">{{ bring.heading }}</h2>
+                <div class="mt-prose mt-10">{{ bring.content|safe }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} 10 - who, the legal entity, and the conversation CTA. {% endcomment %}
+<section class="section-padding bg-soft" id="conversation" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <span class="mt-eyebrow d-block mb-10" style="color:#14cf93;">10 &mdash; The conversation</span>
+                <h2 class="fw-600">{{ who.heading }}</h2>
+                <div class="mt-prose mt-10">{{ who.content|safe }}</div>
+                <div class="mt-actions mt-30">
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Start the conversation</span></a>
+                    <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>Check the record first</span></a>
+                </div>
             </div>
         </div>
     </div>

@@ -1960,6 +1960,33 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   text-transform: uppercase; color: $main_color;
 }
 
+/* Document specimens: the working documents drawn, labeled illustrative. */
+.spec-doc {
+  height: 100%; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .12); border-radius: 12px;
+  background: #0d0d0d; display: flex; flex-direction: column;
+}
+.sd-bar {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 10px 16px; background: #171717; border-bottom: 1px solid rgba(255, 255, 255, .07);
+  font-family: var(--mono); font-size: 11.5px; color: rgba(255, 255, 255, .65);
+  em { font-style: normal; flex: 0 0 auto; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase;
+       color: rgba(255, 255, 255, .5); border: 1px solid rgba(255, 255, 255, .16); border-radius: 30px; padding: 1px 8px; }
+}
+.mt-prose pre.sd-body, pre.sd-body {
+  flex: 1 1 auto; margin: 0; padding: 16px 18px; overflow-x: auto;
+  background: transparent; border: 0; border-radius: 0;
+  font-family: var(--mono); font-size: 12px; line-height: 1.85; color: rgba(255, 255, 255, .72); white-space: pre;
+  .t-est { color: #f0c85a; }
+  .t-fact { color: $main_color; }
+  .t-un { color: #7fb0ff; }
+  .t-no { color: rgba(255, 120, 120, .9); }
+}
+.sd-cap { padding: 12px 18px 14px; border-top: 1px solid rgba(255, 255, 255, .07);
+  font-size: 12.5px; line-height: 1.55; color: rgba(255, 255, 255, .55); }
+.mt-prose .spec-docs { margin-top: clamp(20px, 3vw, 30px);
+  .col-lg-4 { padding-left: 10px; padding-right: 10px; } }
+
 /* The briefing checklist: tickable, progress derived, copyable. */
 .bc {
   margin: clamp(20px, 3vw, 30px) 0;
