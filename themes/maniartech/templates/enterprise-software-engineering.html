@@ -56,10 +56,36 @@
         <div class="row">
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ offerings.heading }}</h2><div class="mt-prose mt-10">{{ offerings.content|safe }}</div></div></div>
         </div>
+        {% comment %} The capability catalog - the complete enterprise surface, one card
+        per capability, from offerings.items (data lives once). Cards with an `anchor`
+        are deep-link targets (the header menu points at some of them). {% endcomment %}
         <div class="row mt-30">
-            <div class="col-lg-4 mb-25" id="process-automation" style="scroll-margin-top:88px;"><div class="mt-prose"><h3 class="fw-600 fz-20 mb-15 text-light">{{ automation.heading }}</h3>{{ automation.content|safe }}</div></div>
-            <div class="col-lg-4 mb-25" id="digital-asset-management" style="scroll-margin-top:88px;"><div class="mt-prose"><h3 class="fw-600 fz-20 mb-15 text-light">{{ dam.heading }}</h3>{{ dam.content|safe }}</div></div>
-            <div class="col-lg-4 mb-25" id="business-analytics" style="scroll-margin-top:88px;"><div class="mt-prose"><h3 class="fw-600 fz-20 mb-15 text-light">{{ analytics.heading }}</h3>{{ analytics.content|safe }}</div></div>
+            {% for it in offerings.items %}
+            <div class="col-lg-4 col-md-6 mb-20">
+                <div class="svc-cap"{% if it.anchor %} id="{{ it.anchor }}"{% endif %}>
+                    <h3>{{ it.name }}</h3>
+                    <p>{{ it.line }}</p>
+                    {% if it.status %}<span class="sc-status">{{ it.status }}</span>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% comment %} Deep dives on the load-bearing capabilities - full-width bands,
+        not columns, so figures and real vocabulary have room. {% endcomment %}
+        <div class="row mt-20">
+            <div class="col-lg-9" id="process-automation" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ automation.heading }}</h3>{{ automation.content|safe }}</div></div>
+        </div>
+        <div class="row mt-30">
+            <div class="col-lg-9" id="enterprise-integration" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ integration.heading }}</h3>{{ integration.content|safe }}</div></div>
+        </div>
+        <div class="row mt-30">
+            <div class="col-lg-9" id="business-analytics" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ analytics.heading }}</h3>{{ analytics.content|safe }}</div></div>
+        </div>
+        <div class="row mt-30">
+            <div class="col-lg-9" id="gamification" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ gamification.heading }}</h3>{{ gamification.content|safe }}</div></div>
+        </div>
+        <div class="row mt-30">
+            <div class="col-lg-9" id="digital-asset-management" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ dam.heading }}</h3>{{ dam.content|safe }}</div></div>
         </div>
     </div>
 </section>

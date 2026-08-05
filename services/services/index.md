@@ -7,7 +7,7 @@ description: "We do three kinds of engineering work — enterprise systems, cust
 serviceLines:
   - title: "Enterprise Software Engineering"
     tag: "The systems your operations run on."
-    body: "Spreadsheets, manual handoffs, tools that don't talk to each other — we build the system that connects and automates it. Process automation, asset management and analytics, shaped around how your team already works."
+    body: "The complete enterprise surface: process automation, enforced workflows, integration with the systems you already run, analytics and dashboards, gamification done from the research - shaped around how your team actually works."
     url: "/services/enterprise-software-engineering/"
     featured: true
     shot: "/themes/maniartech/assets/imgs/projects/chemo.png"
@@ -19,7 +19,7 @@ serviceLines:
     proofLabel: "Read the Chemo Test Laboratory case"
   - title: "Application Software Engineering"
     tag: "Your software itself — built or advised."
-    body: "A custom application built properly the first time, or an expert eye on one you already have. We build end to end, and we review and advise on architecture you have already got."
+    body: "Built end to end - domain model, workflows, permissions, documents, integrations, deployment - or reviewed with a written verdict: what to fix, what to leave alone, and in what order."
     url: "/services/application-software-engineering/"
     shot: "/themes/maniartech/assets/imgs/work/sales-navigator-estimate.webp"
     shotW: 1600

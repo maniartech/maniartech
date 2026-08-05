@@ -1,10 +1,10 @@
 ---
 title: "Enterprise Software Engineering"
-description: "Enterprise software development for the systems your operations run on - business process automation and integration, digital asset management, and analytics. Experienced engineers, mainstream technology, ISO-certified process."
+description: "The complete enterprise surface - process automation, enterprise workflows, integration with the systems you already run, analytics and dashboards, gamification, portals and report engines - built by experienced engineers on an ISO-certified process."
 order: 1
-seoDescription: "Process automation, digital asset management and analytics - systems that connect the spreadsheets and tools your operations currently run on."
+seoDescription: "Enterprise software development: process automation, workflows, integration with existing systems, analytics and dashboards - built senior-only on mainstream stacks."
 ---
 
-Your operations probably run on spreadsheets and manual hand-offs, with data re-keyed between tools that do not talk to each other. Work depends on specific people, so it stalls when they are away, and you cannot see what is happening across the business without chasing reports. You have likely tried off-the-shelf software and found it did not fit how you actually work.
+An enterprise system is not an app. It is approval chains that must survive an approver's leave, records that must say who did what and when, data that must agree between the tool that captured it and the ledger that reports it, and reports that carry your company's name into the world. Software like that is judged by an unforgiving audience: the operations head who lives in it daily, and sometimes an auditor behind them.
 
-This is exactly what we do. We design and build the systems your business runs on - the automation, the integrations, and the asset and data systems that make a company actually work - built by experienced engineers on mainstream technology your own team can maintain.
+That is the software we build. We have run a laboratory's entire operation on a platform of ours - sample intake, multi-stage technical review, authorization, tamper-evident report delivery - and kept a 2011 operations system in daily service for about 15 years. The full surface we cover is below; if it is software a business runs on, it is in scope.

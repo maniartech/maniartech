@@ -1,10 +1,10 @@
 ---
 title: "AI, Applied"
-description: "Applied AI for real business outcomes - where it genuinely helps, not as a gimmick. Human in the loop, grounded in your own data, no lock-in, built by a team that ships its own AI products."
+description: "Applied AI with the mechanics stated: answers grounded in your own documents with the source shown, extraction with confidence thresholds and a human review queue - and honest advice about where AI does not belong."
 order: 3
-seoDescription: "AI applied where it genuinely helps your operations - grounded in your documents and data - and honest advice about where it does not belong."
+seoDescription: "Applied AI for operations - grounded document answers with citations, extraction with human review thresholds - and honest advice on where AI does not belong."
 ---
 
-If you are here, one of these probably fits. You keep hearing you should be using AI, but you do not want a gimmick bolted on - you want to know where it would actually save time or money. Your team re-types, re-keys, and re-checks the same things by hand, and AI could take that load off them. The answers exist in your documents - contracts, manuals, reports, tickets - but finding them is slow, and people give up looking. Or you have been pitched AI before and it felt like a demo, not a result.
+Every AI pitch you have heard says "transform your business." Here is what AI in a business system actually is, mechanically: a model that can read, classify, extract and draft - wrapped in the engineering that decides what it may see, what happens when it is unsure, and who checks it before anything is committed. That wrapper is the product. Without it you have a demo; with it you have a system an operations team can trust on a Tuesday afternoon.
 
-We are built for exactly these. The interesting question is not whether you have AI - it is where AI actually earns its place. We weave AI into the systems we build, automating work people should not be doing by hand and surfacing answers buried in your own documents, and we leave it out where it would only add risk or noise. Useful, or not at all.
+We build the wrapper as seriously as the model: answers grounded in your own documents with the source shown, extraction that routes low-confidence cases to a human queue instead of guessing, and evaluation against your real cases before anything reaches production. And because the fastest way to waste money on AI is to apply it where a rule or a form would do, we will tell you when that is the case - it is the most valuable sentence in this practice.
