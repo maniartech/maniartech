@@ -25,6 +25,22 @@
   --mono: "SFMono-Regular", ui-monospace, Consolas, "Liberation Mono", Menlo, monospace;
 }
 
+/* ---- Reserve the scrollbar gutter ----------------------------------------
+   Every hero is `min-height:100svh`, so during the first paint the document is
+   EXACTLY viewport height: no overflow, no scrollbar. A moment later the rest
+   of the page lays out, the scrollbar appears, and it steals ~15px of width -
+   shoving the whole page sideways after the reader has already started looking
+   at it. Measured on /insights/: content sat at x=40 before, x=33 after.
+
+   Reserving the gutter from the first paint makes that impossible. It also
+   fixes the same jolt when the mobile menu sets `body{overflow:hidden}`.
+   Older Safari (< 18.2) has no `scrollbar-gutter`; an always-on track is the
+   next best thing, since it is equally stable. */
+html { scrollbar-gutter: stable; }
+@supports not (scrollbar-gutter: stable) {
+  html { overflow-y: scroll; }
+}
+
 /* ---- Section rhythm (one source of truth for every page) ------------------ */
 .section-padding { padding-top: var(--sp-section); padding-bottom: var(--sp-section); }
 .section-padding.pt-0 { padding-top: 0; }
