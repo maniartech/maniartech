@@ -44,7 +44,7 @@ This is for you if:
 
 - **You've got a genuine market edge** — distribution, a brand, demand, domain access — but building the technology is the missing piece.
 - **You don't want a vendor; you want a partner** — someone whose upside is tied to yours, not just someone billing hours.
-- **You'd rather share the risk than carry the full build cost up front** — and share the reward in return.
+- **You can fund the venture's direct costs** — and would rather have a technology partner whose reward rides on the outcome than pay full commercial fees to someone with no stake in it.
 - **You want a technical co-founder who'll give you a plan you can actually trust** — hedges, unknowns, and risks included.
 
 If that's the situation, this is the conversation to have.
@@ -60,15 +60,28 @@ The record above shows how we behave inside a partnership. The other half of the
 
 And the founder's track record is one click from verification: [Aamir Maniar](https://www.linkedin.com/in/aamironline) built financial-technology systems at JP Morgan and worked as a technology architect across a 27-year career. More [about the team](/about/).
 
-## What we'd actually do together
+## The deal, stated plainly
 
-A fair split starts by protecting the partner who takes the cash risk. A partnership is only worth building if it's fair before anything goes right — so the first thing we agree is what protects *you*:
+So there is no ambiguity to discover three meetings in, here is the shape of the arrangement we offer — the same terms we state to every serious inquiry:
 
-- **Real cash costs come from the shared fund, not your pocket alone** — servers, tools, services, even during the build — so no single partner is quietly carrying the others.
-- **Every contribution is written down and given a fair, recorded value** — yours and ours — before ownership is split, so nobody's share is a guess made up later.
-- **Distribution, brand, and demand are contributions too** — and they earn their share on results, not on a promise.
+- **The venture's capital comes from your side.** We contribute technology and technical leadership, not cash — initial capital, operating expenses, and the direct costs of development need to be adequately funded by the venture.
+- **Our contribution is hybrid: part cash, part equity.** Part of the development and technical-leadership cost is paid in cash — at minimum covering the direct cost of the technical team, infrastructure, and resources involved — and the remaining contribution is made in lieu of **meaningful founder equity**, vesting as we deliver.
+- **Every contribution is written down and given a fair, recorded value** — yours and ours — before ownership is split, so nobody's share is a guess made up later. Distribution, brand, and demand are contributions too, and they earn their share on results, not on a promise.
+- **It starts with a paid discovery and feasibility phase** — before we commit technical resources or enter a long-term co-founder arrangement, we prove the riskiest assumptions cheaply, on a bounded, paid engagement both sides can walk away from.
 
-What we put in is the contribution that's hardest to get back: skilled senior build time — months of work we'd otherwise sell — which we trade for equity that vests as we deliver. We can bring the network and capital ourselves, or slot in as the technology partner alongside others.
+What we put in is the contribution that's hardest to get back: skilled senior build time — months of work we'd otherwise sell at full commercial rates — with our margin riding on the venture instead. We slot in as the technology partner alongside the people who bring the market, the brand, and the capital.
+
+## What we say yes to
+
+We consider a venture only if the product and the business model are:
+
+- **legal, and compliant** with the regulations that apply to it;
+- **ethical and morally acceptable** — to us, not just to a lawyer;
+- **genuinely useful**, rather than primarily hype-driven;
+- **future-oriented and commercially sustainable**; and
+- **capable of being pursued as a serious long-term company** — not a landing page looking for an exit.
+
+None of these bend. The fastest way to save both of us time is to check your idea against this list before writing to us.
 
 ## How we work — shown, not claimed
 
@@ -84,7 +97,7 @@ We're glad to walk you through a redacted example of each in a conversation, wit
 
 Good fences make good partners. The riskiest part of a partnership isn't the build — it's what happens when money, ownership, and commitment meet uncertainty. So we put the structure in writing from the first conversation:
 
-- **Prove the riskiest thing cheaply, first.** Staged and gated — the next stage isn't funded until the last one shows real signs of working.
+- **Staged and gated.** The next stage isn't funded until the last one shows real signs of working — the paid discovery phase above is stage one of exactly this discipline.
 - **Earned ownership over time (vesting).** Each partner's share builds as they deliver. Step away early and you keep only what you genuinely earned — which protects whoever stays.
 - **Funding secured up front, released against milestones (escrow).** We build against money that's actually secured, not a promise.
 - **Clear written responsibilities** — and every contribution, including time, given a fair, recorded value.
@@ -102,6 +115,37 @@ An equity partner has the right to ask: what if your one person is gone? It's a 
 - **We build on mainstream, hireable technology** — Go, Python, React, PostgreSQL — so any competent team can maintain what we build.
 
 It's a founder-led team: **Aamir Maniar (Managing Director & Engineering Head)** leads the engineering, **Oomera Maniar** runs operations, and delivery is carried by a senior core plus a vetted network of specialist engineers brought in by discipline. The continuity terms above are the honest answer to "what if one person is gone" — not a claim to be larger than we are.
+
+## Bring this to the first serious conversation
+
+A partnership conversation goes fast when the facts arrive with it. Before we schedule a detailed discussion, this is what we ask every prospective partner to share — and if assembling it feels like too much work, that itself answers whether the venture is ready for a co-founder:
+
+**The venture**
+
+- the precise problem, the proposed solution, and the target customers;
+- the validation completed so far — traction, pilots, paying customers, or customer commitments;
+- your distribution capabilities and the operational contribution you expect to make;
+- the legal and regulatory considerations relevant to the product.
+
+**The money**
+
+- the available development and operating budget;
+- the source and amount of committed capital;
+- any existing liabilities, commitments, intellectual property, or third-party ownership.
+
+**The people and the company**
+
+- your full professional background and LinkedIn profile;
+- the company's complete legal name, registered address, jurisdiction, registration number, and website;
+- its founders, directors, shareholders, and existing investors;
+- independently verifiable professional, business, and customer references.
+
+**The build and the terms**
+
+- the expected technical scope and timeline;
+- the proposed equity, vesting, governance, and decision-making structure.
+
+Material claims — company information, customer traction, funding commitments — are independently verified as part of due diligence. And diligence runs both ways: verify us the same day, against [the registrar](/security/), [the case studies](/case-studies/), and the live systems they link to.
 
 ## Who we partner with
 
