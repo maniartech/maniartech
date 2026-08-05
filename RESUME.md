@@ -281,6 +281,21 @@ scrollbar-gutter reserved site-wide (`fd2927c` - svh heroes made the scrollbar a
 the page ~15px), and the superseded insights-hero brief committed as a record (`784218a`).
 Aamir to review the three raised pages; /partnerships/ untouched (see part 9 flag).
 
+**2026-08-05 (part 11 - proof de-duplicated; partnerships rebuilt):** Aamir's two catches:
+(a) the same projects on almost every page read fishy -> content-level dedup (`6f6cd7d`):
+enterprise (locked) keeps Chemo+RTL; application's copies of both labs removed (points at
+/case-studies/, keeps the UpSport quote); AI's Chemo card AND its FAQ line citing the lab as
+AI proof removed (it wasn't AI work) - Content Engine + Documentor remain in two wide cards;
+modernization keeps its RTL anchor but loses the Ashish Singh quote that duplicated
+enterprise (quote block now conditional). The uniform ~4 mentions/page that remain are the
+header MEGA-MENU (navigation, legitimate - checked before "fixing"). (b) /partnerships/ was
+still the generic page.html shim -> real template on the vh frame: strip = 6-years-through-
+acquisition (Touchpoint) / the returning founder (UpSport) / selective-by-design; record
+section = both engagements + the Peter Haid (Strativity CPO) "loyal and trustworthy partner"
+quote the site never used; essay updated ("testimonial we don't have yet" contradicted the
+quote now above it). Facts/record in frontmatter. Partnership framing stays honest: no
+completed equity deal is claimed - the record shows BEHAVIOR inside long engagements.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
