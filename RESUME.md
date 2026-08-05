@@ -266,6 +266,21 @@ partnership's code and documentation are "protected for you ... continuity is a 
 the deal" - that is escrow/continuity in a negotiated equity deal, explicitly deal-scoped, not a
 blanket ownership promise. Say the word if it should go too.
 
+**2026-08-05 (part 10 - enterprise LOCKED; the other three services raised to its bar):** Aamir
+locked /services/enterprise-software-engineering/ as the reference and called the rest still not
+publishable. Application/AI/Modernization now carry the enterprise structure - catalog grid
+(`offerings.items`/`ways.items` -> `.svc-cap` cards) + full-width deep-dive bands with drawn
+mechanics: Application got the eight-card "what we build" catalog + the anatomy-of-an-application
+stack figure (six layers under the UI sliver) and full-width build/advise bands (ways.md deleted,
+folded into offerings.md); AI got the six-shape catalog + BOTH mechanism flows drawn (grounded
+answers w/ citation or "not in your documents"; the confidence gate w/ human review queue and
+threshold feedback) - two SVG text collisions caught by zoom screenshot review, fixed; Modernization
+got its six-shape catalog + a new data band ("the data comes across - and proves it": mapping,
+written cleansing rules, reconciliation that keeps running side-by-side). `3890130`. Also this date:
+scrollbar-gutter reserved site-wide (`fd2927c` - svh heroes made the scrollbar arrive late and shove
+the page ~15px), and the superseded insights-hero brief committed as a record (`784218a`).
+Aamir to review the three raised pages; /partnerships/ untouched (see part 9 flag).
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
