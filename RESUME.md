@@ -319,6 +319,19 @@ and then confirm") - verdicts asserted at every tick count, copy builder spied, 
 checked, 0 overflow at 390. Also this date: pushed everything after rebasing over Nomaan's
 accidental .sass-cache commit, then untracked + gitignored .sass-cache/ (`7968acb`).
 
+**2026-08-05 (part 14 - partnerships BANDED):** Aamir (with the same annotated screenshot -
+NOTE: his port-7000 server predates all of today's partnership files, he has been reviewing a
+stale render): page still boring. Root cause was rhythm, not content: one narrow prose river.
+Rebuilt on the content-directory pattern (`a5003c3`): site/partnerships/ = index.md (hero
+frontmatter + opening) + fit/deal/gates/shown/safe/build/stay/bring/who.md, template renders
+ten numbered bands (01 record ... 10 conversation) with alternating bg-soft and a DIFFERENT
+treatment per band. NEW: "shown, not claimed" is now three drawn document specimens - an
+estimate with [ESTIMATE]/[FACT]/[UNCONFIRMED] marks, the "we will NOT do" list, a risk-register
+row - each chipped ILLUSTRATIVE (estimate-page precedent). Safe section = 2x2 grid along the
+life of the deal (safe.md `phases:` frontmatter). Widgets survived the move - re-asserted
+programmatically. Band anchor ids: #record #fit #deal #gates #shown #structure #builder
+#homework #conversation.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
