@@ -1585,7 +1585,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 /* One full-width line now - it used to be 330px of text marooned in a 660px column. */
 .ins-invite {
   margin: clamp(16px, 2vh, 24px) 0 0; max-width: 96ch;
-  font-family: var(--mono); font-size: 12px; line-height: 1.85; color: rgba(255, 255, 255, .4);
+  font-family: var(--mono); font-size: 12px; line-height: 1.85; color: rgba(255, 255, 255, .56);
   b { color: $main_color; font-weight: 500; white-space: nowrap; }
 }
 
@@ -1594,7 +1594,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .proof-head {
   margin: 0 0 clamp(14px, 2vh, 22px);
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
-  text-transform: uppercase; color: rgba(255, 255, 255, .32);
+  text-transform: uppercase; color: rgba(255, 255, 255, .5);
 }
 .proof-row {
   list-style: none; margin: 0; padding: 0;
@@ -1639,7 +1639,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 
 .ins-h2  { font-size: clamp(22px, 2.6vw, 32px); letter-spacing: -.025em; line-height: 1.12; margin: 0; }
 .ins-sub { margin: 6px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
-           text-transform: uppercase; color: rgba(255, 255, 255, .35); }
+           text-transform: uppercase; color: rgba(255, 255, 255, .5); }
 
 /* The thread filter, now sitting directly above the rows it filters. */
 .shelf-lenses { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 6px; }
@@ -1680,7 +1680,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .index-bar { display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
              flex-wrap: wrap; margin-bottom: 8px; }
 .index-count { margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
-               text-transform: uppercase; color: rgba(255, 255, 255, .35);
+               text-transform: uppercase; color: rgba(255, 255, 255, .5);
                b { color: $main_color; font-weight: 500; } }
 .post-rows { margin-top: 26px; border-top: 1px solid rgba(255, 255, 255, .09); }
 .post-row {
@@ -1720,7 +1720,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 .pr-tail { display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
            text-align: right; font-family: var(--mono); font-size: 10.5px;
-           color: rgba(255, 255, 255, .35); }
+           color: rgba(255, 255, 255, .5); }
 .pr-arrow {
   display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
   width: 34px; height: 34px; border-radius: 99px;
@@ -1728,7 +1728,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   transition: border-color .22s ease, color .22s ease, transform .22s ease;
 }
 .rows-empty { padding: 56px 0; text-align: center; font-family: var(--mono);
-              font-size: 12px; color: rgba(255, 255, 255, .35); }
+              font-size: 12px; color: rgba(255, 255, 255, .5); }
 
 @media (max-width: 1080px) { .thread-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 767px) {
