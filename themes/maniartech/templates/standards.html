@@ -1,1 +1,48 @@
-{% extends "page.html" %}
+{% extends "base.html" %}
+
+{% comment %} Standards & Languages - full-view band hero per the CLAUDE.md page-design
+thumb rules (reference: /insights/). A standards page presents SPECIFICATIONS WITH
+HONEST STATUS, so the hero strip IS the registry: every authored foundation, what it
+is, where it stands, and what you can click today - which is exactly the promise the
+prose below opens with ("honest status, up front"), shown before it is said.
+
+Rows come from `registry:` in site/standards/index.md and anchor into the prose
+sections; statuses must match the prose (one source of truth for the board, the
+prose remains the deep detail). This page previously rendered through the generic
+page.html shim - plain markdown with no design at all. {% endcomment %}
+
+{% block content %}
+<header class="main-header view-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <span class="mt-eyebrow vh-eyebrow">{{ pageContext.eyebrow }}</span>
+            <h1 class="fw-bold vh-h1">The foundations we've authored &mdash; <em>labeled honestly</em>.</h1>
+            <p class="vh-dek">A programming language, and data, time, expression and API standards we've designed over the years. What's public you can read and run right now; what's still maturing, here's the spec to critique. None of it is something we'd make you adopt.</p>
+        </div>
+
+        <div class="vh-strip">
+            <p class="vh-kicker">The registry &mdash; where each one stands, and what you can open today</p>
+            <ul class="spec-registry">
+                {% for r in pageContext.registry %}
+                <li>
+                    <a href="{{ r.anchor }}">
+                        <span class="sr-name">{{ r.name }}</span>
+                        <span class="sr-what">{{ r.what }}</span>
+                        <span class="sr-status{% if r.open %} is-open{% endif %}">{{ r.status }}</span>
+                        <span class="sr-today">{{ r.today }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-60">
+    <div class="container">
+        <div class="standards-body">
+            <div class="article-body mt-prose">{{ content|safe }}</div>
+        </div>
+    </div>
+</section>
+{% endblock %}

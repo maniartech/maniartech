@@ -2,6 +2,44 @@
 title: "Standards & Languages"
 description: "The foundations we've authored — a Go superset (Indigo) and data, time, expression, and API standards. Some live and runnable today, the rest maturing in the open."
 eyebrow: "The depth behind the work"
+# The registry - THE single source of truth for the hero status board. Each row
+# anchors to its section below; statuses MUST match the prose there. `open: true`
+# means there is something public to click TODAY (per the link-dark rule, a row
+# without it shows what exists - a spec to read - and promises nothing).
+registry:
+  - name: "Internet Object"
+    what: "A schema-first, human-readable data format - a respectful JSON alternative"
+    status: "Published - spec 1.0 draft"
+    open: true
+    today: "playground + 2 parsers"
+    anchor: "#internet-object"
+  - name: "UExL"
+    what: "An embeddable expression engine - parser, compiler, VM"
+    status: "Publish-ready - repo public"
+    open: true
+    today: "repo + benchmark"
+    anchor: "#uexl"
+  - name: "NITES"
+    what: "One intuitive date/time format syntax across languages"
+    status: "Draft - finalizing"
+    open: true
+    today: "ships via GoTime"
+    anchor: "#nites"
+  - name: "Indigo"
+    what: "A Go superset that compiles to idiomatic Go you read in the diff"
+    status: "Maturing in the open"
+    today: "spec below"
+    anchor: "#indigo"
+  - name: "FUSE"
+    what: "One protocol for REST, realtime push and live queries"
+    status: "Design phase"
+    today: "spec below"
+    anchor: "#fuse"
+  - name: "AddressQL"
+    what: "A URL-native, backend-neutral query language"
+    status: "Internal - in our production"
+    today: "spec below"
+    anchor: "#addressql"
 ---
 
 Over the years we've built and published our own foundations — a programming language, and a set of data, time, expression, and API standards we've authored. Some are live and runnable today; the rest are research and reference implementations we're maturing in the open. What's public, you can read and run right now. What's still maturing, here's the spec to critique — and none of it is something we'd ever make you adopt.

@@ -20,6 +20,30 @@ claim verifiable*; depth (the Foundry) is the closer, never the opener. Design c
 before building; canvas for visuals / HTML+SVG for words; show real content at rest (not empty-on-hover);
 vary treatments; no interaction on moving geometry.
 
+## Page-design thumb rules (Aamir, 2026-08 — apply to every page built or rebuilt)
+1. **The hero owns 100% of the view height** (sans header). The navbar is `position:absolute`/73px, so
+   `min-height: 100svh` IS the full view; the stage's top padding clears the bar. `min-height`, never
+   `height` — on small screens the hero grows rather than trapping content. Reference: `/insights/`.
+2. **Bands, not columns.** "Text left, thing right" forces filler into the right half and leaves ragged
+   holes (measured: a 330px paragraph marooned in a 660px column; rules running ~206px past their text).
+   Full-width stacked bands are sized by their own content. Hairline dividers run BETWEEN cells
+   (vertically), never under them, so a rule can never cross empty space.
+3. **Balance the air.** Content centres in the space the hero gives it — equal px above and below
+   (measure it; do not eyeball). Never pin content to the top of a tall stage over a hole.
+4. **Design for the content type, not from a template.** A paper page presents evidence and reading;
+   a standards page presents specifications and status; a language page presents code. The furniture
+   (specimens, figures, proof strips) must be OF the content, never generic cards about it.
+5. **A hero shows what the page below cannot** — aggregate proof, a control, a specimen. Never a
+   lower-fidelity duplicate of the section that follows it.
+6. **Data lives once.** Page-level lists (threads, figures, statuses) come from frontmatter or
+   `tajmahal.yaml` context — looped by the template, counts derived at runtime, never typed in HTML.
+   Where drift is possible, add a FAIL to `scripts/seo/seo-check.mjs`.
+7. **Contrast floor:** small text needs WCAG AA 4.5:1 **alpha-blended** against #1a1a1a — that means
+   white text at alpha >= .46 (`.5` is the working floor). Probe with blending; a raw-channel check
+   lies.
+8. **No promises about the future** (cadence, roadmap dates) in site copy — a standard we control, not
+   a schedule we might miss.
+
 ## Non-negotiables
 - **Brand = dark (#1a1a1a) + mint (#14cf93). NOT navy/gold.** Keep dark+mint even though the brand guide is navy/gold.
 - **Never exaggerate (Governing Rule #1).** Every claim true, sourced, calibrated; honest status labels; no fabricated proof. Understated maker-tone.

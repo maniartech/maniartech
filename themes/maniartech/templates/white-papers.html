@@ -3,30 +3,35 @@
 {% block title %}White Papers - Applied Research{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
 {% block meta_description %}Open-access white papers on the decisions behind custom software: what drives cost, how people move through systems, and what makes teams adopt the tools you build.{% endblock %}
 
-{% comment %} White papers hub v3. Three substantial papers were getting three
-identical text cards. Now each card leads with the figure that carries its
-argument - drawn from that paper's own TL;DR, so the hub cannot overstate what
-the paper says. The hero canvas (hub-viz.js, "papers-evidence") shows the
-editorial rule these are written under: a claim that will not resolve to a
-source does not get published. {% endcomment %}
+{% comment %} White papers hub v4 - full-view band hero per the CLAUDE.md page-design
+thumb rules (reference: /insights/). A papers page presents EVIDENCE DOCUMENTS, so
+the hero strip carries the one thing the cards below cannot: each paper's method,
+honestly labeled - synthesis / practitioner / experience - quoted from the paper's
+own "Method and sources" section via `method`/`methodNote` frontmatter. The cards
+below keep the key figures; the hero does not duplicate them. {% endcomment %}
 
 {% block content %}
-<header class="main-header">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <span class="mt-eyebrow">White Papers</span>
-                <h1 class="fw-bold prod-h1">Applied thinking on the decisions you actually face.</h1>
-                <p class="lead-text mt-20 prod-lead">Before you commit budget to custom software, automation, or AI, it helps to think clearly about it. These papers cover the questions that decide whether a build pays off.</p>
-                <p class="mt-20" style="color:rgba(255,255,255,.5);font-size:14.5px;">No sign-up wall. Read them, share them, disagree with them.</p>
-            </div>
-            <div class="col-lg-6">
-                <figure class="hub-viz">
-                    <canvas data-hub-viz="papers-evidence" data-cap="papersVizCap" role="img"
-                        aria-label="Animated diagram: claims arrive unproven; the ones that resolve to a source keep their citations and stay, and the ones that do not fade away."></canvas>
-                    <figcaption class="hub-viz-cap" id="papersVizCap" aria-live="polite">Every claim a paper wants to make arrives the same way: unproven.</figcaption>
-                </figure>
-            </div>
+<header class="main-header view-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <span class="mt-eyebrow vh-eyebrow">White Papers</span>
+            <h1 class="fw-bold vh-h1">Applied thinking on the decisions you <em>actually face</em>.</h1>
+            <p class="vh-dek">Before you commit budget to custom software, automation, or AI, it helps to think clearly about it. These papers cover the questions that decide whether a build pays off.</p>
+            <p class="vh-note">No sign-up wall. Read them, share them, <b>disagree with them</b> &mdash; every claim is sourced, and judgment is labeled as judgment.</p>
+        </div>
+
+        <div class="vh-strip">
+            <p class="vh-kicker">How each one was written &mdash; in the paper's own words</p>
+            <ul class="wp-methods">
+                {% for a in articles %}{% if a.method %}
+                <li>
+                    <a href="{{ a.url }}">
+                        <span class="wpm-kind">{{ a.method }}</span>
+                        <span class="wpm-note">{{ a.methodNote }}</span>
+                    </a>
+                </li>
+                {% endif %}{% endfor %}
+            </ul>
         </div>
     </div>
 </header>
@@ -115,8 +120,4 @@ source does not get published. {% endcomment %}
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block scripts_extra %}
-{% lib "hub-viz/hub-viz.js" %}
 {% endblock %}

@@ -11,6 +11,8 @@ tldr:
   - "We make this argument as practitioners, not theorists: our founder spent six years (2012-2018) building Touchpoint Dashboard - first as a senior developer on its engineering team, later with ManiarTech as the product's offshore engineering development partner - a pioneering customer-journey-management platform that counted Fortune 500 brands among its users. We apply the same lens today to systems as unglamorous as a laboratory's sample pipeline and a property developer's presales flow."
 titleTag: "The Consumer Journey in Systems Development"
 seoDescription: "Why systems designed around data flows fail the people who move through them - and a journey-first method that changes what you build, in what order."
+method: "A practitioner paper"
+methodNote: "reasoned from six years inside a journey platform; no untraceable statistics quoted"
 ---
 
 ## Why it matters: the failure mode nobody budgets for

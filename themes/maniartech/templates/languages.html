@@ -1,20 +1,50 @@
 {% extends "base.html" %}
 
-{% comment %} Foundry view: Languages. A language-site vibe — code-forward,
-before→after "compiles-to", a live-ish benchmark. Content is designed here;
-title/description come from labs/languages/index.md. {% endcomment %}
+{% comment %} Foundry view: Languages - full-view band hero per the CLAUDE.md
+page-design thumb rules (reference: /insights/). A language page shows CODE, so the
+hero strip is four specimens - one line of each language, real syntax from the
+sections below. PressML deliberately shows no code: its syntax is unpublished, and
+per the link-dark rule we do not display what you cannot yet read (the honest cell
+IS the design there). Cells double as jump links into the body sections. {% endcomment %}
 
 {% block content %}
-<header class="main-header lang-hero">
-    <div class="container">
-        <a href="/foundry/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Foundry</a>
-        <h1 class="fw-bold lang-h1">We build <span class="main-color">languages.</span></h1>
-        <p class="lead-text lang-lead">A Go superset that compiles to idiomatic Go, an embeddable expression engine, a URL-native query language, and a markup language for print. We build things like these when the work calls for them — patiently, over years, not as products to sell.</p>
-        <div class="lang-jump">
-            <a href="#indigo">Indigo <span class="j-tag">a Go superset</span></a>
-            <a href="#uexl">UExL <span class="j-tag">expression engine</span></a>
-            <a href="#addressql">AddressQL <span class="j-tag">URL-native queries</span></a>
-            <a href="#pressml">PressML <span class="j-tag">markup for print</span></a>
+<header class="main-header view-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <a href="/foundry/" class="mt-eyebrow vh-eyebrow d-inline-flex" style="color:rgba(255,255,255,.55);">&larr; Foundry</a>
+            <h1 class="fw-bold vh-h1">We build <em>languages</em>.</h1>
+            <p class="vh-dek">A Go superset that compiles to idiomatic Go, an embeddable expression engine, a URL-native query language, and a markup language for print. We build things like these when the work calls for them &mdash; patiently, over years, not as products to sell.</p>
+            <p class="vh-note">You'll likely never write a line of any of them &mdash; your project runs on mainstream technology. This is <b>where the discipline comes from</b>.</p>
+        </div>
+
+        <div class="vh-strip">
+            <p class="vh-kicker">Four of them &mdash; one line of each</p>
+            <ul class="lang-specimens">
+                <li>
+                    <a href="#indigo">
+                        <span class="ls-name"><b>Indigo</b><span>a Go superset</span></span>
+                        <span class="ls-code">tier := user.Pro <span class="op">?</span> <span class="s">"pro"</span> : <span class="s">"free"</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#uexl">
+                        <span class="ls-name"><b>UExL</b><span>expression engine</span></span>
+                        <span class="ls-code">orders <span class="op">|filter:</span> $.paid <span class="op">|sum:</span> $.qty</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#addressql">
+                        <span class="ls-name"><b>AddressQL</b><span>URL-native queries</span></span>
+                        <span class="ls-code">?query=<span class="op">and(</span>eq(status,open)<span class="op">)</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#pressml">
+                        <span class="ls-name"><b>PressML</b><span>markup for print</span></span>
+                        <span class="ls-code is-dark">syntax unpublished &mdash; spec in progress</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </header>
