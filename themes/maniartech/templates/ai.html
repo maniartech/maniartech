@@ -58,9 +58,25 @@
         <div class="row">
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ ways.heading }}</h2><div class="mt-prose mt-10">{{ ways.content|safe }}</div></div></div>
         </div>
+        {% comment %} The catalog - the shapes applied AI takes in real operations,
+        from ways.items (data lives once; same pattern as the enterprise page). {% endcomment %}
         <div class="row mt-30">
-            <div class="col-lg-6"><div class="mt-prose"><h3 class="fw-600 mb-15">{{ reads.heading }}</h3>{{ reads.content|safe }}</div></div>
-            <div class="col-lg-6"><div class="mt-prose"><h3 class="fw-600 mb-15">{{ automates.heading }}</h3>{{ automates.content|safe }}</div></div>
+            {% for it in ways.items %}
+            <div class="col-lg-4 col-md-6 mb-20">
+                <div class="svc-cap">
+                    <h3>{{ it.name }}</h3>
+                    <p>{{ it.line }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% comment %} The two mechanisms, opened wide: full-width bands so each
+        one's flow diagram and safeguards have room to be stated exactly. {% endcomment %}
+        <div class="row mt-20">
+            <div class="col-lg-9" id="grounded-answers" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ reads.heading }}</h3>{{ reads.content|safe }}</div></div>
+        </div>
+        <div class="row mt-30">
+            <div class="col-lg-9" id="ai-in-the-workflow" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ automates.heading }}</h3>{{ automates.content|safe }}</div></div>
         </div>
     </div>
 </section>

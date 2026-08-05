@@ -53,11 +53,27 @@
 <section class="section-padding pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ ways.heading }}</h2><div class="mt-prose mt-10">{{ ways.content|safe }}</div></div></div>
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ offerings.heading }}</h2><div class="mt-prose mt-10">{{ offerings.content|safe }}</div></div></div>
+        </div>
+        {% comment %} The catalog - what we actually build, one card per shape,
+        from offerings.items (data lives once; same pattern as the enterprise page). {% endcomment %}
+        <div class="row mt-30">
+            {% for it in offerings.items %}
+            <div class="col-lg-4 col-md-6 mb-20">
+                <div class="svc-cap">
+                    <h3>{{ it.name }}</h3>
+                    <p>{{ it.line }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% comment %} The two doors, opened wide: full-width bands so the build
+        anatomy figure and the advisory verdict have room to be specific. {% endcomment %}
+        <div class="row mt-20">
+            <div class="col-lg-9" id="custom-development" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ build.heading }}</h3>{{ build.content|safe }}</div></div>
         </div>
         <div class="row mt-30">
-            <div class="col-lg-6" id="custom-development" style="scroll-margin-top:88px;"><div class="mt-prose"><h3 class="fw-600 mb-15">{{ build.heading }}</h3>{{ build.content|safe }}</div></div>
-            <div class="col-lg-6" id="architecture-advisory" style="scroll-margin-top:88px;"><div class="mt-prose"><h3 class="fw-600 mb-15">{{ advise.heading }}</h3>{{ advise.content|safe }}</div></div>
+            <div class="col-lg-9" id="architecture-advisory" style="scroll-margin-top:88px;"><div class="bord pt-25 bord-thin-top mt-prose"><h3 class="fw-600 fz-22 mb-15 text-light">{{ advise.heading }}</h3>{{ advise.content|safe }}</div></div>
         </div>
     </div>
 </section>

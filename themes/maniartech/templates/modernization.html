@@ -53,6 +53,26 @@
 <section class="section-padding pt-0">
     <div class="container">
         <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ offerings.heading }}</h2><div class="mt-prose mt-10">{{ offerings.content|safe }}</div></div></div>
+        </div>
+        {% comment %} The catalog - the shapes modernization work takes, from
+        offerings.items (data lives once; same pattern as the enterprise page). {% endcomment %}
+        <div class="row mt-30">
+            {% for it in offerings.items %}
+            <div class="col-lg-4 col-md-6 mb-20">
+                <div class="svc-cap">
+                    <h3>{{ it.name }}</h3>
+                    <p>{{ it.line }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><span class="mt-eyebrow d-block mb-10 mt-15" style="color:#14cf93;">The method - and the difference</span><h2 class="fw-600">{{ method.heading }}</h2><div class="mt-prose mt-10">{{ method.content|safe }}</div></div></div>
         </div>
         <div class="row mt-30">
@@ -136,6 +156,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ safe.heading }}</h2><div class="mt-prose mt-15">{{ safe.content|safe }}</div></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ data.heading }}</h2><div class="mt-prose mt-15">{{ data.content|safe }}</div></div></div>
         </div>
     </div>
 </section>
