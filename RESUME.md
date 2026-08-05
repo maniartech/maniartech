@@ -174,6 +174,26 @@ capture the resting frame) - note headless enforces a MINIMUM window width, so a
 capture is cropped desktop layout, not mobile; measure mobile in the browser pane instead.
 **UNCOMMITTED - Aamir to review.**
 
+**2026-08-01 (part 6 - the /insights/ hero saga, ended well):** After the hub pass Aamir
+rejected the insights hero visual repeatedly; the final page is commits `eba16ba..8303cb1`.
+The arc, so the lessons stick: (1) eight illustrative concepts (canvas metaphors, 3D, CSS-3D)
+all failed for one reason - they argued a metaphor ABOUT the archive instead of showing it;
+(2) a reference design Aamir sent taught the fix - the hero can be a CONTROL, not a picture;
+(3) that shelf then proved unmaintainable (labels in 4 places, hardcoded counts, a 149-line
+layout engine) -> rebuilt config-driven: threads live ONCE in tajmahal.yaml `context.threads`,
+counts derived at runtime, CSS grid instead of JS layout, and seo-check gained /insights/
+integrity FAILs (unknown/missing thread, count drift, pagination, heroProof without note);
+(4) the shelf was still a lower-fidelity duplicate of the index below it -> replaced with the
+proof strip: the archive's four strongest checkable numbers from `heroProof:` frontmatter,
+each linking to its post; (5) the cadence promise ("once or twice a month") cut per Governing
+Rule #1 - replaced by a standard + an invitation to correct us; (6) hero now owns 100svh
+(navbar is absolute/73px, so svh IS full height), BANDS not columns - statement centred in the
+space above the strip (measured 105px air above = below), proof as four equal cells with
+dividers BETWEEN them so no rule can cross empty space; (7) final review measured alpha-blended
+WCAG contrast and fixed six failing styles (2.9-3.8:1 -> 5.2-6.2:1). Every claim on the hero
+traces to a post; the gate proves it stays that way. Only /insights/ has the full-view band
+hero - Aamir to judge it before Work/Foundry/White Papers/Services follow.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
