@@ -216,6 +216,13 @@ for (const [path, page] of seen) {
     const missing = rowThreads.filter((t) => !t).length;
     if (missing) F(`/insights/ ${missing} post(s) have no thread: in frontmatter`);
 
+    // The audience doors filter on data-audience; a row without a valid one is
+    // unreachable through an entrance.
+    const rowAud = [...html.matchAll(/class="post-row"[^>]*data-audience="([^"]*)"/g)].map((m) => m[1]);
+    const badAud = rowAud.filter((a) => a !== 'engineering' && a !== 'enterprise').length;
+    if (rowAud.length !== rowThreads.length || badAud)
+      F(`/insights/ ${badAud || rowThreads.length - rowAud.length} row(s) missing or invalid data-audience`);
+
     const unknown = [...new Set(rowThreads.filter((t) => t && !known.has(t)))];
     if (unknown.length) F(`/insights/ post(s) use unknown thread(s): ${unknown.join(', ')}`);
 

@@ -2178,6 +2178,24 @@ a.ahf-k:hover { color: $main_color; }
   em { font-style: normal; color: $main_color; }
 }
 
+/* /insights/ audience doors - the two entrances beneath the hero (P1 prototype).
+   Buttons, not links: they drive the same index as a second filter dimension. */
+.aud-doors {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px);
+}
+.aud-door {
+  text-align: left; padding: clamp(18px, 2.4vw, 26px);
+  background: $sub_bg; border: 1px solid rgba(255, 255, 255, .10); border-radius: 14px;
+  cursor: pointer; transition: border-color .3s ease, transform .3s ease;
+  &:hover { border-color: rgba($main_color, .4); transform: translateY(-3px); }
+  &[aria-pressed="true"] { border-color: rgba($main_color, .65); background: rgba($main_color, .05); }
+  .ad-k { display: block; color: #fff; font-size: clamp(16px, 1.4vw, 19px); font-weight: 700; }
+  .ad-line { display: block; margin-top: 8px; color: rgba(255, 255, 255, .6); font-size: 13.5px; line-height: 1.6; }
+  .ad-n { display: block; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; color: $main_color;
+    b { font-weight: 600; } }
+}
+@media (max-width: 767px) { .aud-doors { grid-template-columns: 1fr; } }
+
 /* Service capability catalog cards (enterprise page: the complete surface). */
 .svc-cap {
   height: 100%; padding: 18px 20px;

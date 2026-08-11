@@ -35,6 +35,7 @@
 
   var TOTAL = rowEls.length;
   var active = 'all';
+  var activeAud = 'all';   // second filter dimension: the audience doors
 
   /* Counts come from the posts on the page, never from a template literal. */
   function countOf(k) {
@@ -56,23 +57,33 @@
     return b ? (b.getAttribute('data-label') || k) : k;
   }
 
-  function setThread(k) {
-    active = k;
+  function apply() {
     buttons.forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.getAttribute('data-thread') === k));
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-thread') === active));
+    });
+    doorEls.forEach(function (d) {
+      d.setAttribute('aria-pressed', String(d.getAttribute('data-audience') === activeAud));
     });
 
     var shown = 0;
     rowEls.forEach(function (r) {
-      var hit = (k === 'all' || r.getAttribute('data-thread') === k);
+      var hit = (active === 'all' || r.getAttribute('data-thread') === active) &&
+                (activeAud === 'all' || r.getAttribute('data-audience') === activeAud);
       r.hidden = !hit;
       if (hit) shown++;
     });
 
+    var label = labelFor(active);
+    if (activeAud !== 'all') {
+      var d = doors && doors.querySelector('.aud-door[data-audience="' + activeAud + '"]');
+      label += ', ' + ((d && d.getAttribute('data-label')) || activeAud);
+    }
     if (elLive) elLive.textContent = shown;
-    if (elLens) elLens.textContent = labelFor(k);
+    if (elLens) elLens.textContent = label;
     if (elEmpty) elEmpty.hidden = shown > 0;
   }
+
+  function setThread(k) { active = k; apply(); }
 
   if (lenses) {
     lenses.addEventListener('click', function (e) {
@@ -100,6 +111,26 @@
     });
   }
 
+  /* The audience doors: a second, orthogonal filter. Clicking the active door
+     again returns to everything. Counts derived from the rows, as always. */
+  var doors = document.getElementById('audDoors');
+  var doorEls = doors ? Array.prototype.slice.call(doors.querySelectorAll('.aud-door')) : [];
+  doorEls.forEach(function (d) {
+    var n = d.querySelector('.n');
+    if (n) {
+      var a = d.getAttribute('data-audience'), c = 0;
+      for (var i = 0; i < rowEls.length; i++) if (rowEls[i].getAttribute('data-audience') === a) c++;
+      n.textContent = c;
+    }
+    d.addEventListener('click', function () {
+      var a = d.getAttribute('data-audience');
+      activeAud = (activeAud === a) ? 'all' : a;
+      apply();
+      var idx = document.getElementById('postIndex');
+      if (idx && activeAud !== 'all') idx.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
   if (elTotal) elTotal.textContent = TOTAL;
-  setThread('all');
+  apply();
 })();

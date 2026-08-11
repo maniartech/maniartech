@@ -96,12 +96,33 @@ hole can occur. {% endcomment %}
     </div>
 </section>
 
+{% comment %} The two audience entrances (editorial program P1): built on the
+audience metadata every post now carries. Prototype per the reviewer directive -
+the hero stays; the doors sit beneath it and drive the same index as a second
+filter dimension. Counts are derived by shelf.js from the rows, never typed. {% endcomment %}
+<section class="section-padding pt-0" id="audiences">
+    <div class="container">
+        <div class="aud-doors" id="audDoors" role="group" aria-label="Choose your entrance">
+            <button type="button" class="aud-door" data-audience="engineering" data-label="for engineers" aria-pressed="false">
+                <span class="ad-k">For engineers and architects</span>
+                <span class="ad-line">Benchmarks, data formats, storage internals, release engineering - reproducible, inspectable, artifacts linked.</span>
+                <span class="ad-n"><b class="n"></b> pieces &rarr;</span>
+            </button>
+            <button type="button" class="aud-door" data-audience="enterprise" data-label="for enterprise leaders" aria-pressed="false">
+                <span class="ad-k">For enterprise leaders</span>
+                <span class="ad-line">Field evidence from delivered systems, cost models, modernization and sourcing decisions - depth translated into consequences.</span>
+                <span class="ad-n"><b class="n"></b> pieces &rarr;</span>
+            </button>
+        </div>
+    </div>
+</section>
+
 <section class="section-padding pt-0" id="postIndex">
     <div class="container">
         <div class="index-bar">
             <div>
-                <h2 class="fw-600 ins-h2">Everything, newest first</h2>
-                <p class="ins-sub">The full index</p>
+                <h2 class="fw-600 ins-h2">Everything, in reading order</h2>
+                <p class="ins-sub">The full index - strongest evidence first</p>
             </div>
             <p class="index-count">Showing <b id="liveCount">{{ articles|length }}</b> of <span id="liveTotal">{{ articles|length }}</span> - <span id="liveLens">all threads</span></p>
         </div>
@@ -117,7 +138,7 @@ hole can occur. {% endcomment %}
 
         <div class="post-rows" id="postRows">
             {% for a in articles %}
-            <article class="post-row" data-thread="{{ a.thread }}">
+            <article class="post-row" data-thread="{{ a.thread }}" data-audience="{{ a.audience }}">
                 <div class="pr-meta">
                     <span class="pr-n">{% if forloop.Counter < 10 %}0{% endif %}{{ forloop.Counter }}</span>
                     {% if site.context.showPostDates %}{% if a.date %}<span>{{ a.date }}</span>{% endif %}{% endif %}
