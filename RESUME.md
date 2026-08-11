@@ -407,6 +407,40 @@ an audience+thread combination can be legitimately empty (enterprise x tools tod
 state shows honestly; consider greying impossible combos when the taxonomy settles. NEXT: P2, the
 LIMS flagship - BLOCKED on Aamir's failure/incident material + confidentiality pass.
 
+**2026-08-11 (part 18 - P3 begins: from-source article rebuilds, UNCOMMITTED awaiting review):**
+The P3 method is now established on two articles: read the actual project repo, verify every claim
+and code sample against source, re-measure every number before publishing.
+- **UExL (30-uexl-zero-alloc.md):** body rebuilt from `E:\Projects\uexl\uexl-go` (48-byte Value
+  struct, 106->62ns four-phase optimization journal + descending-bars SVG, stale-cache contract
+  callout, pipes/one-shot boundary section). Internal journal numbers kept strictly separate from
+  the public-harness table. Per Aamir: no "competitors" wording (fixed + verified 0 occurrences).
+  Two judgment calls put to him: (a) internal 62ns numbers published alongside public table OK?
+  (b) stale-cache contract paragraph matches shipped engine behavior?
+- **Vault (60-vault-storage-localstorage-alternative.md):** full body rebuilt from
+  `E:\Projects\vault\vault` v2.0 source per Aamir's brief ("IndexedDB, Proxies, Plugins and Smart
+  Design behind localStorage kind of simple yet robust API"). Design-story structure: Proxy per-key
+  pending-queue (race-timeline SVG figure + fire-and-forget trade-off callout), 7-operation
+  middleware pipeline (EncryptedVault quoted whole as proof), encryption internals (PBKDF2->AES-GCM,
+  coalesced key derivation, per-key credential provider, rich-type tags), expiration as Web Worker
+  deadline scheduler (not a poller), honest-edges section (XSS threat model, plaintext export,
+  same-tab events, evictable quota). CRITICAL: the old article's code samples used APIs that DO NOT
+  EXIST in shipped v2 (`new EncryptedVault('auth',{...})` args reversed, `createExpiration`,
+  `vault.setMeta`, README's `vault.on()` - README itself has drifted; code is truth). All new
+  samples verified against src; sizes re-measured via the repo's own `npm run size` (core 1.48 KB
+  gz - now the heroProof; 355 Karma specs, all passing, in real Chrome). seo-check: 0 FAIL. Headless
+  Chrome note: writes now need `--user-data-dir` + absolute `--screenshot` path (access-denied
+  otherwise), and section shots go through the frame.html?a=<heading-id> iframe trick.
+Both articles sit DIRTY per the standing review-first rule - commit only on Aamir's explicit word.
+**Part 18b - external review round applied (same day):** five P1 findings fixed in place:
+(1) vault test claim corrected - 355 specs under Karma in real CHROME only (Firefox commented out
+in karma.conf; reviewer observed one timing-sensitive performance spec fail, so no "all passing");
+(2) vault threat-model bullet now conditions at-rest protection on credential handling (server-
+fetched-after-auth protects a stolen device; hardcoded does not); (3) UExL boxing claim scoped to
+escape analysis (interface conversion allocates when the value escapes - a VM stack forces it);
+(4) zero-alloc "exact and stable" scoped to the Go toolchain, not universal; (5) benchmark method
+de-flaked: median of six runs, NO runs discarded (was "discard first run or two" - selective
+sampling). Same fixes mirrored into the vault repo README/EVENTS_SYSTEM_TESTS (also uncommitted).
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
