@@ -1,4 +1,10 @@
 ---
+audience: "enterprise"
+contentType: "field-report"
+evidenceType: "Production field evidence"
+artifactLabel: "Public report checker"
+artifactUrl: "https://reports.chemotestlaboratory.com"
+authorUrl: "https://www.linkedin.com/in/aamironline"
 author: "Aamir Maniar"
 authorRole: "Managing Director & Engineering Head"
 title: "Building software for testing laboratories: lessons from 15 years of LIMS work"

@@ -1,4 +1,10 @@
 ---
+audience: "engineering"
+contentType: "architecture-analysis"
+evidenceType: "Architecture analysis"
+artifactLabel: "The standards"
+artifactUrl: "/standards/"
+authorUrl: "https://www.linkedin.com/in/aamironline"
 author: "Aamir Maniar"
 authorRole: "Managing Director & Engineering Head"
 title: "Why a small engineering team authors its own standards"

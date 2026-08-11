@@ -1,4 +1,9 @@
 ---
+audience: "engineering"
+contentType: "engineering-deep-dive"
+evidenceType: "Reproducible benchmark"
+artifactLabel: "Benchmark harness"
+artifactUrl: "https://github.com/maniartech/uexl-go#performance"
 title: "Zero allocations on the hot path: engineering UExL, and proving it"
 description: "How our expression engine evaluates boolean and string expressions with zero heap allocations, where it wins against cel-go and expr, where it loses, and how to run the benchmark yourself."
 date: "2026-07-23"

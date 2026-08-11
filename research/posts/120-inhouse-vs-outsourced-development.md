@@ -1,4 +1,7 @@
 ---
+audience: "enterprise"
+contentType: "decision-framework"
+evidenceType: "Enterprise decision framework"
 title: "In-house vs outsourced development: an honest comparison"
 description: "When hiring your own engineers wins, when outsourcing wins, the hybrid patterns in between, and the real risk on both paths - critical knowledge sitting somewhere you do not control - with mitigations for each."
 date: "2026-07-27"

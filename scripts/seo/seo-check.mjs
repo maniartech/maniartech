@@ -308,6 +308,26 @@ for (const [path, page] of seen) {
     }
   }
   if (!slaHits) P('no unconfirmed response-time SLA on any page');
+
+  // -- Publication metadata (editorial program P1): every insights article
+  //    declares its audience, content type and evidence label from the
+  //    approved sets - rendered as mt-* metas by the article template. An
+  //    unlabeled article, or an invented label, fails the build.
+  const AUD = new Set(['engineering', 'enterprise']);
+  const CT = new Set(['field-report', 'engineering-deep-dive', 'engineering-report', 'decision-framework', 'architecture-analysis', 'executive-brief']);
+  const EV = new Set(['Production field evidence', 'Reproducible benchmark', 'Architecture analysis', 'Experience-based estimate', 'Research synthesis', 'Technical specification', 'Enterprise decision framework']);
+  let labeled = 0;
+  for (const [path, page] of seen) {
+    if (!/^\/insights\/[a-z0-9-]+\/$/.test(path) || page.status !== 200) continue;
+    const get = (n) => (page.body.match(new RegExp(`<meta name="${n}" content="([^"]*)"`)) || [])[1];
+    const aud = get('mt-audience'), ct = get('mt-content-type'), ev = get('mt-evidence');
+    if (!aud || !ct || !ev) { F(`${path} missing publication metadata (audience/contentType/evidenceType)`); continue; }
+    if (!AUD.has(aud)) F(`${path} audience "${aud}" not in the approved set`);
+    if (!CT.has(ct)) F(`${path} contentType "${ct}" not in the approved set`);
+    if (!EV.has(ev)) F(`${path} evidenceType "${ev}" not in the approved set`);
+    labeled++;
+  }
+  if (labeled) P(`${labeled} insights article(s) carry approved publication metadata`);
 }
 
 // ---------------------------------------------------------------------------

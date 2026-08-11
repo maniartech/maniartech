@@ -1,4 +1,9 @@
 ---
+audience: "engineering"
+contentType: "engineering-deep-dive"
+evidenceType: "Technical specification"
+artifactLabel: "Live playground"
+artifactUrl: "https://play.internetobject.org"
 title: "From JSON to Internet Object: comments, object structure and types (Part 2)"
 description: "Internet Object beyond size savings - first-class comments, positional/keyed/mixed object styles, open vs closed objects, and a type system with constraints, decimals, dates, and binary data."
 date: "2025-11-25"  # true first publication: Medium, 25 Nov 2025

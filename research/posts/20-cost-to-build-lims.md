@@ -1,4 +1,8 @@
 ---
+audience: "enterprise"
+contentType: "decision-framework"
+evidenceType: "Experience-based estimate"
+authorUrl: "https://www.linkedin.com/in/aamironline"
 author: "Aamir Maniar"
 authorRole: "Managing Director & Engineering Head"
 title: "What does a custom LIMS cost? An experience-based answer"

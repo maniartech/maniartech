@@ -1,4 +1,10 @@
 ---
+audience: "enterprise"
+contentType: "decision-framework"
+evidenceType: "Enterprise decision framework"
+artifactLabel: "The 15-year migration"
+artifactUrl: "/case-studies/rtl/"
+authorUrl: "https://www.linkedin.com/in/aamironline"
 author: "Aamir Maniar"
 authorRole: "Managing Director & Engineering Head"
 title: "Rewrite or refactor? The strangler-fig answer to aging systems"

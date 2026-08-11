@@ -103,8 +103,12 @@
    no invented minimums (none given).
 2. **/how-we-work/ -- YES, create it.** Engagement-model SUBSTANCE lives there (plus process/
    quality/ISO); the service page keeps a compact engagement section linking to it.
-3. **Estimator SLA -- CONFIRMED: "a senior engineer replies within one business day."** Use on the
-   CTA close (and update the canon's open item).
+3. **Estimator SLA -- SUPERSEDED 2026-08-11 (editorial review): the one-business-day promise is
+   NOT operationally committed** (inbox ownership, absence coverage, escalation - none decided) and
+   was REMOVED site-wide in `0708eae`. Canonical copy: "a senior engineer reviews it and responds."
+   `scripts/seo/seo-check.mjs` FAILs on any response-time promise - do NOT restore a clock to any
+   page until Aamir commits an SLA operationally and removes that gate. (Original note, kept for
+   history: this line previously read CONFIRMED, from an early input round.)
 
 ## Build phases
 - **P1:** content directory files (all sections except engagement.md if inputs pending) +

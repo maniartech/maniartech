@@ -1,4 +1,9 @@
 ---
+audience: "engineering"
+contentType: "engineering-deep-dive"
+evidenceType: "Technical specification"
+artifactLabel: "Live playground"
+artifactUrl: "https://play.internetobject.org"
 title: "From JSON to Internet Object: a lean, schema-first data format (Part 1)"
 description: "How Internet Object trims JSON down to pure data - separating schema from records, collections, typed schemas, and a worked example that shrinks a JSON collection by more than half."
 date: "2025-11-17"  # true first publication: Medium, 17 Nov 2025

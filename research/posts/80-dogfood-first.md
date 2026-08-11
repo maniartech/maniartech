@@ -1,4 +1,10 @@
 ---
+audience: "engineering"
+contentType: "engineering-report"
+evidenceType: "Production field evidence"
+artifactLabel: "Taj Mahal, the framework"
+artifactUrl: "/foundry/tajmahal-ssg/"
+authorUrl: "https://www.linkedin.com/in/aamironline"
 author: "Aamir Maniar"
 authorRole: "Managing Director & Engineering Head"
 title: "Dogfood first, then release: how we decide software is ready"

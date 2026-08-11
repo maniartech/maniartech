@@ -1,4 +1,7 @@
 ---
+audience: "enterprise"
+contentType: "decision-framework"
+evidenceType: "Enterprise decision framework"
 title: "How to choose a software development partner: an auditable checklist"
 description: "How to read case studies, what verifiable proof looks like, the seniority and continuity questions worth asking, process signals, and the red flags - a checklist for auditing any vendor, including us."
 date: "2026-07-27"

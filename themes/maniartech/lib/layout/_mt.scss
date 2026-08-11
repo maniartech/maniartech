@@ -2060,7 +2060,16 @@ a.ahf-k:hover { color: $main_color; }
 .ahf-note {
   display: block; margin-top: 8px; max-width: 44ch;
   font-size: 12.5px; line-height: 1.55; color: rgba(255, 255, 255, .5);
+  b { color: rgba(255, 255, 255, .85); font-weight: 600; }
 }
+.ahf-art {
+  display: inline-block; margin-top: 9px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+  color: $main_color;
+  &:hover { text-decoration: underline; text-underline-offset: 3px; }
+}
+.ahb-author { color: rgba(255, 255, 255, .8); text-decoration: underline; text-underline-offset: 3px;
+  &:hover { color: $main_color; } }
 @media (max-width: 767px) {
   .ah-facts { grid-template-columns: 1fr;
     li { padding-left: 0; border-left: 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .09);

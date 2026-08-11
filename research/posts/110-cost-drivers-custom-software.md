@@ -1,4 +1,7 @@
 ---
+audience: "enterprise"
+contentType: "decision-framework"
+evidenceType: "Enterprise decision framework"
 title: "What actually drives the cost of custom software"
 description: "Scope clarity, integrations, compliance, unknowns, and team seniority - a builder's honest map of where custom software cost really comes from, with no invented numbers."
 date: "2026-07-22"

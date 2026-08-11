@@ -1,4 +1,10 @@
 ---
+audience: "enterprise"
+contentType: "field-report"
+evidenceType: "Production field evidence"
+artifactLabel: "The live platform"
+artifactUrl: "https://sales.shanteehomes.com"
+authorUrl: "https://www.linkedin.com/in/aamironline"
 author: "Aamir Maniar"
 authorRole: "Managing Director & Engineering Head"
 title: "Real estate presales software: what building Sales Navigator taught us"

@@ -14,8 +14,8 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
 {% block og_type %}<meta property="og:type" content="article">{% endblock %}
 {% block og_image %}{% if pageContext.heroImage %}<meta property="og:image" content="{{ site.url }}{{ pageContext.heroImage }}">{% else %}<meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">{% endif %}{% endblock %}
 {% comment %} Dates are gated on site.context.showPostDates - see tajmahal.yaml for the why. True dates stay in frontmatter regardless. {% endcomment %}
-{% block og_extra %}{% if site.context.showPostDates %}<meta property="article:published_time" content="{{ pageContext.date }}">{% endif %}<meta property="article:publisher" content="https://maniartech.com/"><meta property="article:section" content="Insights">{% endblock %}
-{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{% if pageContext.author %}{"@type":"Person","name":"{{ pageContext.author }}"{% if pageContext.authorRole %},"jobTitle":"{{ pageContext.authorRole }}"{% endif %},"worksFor":{"@type":"Organization","name":"ManiarTech"}}{% else %}{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"}{% endif %},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"{% if pageContext.heroImage %}{{ site.url }}{{ pageContext.heroImage }}{% else %}https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png{% endif %}","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
+{% block og_extra %}{% if pageContext.audience %}<meta name="mt-audience" content="{{ pageContext.audience }}"><meta name="mt-content-type" content="{{ pageContext.contentType }}"><meta name="mt-evidence" content="{{ pageContext.evidenceType }}">{% endif %}{% if site.context.showPostDates %}<meta property="article:published_time" content="{{ pageContext.date }}">{% endif %}<meta property="article:publisher" content="https://maniartech.com/"><meta property="article:section" content="Insights">{% endblock %}
+{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{% if pageContext.author %}{"@type":"Person","name":"{{ pageContext.author }}"{% if pageContext.authorRole %},"jobTitle":"{{ pageContext.authorRole }}"{% endif %}{% if pageContext.authorUrl %},"url":"{{ pageContext.authorUrl }}","sameAs":["{{ pageContext.authorUrl }}"]{% endif %},"worksFor":{"@type":"Organization","name":"ManiarTech"}}{% else %}{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"}{% endif %},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"{% if pageContext.heroImage %}{{ site.url }}{{ pageContext.heroImage }}{% else %}https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png{% endif %}","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
 
 {% block content %}
 <div class="read-progress" aria-hidden="true"></div>
@@ -27,7 +27,7 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
             <h1 class="fw-bold vh-h1 ah-h1">{{ title }}</h1>
             {% if description %}<p class="vh-dek ah-dek">{{ description }}</p>{% endif %}
             <div class="ah-byline">
-                {% if pageContext.author %}<span>By {{ pageContext.author }}{% if pageContext.authorRole %} &mdash; {{ pageContext.authorRole }}{% endif %}</span>{% else %}<span>By the ManiarTech team</span>{% endif %}
+                {% if pageContext.author %}<span>By {% if pageContext.authorUrl %}<a href="{{ pageContext.authorUrl }}" rel="author" target="_blank" class="ahb-author">{{ pageContext.author }}</a>{% else %}{{ pageContext.author }}{% endif %}{% if pageContext.authorRole %} &mdash; {{ pageContext.authorRole }}{% endif %}</span>{% else %}<span>By the ManiarTech team</span>{% endif %}
                 {% if pageContext.postStatus %}<span class="ahb-status">{{ pageContext.postStatus }}</span>{% endif %}
                 {% if site.context.showPostDates %}{% if pageContext.date %}<span>{{ pageContext.date }}</span>{% endif %}{% endif %}
             </div>
@@ -49,17 +49,14 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
                     <span class="ahf-note">Read it in full, quote it, share it. Nothing here is gated, and judgment is labeled as judgment.</span>
                 </li>
                 <li>
-                    <span class="ahf-tag">The receipt</span>
+                    <span class="ahf-tag">The evidence</span>
+                    <span class="ahf-k{% if pageContext.evidenceType == "Production field evidence" %} is-proof{% endif %}{% if pageContext.evidenceType == "Reproducible benchmark" %} is-proof{% endif %}">{{ pageContext.evidenceType|default:"Practitioner writing" }}</span>
                     {% if pageContext.heroProof %}
-                    <span class="ahf-k is-proof">{{ pageContext.heroProof }}</span>
-                    <span class="ahf-note">{{ pageContext.heroProofNote }}</span>
-                    {% else %}{% if pageContext.keyReceipt %}
-                    <span class="ahf-k">{{ pageContext.keyReceipt }}</span>
-                    <span class="ahf-note">What this post stands on: {{ pageContext.receipts|join:", " }}.</span>
+                    <span class="ahf-note"><b>{{ pageContext.heroProof }}</b> &mdash; {{ pageContext.heroProofNote }}</span>
                     {% else %}
-                    <span class="ahf-k">{{ pageContext.receipts|join:" + " }}</span>
-                    <span class="ahf-note">The ground this post stands on - each named in the piece itself.</span>
-                    {% endif %}{% endif %}
+                    <span class="ahf-note">What this post stands on: {{ pageContext.receipts|join:", " }}.</span>
+                    {% endif %}
+                    {% if pageContext.artifactUrl %}<a class="ahf-art" href="{{ pageContext.artifactUrl }}"{% if "http" in pageContext.artifactUrl %} target="_blank" rel="noopener"{% endif %}>{{ pageContext.artifactLabel }} &rarr;</a>{% endif %}
                 </li>
             </ul>
         </div>
