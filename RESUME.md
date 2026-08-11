@@ -358,6 +358,31 @@ before any hub redesign (metaphor rule); (4) LIMS flagship needs his "what we tr
 work" material + confidentiality review of sanitized artifacts; (5) reconfirm "more than ten of our
 own live websites" in dogfood-first.
 
+**2026-08-11 (part 16 - reviewer corrections applied + all five decisions executed):**
+**CORRECTION to part 15's diagnosis (do not canonize the old one):** the shelf was NOT "arbitrary
+insertion order" - lists default to a date sort with slug tie-breaker - and prefixes alone would
+NOT have fixed it: lists use sort_order only when module.yaml requests it. Empirically verified on
+a CLEAN cache (the shared .cache is sticky: renamed files keep old rows - the first probe measured
+stale data; test protocol = robocopy the tree to scratchpad, fresh .cache, own port):
+`order: sort_order` on the insights list IS honored by this binary (Provisional ch. confirmed);
+prefixes populate sort_order and strip from URLs; unprefixed files sort as 0 - so ALL posts must
+carry prefixes. DONE (`7a6c97a`): 13 posts renamed 10-...130- in editorial sequence (LIMS flagship
+first, generic tail last), dead `order:` frontmatter removed, module.yaml `order: sort_order` +
+documented, dogfood sentence now distinguishes doc-trees from lists. **AAMIR: stop 7000, rm -rf
+.cache, restart - renamed files have stale cache rows.**
+Decisions executed per reviewer directive (`0708eae` + follow-ups): (1) one-business-day SLA
+REMOVED site-wide (24 files incl. locked enterprise page - copy-only, layout untouched; papers CTA
+too) -> "a senior engineer reviews it and responds"; seo-check FAILs on any response-time promise
+until Aamir commits an SLA operationally. (2) Named bylines: template renders author/authorRole,
+JSON-LD Person+jobTitle; Aamir Maniar named on the six experience pieces; benchmarks stay
+team-voiced until P3. (3) Two-entrance hub APPROVED as concept - current hero RETAINED until the
+audience taxonomy has real classified content behind it; prototype entrances beneath the hero
+later. (4) LIMS flagship: sanitized abstractions only (role classes, control categories,
+non-exploitable threat scenarios); Aamir supplies the underlying truth incl. failures - the agent
+must NOT infer missing failures. (5) "10+ live sites" removed (dogfood + foundry/tajmahal-ssg) ->
+"multiple live websites, including this one and a client laboratory's public site" until recounted.
+Commit messages are immutable once pushed - the corrected diagnosis lives here and in `7a6c97a`.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
