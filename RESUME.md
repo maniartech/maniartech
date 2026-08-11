@@ -383,6 +383,21 @@ must NOT infer missing failures. (5) "10+ live sites" removed (dogfood + foundry
 "multiple live websites, including this one and a client laboratory's public site" until recounted.
 Commit messages are immutable once pushed - the corrected diagnosis lives here and in `7a6c97a`.
 
+**2026-08-11 (part 17 - P1 infrastructure SHIPPED, verified clean):** Reviewer verified part 16
+("substantially accurate") with two notes, both handled: (a) `_inbox/app-se-page-redesign.md`'s
+"SLA CONFIRMED" line explicitly SUPERSEDED (it could have led a future agent to restore the
+promise); (b) SLA edits landing inside the ordering commit = history untidiness, acknowledged,
+immutable. P1 shipped (`cae10f4`): all 13 posts carry `audience`/`contentType`/`evidenceType`
+from the approved sets + artifact pointers (harness/playground/repo/report-checker/live
+platform/RTL case) + `authorUrl` on named pieces; article hero receipt cell -> EVIDENCE cell
+(label leads, proof is the note, artifact one click); byline links to the verifiable profile;
+Person JSON-LD gains url/sameAs; template emits mt-audience/mt-content-type/mt-evidence metas
+and seo-check FAILs unlabeled/invented labels (gate proven by deliberate break: 6 FAILs, restored).
+**The 7000 server was restarted with .cache cleared per the directive** - the clean pass is
+against the REAL server: 56 pages 0 FAIL, editorial order 10->130 live. NEXT: prototype the two
+audience entrances BENEATH the insights hero (do not replace it), then P2 - the LIMS flagship
+(blocked on Aamir's failure/incident material and confidentiality pass), then P3.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
