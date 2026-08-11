@@ -69,9 +69,9 @@ It is not open source yet. Not because it is secret - because it has not passed 
 
 Rebuilding maniartech.com on it has been the hardest workout the framework has had: a multi-section site with a blog, case studies, long-form documents, and a custom theme, built under real deadline pressure by people with no patience for their own tool's excuses. A framework that survives that is shaped differently from one designed on a whiteboard:
 
-- **Content ordering is strictly deterministic** - numeric filename prefix, then frontmatter order, then timestamp - because "mostly alphabetical" is tolerable on a five-page demo and maddening on a two-hundred-page site.
+- **Content ordering is strictly deterministic** - a numeric filename prefix decides the sequence, and the prefix is stripped from the published URL - because "mostly alphabetical" is tolerable on a five-page demo and maddening on a two-hundred-page site.
 - **Error reporting is a headline feature**, not an afterthought, because the person staring at a broken template at midnight is usually one of us. Nothing improves a framework's error messages like the author having to read them.
-- **Documentation is part of the definition of done.** Taj Mahal ships with a full manual - an eight-part book, around twenty-nine chapters - written by the people who operate the tool daily, covering the failure modes we actually hit, not the happy path we hoped for.
+- **Documentation is part of the definition of done.** Taj Mahal ships with a full manual - a book that has grown to nine parts and more than thirty chapters - written by the people who operate the tool daily, covering the failure modes we actually hit, not the happy path we hoped for.
 - **We know its remaining rough edges precisely.** Which configuration changes need a restart. How to recover when the content cache gets into a bad state. Our own build notes record every surprise, and that list is the honest release checklist: the framework goes public when the surprises run out, not when a launch date arrives.
 
 That last point is the whole model in one sentence:

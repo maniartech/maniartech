@@ -53,10 +53,13 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
                     {% if pageContext.heroProof %}
                     <span class="ahf-k is-proof">{{ pageContext.heroProof }}</span>
                     <span class="ahf-note">{{ pageContext.heroProofNote }}</span>
-                    {% else %}
-                    <span class="ahf-k">{{ pageContext.keyReceipt|default:"every claim sourced" }}</span>
+                    {% else %}{% if pageContext.keyReceipt %}
+                    <span class="ahf-k">{{ pageContext.keyReceipt }}</span>
                     <span class="ahf-note">What this post stands on: {{ pageContext.receipts|join:", " }}.</span>
-                    {% endif %}
+                    {% else %}
+                    <span class="ahf-k">{{ pageContext.receipts|join:" + " }}</span>
+                    <span class="ahf-note">The ground this post stands on - each named in the piece itself.</span>
+                    {% endif %}{% endif %}
                 </li>
             </ul>
         </div>
