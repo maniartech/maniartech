@@ -14,5 +14,5 @@ faqs:
   - q: "What is Documentor, and can we use it now?"
     a: "Documentor is an early-stage AI document platform we are building: you describe the document you want and an AI assistant develops it through conversation, grounded in your own uploaded knowledge. It is in development, not a live service you can sign up for today. We show it as an example of how we engineer AI."
   - q: "How do we get an estimate for an AI project?"
-    a: "Send a short brief through the estimate page and a senior engineer reads it and replies within one business day, with a ballpark and an honest take, free and without obligation."
+    a: "Send a short brief through the estimate page and a senior engineer reviews it and responds, with a ballpark and an honest take, free and without obligation."
 ---

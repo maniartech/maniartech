@@ -2,7 +2,7 @@
 heading: "Questions buyers actually ask"
 faqs:
   - q: "How much does a custom application cost?"
-    a: "There is no honest one-size answer - cost follows scope. Tell us what you are building and a senior engineer replies within one business day with a ballpark and an honest take, free and without obligation."
+    a: "There is no honest one-size answer - cost follows scope. Tell us what you are building and a senior engineer reviews it and responds with a ballpark and an honest take, free and without obligation."
   - q: "What technology will you build it on?"
     a: "A mainstream stack chosen for your workload - commonly Go, Python, React, and PostgreSQL or MongoDB. We do not build client systems on exotic technology you would struggle to staff later, because the team maintaining it in year three matters more than the team writing it in month one."
   - q: "How long does a custom build take?"

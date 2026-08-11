@@ -15,7 +15,7 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
 {% block og_image %}{% if pageContext.heroImage %}<meta property="og:image" content="{{ site.url }}{{ pageContext.heroImage }}">{% else %}<meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">{% endif %}{% endblock %}
 {% comment %} Dates are gated on site.context.showPostDates - see tajmahal.yaml for the why. True dates stay in frontmatter regardless. {% endcomment %}
 {% block og_extra %}{% if site.context.showPostDates %}<meta property="article:published_time" content="{{ pageContext.date }}">{% endif %}<meta property="article:publisher" content="https://maniartech.com/"><meta property="article:section" content="Insights">{% endblock %}
-{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"{% if pageContext.heroImage %}{{ site.url }}{{ pageContext.heroImage }}{% else %}https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png{% endif %}","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
+{% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{% if pageContext.author %}{"@type":"Person","name":"{{ pageContext.author }}"{% if pageContext.authorRole %},"jobTitle":"{{ pageContext.authorRole }}"{% endif %},"worksFor":{"@type":"Organization","name":"ManiarTech"}}{% else %}{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"}{% endif %},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"{% if pageContext.heroImage %}{{ site.url }}{{ pageContext.heroImage }}{% else %}https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png{% endif %}","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
 
 {% block content %}
 <div class="read-progress" aria-hidden="true"></div>
@@ -27,7 +27,7 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
             <h1 class="fw-bold vh-h1 ah-h1">{{ title }}</h1>
             {% if description %}<p class="vh-dek ah-dek">{{ description }}</p>{% endif %}
             <div class="ah-byline">
-                <span>By the ManiarTech team</span>
+                {% if pageContext.author %}<span>By {{ pageContext.author }}{% if pageContext.authorRole %} &mdash; {{ pageContext.authorRole }}{% endif %}</span>{% else %}<span>By the ManiarTech team</span>{% endif %}
                 {% if pageContext.postStatus %}<span class="ahb-status">{{ pageContext.postStatus }}</span>{% endif %}
                 {% if site.context.showPostDates %}{% if pageContext.date %}<span>{{ pageContext.date }}</span>{% endif %}{% endif %}
             </div>
@@ -78,7 +78,7 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
                 {% endif %}
                 <div class="article-body mt-prose">{{ content|safe }}</div>
                 <div class="article-foot">
-                    <p style="color:rgba(255,255,255,.6);font-size:15px;">Working on something in this territory? Tell us what you're building - a senior engineer reads it and replies within one business day with a ballpark and an honest take.</p>
+                    <p style="color:rgba(255,255,255,.6);font-size:15px;">Working on something in this territory? Tell us what you're building - a senior engineer reviews it and responds with a ballpark and an honest take.</p>
                     <div class="mt-actions">
                         <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a project estimate</span></a>
                         <a href="/insights/" class="butn butn-md butn-rounded butn-bord text-light"><span>All insights</span></a>
@@ -102,7 +102,7 @@ frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment
                     </div>
                     <a class="aside-cta" href="/estimate/">
                         <b>Working in this territory?</b>
-                        <span>A senior engineer reads it and replies within one business day.</span>
+                        <span>A senior engineer reviews it and responds.</span>
                         <em>Estimate a project &rarr;</em>
                     </a>
                 </div>

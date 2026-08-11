@@ -291,6 +291,23 @@ for (const [path, page] of seen) {
     }
   }
   if (!hits) P('no public code/IP ownership or lock-in stand on any page');
+
+  // -- Unconfirmed response SLA (editorial review, 2026-08-11): "one business
+  //    day" is an operational commitment nobody has made - who owns the inbox,
+  //    coverage during absence, escalation. Until that exists, the site says
+  //    "reviews it and responds", never a clock. Remove this gate only when
+  //    the SLA is operationally committed by Aamir.
+  let slaHits = 0;
+  for (const [path, page] of seen) {
+    if (page.status !== 200 || !page.body) continue;
+    const meta = [...page.body.matchAll(/<meta[^>]+content="([^"]*)"/g)].map((m) => m[1]).join(' ');
+    const text = strip(page.body) + ' \n ' + meta;
+    if (/one business day/i.test(text) || /within 24 hours/i.test(text)) {
+      slaHits++;
+      F(`${path} promises a response SLA ("one business day"/"24 hours") - not operationally committed`);
+    }
+  }
+  if (!slaHits) P('no unconfirmed response-time SLA on any page');
 }
 
 // ---------------------------------------------------------------------------
