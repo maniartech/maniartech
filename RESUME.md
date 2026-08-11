@@ -398,6 +398,15 @@ against the REAL server: 56 pages 0 FAIL, editorial order 10->130 live. NEXT: pr
 audience entrances BENEATH the insights hero (do not replace it), then P2 - the LIMS flagship
 (blocked on Aamir's failure/incident material and confidentiality pass), then P3.
 
+**2026-08-11 (part 17b - audience entrances live):** The reviewer-sequence step 3 shipped: two
+doors beneath the untouched insights hero, driving the index as a second filter dimension
+(data-audience on rows; counts derived 6 eng / 7 ent; composed live labels; toggle-off returns to
+everything; row-level seo-check gate). Index heading corrected ("newest first" was false since the
+editorial reorder -> "in reading order - strongest evidence first"). Known UX refinement for later:
+an audience+thread combination can be legitimately empty (enterprise x tools today) - the empty
+state shows honestly; consider greying impossible combos when the taxonomy settles. NEXT: P2, the
+LIMS flagship - BLOCKED on Aamir's failure/incident material + confidentiality pass.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
