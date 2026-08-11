@@ -332,6 +332,32 @@ life of the deal (safe.md `phases:` frontmatter). Widgets survived the move - re
 programmatically. Band anchor ids: #record #fit #deal #gates #shown #structure #builder
 #homework #conversation.
 
+**2026-08-11 (part 15 - the INSIGHTS EDITORIAL PROGRAM begins):** Aamir commissioned an external
+review of Insights: 6.5/10 - "polished agency content marketing, not the published thinking of an
+unusually deep engineering company." Findings accepted as the program: unresolved audience; too
+much agency-generic material (ManiarTech appears only in final paragraphs); evidence presentation
+promises more than it delivers; honesty REPEATED instead of demonstrated; over-funnelled (3 CTAs
+per article); two factual errors. Agreed direction (Aamir + reviewer): a TWO-TRACK technical
+publication - Engineering & Architecture / Enterprise Systems & Decisions - all 13 posts publishable
+but several need RECONSTRUCTION; 10-point quality gate; explicit evidence labels (Production field
+evidence / Reproducible benchmark / Architecture analysis / Experience-based estimate / Research
+synthesis / Technical specification / Enterprise decision framework - NO default "every claim
+sourced"); LIMS lessons = the flagship benchmark ("generic tools model records; a laboratory runs
+on states and transitions" is the earned-insight standard). Editorial rule: "publish engineering
+decisions, field evidence and decision frameworks - not commentary about software."
+
+**P0 DONE (`ed1243b`):** both factual errors fixed against the book (ordering: frontmatter `order:`
+NOT implemented, filename prefix only, stripped from URLs; manual = nine parts / 32 chapters);
+unearned "every claim sourced" receipt default removed. **BUG found while verifying:** all 13 posts
+carry dead `order:` frontmatter - the shelf renders in date/insertion order, NOT the intended
+editorial sequence. Fix inside P1 via numeric filename prefixes (slugs strip them; URLs unchanged)
+since editorial order changes anyway. **P1/P2/P3 in the task list.** DECISIONS AAMIR OWES:
+(1) one-business-day reply promise - operationally committed or remove site-wide? (2) bylines:
+"Aamir Maniar" on articles like the papers, or team voice? (3) approve the two-entrance hub concept
+before any hub redesign (metaphor rule); (4) LIMS flagship needs his "what we tried that didn't
+work" material + confidentiality review of sanitized artifacts; (5) reconfirm "more than ten of our
+own live websites" in dogfood-first.
+
 ### 2. Pending content — the Team section placeholders (STILL OPEN, waiting on Aamir)
 `site/about/team.md` prose is now clean/honest, but three invented bits remain in the template
 **`themes/maniartech/templates/about.html`** and must be made real before launch:
