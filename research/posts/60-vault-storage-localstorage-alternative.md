@@ -2,7 +2,6 @@
 title: "Vault Storage: IndexedDB power behind a localStorage-simple API"
 description: "A 1.5KB, zero-dependency browser storage library - structured data without stringify, AES-GCM encryption in one line, TTL expiration, and a composable middleware system. MIT, on npm."
 date: "2024-05-14"  # true first publication: Medium, 14 May 2024 (refreshed Nov 2025)
-order: 9
 titleTag: "Vault Storage - IndexedDB localStorage Alternative"
 seoDescription: "A ~1.5 KB TypeScript library with localStorage's simplicity and IndexedDB's power: typed values, async API, encryption and TTL middleware."
 thread: "tools"

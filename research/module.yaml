@@ -10,6 +10,11 @@ pages:
   - insights:
       path: /insights/*
       content: posts
+      # Editorial shelf order = numeric filename prefixes (stripped from URLs).
+      # Per-article frontmatter `order:` is NOT implemented; without this key
+      # lists sort by date. `order: sort_order` is from a Provisional chapter -
+      # verified against this binary on 2026-08-11 (see RESUME part 16).
+      order: sort_order
 
   - white-papers:
       path: /white-papers/*
