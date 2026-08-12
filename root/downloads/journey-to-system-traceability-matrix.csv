@@ -1,0 +1,12 @@
+Traveler,Goal,Step,State,Owner,Authorization,Handoff,Exception,System boundary,Invariant / event,Audit evidence,Acceptance test,Telemetry
+"Sample (non-human)","Reach an authorized, signed report","Technical review","under_technical_review -> assigned_for_analysis | rejected","Technical reviewer (lab operations)","Reviewer role; must not be the analyst who will run the test","Admin -> technical reviewer; on rejection, back to inward","Rejection with reason; resubmission; withdrawal by customer","Internal; no external custody transfer at this step","SampleAssigned event; segregation of duties preserved between reviewer and analyst","Who reviewed, when, prior state, decision and reason, retained per the retention obligation","Reviewer assigns a sample; second test asserts rejection routes back to inward with reason recorded","Dwell time in review; rejection rate; volume per reviewer"
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,

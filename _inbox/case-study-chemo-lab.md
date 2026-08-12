@@ -59,6 +59,13 @@
   frameworks**: LIMS on Processious + website on Taj Mahal SSG.
 - **Chemo profile (verified from their site):** a serious analytical lab — **35+ years**, accredited
   **NABL · US FDA · Maharashtra FDA · ISO 9001:2015**; pharma/cosmetics/food/agri/packaging/medical-
+  <!-- CORRECTION 2026-08-11 (editorial review): do NOT publish "US FDA-accredited". It could not be
+  verified from public evidence (the lab's own site says government approved / QMS certified), and
+  FDA approval is not accreditation in any case. These regimes are NOT interchangeable: NABL
+  accreditation, state FDA/CDSCO approval, FSSAI recognition and ISO certification each mean
+  something different. Public pages now say "NABL-accredited, government-approved, ISO 9001:2015
+  certified". A seo-check gate blocks the FDA-accreditation phrasing site-wide. Re-add only against
+  a current certificate supplied by Aamir. -->
   device testing. Tagline "One-Stop Solution for Analytical Testing Services"; "3C philosophy —
   Commitment, Consistency, Credibility."
 - **★ NAMING NOW LOW-RISK:** Chemo PUBLICLY credits ManiarTech on its own site footer ("Powered by

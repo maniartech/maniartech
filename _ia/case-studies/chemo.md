@@ -24,6 +24,9 @@ is still growing.
 
 Chemo Test Laboratory is an analytical testing laboratory — 35 years in the field,
 accredited by NABL, the US FDA and ISO 9001:2015, testing for pharma, cosmetics, food,
+<!-- CORRECTION 2026-08-11: "US FDA-accredited" is unverified and must not be published - see the
+correction note in _inbox/case-study-chemo-lab.md. Live pages say NABL-accredited /
+government-approved / ISO 9001:2015 certified; a seo-check gate enforces it. -->
 agri, packaging and medical-device clients. A lab like that lives by its samples: every
 one has to move through intake, review, testing, authorization and signing, and every
 report it issues carries real regulatory weight.

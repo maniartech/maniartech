@@ -4,7 +4,7 @@ description: "An end-to-end presales platform for Shantee Homes - showcase, floo
 eyebrow: "Case study"
 caseStatus: "In production"
 client: "Shantee Homes (Mumbai MMR)"
-services: "Application software engineering | Custom platform - end to end"
+services: "Application & Product Engineering | Custom platform, end to end"
 tech: "Python / Django | PostgreSQL | Cloud image delivery"
 order: 3
 proof:

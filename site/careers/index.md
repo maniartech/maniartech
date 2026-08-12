@@ -25,7 +25,7 @@ ManiarTech is a small, senior team that builds the layers beneath software — p
 
 ## How we work
 
-- **Senior-only, no churn.** Small team, high trust, no body-shop treadmill.
+- **Senior-led, no churn.** Small team, high trust, no body-shop treadmill.
 - **Honest engineering.** Reproducible benchmarks, honest status labels, "no output is better than wrong output." We don't ship what we can't stand behind.
 - **We dogfood.** We run our own work on the tools we build before anyone else does.
 - **Patient.** We ship when it's right. Ideas are carried for years until the research yields a real answer. This is genuinely how we build — come if that excites you, not if it frustrates you.
@@ -44,4 +44,4 @@ We're not advertising a specific open role right now, but we're always glad to h
 
 ## Think you'd fit?
 
-**[Tell us about yourself →](mailto:careers@maniartech.com)** · [Explore our open-source work →](https://github.com/maniartech)
+**[Tell us about yourself →](mailto:careers@maniartech.com)** | [Explore our open-source work →](https://github.com/maniartech)

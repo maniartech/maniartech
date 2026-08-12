@@ -57,7 +57,7 @@ context:
       label: "How we work"
       short: "how we work"
       title: "How we work"
-      blurb: "Senior-only delivery, a documented process, and how we decide something is actually ready to ship."
+      blurb: "Senior-led delivery, a documented process, and how we decide something is actually ready to ship."
       lead: "/insights/dogfood-first/"
       leadLabel: "Dogfood first, then release"
     - key: cost
@@ -74,6 +74,31 @@ context:
       blurb: "Modernization without a big-bang rewrite, plus what fifteen years in laboratory and proptech systems taught us."
       lead: "/insights/rewrite-vs-refactor-strangler-fig/"
       leadLabel: "Rewrite or refactor?"
+
+  # The four ENGAGEMENT MODELS (how we work together) - THE single source of
+  # truth. /services/ loops this for its "How the work is structured" band, and
+  # /partnerships/ loops it to show where the co-founder track sits among the
+  # others. An engagement model is not a kind of software: the four engineering
+  # PRACTICES are the separate axis, and any practice can run in any model.
+  # `current` is matched by a page to mark its own row - never typed as markup.
+  engagementModels:
+    - key: assessment
+      name: "Technical assessment and architecture review"
+      when: "You have a system, a decision or a proposal and need an independent engineering verdict."
+      what: "A written assessment: what is sound, what is at risk, what to do first, and what not to build."
+    - key: delivery
+      name: "Engineering delivery"
+      when: "The work is scoped and someone has to own building it correctly."
+      what: "A named senior team, staged delivery with exit gates, and a documented handover."
+    - key: embedded
+      name: "Embedded engineering partnership"
+      when: "You have an internal team and need senior engineering capacity working inside it."
+      what: "Our engineers in your process, under your priorities, with our review standards."
+    - key: cofounder
+      name: "Selective technology co-founder partnership"
+      when: "You are building a company and want an engineering partner with skin in the game."
+      what: "Deliberately rare, staged, and assessed against explicit criteria."
+      url: "/partnerships/"
 
 # Dev-server port (`tajmahal start`).
 port: 8080

@@ -1,7 +1,7 @@
 ---
 title: "gowork — friendly tooling for Go workspaces"
 description: "A well-designed CLI that wraps Go's minimal go work experience and adds the multi-module workflow commands Go leaves out."
-labStatus: "Internal · pre-1.0"
+labStatus: "Internal | pre-1.0"
 category: "Developer Tools"
 order: 9
 ---

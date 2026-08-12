@@ -2,47 +2,112 @@
 
 {% comment %} Standards & Languages - full-view band hero per the CLAUDE.md page-design
 thumb rules (reference: /insights/). A standards page presents SPECIFICATIONS WITH
-HONEST STATUS, so the hero strip IS the registry: every authored foundation, what it
-is, where it stands, and what you can click today - which is exactly the promise the
-prose below opens with ("honest status, up front"), shown before it is said.
+THEIR PUBLICATION STATUS, so the hero strip IS the registry.
 
-Rows come from `registry:` in site/standards/index.md and anchor into the prose
-sections; statuses must match the prose (one source of truth for the board, the
-prose remains the deep detail). This page previously rendered through the generic
-page.html shim - plain markdown with no design at all. {% endcomment %}
+The registry carries FOUR independent facts per row, because conflating them is
+exactly how a page like this misleads a buyer: what is public today, what a
+qualified customer can be shown privately, current maturity, and whether anyone
+should adopt it. A public implementation is not a public specification; a private
+walkthrough is not a source-distribution promise. Rows come from `registry:` in
+site/standards/index.md and anchor into the prose; seo-check enforces that all four
+fields are present, plus the working-draft notice and review date below.
+
+The page is a maintained public working draft and is deliberately indexable - the
+notice states that, so publication never implies completion. {% endcomment %}
 
 {% block content %}
 <header class="main-header view-hero">
     <div class="container vh-stage">
         <div class="vh-say">
             <span class="mt-eyebrow vh-eyebrow">{{ pageContext.eyebrow }}</span>
-            <h1 class="fw-bold vh-h1">The foundations we've authored &mdash; <em>labeled honestly</em>.</h1>
-            <p class="vh-dek">A programming language, and data, time, expression and API standards we've designed over the years. What's public you can read and run right now; what's still maturing, here's the spec to critique. None of it is something we'd make you adopt.</p>
+            <h1 class="fw-bold vh-h1">The foundations we've authored &mdash; <em>published with their actual status</em>.</h1>
+            <p class="vh-dek">A programming language, and data, time, expression and API standards we've designed over the years. One specification is public today; the rest are public implementations or concept notes over work that is still private. None of it is something we'd make you adopt.</p>
+            {% comment %} The status has to be readable WITHOUT scrolling - the full
+            notice sits below the hero, and a reader who never scrolls must still know
+            this page is unfinished on purpose. {% endcomment %}
+            <p class="vh-status"><a href="#publication-status"><b>{{ pageContext.pageStatus }}</b> | Last reviewed {{ pageContext.lastReviewed }}</a></p>
         </div>
 
         <div class="vh-strip">
-            <p class="vh-kicker">The registry &mdash; where each one stands, and what you can open today</p>
+            <p class="vh-kicker">The registry &mdash; what is public, what can be reviewed privately, and where each one stands</p>
             <ul class="spec-registry">
+                <li class="sr-head" aria-hidden="true">
+                    <span>Project</span>
+                    <span>Public today</span>
+                    <span>Private review</span>
+                    <span>Maturity / adoption</span>
+                </li>
                 {% for r in pageContext.registry %}
                 <li>
                     <a href="{{ r.anchor }}">
-                        <span class="sr-name">{{ r.name }}</span>
-                        <span class="sr-what">{{ r.what }}</span>
-                        <span class="sr-status{% if r.open %} is-open{% endif %}">{{ r.status }}</span>
-                        <span class="sr-today">{{ r.today }}</span>
+                        <span class="sr-name">{{ r.name }}<b class="sr-what">{{ r.what }}</b></span>
+                        <span class="sr-public{% if r.open %} is-open{% endif %}">{{ r.public }}</span>
+                        <span class="sr-review">{{ r.review }}</span>
+                        <span class="sr-stand">{{ r.maturity }}<b class="sr-adopt{% if r.adoptable %} is-adoptable{% endif %}">{{ r.adopt }}</b></span>
                     </a>
                 </li>
                 {% endfor %}
             </ul>
+            <p class="sr-assure">Client systems are never required to adopt these projects. Experimental components are used only with explicit agreement, a documented exit path and a mainstream alternative.</p>
         </div>
     </div>
 </header>
 
-<section class="section-padding pt-60">
+{% comment %} The body uses the SAME reading shell as an insights article
+(.article-layout geometry, .aside-inner sticky, .toc built by article/article.js
+from the rendered h2[id]s) - only the wrapper names and the rail's content are
+standards-specific. Reusing the runtime is deliberate: the TOC, its scrollspy and
+the breakpoints are already proven there, and a second implementation would be a
+second thing to keep correct. The rail carries navigation, publication status and
+evidence links only - no extra conversion prompt, since the page closes with
+"Inspect the work with us". {% endcomment %}
+<section class="section-padding pt-0 article-region">
     <div class="container">
-        <div class="standards-body">
-            <div class="article-body mt-prose">{{ content|safe }}</div>
+        <div class="standards-layout">
+            <main class="standards-main">
+                <aside class="draft-notice" id="publication-status" style="scroll-margin-top:88px;" aria-label="Publication status of this page">
+                    <p class="dn-head"><b>{{ pageContext.pageStatus }}</b> | Last reviewed {{ pageContext.lastReviewed }}</p>
+                    <p>Internet Object currently has our only publicly accessible specification. Other projects may expose public implementations while their specifications or source remain unpublished. Qualified customers can request a private technical review of selected specifications, implementations and demonstrations. Confidential, security-sensitive and client-specific material remains excluded.</p>
+                </aside>
+                <div class="article-body mt-prose">{{ content|safe }}</div>
+            </main>
+
+            <aside class="standards-aside" aria-label="Standards page navigation">
+                <div class="aside-inner">
+                    {% comment %} data-depth="3" nests the six project headings under
+                    their sections: on a registry page the project IS what a reader
+                    wants to jump to, and h2s alone cannot reach them. {% endcomment %}
+                    <nav class="toc" data-depth="3" aria-label="On this page" hidden>
+                        <p class="aside-kicker">On this page</p>
+                        <ol class="toc-list"></ol>
+                    </nav>
+
+                    {% comment %} Two lines, not a definition list: the same status is
+                    already in the hero pill and the notice, so the rail carries the
+                    short form and the one fact a reader scanning the rail needs -
+                    which specification is actually published. {% endcomment %}
+                    <div class="aside-block sa-status">
+                        <p class="aside-kicker">Publication status</p>
+                        <p class="sa-line">{{ pageContext.pageStatus }} | {{ pageContext.lastReviewed }}</p>
+                        <p class="sa-line">Published specification: <b>Internet Object</b> - the only one</p>
+                    </div>
+
+                    {% comment %} A "public artifacts" link list lived here and was cut:
+                    with the project entries now in the nav, every one of those links is
+                    one click away in its own section, and the rail has to fit the
+                    viewport or its foot is unreachable while sticky. {% endcomment %}
+                    <div class="aside-block sa-review">
+                        <p class="aside-kicker">Private review</p>
+                        <p>Selected unpublished specifications and implementations can be reviewed with prospective customers on request.</p>
+                        <a class="sa-more" href="#what-private-review-available-means">What that means &rarr;</a>
+                    </div>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "article/article.js" %}
 {% endblock %}

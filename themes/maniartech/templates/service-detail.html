@@ -1,40 +1,89 @@
 {% extends "base.html" %}
 
-{% comment %} Shared service detail. Shims: enterprise-software-engineering,
-application-software-engineering, ai, modernization. {% endcomment %}
+{% comment %} CANONICAL SHARED SHELL for the four engineering practices.
+enterprise-software-engineering / application-software-engineering / ai /
+modernization each reduce to a one-line {% extends %} shim, so there is one
+structure to maintain rather than four ~230-line near-copies.
+
+Reading system is the one proven on /insights/ and /standards/: measured prose
+column + sticky rail whose "On this page" nav is built by article/article.js
+from the rendered h2[id]s (data-depth="3" nests project/section h3s). No second
+TOC implementation exists on this site and none should be added here.
+
+Everything practice-specific arrives through frontmatter, never through template
+forks: `facts` (the engagement strip), `evidence` (rail links, each labelled
+public or private), `artifact` (what the customer receives), `action` (ONE
+restrained hero action - never a generic estimate CTA, per the services brief).
+{% endcomment %}
 
 {% block content %}
-<header class="main-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <a href="/services/" class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">← Services</a>
-                <h1 class="fw-bold mt-15 mb-20 prod-h1">{{ title }}</h1>
-                <p class="lead-text prod-lead">{{ description }}</p>
-                <div class="mt-actions">
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
-                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
-                </div>
-            </div>
+<header class="main-header view-hero svc-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <a href="/services/" class="mt-eyebrow vh-eyebrow svc-back">&larr; Engineering practices</a>
+            <h1 class="fw-bold vh-h1">{{ pageContext.headline|default:title }}</h1>
+            <p class="vh-dek">{{ description }}</p>
+            {% if pageContext.action %}
+            <p class="svc-action"><a href="{{ pageContext.action.url }}">{{ pageContext.action.label }} &rarr;</a></p>
+            {% endif %}
         </div>
+
+        {% if pageContext.facts %}
+        <div class="vh-strip">
+            <p class="vh-kicker">{{ pageContext.factsKicker|default:"Up front - what this practice is, who it is for, and what you get" }}</p>
+            <ul class="ah-facts svc-facts">
+                {% for f in pageContext.facts %}
+                <li>
+                    <span class="ahf-tag">{{ f.tag }}</span>
+                    <span class="ahf-k">{{ f.k }}</span>
+                    <span class="ahf-note">{{ f.note }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     </div>
 </header>
 
-<section class="section-padding pt-0">
+<section class="section-padding pt-0 article-region">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9 mt-prose">
-                {{ content|safe }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="mt-actions mt-50 pt-40 bord-thin-top">
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
-                    <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>See the work</span></a>
+        <div class="svc-layout">
+            <main class="svc-main">
+                <div class="article-body mt-prose">{{ content|safe }}</div>
+            </main>
+
+            <aside class="svc-aside" aria-label="{{ title }} page navigation and evidence">
+                <div class="aside-inner">
+                    <nav class="toc"{% if pageContext.tocDepth %} data-depth="{{ pageContext.tocDepth }}"{% endif %} aria-label="On this page" hidden>
+                        <p class="aside-kicker">On this page</p>
+                        <ol class="toc-list"></ol>
+                    </nav>
+
+                    {% if pageContext.evidence %}
+                    <div class="aside-block">
+                        <p class="aside-kicker">Evidence</p>
+                        {% for e in pageContext.evidence %}
+                        <a class="am-link is-tight" href="{{ e.url }}"{% if "http" in e.url %} target="_blank" rel="noopener"{% endif %}>
+                            <b>{{ e.label }}</b><span>{{ e.note }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if pageContext.artifact %}
+                    <div class="aside-block sa-review">
+                        <p class="aside-kicker">What you receive</p>
+                        <p>{{ pageContext.artifact }}</p>
+                        {% if pageContext.artifactAnchor %}<a class="sa-more" href="{{ pageContext.artifactAnchor }}">See the artifacts &rarr;</a>{% endif %}
+                    </div>
+                    {% endif %}
                 </div>
-            </div>
+            </aside>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "article/article.js" %}
 {% endblock %}

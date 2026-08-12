@@ -19,11 +19,15 @@
                 <span class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">How a project runs here</span>
                 <h1 class="fw-bold mt-15 mb-20 prod-h1">{{ title }}</h1>
                 <p class="lead-text prod-lead">{{ description }}</p>
+                {% comment %} Orientation, not conversion. This page's job is to
+                answer "how does an engagement actually run" BEFORE anyone is
+                asked for anything; the single conversion lives at the bottom,
+                after the process, the assurance facts and the handover section
+                have been read. {% endcomment %}
                 <div class="mt-actions">
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
-                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                    <a href="#process" class="butn butn-md butn-rounded butn-bord text-light"><span>See how an engagement runs</span></a>
                 </div>
-                <p class="mt-20" style="color:rgba(255,255,255,.45);font-size:14px;letter-spacing:.02em;">ISO 9001 &amp; 27001 certified &nbsp;|&nbsp; Experienced engineers only &nbsp;|&nbsp; Since 2010</p>
+                <p class="mt-20" style="color:rgba(255,255,255,.45);font-size:14px;letter-spacing:.02em;">ISO 9001 &amp; 27001 management systems, independently audited &nbsp;|&nbsp; Senior-led engineering &nbsp;|&nbsp; Company founded 2010</p>
             </div>
         </div>
     </div>
@@ -88,7 +92,7 @@
     </div>
 </section>
 
-<section class="section-padding pt-0">
+<section class="section-padding pt-0" id="process" style="scroll-margin-top:88px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-9"><div class="bord pt-25 bord-thin-top"><h2 class="fw-600">{{ process.heading }}</h2></div></div>
@@ -181,11 +185,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
+                {% comment %} The page's ONE conversion, deliberately last: it
+                arrives after the process, the assurance facts, the handover and
+                the FAQ. "See the work" beside it is an evidence link, not a
+                second conversion. The estimator is a distinct scoping tool and
+                is reached from its own entrances, never as this page's ask. {% endcomment %}
                 <div class="mt-actions pt-40 bord-thin-top">
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Discuss a system</span></a>
                     <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>See the work</span></a>
                 </div>
-                <p class="mt-15" style="color:rgba(255,255,255,.45);font-size:14px;">Free and without obligation. A senior engineer reviews it and responds - with a ballpark and an honest take.</p>
+                <p class="mt-15" style="color:rgba(255,255,255,.45);font-size:14px;">A senior engineer reads what you send and replies directly - including when the answer is that you should not build it.</p>
             </div>
         </div>
     </div>

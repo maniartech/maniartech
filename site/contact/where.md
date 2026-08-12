@@ -14,4 +14,6 @@ You're contracting with a real, registered company in a clear jurisdiction.
 - **LinkedIn:** [linkedin.com/in/aamironline](https://www.linkedin.com/in/aamironline)
 - **GitHub:** [github.com/maniartech](https://github.com/maniartech)
 
-> **ISO 9001:2015** and **ISO/IEC 27001:2022** certified by URS under UKAS accreditation. To verify, contact the registrar at info@urs-certification.com quoting our certificate number.
+<span id="assurance" style="scroll-margin-top:88px;"></span>
+
+> **Quality and information-security management, independently audited.** ManiarTech's ISO 9001:2015 (quality) and ISO/IEC 27001:2022 (information security) management systems have been independently audited by URS under UKAS accreditation. Current certificate status can be verified with the registrar at [info@urs-certification.com](mailto:info@urs-certification.com), quoting certificate numbers 123961/B/0001 and 123961/A/0001.

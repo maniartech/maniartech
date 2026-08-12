@@ -36,6 +36,6 @@ sev   <span class="t-no">HIGH</span>
 plan  staged spend - the
       gate holds until
       usage proves out</pre>
-<div class="sd-cap">The things that could go wrong, named and tracked — so the plan is honest about its own weak points.</div>
+<div class="sd-cap">The things that could go wrong, named and tracked — so the plan makes its own weak points explicit.</div>
 </div></div>
 </div>

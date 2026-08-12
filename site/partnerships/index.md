@@ -1,7 +1,11 @@
 ---
 title: "You have the market. We can be the technology behind it."
 description: "For founders with a real market edge but no technology arm, ManiarTech can come in as a technology co-founder — building with you, sharing the risk and the reward. A selective track."
-eyebrow: "Technology Partnership"
+eyebrow: "Engagement model"
+# This page is ONE of the four engagement models in tajmahal.yaml
+# `context.engagementModels` - not a fifth engineering practice. The template
+# loops that list and marks this key, so the four can never drift apart.
+modelKey: "cofounder"
 titleTag: "Technology Partnership - We Build It With You"
 seoDescription: "For founders with a real market edge and no technology arm: ManiarTech as your technology co-founder - building with you, sharing risk and reward."
 facts:
@@ -33,6 +37,8 @@ recordQuoteHref: "/case-studies/touchpoint/"
 ---
 
 For founders and companies with a real edge — a market, a brand, a way in — but no technology arm of their own, we offer something most vendors don't: instead of only building the product for a fee, **we can come in as your technology co-founder** — we build it, and we share the risk and the reward.
+
+This is an engagement model, not a separate kind of engineering. The work inside it is the same engineering we do everywhere else - whichever of our [four practices](/services/) the venture actually needs. What changes is the commercial structure: how the risk is carried, and by whom.
 
 We've never done one of these on autopilot, and we won't start now. This page is an invitation to a conversation, not a pitch to sign anything. If the fit is real, the partnership comes later.
 

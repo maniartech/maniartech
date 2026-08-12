@@ -4,7 +4,7 @@ description: "Production natural-language paraphrasing with context-aware word-s
 eyebrow: "Case study"
 caseStatus: "Delivered | 2010-2011"
 client: "Euclid Infotech"
-services: "AI & NLP engineering | Custom application engineering"
+services: "Applied AI Systems | Application & Product Engineering"
 tech: "Python | NLTK | classical NLP"
 order: 5
 outcomes:

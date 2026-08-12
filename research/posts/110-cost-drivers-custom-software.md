@@ -91,7 +91,7 @@ Our approach is to name the unknowns in the estimate itself - what we are confid
 
 ## Driver 7: Who does the work - the seniority economics
 
-Junior-heavy teams quote lower hourly rates and routinely deliver higher total cost: more rework, more supervision, more defects that surface after handoff. Experienced engineers cost more per hour and less per outcome - they build it right closer to the first time. We staff senior engineers only, and this is precisely why:
+Junior-heavy teams quote lower hourly rates and routinely deliver higher total cost: more rework, more supervision, more defects that surface after handoff. Experienced engineers cost more per hour and less per outcome - they build it right closer to the first time. We lead and review client work with senior engineers, and this is precisely why:
 
 <p class="mt-pull">The cheapest hour is the one you <em>do not have to buy twice</em>.</p>
 

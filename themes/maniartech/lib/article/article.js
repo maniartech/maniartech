@@ -40,20 +40,29 @@
     }
   });
 
-  /* --- "On this page": built from the h2s present, scrollspied ------------ */
+  /* --- "On this page": built from the headings present, scrollspied -------
+     h2 only by default (an article's sections ARE its h2s). A page whose real
+     units of interest sit one level down - /standards/, where each project is
+     an h3 under a publication-status h2 - opts in with data-depth="3" and gets
+     those nested underneath. Opt-in, so no existing page's nav changes. */
   var toc = document.querySelector('.toc');
   var list = toc && toc.querySelector('.toc-list');
+  var deep = toc && toc.getAttribute('data-depth') === '3';
   var heads = [];
-  body.querySelectorAll('h2[id]').forEach(function (h) {
+  body.querySelectorAll(deep ? 'h2[id], h3[id]' : 'h2[id]').forEach(function (h) {
     if (h.textContent.trim()) heads.push(h);
   });
 
   if (toc && list && heads.length >= 2) {
     var links = heads.map(function (h) {
+      var sub = h.tagName === 'H3';
       var li = document.createElement('li');
       var a = document.createElement('a');
       a.href = '#' + h.id;
-      a.textContent = h.textContent;
+      /* Project headings read "Indigo - a Go superset whose output is..." in the
+         prose; the nav only needs the name before the dash. */
+      a.textContent = sub ? h.textContent.split(' - ')[0].trim() : h.textContent;
+      if (sub) { li.className = 'is-sub'; a.className = 'is-sub'; }
       li.appendChild(a);
       list.appendChild(li);
       return a;

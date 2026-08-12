@@ -1,15 +1,14 @@
 ---
-title: "Gamification in the enterprise: what actually moves motivation, and what backfires"
-description: "Game mechanics raise motivation when they make progress visible and competence felt - and reliably backfire when they rank people or pay them in points. A research-grounded framework for deciding when (and when not) to gamify an internal system."
+title: "Gamification in enterprise systems: what the evidence supports, where risk rises, and how to test it"
+description: "What the evidence supports about game mechanics at work, where the risk rises, and how to test a pilot before it reaches your whole organization. A research-grounded control policy for deciding when - and when not - to gamify an internal system."
 figure: "motivation"
 paperStatus: "Published"
 date: "2026-06-20"
 author: "Aamir Maniar"
-order: 1
 tldr:
-  - "Gamification works in enterprise software when it strengthens the three things decades of motivation research say people need at work: a sense of competence, a sense of autonomy, and a sense of connection to others. It backfires - measurably, in controlled studies - when it ranks people against each other or converts work into a points economy, because extrinsic rewards reliably crowd out the intrinsic motivation you were trying to amplify. The practical rule we have arrived at after building internal systems since 2010: make progress visible and competence felt; never rank individuals publicly, and never attach rewards to a metric people can game. Most enterprise \"adoption problems\" turn out to be workflow problems anyway, and no badge fixes a workflow."
+  - "The evidence on game mechanics at work is real but conditional, and weaker than either their advocates or their critics suggest. What is well established: people are intrinsically motivated when they feel competence, autonomy and connection, and expected tangible rewards tied to performance can undermine intrinsic motivation for work people already care about. What the direct experiments on points, levels and leaderboards show is narrower - more output on simple tasks, no reliable effect on motivation in either direction - with one longitudinal classroom study finding motivation and results declining over a term. That is enough to justify caution and a control policy, not a blanket veto. Our position: treat public individual ranking as high-risk and requiring exceptional justification, treat compensation-linked scoring as normally prohibited, design progress feedback rather than scoring, and pilot with stopping conditions defined in advance. And check the workflow first: most enterprise \"adoption problems\" we have been called into were workflow problems, and no badge fixes a workflow."
 titleTag: "Gamification in the Enterprise - What Actually Works"
-seoDescription: "What moves motivation in enterprise software and what backfires: the research, the failure modes, and a decision framework with two hard vetoes."
+seoDescription: "What the motivation research supports about enterprise gamification, where the risk rises, and a control policy for piloting it responsibly."
 method: "A synthesis paper"
 methodNote: "built on replicated motivation research, not original ManiarTech data - and it says so"
 ---
@@ -60,15 +59,15 @@ The mechanism is not mysterious. A reward reframes the activity: "I do this beca
 
 Two studies deserve specific attention because they tested the popular mechanics head-on.
 
-A study isolating the effects of individual game elements found that points, levels, and leaderboards functioned as extrinsic incentives, effective only for raising the *quantity* of output - they did not improve the quality of the work or the underlying motivation ([Mekler, Bruehlmann, Tuch and Opwis, 2017](https://doi.org/10.1016/j.chb.2015.08.048)). If your internal system needs more *volume* of a simple action, that is useful. If it needs care, judgment, or data quality - which describes most enterprise work - it is a warning.
+A study isolating the effects of individual game elements found that points, levels, and leaderboards increased the *quantity* of output but had no significant effect on intrinsic motivation in either direction, and did not improve the quality of the work ([Mekler, Bruehlmann, Tuch and Opwis, 2017](https://doi.org/10.1016/j.chb.2015.08.048)). Read that result precisely, because it is easy to over-claim in both directions: it is not evidence that these elements damage motivation, and it is not evidence that they build it. They behaved as straightforward extrinsic incentives - more of a simple action, no change to how people felt about the work. If your internal system needs more *volume* of a simple action, that is useful. If it needs care, judgment, or data quality - which describes most enterprise work - this study offers you no reason to expect gamification to deliver it.
 
 More sobering is the longitudinal evidence. A study comparing a gamified course (badges and a leaderboard) against a non-gamified counterpart over time found that students in the gamified version showed *less* motivation, satisfaction, and empowerment as the course progressed, and lower final exam scores, with the exam effect mediated by the drop in intrinsic motivation ([Hanus and Fox, 2015](https://doi.org/10.1016/j.compedu.2014.08.019)). The mechanics did not merely fail to help; over time, they hurt - and they hurt through exactly the channel SDT predicts.
 
-Our reading of the leaderboard problem specifically, stated as judgment rather than a measured figure: a ranking motivates the few people contending for the top and delivers a standing, public competence-negative signal to everyone else. In a sales bullpen that trade may be culturally accepted. In a lab, a support team, or an engineering organization, you have built a demotivation engine for most of the roster and called it engagement.
+Our reading of the leaderboard problem specifically, stated as judgment rather than a measured figure: a ranking motivates the few people contending for the top and delivers a standing, public competence-negative signal to everyone else. In a sales bullpen that trade may be culturally accepted and openly agreed to. In a lab, a support team, or an engineering organization, our expectation is that you demotivate most of the roster and call it engagement. The controlled evidence does not settle this - Hanus and Fox found the decline in a classroom with badges and a leaderboard together, and cannot tell us which element carried it - which is precisely why we treat public ranking as a decision requiring exceptional justification and a measured pilot, rather than one we can rule out for you from the literature.
 
 ### The progress principle: the part worth keeping
 
-If ranking is the mechanic to avoid, what is the one to keep? An analysis of knowledge workers' daily diaries found that the most effective motivator was not incentives or recognition but the experience of *making progress in meaningful work* - and that helping people recognize their daily progress is the most valuable thing a manager (or, we would add, a system) can do ([Amabile and Kramer, 2011](https://hbr.org/2011/05/the-power-of-small-wins)).
+If ranking is the mechanic to avoid, what is the one to keep? An analysis of knowledge workers' daily diaries found that the most effective motivator was not incentives or recognition but the experience of *making progress in meaningful work* - and that helping people recognize their daily progress is the most valuable thing a manager (or, we would add, a system) can do (Amabile and Kramer, "The Power of Small Wins," *Harvard Business Review*, May 2011).
 
 That finding converges precisely with SDT: visible progress is competence feedback, delivered without ranking anyone or paying anyone. It is the motivational core that game designers borrowed in the first place - progress bars, completion states, unlocked capabilities - and it is the part that survives contact with the enterprise.
 
@@ -95,7 +94,7 @@ Most gamification research was done on students, patients, and crowd volunteers 
 ## What to do with it: a decision framework
 
 <figure class="mt-figure mt-fig-diagram">
-<svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Decision flow: diagnose the real problem first; if it is genuinely motivation, feed competence, autonomy and relatedness; two hard vetoes - never rank individuals publicly, never attach money or evaluation">
+<svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Decision flow: diagnose the real problem first; if it is genuinely motivation, feed competence, autonomy and relatedness; two controls requiring sign-off - public individual ranking needs exceptional justification, pay-linked scoring is normally prohibited">
   <g font-family="inherit" font-size="12.5">
     <rect x="30" y="26" width="210" height="64" rx="10" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
     <text x="135" y="52" text-anchor="middle" fill="rgba(255,255,255,.85)" font-weight="600">People avoid the system</text>
@@ -126,11 +125,11 @@ Most gamification research was done on students, patients, and crowd volunteers 
       <text x="625" y="201" fill="rgba(255,255,255,.65)" font-size="11.5">never colleague vs colleague</text>
     </g>
     <rect x="30" y="240" width="700" height="56" rx="10" fill="rgba(240,90,90,.07)" stroke="rgba(240,90,90,.45)" stroke-width="1.2"/>
-    <text x="380" y="264" text-anchor="middle" fill="rgba(240,90,90,.9)" font-weight="600">Two hard vetoes</text>
-    <text x="380" y="284" text-anchor="middle" fill="rgba(255,255,255,.65)" font-size="12">never rank individuals publicly | never attach money or evaluation to the mechanics</text>
+    <text x="380" y="264" text-anchor="middle" fill="rgba(240,90,90,.9)" font-weight="600">Two controls that need sign-off, not a checkbox</text>
+    <text x="380" y="284" text-anchor="middle" fill="rgba(255,255,255,.65)" font-size="12">public individual ranking: exceptional justification | pay-linked scoring: normally prohibited</text>
   </g>
 </svg>
-<figcaption><strong>The framework at a glance.</strong> Most "motivation problems" are workflow or trust problems; the enterprise-safe subset of gamification feeds the three needs and honors the two vetoes. The steps below give the detail.</figcaption>
+<figcaption><strong>The framework at a glance.</strong> Most "motivation problems" we have been called into were workflow or trust problems; the lower-risk subset of gamification feeds the three needs, and the two high-risk mechanics are governance decisions rather than design choices. The steps below give the detail.</figcaption>
 </figure>
 
 **Step 0 - diagnose before you gamify.** If people avoid the system, find out whether it is friction (too many steps, fights the real workflow), fear (the data is used against people), or genuinely low motivation for the task itself. Only the third is a motivation problem. Fix the first two in the workflow, not the reward layer.
@@ -141,24 +140,31 @@ Most gamification research was done on students, patients, and crowd volunteers 
 - **Autonomy: keep it informational and optional.** Feedback the person can consult beats feedback that is pushed, ranked, or reported upward. Let teams turn features off. The moment a mechanic becomes a monitoring channel, SDT predicts - and the enterprise grapevine confirms - that it flips from motivator to pressure.
 - **Relatedness: aggregate to the team, not the individual.** "Our team cleared the backlog" builds connection. "Priya is #14" builds resentment. If you want any competitive element at all, aim it at a shared external target (last quarter's cycle time, a service-level goal), never at colleagues.
 
-**Step 2 - apply the two hard vetoes:**
+**Step 2 - apply the control policy.** These are governance controls, not laws of nature: each names a risk, the level of justification we think it demands, and who should be signing off.
 
-- **Never rank individuals publicly.** The controlled evidence associates leaderboards with declining motivation over time, and the mechanism (public negative competence signal for most participants) is fundamental, not fixable with better visuals.
-- **Never attach money or evaluation to the mechanics.** The moment points touch compensation or performance review, you have (a) triggered the overjustification trade documented in the reward meta-analysis and (b) built a Goodhart machine with a bonus attached. If a behavior is genuinely important enough to pay for, pay for it openly through management - do not launder it through a game.
+- **Public individual ranking: high-risk, requires exceptional justification.** The one longitudinal study we have found associates a badges-and-leaderboard course with declining motivation and lower final scores, and the mechanism - a standing public competence-negative signal for everyone outside the top few - applies to any roster. It is not proven to be unfixable, so we do not forbid it; we require that anyone proposing it state what makes their case exceptional, who is exposed by it, and what result would end the experiment. In most enterprise settings we would expect that case to fail.
+- **Compensation-linked scoring: normally prohibited.** The moment points touch pay or formal evaluation you have combined the overjustification trade documented in the reward meta-analysis with a Goodhart machine that has a bonus attached, and Wells Fargo is what that combination looks like at scale. If a behavior is important enough to pay for, pay for it openly through management rather than laundering it through a game. Overriding this should require the same scrutiny as any other change to compensation design - because that is what it is.
+- **Assess participation, quality, safety, privacy and worker impact before launch.** Who is opted in, and can they opt out without cost? What quality dimension guards the counted quantity? Does any of this touch a safety-critical or compliance-critical path? What is collected, who sees it, and how long is it kept? Which groups could be made worse off?
+- **Define outcomes and stopping conditions before the pilot, not after.** Name the result that would make you remove the mechanic, and commit to it while nobody is invested. A mechanic you cannot afford to remove was never really evaluated.
+- **Segment the results.** An aggregate adoption lift can conceal a group whose motivation, quality or wellbeing fell. Report by team, tenure and role, and treat a harmed segment as a finding rather than noise.
 
 **Step 3 - run the Goodhart test on every metric.** Ask: "If someone maximized this number while doing worse actual work, would the number notice?" If not, either instrument the quality dimension too or do not score the metric at all.
 
 **Step 4 - pilot, measure past the novelty window, and be willing to remove.** Measure usage and sentiment at three and six months, not two weeks. Decide in advance what result triggers removal. A mechanic you cannot afford to remove is a mechanic you have not really evaluated.
 
-**When not to gamify at all:**
+**Use when / do not use when.**
 
-- Expert users doing judgment-heavy work - the overlay signals distrust and adds noise.
-- Compliance-critical and safety-critical workflows - you want deliberate care, not speed toward a score, and you cannot afford optimized proxies.
-- Teams that are already motivated - you can only lose; see overjustification.
-- Anywhere the underlying system is the real problem - fix the workflow first, always.
-- Anything connected to pay or formal evaluation - that is incentive design, a different discipline with different failure modes, and it deserves to be done explicitly.
+*Reasonable to use, with the controls above:* work where progress is genuinely hard to see and making it visible would help the person doing it; simple high-volume actions where more throughput is the actual goal and quality is separately guarded; team-level outcome feedback against a shared external target; voluntary participation with a real opt-out.
 
-The quiet summary: the enterprise-safe subset of gamification is small, and it is mostly *feedback design*, not games. Make the work's progress visible. Let people feel their own competence. Connect effort to team outcomes. Skip the points, skip the podium.
+*Do not use:*
+
+- Compliance-critical and safety-critical workflows - you want deliberate care, not speed toward a score, and an optimized proxy here reaches your customer or your regulator.
+- Teams that are already motivated - the overjustification literature says the realistic outcomes are "no change" and "worse", and there is no mechanism by which it makes an already-motivated team more so.
+- Anywhere the underlying system is the real problem - fix the workflow first. This is the most common case in our experience, and the one where a mechanic does the most damage to credibility.
+- Anything connected to pay or formal evaluation - that is incentive design, a different discipline with different failure modes and its own governance, and it deserves to be done explicitly rather than through a game layer.
+- Expert users doing judgment-heavy work, unless they asked for it - the overlay carries an implied claim that they were not already motivated, and they will read it that way.
+
+The quiet summary: the well-supported subset of gamification is small, and it is mostly *feedback design* rather than games. Make the work's progress visible. Let people feel their own competence. Connect effort to team outcomes. Everything past that point is a decision to justify, pilot and be willing to reverse - not a feature to ship.
 
 ## Sources - verify it yourself
 
@@ -172,7 +178,7 @@ Every source below was opened and confirmed live while preparing this paper (Jul
 6. Koivisto, J. and Hamari, J. (2019). "The rise of motivational information systems: A review of gamification research." *International Journal of Information Management*, 45, 191-210. https://doi.org/10.1016/j.ijinfomgt.2018.10.013
 7. Hanus, M. D. and Fox, J. (2015). "Assessing the effects of gamification in the classroom: A longitudinal study on intrinsic motivation, social comparison, satisfaction, effort, and academic performance." *Computers & Education*, 80, 152-161. https://doi.org/10.1016/j.compedu.2014.08.019
 8. Mekler, E. D., Bruehlmann, F., Tuch, A. N. and Opwis, K. (2017). "Towards understanding the effects of individual gamification elements on intrinsic motivation and performance." *Computers in Human Behavior*, 71, 525-534. https://doi.org/10.1016/j.chb.2015.08.048
-9. Amabile, T. M. and Kramer, S. J. (2011). "The Power of Small Wins." *Harvard Business Review*, May 2011. https://hbr.org/2011/05/the-power-of-small-wins
+9. Amabile, T. M. and Kramer, S. J. (2011). "The Power of Small Wins." *Harvard Business Review*, May 2011. (Cited by reference rather than link: the publisher gates the full text behind a subscription.)
 10. Consumer Financial Protection Bureau (2016). "CFPB Fines Wells Fargo $100 Million for Widespread Illegal Practice of Secretly Opening Unauthorized Accounts." Press release, September 8, 2016. https://www.consumerfinance.gov/about-us/newsroom/consumer-financial-protection-bureau-fines-wells-fargo-100-million-widespread-illegal-practice-secretly-opening-unauthorized-accounts/
 
 If you are weighing whether an internal system needs game mechanics - or why one is not being used - we are happy to give an honest read, including "you don't need this." [Tell us what you are running](/estimate/); a senior engineer reviews it and responds. More of our thinking is in [Insights](/insights/).

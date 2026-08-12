@@ -4,7 +4,7 @@ description: "A laboratory information management system live in production on o
 eyebrow: "Case study"
 caseStatus: "In production"
 client: "Chemo Test Laboratory"
-services: "LIMS | Process automation (Processious)"
+services: "Enterprise Systems Engineering | LIMS and process automation (Processious)"
 tech: "Processious | Go | MongoDB | React | AWS"
 order: 1
 proof:
@@ -19,7 +19,7 @@ titleTag: "Chemo Test Laboratory - a Live LIMS Case Study"
 
 ## The situation
 
-Chemo Test Laboratory is an analytical testing laboratory - 35+ years in the field, accredited by NABL, the US FDA, the Maharashtra FDA and ISO 9001:2015, testing for pharma, cosmetics, food, agri, packaging and medical-device clients. A lab like that lives by its samples. Every one has to move through intake, review, testing, authorization and signing, with a clear record of who did what and when. And every report it issues carries real regulatory weight: an auditor, a regulator, or a buyer may act on it. A report that reaches the wrong person, or a forged certificate circulating with the lab's name on it, is not a small problem.
+Chemo Test Laboratory is an analytical testing laboratory - 35+ years in the field, NABL-accredited, government-approved and ISO 9001:2015 certified, testing for pharma, cosmetics, food, agri, packaging and medical-device clients. A lab like that lives by its samples. Every one has to move through intake, review, testing, authorization and signing, with a clear record of who did what and when. And every report it issues carries real regulatory weight: an auditor, a regulator, or a buyer may act on it. A report that reaches the wrong person, or a forged certificate circulating with the lab's name on it, is not a small problem.
 
 The way this engagement started says a lot about the stakes. Two people who had used a lab system we built years earlier - one of them now a director at Chemo - sought ManiarTech out at their new laboratory. They did not run a vendor search; they said they wanted the system built by us, and only us.
 

@@ -1,7 +1,7 @@
 ---
 title: "GoCurl — the curl command IS the Go code"
 description: "A curl-ergonomic HTTP client and CLI for Go: paste any curl command from any API doc straight into your code, and run the exact same command in your shell."
-labStatus: "Internal · pre-1.0"
+labStatus: "Internal | pre-1.0"
 category: "Libraries & Frameworks"
 license: "MIT"
 order: 8

@@ -1,7 +1,7 @@
 ---
 title: "Indigo — a Go superset that compiles to clean, idiomatic Go"
 description: "A Go superset language whose compiler holds one contract: no output is better than wrong output."
-labStatus: "Research · in development"
+labStatus: "Research | in development"
 category: "Languages"
 license: "TBC (frontend BSD-3)"
 order: 1

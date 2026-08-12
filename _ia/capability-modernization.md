@@ -22,11 +22,21 @@
 
 ## 1 · HERO  *(their fear named + the safe alternative)*
 
+> **SUPERSEDED IN PART - 2026-08-11 (Aamir ruling B2).** The phrase "every step reversible"
+> below, and any unconditional "no big-bang / no go-live weekend / old and new always side by
+> side" framing in this document, are **NOT APPROVED for publication**. The approved governing
+> claim is the **rollback envelope**: for every migration stage we state what can be reversed, for
+> how long, what data must be reconciled, and which transitions require an explicitly authorized
+> cutover. Incremental side-by-side migration is preferred **where the system and its dependencies
+> permit it**; some data transformations and external-system transitions create points after which
+> rollback becomes restoration, reconciliation or forward correction. This banner governs - the
+> draft copy below is retained only as drafting history. See `_ia/services-claims-register.md` (B2).
+
 # Modernize the system you can't afford to break.
 
 Aging systems don't get replaced because the replacement is terrifying: the all-at-once rewrite
 that's late, over budget, and breaks the business on go-live. We modernize the other way —
-**incrementally, with the old and new systems running side by side, and every step reversible** —
+**incrementally, with old and new side by side where dependencies permit, each stage inside a stated rollback envelope** — [phrasing superseded, see banner] —
 so the system keeps working the whole time.
 
 **[ Get a free modernization estimate → ]**   ·   [ See how the migration works ]

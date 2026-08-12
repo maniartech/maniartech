@@ -4,7 +4,7 @@ description: "We replaced a 600-form legacy system with a single workflow screen
 eyebrow: "Case study"
 caseStatus: "Delivered ~2011 | long-running"
 client: "Reliable Analytical Laboratories, Mumbai"
-services: "Legacy modernization | Enterprise software engineering | Web portal development"
+services: "Modernization & Migration | Enterprise Systems Engineering"
 tech: "C# / WPF (.NET) | ASP.NET | XPS reporting | Role-based access control"
 order: 2
 viz: "rtl-consolidation"

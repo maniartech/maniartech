@@ -1,7 +1,7 @@
 ---
 title: "UExL — an embeddable expression engine with zero allocations on the hot path"
 description: "An embeddable Go expression engine with zero allocations on the boolean and string paths, reproducible from the repo."
-labStatus: "Publish-ready · pre-1.0"
+labStatus: "Publish-ready | pre-1.0"
 category: "Languages"
 license: "TBC (MIT likely)"
 repo: "https://github.com/maniartech/uexl-go"

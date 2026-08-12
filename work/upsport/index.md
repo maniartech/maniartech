@@ -4,7 +4,7 @@ description: "An in-browser video-review studio - a coach records commentary and
 eyebrow: "Case study"
 caseStatus: "Delivered | 2019"
 client: "IntelMaven LLC (UpSport) - Jeff Hines, Founder; a returning client"
-services: "Custom application engineering | Real-time / video web engineering"
+services: "Application & Product Engineering | Real-time video in the browser"
 tech: "WebRTC | WebDoodling (our own canvas framework) | In-browser video recording & live annotation"
 order: 6
 viz: "upsport-annotate"

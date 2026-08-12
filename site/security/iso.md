@@ -1,7 +1,7 @@
 ---
-heading: "ISO/IEC 27001:2022 - certified, and verifiable with the registrar"
+heading: "ISO/IEC 27001:2022 - the registration, and how to check it with the registrar"
 facts:
-  - label: "Certified entity"
+  - label: "Registered entity"
     value: "Maniar Technologies Private Limited"
   - label: "Standard"
     value: "ISO/IEC 27001:2022 (information security management)"
@@ -13,8 +13,8 @@ facts:
     value: "URS (United Registrar of Systems)"
   - label: "Accreditation"
     value: "UKAS (0043) - the national accreditation body of the United Kingdom"
-  - label: "How to verify"
+  - label: "How to check current status"
     value: "Email the registrar at info@urs-certification.com and quote the certificate number"
 ---
 
-You do not have to take our word for any of this. The certificate is issued by an independent registrar under UKAS accreditation, and the registrar will confirm it directly if you ask. We also hold the companion quality certification - ISO 9001:2015, cert. 123961/B/0001, scope "Software Design and Development" - from the same registrar, under the same accreditation.
+You do not have to take our word for any of this - and for the one question that matters to a reviewer, you should not. Certification runs on a fixed audit cycle, so whether a certificate is in force today is the registrar's answer to give, not ours and not a PDF's. Email URS at info@urs-certification.com, quote the certificate number, and they will confirm the present status directly. The companion quality registration is ISO 9001:2015, cert. 123961/B/0001, scope "Software Design and Development", from the same registrar under the same accreditation.

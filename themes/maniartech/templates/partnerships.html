@@ -13,7 +13,7 @@ things prose cannot claim - the record, the returning founder, the stance. {% en
 <header class="main-header view-hero article-hero">
     <div class="container vh-stage">
         <div class="vh-say">
-            <span class="mt-eyebrow vh-eyebrow">{{ pageContext.eyebrow }}</span>
+            <a href="/services/#engagement-models" class="mt-eyebrow vh-eyebrow svc-back">&larr; {{ pageContext.eyebrow }}</a>
             <h1 class="fw-bold vh-h1 ah-h1">{{ title }}</h1>
             {% if description %}<p class="vh-dek ah-dek">{{ description }}</p>{% endif %}
         </div>
@@ -42,6 +42,29 @@ things prose cannot claim - the record, the returning founder, the stance. {% en
     </div>
 </section>
 
+{% comment %} Orientation strip - deliberately unnumbered, so the ten movements
+below keep their sequence. It exists to settle the positioning question a
+reader arrives with: this page is ONE engagement model, not a fifth practice.
+The four cells loop tajmahal.yaml `context.engagementModels` and mark the row
+whose key matches pageContext.modelKey, so /services/ and this page can never
+disagree about what the four models are. {% endcomment %}
+<section class="section-padding pt-0 pb-0" id="where-this-sits" style="scroll-margin-top:88px;">
+    <div class="container">
+        <div class="eng-models">
+            <p class="em-kicker">The four ways we engage &mdash; you are reading the fourth</p>
+            <ul>
+                {% for m in site.context.engagementModels %}
+                <li{% if m.key == pageContext.modelKey %} class="is-current" aria-current="page"{% endif %}>
+                    <span class="em-name">{{ m.name }}</span>
+                    <span class="em-when">{{ m.when }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <p class="em-foot">An engagement model is not a kind of software. The engineering inside this one is whichever of the <a href="/services/">four engineering practices</a> the venture needs.</p>
+        </div>
+    </div>
+</section>
+
 {% comment %} 01 - the record: cards + the partner-voiced quote. {% endcomment %}
 <section class="section-padding bg-soft" id="record" style="scroll-margin-top:88px;">
     <div class="container">
@@ -63,7 +86,7 @@ things prose cannot claim - the record, the returning founder, the stance. {% en
             <div class="col-lg-9">
                 <blockquote class="mt-10" style="border-left:3px solid #14cf93;padding-left:24px;">
                     <p class="fz-20" style="color:rgba(255,255,255,.85);">"{{ pageContext.recordQuote }}"</p>
-                    <footer class="mt-10" style="color:rgba(255,255,255,.5);">{{ pageContext.recordQuoteBy }} - {{ pageContext.recordQuoteRole }} &nbsp;&middot;&nbsp; <a href="{{ pageContext.recordQuoteHref }}">the full story</a></footer>
+                    <footer class="mt-10" style="color:rgba(255,255,255,.5);">{{ pageContext.recordQuoteBy }} - {{ pageContext.recordQuoteRole }} &nbsp;|&nbsp; <a href="{{ pageContext.recordQuoteHref }}">the full story</a></footer>
                 </blockquote>
             </div>
         </div>

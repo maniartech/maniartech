@@ -1,168 +1,153 @@
 {% extends "base.html" %}
 
-{% block title %}Custom and Enterprise Software Development | {{ site.name }}{% endblock %}
+{% comment %} Services root. Rebuilt 2026-08 from a three-lane "what do you need
+built?" chooser into an engineering position.
 
-{% comment %} Services hub v3. The card grid is gone: each service is a spotlight
-row carrying a real artifact (a production screenshot where one exists, a diagram
-where one honestly does not), and the hero diagram shows the page's own structure —
-three service lanes with two capabilities crossing all of them. Content still lives
-in services/services/index.md (pageContext.serviceLines / .capabilities); only layout
-lives here. Hub stays a summary: short rows that push you down fast.
+The old root mixed three axes - two engineering practices, a commercial
+engagement model (partnership) and two "capabilities" (AI, modernization) - and
+led with a free-estimate CTA, which frames the firm as an implementation vendor
+bidding for enquiries. This version separates PRACTICES (what the work is) from
+ENGAGEMENT MODELS (how we work together), promotes AI and modernization to
+first-class practices, and leads with a technical conversation.
 
-GOTCHA - this had been silently breaking the page: `categories` is a RESERVED
-frontmatter key in Taj Mahal. It is coerced to []string, so a list of MAPS under
-it parses to an empty slice: the loop renders NOTHING and no error appears
-anywhere. That is why the three service cards were missing from the live page.
-The key is now `serviceLines`. Never name a frontmatter list of maps `categories`
-(or `tags`). {% endcomment %}
+Every list here is driven by frontmatter (data lives once); the practice
+entrances carry situation / risk / thesis / decisions / evidence rather than a
+title and a paragraph. {% endcomment %}
 
 {% block content %}
-<header class="main-header">
-    <div class="container">
-        <div class="svc-hero">
-            <div>
-                <span class="mt-eyebrow">Services</span>
-                <h1 class="fw-bold prod-h1">{{ title }}</h1>
-                <p class="lead-text mt-20 prod-lead">{{ description }}</p>
-                <div class="mt-actions">
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Not sure? Get a free estimate</span></a>
-                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
-                </div>
-                <p class="hero-note opacity-7">
-                    Experienced engineers — <a href="/about/" class="main-color">see who you'd be working with</a>.
-                    Mainstream, hireable technology (Go, Python, React, PostgreSQL) — chosen so any competent team can maintain it.
-                    27 years building software; founder previously at JP&nbsp;Morgan.
-                </p>
-            </div>
-            <figure class="hub-viz">
-                {% comment %} Canvas piece: three lanes of work feed one system; the two
-                capability bands cross all three. hub-viz.js, piece "services-lanes". {% endcomment %}
-                <canvas data-hub-viz="services-lanes" data-cap="hubVizCap" role="img"
-                    aria-label="Animated diagram: three lanes of work - Enterprise, Application and Partnership - carry work into one system, while two capability bands, AI applied and Modernization, cross all three lanes."></canvas>
-                <figcaption class="hub-viz-cap" id="hubVizCap" aria-live="polite">Three kinds of engineering work, running as three lanes.</figcaption>
-            </figure>
+<header class="main-header view-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <span class="mt-eyebrow vh-eyebrow">{{ pageContext.eyebrow }}</span>
+            <h1 class="fw-bold vh-h1">{{ pageContext.headline }}</h1>
+            <p class="vh-dek">{{ description }}</p>
+            {% if pageContext.action %}
+            <p class="svc-action"><a href="{{ pageContext.action.url }}">{{ pageContext.action.label }} &rarr;</a></p>
+            {% endif %}
+        </div>
+
+        <div class="vh-strip">
+            <p class="vh-kicker">Four practices &mdash; the situation each one answers, and the risk it exists to control</p>
+            <ul class="spec-registry svc-registry">
+                <li class="sr-head" aria-hidden="true">
+                    <span>Practice</span><span>When it applies</span><span>The risk it controls</span>
+                </li>
+                {% for p in pageContext.practices %}
+                <li>
+                    <a href="{{ p.url }}">
+                        <span class="sr-name">{{ p.name }}</span>
+                        <span class="sr-public">{{ p.situation }}</span>
+                        <span class="sr-review">{{ p.risk }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </header>
 
-<section class="section-padding pt-0">
+<section class="section-padding pt-0 article-region">
     <div class="container">
-{% for c in pageContext.serviceLines %}
-        <div class="mt-spot{% if forloop.Counter == 2 %} rev{% endif %}">
-            <div class="spot-text">
-                {% if c.featured %}<span class="mt-badge is-live">Flagship</span>{% endif %}
-                <h3>{{ c.title }}</h3>
-                <span class="spot-tag">{{ c.tag }}</span>
-                <p>{{ c.body }}</p>
-                <a href="{{ c.url }}" class="go">Explore {{ c.title }} &rarr;</a>
-                {% if c.proofUrl %}<a href="{{ c.proofUrl }}" class="spot-proof">{{ c.proofLabel }} &rarr;</a>{% endif %}
-            </div>
-            <div class="spot-visual">
-                {% if c.shot %}
-                <figure class="spot-fig">
-                    <div class="mt-frame">
-                        <div class="bar"><i></i><i></i><i></i></div>
-                        <img src="{{ c.shot }}" width="{{ c.shotW }}" height="{{ c.shotH }}" loading="lazy" decoding="async" alt="{{ c.shotAlt }}">
+        <div class="svc-layout">
+            <main class="svc-main">
+                <div class="article-body mt-prose">
+                    {{ content|safe }}
+
+                    <h2 id="practices">The four practices, and the decisions each one owns</h2>
+                    {% for p in pageContext.practices %}
+                    <div class="svc-entrance">
+                        <h3 id="{{ p.name|slugify }}">{{ p.name }}</h3>
+                        <p class="svc-thesis">{{ p.thesis }}</p>
+                        <dl class="svc-ent-facts">
+                            <dt>The situation</dt><dd>{{ p.situation }}</dd>
+                            <dt>The consequential risk</dt><dd>{{ p.risk }}</dd>
+                        </dl>
+                        <p class="svc-ent-kicker">Decisions this practice takes responsibility for</p>
+                        <ul class="svc-ent-decisions">
+                            {% for d in p.decisions %}<li>{{ d }}</li>{% endfor %}
+                        </ul>
+                        <p class="svc-ent-links">
+                            <a class="svc-ent-go" href="{{ p.url }}">{{ p.name }} &rarr;</a>
+                            <a class="svc-ent-ev" href="{{ p.evidenceUrl }}">{{ p.evidenceLabel }}</a>
+                        </p>
                     </div>
-                    <figcaption class="spot-cap">{{ c.shotCap }}</figcaption>
-                </figure>
-                {% elif c.viz == "shared-build" %}
-                <figure class="spot-fig">
-                    <div class="svc-viz sb-viz">
-                        {% comment %} Two teams, one trunk — the partnership shape. {% endcomment %}
-                        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg" role="img"
-                             aria-label="Diagram: commits from your team and from our engineers merge into a single trunk - one shared codebase.">
-                            <text class="sb-lab" x="52"  y="20" text-anchor="middle">Your team</text>
-                            <text class="sb-lab" x="268" y="20" text-anchor="middle">Our engineers</text>
+                    {% endfor %}
 
-                            <path class="sb-branch"    d="M52 34 V70 Q52 100 160 106"/>
-                            <path class="sb-branch r"  d="M268 34 V70 Q268 100 160 106"/>
-                            <path class="sb-trunk"     d="M160 106 V162"/>
-
-                            <circle class="sb-node" cx="52"  cy="44" r="4"/>
-                            <circle class="sb-node" cx="52"  cy="66" r="4"/>
-                            <circle class="sb-node" cx="268" cy="44" r="4"/>
-                            <circle class="sb-node" cx="268" cy="66" r="4"/>
-                            <circle class="sb-merge" cx="160" cy="106" r="6"/>
-                            <circle class="sb-merge" cx="160" cy="134" r="5"/>
-                            <circle class="sb-merge" cx="160" cy="162" r="5"/>
-
-                            <text class="sb-foot" x="160" y="184" text-anchor="middle">One codebase, one backlog</text>
-                        </svg>
+                    <h2 id="foundations">What is true of all four</h2>
+                    <p>These are not differentiators we claim; they are the parts of the method that make the rest inspectable. Every practice below runs on them.</p>
+                    <div class="svc-decisions">
+                        <dl>
+                            {% for f in pageContext.foundations %}
+                            <dt><span>{{ f.name }}</span><span></span></dt>
+                            <dd><span></span><span>{{ f.what }}</span></dd>
+                            {% endfor %}
+                        </dl>
                     </div>
-                    <figcaption class="spot-cap">Not a vendor you manage. A team in the same repository.</figcaption>
-                </figure>
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
 
-<section class="section-padding bg-soft">
-    <div class="container">
-        <div class="sec-head mb-40">
-            <span class="mt-eyebrow">Brought to every engagement</span>
-            <div class="bord pt-25 bord-thin-top"><h2 class="fw-600">Two capabilities that cross all three.</h2></div>
-        </div>
-        <div class="svc-cap-grid">
-            {% for cap in pageContext.capabilities %}
-            <a href="{{ cap.url }}" class="svc-cap-pane">
-                <div class="svc-cap-viz">
-                    {% if cap.viz == "signal" %}
-                    {% comment %} Noise settles into signal — then holds. {% endcomment %}
-                    <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scattered noise settling into a clear signal line">
-                        <line class="aih-base" x1="24" y1="140" x2="296" y2="140"/>
-                        <circle class="aih-d" cx="40"  cy="122" r="4" style="--nx:-8px;  --ny:-52px"/>
-                        <circle class="aih-d" cx="76"  cy="114" r="4" style="--nx:14px;  --ny:34px"/>
-                        <circle class="aih-d" cx="112" cy="104" r="4" style="--nx:-20px; --ny:22px"/>
-                        <circle class="aih-d" cx="148" cy="94"  r="4" style="--nx:12px;  --ny:-38px"/>
-                        <circle class="aih-d" cx="184" cy="82"  r="4" style="--nx:-10px; --ny:44px"/>
-                        <circle class="aih-d" cx="220" cy="68"  r="4" style="--nx:22px;  --ny:-24px"/>
-                        <circle class="aih-d" cx="256" cy="54"  r="4" style="--nx:-16px; --ny:-46px"/>
-                        <circle class="aih-d" cx="284" cy="40"  r="4" style="--nx:8px;   --ny:30px"/>
-                        <path class="aih-sig" d="M40 122 L76 114 L112 104 L148 94 L184 82 L220 68 L256 54 L284 40"/>
-                    </svg>
-                    {% elif cap.viz == "strangler" %}
-                    {% comment %} Parts renew one by one; the service line never breaks. {% endcomment %}
-                    <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="System parts being replaced one by one while the service line stays unbroken">
-                        <rect class="mdh-b swap d1" x="28"  y="70" width="56" height="62" rx="4"/>
-                        <rect class="mdh-b swap d2" x="96"  y="52" width="56" height="80" rx="4"/>
-                        <rect class="mdh-b swap d3" x="164" y="80" width="56" height="52" rx="4"/>
-                        <rect class="mdh-b swap d4" x="232" y="60" width="56" height="72" rx="4"/>
-                        <path class="mdh-line mdh-pulse" d="M16 30 H304"/>
-                        <circle class="mdh-line" cx="16"  cy="30" r="3" fill="#14cf93"/>
-                        <circle class="mdh-line" cx="304" cy="30" r="3" fill="#14cf93"/>
-                    </svg>
-                    {% endif %}
-                </div>
-                <h3>{{ cap.title }}</h3>
-                <p>{{ cap.body }}</p>
-                <span class="svc-cap-note">{{ cap.vizCap }}</span>
-                <span class="go">Explore &rarr;</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+                    <h2 id="engagement-models">How the work is structured</h2>
+                    <p>An engagement model is not a kind of software. These are the four shapes the working relationship takes, and any practice above can run in any of them.</p>
+                    <div class="svc-decisions">
+                        <dl>
+                            {% for m in site.context.engagementModels %}
+                            <dt><span>{% if m.url %}<a href="{{ m.url }}">{{ m.name }}</a>{% else %}{{ m.name }}{% endif %}</span><span></span></dt>
+                            <dd><span><b>When it applies</b>{{ m.when }}</span><span>{{ m.what }}</span></dd>
+                            {% endfor %}
+                        </dl>
+                    </div>
 
-<section class="section-padding text-md-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <span class="mt-eyebrow">Still not sure which one?</span>
-                <h2 class="fw-600 mb-20">That's normal. Most real problems cross a line or two.</h2>
-                <p class="opacity-8 mb-30">Tell us what's going on in plain words, and we'll tell you honestly which kind of work it is — including if the answer is "you don't need to build this."</p>
-                <div class="mt-actions justify-center">
-                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Get a free project estimate</span></a>
-                    <a href="/contact/" class="butn butn-md butn-rounded butn-bord text-light"><span>Talk to a human</span></a>
+                    <h2 id="fit">Where we are, and are not, the right firm</h2>
+                    <div class="svc-fit">
+                        <div class="is-fit">
+                            <h3>A good fit</h3>
+                            <ul>
+                                <li>The system carries operational or regulatory consequence, and being approximately right is not good enough.</li>
+                                <li>Someone needs to own the architecture and be accountable for it later.</li>
+                                <li>The work crosses departments, systems or organizations, and the seams are the hard part.</li>
+                                <li>You want the reasoning written down, not just the result delivered.</li>
+                            </ul>
+                        </div>
+                        <div class="is-not">
+                            <h3>A poor fit</h3>
+                            <ul>
+                                <li>You need bodies on a staffing plan and the decisions are already made elsewhere.</li>
+                                <li>The lowest bid wins, and depth is not being priced.</li>
+                                <li>The requirement is a template site, a plugin configuration, or a one-off script.</li>
+                                <li>The timeline is fixed before the problem is understood - we would rather say so than agree to it.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="talk">Start with the problem, not a price</h2>
+                    <p>Tell us what the system has to be right about. A senior engineer reads it and responds with a technical read - what we would need to understand, what looks risky, and whether we are the right firm at all. An estimate is something we can produce once the problem is understood, not before.</p>
+                    <p class="svc-action"><a href="/contact/">Bring us a system that has to be right &rarr;</a></p>
                 </div>
-            </div>
+            </main>
+
+            <aside class="svc-aside" aria-label="Services navigation and evidence">
+                <div class="aside-inner">
+                    <nav class="toc" data-depth="3" aria-label="On this page" hidden>
+                        <p class="aside-kicker">On this page</p>
+                        <ol class="toc-list"></ol>
+                    </nav>
+                    <div class="aside-block">
+                        <p class="aside-kicker">Evidence you can inspect</p>
+                        <a class="am-link is-tight" href="/case-studies/"><b>Case studies</b><span>Delivered systems, including two live ones</span></a>
+                        <a class="am-link is-tight" href="/standards/"><b>Standards we author</b><span>Publication status stated per project</span></a>
+                        <a class="am-link is-tight" href="/white-papers/"><b>White papers</b><span>The methods, with their sources</span></a>
+                        <a class="am-link is-tight" href="/insights/"><b>Engineering write-ups</b><span>Field reports and deep dives</span></a>
+                    </div>
+                    <div class="aside-block sa-review">
+                        <p class="aside-kicker">Not sure which applies?</p>
+                        <p>Describe the system and what it has to be right about. We will tell you which practice fits, or that none of them does.</p>
+                        <a class="sa-more" href="#talk">Start a technical conversation &rarr;</a>
+                    </div>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
 {% endblock %}
 
 {% block scripts_extra %}
-{% lib "hub-viz/hub-viz.js" %}
+{% lib "article/article.js" %}
 {% endblock %}

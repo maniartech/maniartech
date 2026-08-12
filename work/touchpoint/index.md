@@ -4,7 +4,7 @@ description: "Six years of senior engineering on a pioneering customer-journey p
 eyebrow: "Case study"
 caseStatus: "Delivered | 2012-2018"
 client: "Touchpoint Dashboard (US; later acquired by Strativity Inc.)"
-services: "Senior product engineering | Offshore engineering partnership"
+services: "Application & Product Engineering | Embedded engineering partnership"
 tech: "Django | Backbone.js | CoffeeScript | React | MySQL"
 order: 4
 shots:

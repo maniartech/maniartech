@@ -19,6 +19,11 @@ pages:
   - white-papers:
       path: /white-papers/*
       content: papers
+      # Same mechanism as insights above: reading order = numeric filename
+      # prefixes (10/20/30, stripped from URLs), NOT frontmatter `order:`.
+      # Sequence is deliberate - Cost Drivers first (procurement decision),
+      # then Journey-First (architecture), then Gamification.
+      order: sort_order
 
 # All 13 insights posts must live on ONE page: the shelf filter is client-side,
 # so a paginated index would silently filter only the current page.

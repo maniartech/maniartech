@@ -17,7 +17,7 @@ below keep the key figures; the hero does not duplicate them. {% endcomment %}
             <span class="mt-eyebrow vh-eyebrow">White Papers</span>
             <h1 class="fw-bold vh-h1">Applied thinking on the decisions you <em>actually face</em>.</h1>
             <p class="vh-dek">Before you commit budget to custom software, automation, or AI, it helps to think clearly about it. These papers cover the questions that decide whether a build pays off.</p>
-            <p class="vh-note">No sign-up wall. Read them, share them, <b>disagree with them</b> &mdash; every claim is sourced, and judgment is labeled as judgment.</p>
+            <p class="vh-note">No sign-up wall. Read them, share them, <b>disagree with them</b> &mdash; external factual claims are traceable to named sources, and practitioner evidence and judgment are identified as such.</p>
         </div>
 
         <div class="vh-strip">
@@ -70,9 +70,9 @@ below keep the key figures; the hero does not duplicate them. {% endcomment %}
                             <text class="pf-note" x="14" y="136">The journey people take crosses every one.</text>
                         </svg>
                         {% elif a.figure == "motivation" %}
-                        {% comment %} What lifts motivation, and the two mechanics that reliably backfire. {% endcomment %}
+                        {% comment %} What the evidence supports, and the two mechanics that carry the most risk. {% endcomment %}
                         <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img"
-                             aria-label="Diagram: competence, autonomy and connection raise motivation; public ranking and points economies reduce it">
+                             aria-label="Diagram: competence, autonomy and connection support motivation; public ranking and points economies are the high-risk mechanics">
                             <text class="pf-lab" x="14" y="18">Raises motivation</text>
                             <rect class="pf-good" x="14"  y="26" width="84" height="20" rx="4"/>
                             <rect class="pf-good" x="106" y="26" width="72" height="20" rx="4"/>
@@ -81,17 +81,20 @@ below keep the key figures; the hero does not duplicate them. {% endcomment %}
                             <text class="pf-in" x="116" y="40">autonomy</text>
                             <text class="pf-in" x="196" y="40">connection</text>
                             <line class="pf-rule" x1="14" y1="66" x2="286" y2="66"/>
-                            <text class="pf-lab warn" x="14" y="86">Backfires, in controlled studies</text>
+                            <text class="pf-lab warn" x="14" y="86">Highest risk, needs sign-off</text>
                             <rect class="pf-bad" x="14"  y="94" width="128" height="20" rx="4"/>
                             <rect class="pf-bad" x="150" y="94" width="130" height="20" rx="4"/>
-                            <text class="pf-in bad" x="24"  y="108">ranking people</text>
-                            <text class="pf-in bad" x="160" y="108">points economies</text>
+                            <text class="pf-in bad" x="24"  y="108">public ranking</text>
+                            <text class="pf-in bad" x="160" y="108">pay-linked scoring</text>
                             <text class="pf-note" x="14" y="138">No badge fixes a workflow.</text>
                         </svg>
                         {% endif %}
                     </span>
                     <span class="pc-kind">White paper</span>
-                    <h3>{{ a.title }}</h3>
+                    {% comment %} h2, not h3: these card titles are the first content
+                    headings under the page h1, so a lower level skips a rank and trips
+                    the accessibility gate. {% endcomment %}
+                    <h2 class="pc-title">{{ a.title }}</h2>
                     <p>{{ a.description }}</p>
                     <span class="pc-foot">Open access - read in full &rarr;</span>
                 </a>

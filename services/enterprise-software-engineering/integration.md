@@ -1,7 +1,0 @@
----
-heading: "Enterprise integration - the systems you already run, connected"
----
-
-Almost no enterprise system starts on a green field. There is an accounting package, an ERP, a payment gateway, instrument software, a legacy database somebody built in 2009 - and the new system has to live with all of them. Integration is where we see projects quietly fail, because the connection is the easy third of the work. The other two thirds: **error handling when the other side misbehaves** (what happens to an invoice when the accounting API is down - queued and retried, or silently lost?), and **reconciliation** - the discipline of making two systems agree, detecting the records that drifted, and surfacing them instead of letting the ledgers diverge for a quarter.
-
-In practice this means: REST and file-based interfaces to the systems you have (not the systems we wish you had), import pipelines that validate before they load, idempotent retries so a repeated message cannot double-post, queues between systems so one outage does not cascade, and reconciliation reports that name every mismatch. We integrated accounts and invoicing directly into the 2011 laboratory system - the sample's journey ends in an invoice, in the same application, because a hand-off to a disconnected billing tool is exactly where operations leak. The honest question we answer before you sign anything: what happens to your data when the other system is down. Ask any vendor that; the quality of the answer predicts the build.
