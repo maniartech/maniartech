@@ -1,84 +1,106 @@
 ---
-title: Ordin
-description: A workflow-automation engine - YAML-defined workflows, pluggable activities; fair-code / source-available. In active development.
-productStatus: In development
+title: "Ordin"
+headline: "Declare the workflow. The engine runs it, and remembers."
+description: "A workflow-automation engine in development: workflows declared in YAML, executed through pluggable activity nodes, with expression-driven routing and an inspectable execution history."
+eyebrow: "Product"
 titleTag: "Ordin - Plugin-Driven Workflow Automation"
+seoDescription: "Ordin: ManiarTech's workflow engine in development - YAML-declared workflows, pluggable activities, expression-driven routing. Private; fair-code model declared."
+order: 2
+tocDepth: "3"
+statusLine: "In development | Private | Fair-code model declared in-tree, terms not finalised"
+railMeta:
+  - { k: "Type", v: "Workflow-automation engine (Go)" }
+  - { k: "Maturity", v: "In development; runtime past prototype" }
+  - { k: "Availability", v: "Private" }
+  - { k: "Licence", v: "Fair-code model declared in the tree; terms not finalised, nothing published" }
+  - { k: "Adoption", v: "Not available" }
+  - { k: "Evidence", v: "Committed example workflows in the repository" }
+  - { k: "Reviewed", v: "13 August 2026" }
+railLinks:
+  - label: "Processious"
+    note: "The platform Ordin is being built to power"
+    url: "/products/processious/"
+  - label: "UExL"
+    note: "The expression-engine discipline behind dynamic YAML values"
+    url: "/foundry/uexl/"
+privateReview: "The repository is private. Qualified customers can request a design walkthrough of the workflow model, the plugin loader and the execution semantics."
 ---
 
-Ordin is a workflow-automation engine. You define workflows in YAML, wire in pluggable activities,
-and Ordin runs them - an event starts the flow, plugins do the work, and the results decide where
-the flow goes next.
+Workflow engines fail in one of two ways: they hide the process inside code nobody can read, or they draw it in a proprietary designer nobody can diff. Ordin's position is that a workflow should be a **declared document** - YAML you can read, review and version - executed by an engine that keeps an inspectable record of what actually happened.
 
-## The model, in one picture
+## The model, on a real workflow
 
-This is Ordin's own sample flow - a server-monitoring loop, exactly as it appears in the workflow
-definition:
+This is a committed example from the repository - a scheduler that appends timestamped lines to a file, trivially small on purpose, because it shows every part of the model:
 
 ```yaml
-flows:
-  - timer: ping_server
-  - ping_server.success: [reset_failure_count, update_log]
-  - ping_server.failure: log_failure
+name: helloworld
+description: Logs the Hello World to the file every second
+version: 1.0
+
+nodes:
+  - name: timer
+    type: scheduler.Timer
+    params:
+      timer: 1s
+      count: 5
+
+  - name: logger
+    type: fileio.WriteFile
+    params:
+      mode: "a+"
+      filepath: "./logger.txt"
+      content: !expr >
+        time(true) + ' ' + 'Hello' + '\n'
 ```
 
+Three things are visible in twenty lines. **Nodes are typed plugins** (`scheduler.Timer`, `fileio.WriteFile`) - the engine loads and verifies them, so capabilities are added by writing a plugin, not by patching the core. **Values can be expressions** - the `!expr` tag makes YAML dynamic, evaluated at execution time. And **the workflow is a document**: it diffs, reviews and versions like any other code.
+
 <figure class="mt-figure mt-fig-diagram">
-<svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A timer event triggers a ping_server activity; on success the flow fans out to reset_failure_count and update_log, on failure it routes to log_failure; a band below lists the plugins that do the work">
-  <g font-family="inherit" font-size="12.5">
-    <rect x="40" y="64" width="110" height="40" rx="8" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
-    <text x="95" y="88" text-anchor="middle" fill="rgba(255,255,255,.75)">timer event</text>
-    <line x1="150" y1="84" x2="264" y2="84" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>
-    <polygon points="264,79 264,89 271,84" fill="rgba(255,255,255,.5)"/>
-    <rect x="271" y="64" width="140" height="40" rx="8" fill="rgba(20,207,147,.15)" stroke="rgba(20,207,147,.6)" stroke-width="1.2"/>
-    <text x="341" y="88" text-anchor="middle" fill="rgba(255,255,255,.8)">ping_server</text>
-    <g stroke-width="1.5" fill="none">
-      <line x1="411" y1="84" x2="514" y2="42" stroke="rgba(20,207,147,.55)"/>
-      <line x1="411" y1="84" x2="514" y2="90" stroke="rgba(20,207,147,.55)"/>
-      <line x1="411" y1="84" x2="514" y2="158" stroke="rgba(240,90,90,.55)"/>
-    </g>
-    <g>
-      <polygon points="514,37 514,47 521,42" fill="rgba(20,207,147,.7)"/>
-      <polygon points="514,85 514,95 521,90" fill="rgba(20,207,147,.7)"/>
-      <polygon points="514,153 514,163 521,158" fill="rgba(240,90,90,.7)"/>
-    </g>
-    <text x="452" y="52" text-anchor="middle" fill="#14cf93" font-size="11.5">success</text>
-    <text x="446" y="136" text-anchor="middle" fill="rgba(240,90,90,.85)" font-size="11.5">failure</text>
-    <g fill="rgba(20,207,147,.12)" stroke="rgba(20,207,147,.55)" stroke-width="1.2">
-      <rect x="521" y="24" width="199" height="36" rx="8"/>
-      <rect x="521" y="72" width="199" height="36" rx="8"/>
-    </g>
-    <rect x="521" y="140" width="199" height="36" rx="8" fill="rgba(240,90,90,.10)" stroke="rgba(240,90,90,.55)" stroke-width="1.2"/>
-    <g text-anchor="middle" fill="rgba(255,255,255,.75)" font-size="11.5">
-      <text x="620" y="46">reset_failure_count</text>
-      <text x="620" y="94">update_log</text>
-      <text x="620" y="162">log_failure</text>
-    </g>
-    <rect x="40" y="196" width="680" height="36" rx="8" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.3)" stroke-width="1.2"/>
-    <text x="380" y="218" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="12">Plugins do the work: shell, HTTP checks, file I/O, email markup, templates, expressions, cron / timer</text>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ordin's execution model: a YAML workflow is validated into a definition; the plugin loader verifies and provides typed activity nodes; the orchestrator executes them with expression-driven routing; execution history is recorded and inspectable">
+  <g font-family="inherit" font-size="12">
+    <rect x="30" y="40" width="150" height="52" rx="9" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.4)"/>
+    <text x="105" y="62" text-anchor="middle" fill="rgba(255,255,255,.85)" font-weight="600">YAML workflow</text>
+    <text x="105" y="80" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10.5">declared, versioned, diffable</text>
+    <path d="M180 66 L226 66" stroke="rgba(255,255,255,.35)" stroke-width="1.4"/>
+    <rect x="228" y="40" width="150" height="52" rx="9" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.4)"/>
+    <text x="303" y="62" text-anchor="middle" fill="rgba(255,255,255,.85)" font-weight="600">validated definition</text>
+    <text x="303" y="80" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10.5">workflow manager + state</text>
+    <path d="M378 66 L424 66" stroke="rgba(255,255,255,.35)" stroke-width="1.4"/>
+    <rect x="426" y="40" width="160" height="52" rx="9" fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.55)"/>
+    <text x="506" y="62" text-anchor="middle" fill="#14cf93" font-weight="600">orchestrator</text>
+    <text x="506" y="80" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="10.5">plugin nodes; !expr routing</text>
+    <path d="M586 66 L632 66" stroke="rgba(255,255,255,.35)" stroke-width="1.4"/>
+    <rect x="634" y="40" width="96" height="52" rx="9" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.45)"/>
+    <text x="682" y="62" text-anchor="middle" fill="rgba(255,255,255,.85)" font-weight="600">history</text>
+    <text x="682" y="80" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10.5">inspectable</text>
+    <rect x="228" y="140" width="358" height="46" rx="9" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.3)"/>
+    <text x="407" y="159" text-anchor="middle" fill="rgba(255,255,255,.75)" font-weight="600">plugin loader</text>
+    <text x="407" y="177" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10.5">scans, verifies and sets up typed plugins before any workflow runs them</text>
+    <path d="M303 138 L303 94" stroke="rgba(255,255,255,.3)" stroke-width="1.3" stroke-dasharray="4 3"/>
+    <path d="M506 138 L506 94" stroke="rgba(255,255,255,.3)" stroke-width="1.3" stroke-dasharray="4 3"/>
   </g>
 </svg>
-<figcaption><strong>Event in, routed outputs out.</strong> The diagram is the YAML above, drawn: a timer fires the check, and the activity's own outcome decides the route - success fans out to two follow-up activities, failure gets its own handler. The plugin band lists the activity types implemented in the engine today.</figcaption>
+<figcaption><strong>Declared, validated, executed, remembered.</strong> The stages come from the repository's own component map: workflow manager, workflow state, orchestrator, plugin loader. Plugins are verified before they run - a workflow can only invoke what the loader has accepted.</figcaption>
 </figure>
 
-Three ideas carry the whole engine. **Events start execution** - a timer or cron schedule fires and
-the flow begins. **Activities are plugins** - the work itself (running a shell command, checking an
-endpoint, touching files, rendering a template or an email) is done by pluggable activities, so the
-engine stays small and the vocabulary grows by adding plugins. **Outputs route the flow** - each
-activity's result picks the next step, including fanning out one result to several downstream
-activities, which is how a three-line YAML file becomes a running monitoring loop.
+## Where it fits
 
-## Where it stands
+Ordin is being built as the automation core behind [Processious](/products/processious/) - the long-running, scheduled and event-driven work of that platform runs through it. That is also its design pressure: an engine that will carry regulated operations must favour explicit definitions and inspectable history over cleverness.
 
-Ordin is **in development**, and we describe it the way its own roadmap does: the runtime is past the
-prototype stage, with event-to-activity execution, output-based routing, fan-out, and the plugin set
-above working end to end - and it is not best-in-class yet. The roadmap tracks the gaps as openly as
-the features. It's **fair-code / source-available** - you can read the source; the licence is not a
-permissive open-source one. We don't publish performance claims we can't let you reproduce.
+## Known limits
 
-Ordin is also being built as the automation engine behind [Processious](/products/processious/), our
-process-automation platform - the long-running, scheduled, event-driven work runs through it.
+- **In development.** The runtime is past prototype - event-to-activity execution, output-based routing, fan-out and the plugin set above work end to end - and it is not presented as best-in-class yet.
+- **Private.** There is no public repository, package or release.
+- **Licensing is declared, not finalised.** The tree carries a fair-code licence marker; the actual terms are not finalised and nothing is published, so no rights exist for anyone today.
+- **No performance claims** - we do not publish numbers we cannot let you reproduce.
 
-## Why it matters to your project
+## Status: four facts, kept separate
 
-Reliable automation is less about a clever script and more about an engine that runs work predictably,
-recovers cleanly, and leaves a trail you can audit. Ordin is where we concentrate that engineering, so
-the automation we build for you rests on a foundation we understand end to end.
+- **Availability** - private.
+- **Licence** - a **fair-code model is declared in the repository**; terms not finalised; nothing published.
+- **Maturity** - in development, past prototype.
+- **Adoption** - not available.
+
+## What this demonstrates
+
+An engine like this is a study in boundaries: what belongs in the declared document versus the plugin, what the orchestrator may decide versus what it must record, and how far YAML can be made dynamic before it stops being reviewable. Those are the same boundary decisions every enterprise workflow system lives or dies by - which is why we are building this one carefully rather than quickly.

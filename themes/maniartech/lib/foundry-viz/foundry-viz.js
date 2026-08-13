@@ -47,30 +47,28 @@
     tools:     { ring: 1, label: 'Developer Tools' },
     products:  { ring: 2, label: 'Products' }
   };
-  var NODES = [
-    // authored core — languages
-    { id: 'indigo',     label: 'Indigo',          cat: 'languages', one: 'A Go superset language',          url: '/foundry/indigo/' },
-    { id: 'uexl',       label: 'UExL',            cat: 'languages', one: 'Embeddable expression engine',    url: '/foundry/uexl/' },
-    // authored core — standards
-    { id: 'io',         label: 'Internet Object', cat: 'standards', one: 'Schema-first data format',        url: '/foundry/internet-object/', badge: 1 },
-    { id: 'nites',      label: 'NITES',           cat: 'standards', one: 'One intuitive time format',       url: '/standards/' },
-    { id: 'fuse',       label: 'FUSE',            cat: 'standards', one: "REST that's live by default",     url: '/standards/' },
-    { id: 'addressql',  label: 'AddressQL',       cat: 'standards', one: 'URL-native query language',       url: '/standards/' },
-    // libraries
-    { id: 'signals',    label: 'signals',         cat: 'libraries', one: 'Type-safe Go events',             url: '/foundry/signals/' },
-    { id: 'gotime',     label: 'gotime',          cat: 'libraries', one: 'Intuitive Go date/time',          url: '/foundry/gotime/' },
-    { id: 'vault',      label: 'vault-storage',   cat: 'libraries', one: 'Browser storage, upgraded',       url: '/foundry/vault-storage/' },
-    { id: 'gocurl',     label: 'gocurl',          cat: 'libraries', one: 'curl → Go HTTP code',        url: '/foundry/' },
-    // developer tools
-    { id: 'taj',        label: 'Taj Mahal SSG',   cat: 'tools',     one: 'Builds this very site',           url: '/foundry/tajmahal-ssg/' },
-    { id: 'booster',    label: 'Booster',         cat: 'tools',     one: 'Dev-environment orchestrator',    url: '/products/booster/' },
-    { id: 'gowork',     label: 'gowork',          cat: 'tools',     one: 'Go workspace management',          url: '/foundry/' },
-    // products
-    { id: 'processious', label: 'Processious',    cat: 'products',  one: 'Process-automation platform',     url: '/products/processious/', badge: 1 },
-    { id: 'ordin',       label: 'Ordin',          cat: 'products',  one: 'Durable workflow engine',         url: '/products/ordin/' },
-    { id: 'documentor',  label: 'Documentor.AI',  cat: 'products',  one: 'AI document platform',            url: '/products/documentor/' },
-    { id: 'dam',         label: 'Enterprise DAM', cat: 'products',  one: 'Digital asset management',        url: '/products/tallery-gallery/' }
-  ];
+  // Nodes come from the SHARED Foundry registry (tajmahal.yaml context.foundry),
+  // emitted by foundry.html as #foundryVizData - one source of truth, per the
+  // 2026-08-13 review. Ids derive from each item's url so the EDGES below can
+  // reference them stably. If the feed is missing, the canvas stays empty and
+  // the no-JS fallback list carries the hero.
+  var NODES = [];
+  (function () {
+    var el = document.getElementById('foundryVizData');
+    if (!el) return;
+    var raw;
+    try { raw = JSON.parse(el.textContent.replace(/,\s*([\]}])/g, '$1')); }
+    catch (e) { return; }
+    raw.forEach(function (d) {
+      if (!CATS[d.cat]) return;                          // e.g. future groups the viz has no ring for
+      var m = d.url.match(/#([a-z0-9-]+)$/) || d.url.match(/\/([a-z0-9-]+)\/$/);
+      NODES.push({
+        id: m ? m[1] : d.label.toLowerCase(),
+        label: d.label, cat: d.cat, one: d.one, url: d.url,
+        badge: d.badge ? 1 : 0
+      });
+    });
+  })();
 
   // ---- REAL relationship edges. VERIFY / EXTEND (Aamir knows the true graph). ----
   var EDGES = [
@@ -202,6 +200,7 @@
       R.edge(a, b, ACCENT, hot ? 0.9 : 0.12, hot ? 1.6 : 1);
     });
 
+    var labelJobs = [];
     NODES.forEach(function (n) {
       var isHot = hovered && hovered.id === n.id;
       var inCat = activeCat && n.cat === activeCat;
@@ -216,11 +215,41 @@
       if (n.badge) R.disc(n.x + r + 2.5, n.y - r - 2.5, 2, rgba(ACCENT, dim ? 0.25 : 0.95));
 
       var right = Math.cos(n.ang) >= 0;
+      var size = lit ? 15 : 13;
+      ctx.font = (lit ? '600' : '500') + ' ' + size + 'px Poppins, sans-serif';
+      var tw = ctx.measureText(n.label).width;
       var lx = n.x + (right ? r + 8 : -(r + 8));
-      var lcol = dim ? rgba(WHITE, 0.14) : (lit ? rgba(ACCENT, 1) : rgba(WHITE, 0.66));
-      R.label(lx, n.y, n.label, lcol, right ? 'left' : 'right', lit ? '600' : '500', lit ? 15 : 13);
+      labelJobs.push({
+        x: lx, y: n.y, w: tw, h: size + 6,
+        txt: n.label, col: dim ? rgba(WHITE, 0.14) : (lit ? rgba(ACCENT, 1) : rgba(WHITE, 0.66)),
+        align: right ? 'left' : 'right', weight: lit ? '600' : '500', size: size,
+        lit: lit
+      });
 
       n._sx = n.x; n._sy = n.y; n._sr = r;
+    });
+
+    // Collision pass (review 2026-08-13: rotating rings let labels from
+    // different rings land on one another - Internet Object / vault-storage).
+    // Greedy top-down: whenever two label plates intersect, the lower-priority
+    // one slides down until clear. Deterministic each frame, so labels glide
+    // apart smoothly as nodes pass rather than flickering.
+    labelJobs.sort(function (a, b) { return (a.y - b.y) || (a.lit ? -1 : 1); });
+    for (var i = 1; i < labelJobs.length; i++) {
+      var J = labelJobs[i];
+      var jx0 = J.align === 'left' ? J.x : J.x - J.w;
+      for (var k = 0; k < i; k++) {
+        var K = labelJobs[k];
+        var kx0 = K.align === 'left' ? K.x : K.x - K.w;
+        var xOverlap = jx0 < kx0 + K.w + 6 && kx0 < jx0 + J.w + 6;
+        var yGap = J.y - K.y;
+        if (xOverlap && yGap > -J.h && yGap < K.h) {
+          J.y = K.y + K.h + 1;
+        }
+      }
+    }
+    labelJobs.forEach(function (J) {
+      R.label(J.x, J.y, J.txt, J.col, J.align, J.weight, J.size);
     });
   }
 

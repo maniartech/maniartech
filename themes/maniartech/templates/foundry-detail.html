@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% comment %} CANONICAL FOUNDRY DETAIL SHELL (2026-08-12 reconstruction brief).
+Per-project pages reduce to one-line {% extends %} shims; everything
+project-specific arrives through frontmatter, never through template forks.
+
+Reading system is the one proven on /services/ and /standards/: measured prose
+column + sticky rail whose "On this page" nav is built by article/article.js
+from the rendered h2[id]s. The rail reuses the svc-aside classes so the
+compact-sticky behaviour at 1280x720 (and the mobile stack) is inherited, not
+reimplemented.
+
+Frontmatter contract (all optional except title/description):
+  eyebrow        - project type shown above the h1 (e.g. "Standard", "Library")
+  headline       - hero h1 override; `title` stays the SEO/menu name
+  statusLine     - ONE compact line of separated status facts (ASCII pipes)
+  artifacts      - hero actions: [{label, url, primary?}] - repository,
+                   playground, specification or demo. NEVER a sales CTA.
+  railMeta       - rail key/value rows: [{k, v}] - project type, maturity,
+                   availability, licence, adoption, evidence, last reviewed
+  railLinks      - rail evidence links: [{label, note, url}]
+  privateReview  - sentence on what qualified customers may inspect
+  tocDepth       - "3" opts h3s into the page nav
+
+Conversion rule (gated): exactly ONE body /contact/ conversion, rendered here
+after the content - the body markdown must not add another, and no /estimate/
+links exist on Foundry substance pages. {% endcomment %}
+
+{% block content %}
+<header class="main-header view-hero svc-hero fd-hero">
+    <div class="container vh-stage">
+        <div class="vh-say">
+            <a href="/foundry/" class="mt-eyebrow vh-eyebrow svc-back">&larr; The Foundry{% if pageContext.eyebrow %} - {{ pageContext.eyebrow }}{% endif %}</a>
+            <h1 class="fw-bold vh-h1">{{ pageContext.headline|default:title }}</h1>
+            <p class="vh-dek">{{ description }}</p>
+            {% if pageContext.statusLine %}<p class="fd-status">{{ pageContext.statusLine }}</p>{% endif %}
+            {% if pageContext.artifacts %}
+            <div class="mt-actions">
+                {% for a in pageContext.artifacts %}
+                <a href="{{ a.url }}"{% if "http" in a.url %} target="_blank" rel="noopener"{% endif %} class="butn butn-md butn-rounded {% if a.primary %}butn-bg main-colorbg{% else %}butn-bord text-light{% endif %}"><span>{{ a.label }}</span></a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0 article-region">
+    <div class="container">
+        <div class="svc-layout">
+            <main class="svc-main">
+                <div class="article-body mt-prose">{{ content|safe }}</div>
+
+                {% comment %} The page's single conversion - after the evidence,
+                template-enforced so every Foundry page carries exactly one. {% endcomment %}
+                <div class="mt-actions mt-50 pt-40 bord-thin-top">
+                    <a href="/contact/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Discuss a system</span></a>
+                    <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>&larr; Back to the Foundry</span></a>
+                </div>
+            </main>
+
+            <aside class="svc-aside fd-aside" aria-label="{{ title }} page navigation and project facts">
+                <div class="aside-inner">
+                    <nav class="toc"{% if pageContext.tocDepth %} data-depth="{{ pageContext.tocDepth }}"{% endif %} aria-label="On this page" hidden>
+                        <p class="aside-kicker">On this page</p>
+                        <ol class="toc-list"></ol>
+                    </nav>
+
+                    {% if pageContext.railMeta %}
+                    <div class="aside-block">
+                        <p class="aside-kicker">Project facts</p>
+                        <dl class="fd-meta">
+                            {% for m in pageContext.railMeta %}
+                            <dt>{{ m.k }}</dt><dd>{{ m.v }}</dd>
+                            {% endfor %}
+                        </dl>
+                    </div>
+                    {% endif %}
+
+                    {% if pageContext.railLinks %}
+                    <div class="aside-block">
+                        <p class="aside-kicker">Artifacts</p>
+                        {% for e in pageContext.railLinks %}
+                        <a class="am-link is-tight" href="{{ e.url }}"{% if "http" in e.url %} target="_blank" rel="noopener"{% endif %}>
+                            <b>{{ e.label }}</b><span>{{ e.note }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if pageContext.privateReview %}
+                    <div class="aside-block sa-review">
+                        <p class="aside-kicker">{{ pageContext.reviewKicker|default:"Private review" }}</p>
+                        <p>{{ pageContext.privateReview }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "article/article.js" %}
+{% endblock %}

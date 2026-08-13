@@ -1,87 +1,122 @@
 ---
-title: "vault-storage — IndexedDB power, localStorage-simple"
-description: "A tiny TypeScript browser-storage library: IndexedDB capacity and rich types behind a localStorage-simple API, in a ~1.5KB core."
-labStatus: "Published"
-category: "Libraries & Frameworks"
-license: "MIT"
-repo: "https://github.com/maniartech/vault-storage"
+title: "Vault Storage"
+headline: "localStorage's API. IndexedDB's engine."
+description: "A tiny TypeScript browser-storage library: property-style reads and writes on IndexedDB's capacity and structured types, with encryption, validation and expiration composing as middleware rather than bolted on."
+eyebrow: "Library"
+titleTag: "vault-storage - Browser Storage, Upgraded"
+seoDescription: "Vault Storage: a ~1.5KB TypeScript library giving web apps IndexedDB capacity behind a localStorage-simple API, with composable middleware. MIT, v2.0.1."
 order: 6
+tocDepth: "3"
+statusLine: "MIT | v2.0.1 on npm | Repo: maniartech/vault | 355 specs in real Chrome"
+artifacts:
+  - label: "Repository"
+    url: "https://github.com/maniartech/vault"
+    primary: true
+  - label: "npm package"
+    url: "https://www.npmjs.com/package/vault-storage"
+railMeta:
+  - { k: "Type", v: "TypeScript browser-storage library" }
+  - { k: "Maturity", v: "Stable; v2.0.1 tagged and published" }
+  - { k: "Availability", v: "Public source + public npm package" }
+  - { k: "Licence", v: "MIT" }
+  - { k: "Adoption", v: "Adoptable; npm install vault-storage" }
+  - { k: "Names", v: "Repository maniartech/vault; package vault-storage" }
+  - { k: "Reviewed", v: "13 August 2026" }
+railLinks:
+  - label: "Repository"
+    note: "Source, browser test suite and size scripts"
+    url: "https://github.com/maniartech/vault"
+  - label: "npm: vault-storage"
+    note: "v2.0.1, MIT, zero dependencies"
+    url: "https://www.npmjs.com/package/vault-storage"
+  - label: "The architecture write-up"
+    note: "Proxies, middleware and the 48-byte budget, from the source"
+    url: "/insights/vault-storage-localstorage-alternative/"
+reviewKicker: "Public evidence"
+privateReview: "Nothing is gated - the source and its test suite are public. The Insights write-up above walks the Proxy handler and middleware design in depth."
 ---
 
-`vault-storage` is a small TypeScript browser-storage library — published as v2, MIT — that gives web apps IndexedDB's power behind a localStorage-simple API.
+localStorage won by being effortless - `localStorage.theme = "dark"` and you're done - and it stayed won despite a ~5MB ceiling, strings-only values, and a synchronous API that blocks the main thread. IndexedDB fixes all three and almost nobody enjoys using it raw. Vault Storage's bet is that the ergonomics were the product: keep the one-line API, swap the engine underneath.
 
-## What it is
+```js
+import vault from 'vault-storage';
 
-`vault-storage` gives web apps the power of IndexedDB — large capacity, rich data types (objects, `Date`, `Map`, `Set`, `Blob`, `BigInt`, and more) — behind an API as simple as localStorage: `vault.key = value`, `await vault.key`. It's written in TypeScript and ships full type definitions. v2 adds a composable **middleware** architecture, with built-in middleware for encryption, validation, and expiration (TTL).
+vault.theme = "dark";                    // property-style write
+const theme = await vault.theme;         // async read - IndexedDB underneath
+await vault.setItem("session", data, { ttl: 3600000 });  // options when you need them
+```
+
+No setup, no schema, no open-database ceremony. The default `vault` instance is usable on import, the way localStorage always was.
+
+## How a property assignment becomes a transaction
+
+The trick is a Proxy: property access is intercepted, queued per key, and executed through a middleware chain before it touches IndexedDB. That layering is the architecture - each layer does one job, and the layers compose.
 
 <figure class="mt-figure mt-fig-diagram">
-<svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two-column comparison: localStorage stores strings only, synchronously, in about 5MB; vault-storage stores rich types asynchronously in IndexedDB with encryption and TTL middleware">
-  <g font-family="inherit" font-size="12.5">
-    <rect x="30" y="20" width="340" height="210" rx="10" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
-    <rect x="390" y="20" width="340" height="210" rx="10" fill="rgba(20,207,147,.08)" stroke="rgba(20,207,147,.55)" stroke-width="1.5"/>
-    <text x="200" y="48" text-anchor="middle" fill="rgba(255,255,255,.8)" font-weight="600">localStorage</text>
-    <text x="560" y="48" text-anchor="middle" fill="#14cf93" font-weight="600">vault-storage</text>
-    <line x1="52" y1="60" x2="348" y2="60" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/>
-    <line x1="412" y1="60" x2="708" y2="60" stroke="rgba(20,207,147,.35)" stroke-width="1.2"/>
-    <g fill="rgba(255,255,255,.65)" font-size="12">
-      <text x="52" y="88">strings only - serialize it yourself</text>
-      <text x="52" y="116">synchronous - can block the UI thread</text>
-      <text x="52" y="144">~5MB typical cap</text>
-      <text x="52" y="172">one flat store per origin</text>
-      <text x="52" y="200">no expiration, no encryption built in</text>
+<svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture cutaway in four layers: the application API of property access and setItem calls; the Proxy and per-key pending-operation layer that serializes operations; the middleware chain of validation, encryption and expiration; and IndexedDB storage at the bottom">
+  <g font-family="inherit" font-size="12">
+    <rect x="120" y="24" width="520" height="52" rx="9" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.4)" stroke-width="1.2"/>
+    <text x="380" y="46" text-anchor="middle" fill="rgba(255,255,255,.85)" font-weight="600">application API</text>
+    <text x="380" y="64" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="10.5" font-family="Consolas, monospace">vault.theme = "dark"   |   await vault.getItem("k")   |   setItem(k, v, { ttl })</text>
+    <path d="M380 76 L380 96" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+    <rect x="120" y="98" width="520" height="52" rx="9" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.4)" stroke-width="1.2"/>
+    <text x="380" y="120" text-anchor="middle" fill="rgba(255,255,255,.85)" font-weight="600">Proxy + per-key pending-operation queue</text>
+    <text x="380" y="138" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="10.5">property access intercepted; operations on the same key serialize, different keys stay parallel</text>
+    <path d="M380 150 L380 170" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+    <rect x="120" y="172" width="520" height="66" rx="9" fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.55)" stroke-width="1.3"/>
+    <text x="380" y="194" text-anchor="middle" fill="#14cf93" font-weight="600">middleware chain - executeWithMiddleware()</text>
+    <g font-family="Consolas, monospace" font-size="10.5" fill="rgba(255,255,255,.65)" text-anchor="middle">
+      <text x="230" y="216">validation</text>
+      <text x="380" y="216">encryption</text>
+      <text x="530" y="216">expiration</text>
     </g>
-    <g fill="rgba(255,255,255,.75)" font-size="12">
-      <text x="412" y="88">rich types: objects, Date, Map, Set, Blob...</text>
-      <text x="412" y="116">async, non-blocking (IndexedDB underneath)</text>
-      <text x="412" y="144">browser-limit capacity, often 250MB+</text>
-      <text x="412" y="172">multiple isolated stores</text>
-      <text x="412" y="200">TTL expiration + encryption middleware</text>
-    </g>
+    <text x="380" y="231" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10.5">before / after / error hooks; compose with .use() - or write your own</text>
+    <path d="M380 238 L380 258" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+    <rect x="120" y="260" width="520" height="44" rx="9" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
+    <text x="380" y="279" text-anchor="middle" fill="rgba(255,255,255,.8)" font-weight="600">IndexedDB</text>
+    <text x="380" y="296" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10.5">browser-granted capacity, structured values, async by nature - multiple named stores, one API</text>
+    <text x="380" y="322" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11">Every box is a real module: proxy-handler.ts, vault.ts (executeWithMiddleware), src/middlewares/, backup.ts.</text>
   </g>
 </svg>
-<figcaption><strong>What you trade up from.</strong> The rows come from the library's own README comparison; the ~5MB figure is the typical localStorage cap and the 250MB+ figure is what browsers commonly grant IndexedDB - both vary by browser. The whole upgrade costs ~1.5KB gzipped.</figcaption>
+<figcaption><strong>Each layer does one job.</strong> The Proxy makes property syntax possible on an async engine; the per-key queue keeps racing writes to the same key ordered without serializing everything; the middleware chain is where encryption, validation and expiration live - as composable steps, not forks of the storage class.</figcaption>
 </figure>
 
-## Using it from code
-
-The default vault needs zero setup - write like localStorage, but store real types and never block the UI:
+Composition in practice, from the README:
 
 ```js
-import vault from "vault-storage";
+import { encryptionMiddleware, validationMiddleware, expirationMiddleware }
+  from 'vault-storage/middlewares';
 
-// store an object, not a string
-vault.settings = { theme: "dark", volume: 0.8 };
-
-// reads are async - IndexedDB under the hood
-const settings = await vault.settings;
+vault
+  .use(validationMiddleware((ctx) => { /* reject bad shapes before they persist */ }))
+  .use(encryptionMiddleware({ /* PBKDF2-derived key, AES-GCM at rest */ }))
+  .use(expirationMiddleware({ /* TTL cleanup strategy */ }));
 ```
 
-The v2 middleware system is where it grows up with your app - isolated stores that compose encryption and expiration:
+Because the layers compose, the pre-configured `EncryptedVault` is not a second implementation - it is the same `Vault` with the encryption middleware already applied. Every mutation also emits a standard `EventTarget` `change` event, so reactive UIs can subscribe to storage the way they subscribe to anything else.
 
-```js
-import Vault from "vault-storage/vault";
-import { encryption, expiration }
-  from "vault-storage/middlewares";
+## Small enough to not argue about
 
-const store = new Vault("app-cache");
-store.use(encryption({ password, salt }));
-store.use(expiration({ cleanupStrategy: "proactive" }));
+The README's stated sizes, each measurable from the repository with `npm run size`: **~1.5KB** minified+gzipped for the core Vault class, **~2KB** for the bundled core entry, **~4KB** bundled with `EncryptedVault` - encryption included. Zero dependencies, modular, tree-shakeable: you include what you use.
 
-// encrypted at rest, gone in an hour
-await store.setItem("session", data, { ttl: 3600000 });
-```
+## Test evidence, stated precisely
 
-## Why it matters
+**355 specs at this writing, run under Karma in a real Chrome browser** - against actual IndexedDB, not a simulated DOM. Two qualifications, stated separately: one performance-threshold spec is timing-sensitive and may fail on slower runs, and Firefox is configured as an available launcher but is not enabled. We say "real Chrome", and that is exactly what the committed configuration runs.
 
-The checkable proof is in the package itself: a **~1.5KB core** (gzipped, tree-shakeable, zero dependencies) backed by **350+ browser tests** — run in real Chrome and Firefox, not just a simulated DOM. The middleware architecture means encryption, validation, and expiration compose cleanly rather than being bolted on. You get IndexedDB's capacity and a localStorage-shaped API without carrying a heavy dependency.
+## Known limits
 
-One honest caveat worth stating up front: the **backup export of encrypted data is decrypted** at export time. Encrypted-at-export is still being designed — so plan your backup handling accordingly, and don't assume an export file is ciphertext.
+- **Backup export of encrypted data is decrypted at export time.** Encrypted-at-export is still being designed - plan your backup handling accordingly, and do not assume an export file is ciphertext.
+- **Reads are asynchronous.** `await vault.theme` is the price of the IndexedDB engine; code expecting localStorage's synchronous reads needs the `await`.
+- **Cross-browser test execution is not claimed** - the committed suite runs Chrome only, as stated above.
+- **The names differ**: the repository is `maniartech/vault`, the npm package is `vault-storage`. Both are linked in the rail; the package is the thing you install.
 
-## Status & how to see it
+## Status: four facts, kept separate
 
-Published as v2 and production-ready. See it for yourself:
+- **Availability** - public source at [github.com/maniartech/vault](https://github.com/maniartech/vault), published package [`vault-storage`](https://www.npmjs.com/package/vault-storage).
+- **Licence** - **MIT**, in the repository and on the package.
+- **Maturity** - **stable at v2.0.1**, a major release built on the middleware architecture; v1.x remains documented at its own tag.
+- **Adoption** - adoptable now: `npm install vault-storage`.
 
-- **Source & tests:** [github.com/maniartech/vault-storage](https://github.com/maniartech/vault-storage)
-- Published to **npm** as `vault-storage`.
+## What this demonstrates
 
-
+The hard part of this library is invisible when it works: making JavaScript property syntax - which is synchronous by definition - coexist with an asynchronous storage engine, without losing ordering when two writes race for the same key. Solving that with a Proxy, a per-key operation queue and a middleware seam, inside a 1.5KB budget, is the same discipline as any systems boundary: keep the interface your users already know, and absorb the complexity on your side of it.

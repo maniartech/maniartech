@@ -1,89 +1,116 @@
 ---
-title: Processious
-description: Our process-automation and application platform - in production today, running a client's operations, on mainstream technology your own team can maintain.
-productStatus: In production
+title: "Processious"
+headline: "A workflow is not automated until invalid transitions are impossible."
+description: "Our process-automation platform: explicit states, role-gated transitions and audit evidence - in production, carrying a client laboratory's operations."
+eyebrow: "Product"
 titleTag: "Processious - Process Automation Platform"
+seoDescription: "Processious: explicit states, role-gated transitions and audit evidence - in production, running a client laboratory's operations."
+order: 1
+tocDepth: "3"
+statusLine: "In production | Client-carrying | Private | Commercial engagement"
+artifacts:
+  - label: "The system it carries: Chemo case study"
+    url: "/case-studies/chemo/"
+    primary: true
+  - label: "Verify a live output"
+    url: "https://reports.chemotestlaboratory.com"
+railMeta:
+  - { k: "Type", v: "Process-automation and application platform" }
+  - { k: "Maturity", v: "Client production - carries a live laboratory system" }
+  - { k: "Availability", v: "Private; delivered through commercial engagements" }
+  - { k: "Licence", v: "Proprietary" }
+  - { k: "Adoption", v: "Via an engagement, not a download" }
+  - { k: "Evidence", v: "An accredited laboratory's operations run on it daily" }
+  - { k: "Reviewed", v: "13 August 2026" }
+railLinks:
+  - label: "Chemo Test Laboratory case study"
+    note: "The full story of the system Processious carries"
+    url: "/case-studies/chemo/"
+  - label: "reports.chemotestlaboratory.com"
+    note: "Public report verification - a live output of the platform"
+    url: "https://reports.chemotestlaboratory.com"
+  - label: "Enterprise Systems Engineering"
+    note: "The practice this platform is the substrate for"
+    url: "/services/enterprise-software-engineering/"
+privateReview: "The platform is private and its client deployment is confidential. Qualified customers can request an architecture and operating walkthrough; a sanitized interface tour is available in conversation."
 ---
 
-Processious is our process-automation and application platform. We use it to build the systems a
-business actually runs on - workflows, line-of-business applications, and the data and rules behind
-them - and to ship them faster than building from scratch, on technology your own team can maintain.
+**A business process is a state machine with permissions** - and the platform's job is to make illegal transitions impossible, not merely discouraged.
 
-## Is this you?
-
-- **Your processes live in spreadsheets, email, and people's heads** - and you need them automated, connected, and auditable.
-- **You need a custom line-of-business application** - built properly, the first time, not bolted together from off-the-shelf parts that don't quite fit.
-- **You're outgrowing manual workflows** - approvals, hand-offs, escalations, and audit trails that should run themselves.
-- **You need it built on technology you can keep** - not a tool only one vendor understands.
-
-## It's in production today
-
-Processious is a working platform we built, own, and operate - and it's in production serving a client's operations. We'd rather show you than tell you.
-
-**Chemo Test Laboratory** - we built their laboratory management system on Processious. It runs in production today, handling samples from intake through testing, authorization, and secure, recipient-verified report delivery. Their public website runs on our Taj Mahal framework too - there's a *"Powered by ManiarTech"* credit in its footer. Both of these are live and public, so you don't have to take our word for it:
-
-- [chemotestlaboratory.com](https://www.chemotestlaboratory.com) - their production site, running on our stack.
-- [reports.chemotestlaboratory.com](https://reports.chemotestlaboratory.com) - the report-authenticity checker, part of the recipient-verified delivery Processious handles.
-
-## What a process looks like on Processious
-
-The clearest way to explain the platform is to walk that real process - the laboratory workflow it runs today:
+## States, roles, transitions, evidence
 
 <figure class="mt-figure mt-fig-diagram">
-<svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four workflow stages - sample intake, testing, authorization, verified delivery - moving left to right, driven by events, on top of two platform layers: role-based access and an audit trail">
-  <g font-family="inherit" font-size="12.5">
-    <text x="40" y="28" fill="rgba(255,255,255,.8)" font-weight="600">The lab workflow Processious runs in production</text>
-    <g fill="rgba(20,207,147,.15)" stroke="rgba(20,207,147,.6)" stroke-width="1.2">
-      <rect x="40" y="48" width="155" height="40" rx="8"/>
-      <rect x="215" y="48" width="155" height="40" rx="8"/>
-      <rect x="390" y="48" width="155" height="40" rx="8"/>
-      <rect x="565" y="48" width="155" height="40" rx="8"/>
+<svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A state machine of a laboratory sample lifecycle: intake, review, testing, authorization and signed states connected by permitted transitions; a technician's attempt to jump from testing straight to signed is rejected because that transition requires the authorizer role; every permitted transition writes an audit record of who, what and when">
+  <g font-family="inherit" font-size="12">
+    <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.4)" stroke-width="1.2">
+      <rect x="30"  y="60" width="110" height="42" rx="8"/>
+      <rect x="180" y="60" width="110" height="42" rx="8"/>
+      <rect x="330" y="60" width="110" height="42" rx="8"/>
+      <rect x="480" y="60" width="120" height="42" rx="8"/>
     </g>
-    <g text-anchor="middle" fill="rgba(255,255,255,.75)">
-      <text x="117" y="72">Sample intake</text>
-      <text x="292" y="72">Testing</text>
-      <text x="467" y="72">Authorization</text>
-      <text x="642" y="72">Verified delivery</text>
+    <rect x="640" y="60" width="90" height="42" rx="8" fill="rgba(20,207,147,.12)" stroke="rgba(20,207,147,.6)" stroke-width="1.3"/>
+    <g text-anchor="middle" fill="rgba(255,255,255,.8)" font-weight="600">
+      <text x="85"  y="85">intake</text>
+      <text x="235" y="85">review</text>
+      <text x="385" y="85">testing</text>
+      <text x="540" y="85">authorization</text>
     </g>
-    <g stroke="rgba(255,255,255,.45)" stroke-width="1.5">
-      <line x1="195" y1="68" x2="209" y2="68"/>
-      <line x1="370" y1="68" x2="384" y2="68"/>
-      <line x1="545" y1="68" x2="559" y2="68"/>
+    <text x="685" y="85" text-anchor="middle" fill="#14cf93" font-weight="600">signed</text>
+    <g stroke="rgba(20,207,147,.55)" stroke-width="1.5">
+      <line x1="140" y1="81" x2="178" y2="81"/><line x1="290" y1="81" x2="328" y2="81"/>
+      <line x1="440" y1="81" x2="478" y2="81"/><line x1="600" y1="81" x2="638" y2="81"/>
     </g>
-    <g fill="rgba(255,255,255,.5)">
-      <polygon points="209,63 209,73 216,68"/>
-      <polygon points="384,63 384,73 391,68"/>
-      <polygon points="559,63 559,73 566,68"/>
+    <g text-anchor="middle" font-size="10" fill="rgba(255,255,255,.45)">
+      <text x="159" y="72">clerk</text><text x="309" y="72">reviewer</text>
+      <text x="459" y="72">technician</text><text x="619" y="72">authorizer</text>
     </g>
-    <text x="380" y="112" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="11.5">events move the work forward: hand-offs, notifications, escalations</text>
-    <rect x="40" y="130" width="680" height="36" rx="8" fill="rgba(20,207,147,.10)" stroke="rgba(20,207,147,.5)" stroke-width="1.2"/>
-    <text x="380" y="152" text-anchor="middle" fill="rgba(255,255,255,.7)">Role-based access: each step is performed only by the roles allowed to perform it</text>
-    <rect x="40" y="178" width="680" height="36" rx="8" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.3)" stroke-width="1.2"/>
-    <text x="380" y="200" text-anchor="middle" fill="rgba(255,255,255,.7)">Audit trail: every action and hand-off is recorded as it happens</text>
+    <path d="M385 102 C 430 190, 560 190, 668 104" stroke="rgba(240,90,90,.6)" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+    <rect x="410" y="160" width="230" height="46" rx="8" fill="rgba(240,90,90,.1)" stroke="rgba(240,90,90,.55)"/>
+    <text x="525" y="179" text-anchor="middle" fill="rgba(240,90,90,.85)" font-weight="600">REJECTED: testing -&gt; signed</text>
+    <text x="525" y="196" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="10.5">requires the authorizer role - the platform refuses, not a policy document</text>
+    <rect x="30" y="240" width="700" height="52" rx="9" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.3)"/>
+    <text x="380" y="261" text-anchor="middle" fill="rgba(255,255,255,.75)" font-weight="600">audit record - written by the transition itself</text>
+    <text x="380" y="280" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10.5" font-family="Consolas, monospace">who (role + user) | what (from-state -&gt; to-state) | when | on which record</text>
+    <text x="380" y="318" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11">The record of what happened is a side effect of the machine, not a diary someone remembers to keep.</text>
   </g>
 </svg>
-<figcaption><strong>A real process, not a mock-up.</strong> These are the stages of the laboratory system linked above; the two layers underneath are the platform doing its job on every step. You can verify the system is live at the links in the previous section.</figcaption>
+<figcaption><strong>The rejection is the feature.</strong> Each transition names the roles permitted to make it; an attempt outside those roles is refused by the platform, and every permitted transition writes its own audit record. The stages shown are the real production workflow's, as published in the case study; the rules illustrated are the platform's operating model, not client data.</figcaption>
 </figure>
 
-A process on Processious is defined once, as a sequence of steps. Work then moves between the steps
-on events: a completed test triggers authorization, an authorized report triggers delivery, and the
-hand-offs, notifications, and escalations run themselves instead of living in someone's inbox. Each
-step is performed under role-based access control, so the platform - not convention - decides who may
-act at each stage. And everything that happens is written to an audit trail as it happens, not
-reconstructed later when someone asks.
+The exhibit above is the platform's operating model, shown on the workflow it actually carries in production - a testing laboratory's sample lifecycle, whose stages are public in [the case study](/case-studies/chemo/): intake, review, testing, authorization, signing. Most workflow tools automate the happy path and leave the rules in people's heads; when an auditor asks who approved a record and under what authority, the answer is a shrug and a spreadsheet. Processious exists to make that question boring.
 
-## Why it's safe to build on
+## In production, verifiable from outside
 
-- **Mainstream, maintainable technology.** Processious is built on technology your own team - or any team - can hire for and maintain (Go, MongoDB, React). What we deliver is comprehensible software, not a black box only we can reason about.
-- **Right-sized, never over-engineered.** We start at the scale your problem actually needs and grow only as it earns it.
-- **Led and reviewed by senior engineers.** We do not substitute trainees for the experienced engineers presented during the engagement.
-- **Delivered on an independently audited process.** ISO 9001:2015 (quality) and ISO/IEC 27001:2022 (information security) management systems, audited by URS under UKAS accreditation - a documented, repeatable delivery process and a defined way your data is handled.
-- **Built to be handed over.** Because it's our own platform, we know exactly how your system is put together - and we document it so it lives in systems, not in one person's head.
+Processious carries the operations of **Chemo Test Laboratory** - a 35-year, NABL-accredited analytical testing laboratory - as its production deployment. Two things about that are checkable without trusting us:
 
-## Who builds it
+- **The case study** ([/case-studies/chemo/](/case-studies/chemo/)) describes the system, its controls, and the delivery.
+- **A live output**: [reports.chemotestlaboratory.com](https://reports.chemotestlaboratory.com) authenticates a report by its COA number - report delivery bound to the authorized recipient is a platform control you can watch working from the public side.
 
-Processious was built by ManiarTech - a senior engineering team founded in 2010 by [Aamir Maniar](https://www.linkedin.com/in/aamironline), who earlier in his career built financial-technology systems at **JP Morgan** and worked as a technology architect at firms including Countrywide Financial, Patni (now iGATE), and Oakton. The same team that designed the platform builds and supports your system on it.
+The client's data and the deployment's internals are confidential and stay out of this page; a sanitized interface tour is available in conversation.
 
-## How it's built
+## What the platform provides
 
-*For the technically curious:* we didn't assemble Processious from parts - we engineered its foundation ourselves, with a schema-driven data layer, role-based access control, and multi-tenancy underneath the workflow engine. The practical payoff for you: the systems we build on it are solid, maintainable, and yours.
+- **Workflow and state model** - processes defined as states and transitions, with the legal moves explicit.
+- **Role-based controls** - who may act is part of the process definition, enforced at the transition.
+- **Auditability** - the who/what/when record produced by the machine itself, because regulated operations are judged on their records.
+- **Line-of-business applications** - the screens, data and rules around the workflow, built on mainstream technology a client's own team can maintain.
+- **Integration boundaries** - the platform is a substrate that connects to what a business already runs, not a silo that replaces it.
+
+[Ordin](/products/ordin/), our workflow engine in development, is being built as the automation core behind this platform - long-running, scheduled and event-driven work runs through it.
+
+## Known limits
+
+- **Private, and delivered through engagements.** There is no download, trial or self-serve tier; adopting Processious means engaging us to build on it.
+- **One production deployment is claimed** - the laboratory system above. We do not claim a customer fleet, and the platform's evidence is exactly as deep as that deployment.
+- **Interface screenshots are pending approval.** A masked interface tour will join this page once captures are approved for publication; until then the case study and the live verifier are the visible evidence.
+
+## Status: four facts, kept separate
+
+- **Availability** - private; commercial engagement only.
+- **Licence** - proprietary.
+- **Maturity** - **client production**: a live accredited laboratory runs on it.
+- **Adoption** - through an engagement. The technology underneath is mainstream, so a client team can maintain what we build on it.
+
+## What this demonstrates
+
+Building this platform required deciding where state lives, which transitions are legal, who may act, and what evidence survives - and then making the software enforce those answers under a regulator's gaze. That is precisely the discipline of our [Enterprise Systems Engineering](/services/enterprise-software-engineering/) practice, and Processious is where it was proven on our own account before being applied to anyone else's.

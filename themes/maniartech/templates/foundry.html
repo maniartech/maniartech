@@ -2,7 +2,7 @@
 
 {% comment %} The Foundry hub v3 - the workshop, one treatment per shelf.
 
-Projects still render from pageContext.sections (content in foundry/foundry/index.md),
+Projects still render from site.context.foundry (content in foundry/foundry/index.md),
 but each shelf now opens with a SPECIMEN of the thing it holds: the Languages shelf
 shows language, the Standards shelf shows the format beside the JSON it replaces, the
 Libraries shelf shows code you would actually import, the Tools shelf shows a terminal,
@@ -19,9 +19,9 @@ drift from the page it summarises. Understated voice - see brand guide section 4
             <div class="col-lg-6">
                 <span class="mt-eyebrow">The Foundry</span>
                 <h1 class="fw-bold prod-h1">The technology we've built.</h1>
-                <p class="lead-text prod-lead">Over the years we've built our own libraries, standards, tools, a couple of languages, and the products we run on. It's a matter-of-fact part of the work here — patient, and mostly in the open. None of it is something we make you adopt; but it's where our engineering discipline comes from, and most of it you can read and run yourself.</p>
+                <p class="lead-text prod-lead">Over the years we've built our own libraries, standards, tools, a couple of languages, and the products we run on. Some are public and runnable; others are production systems, internal tools or research we can walk qualified customers through. None of it is something we make you adopt - but it's where our engineering discipline comes from, and every page below says exactly what is public and what is not.</p>
                 <nav class="foundry-nav" aria-label="Browse the Foundry — hover a category to light it up in the map">
-                    {% for s in pageContext.sections %}<a href="#{{ s.anchor }}" data-viz-cat="{{ s.anchor }}">{{ s.name }}</a>{% endfor %}
+                    {% for s in site.context.foundry %}<a href="#{{ s.anchor }}" data-viz-cat="{{ s.anchor }}">{{ s.name }}</a>{% endfor %}
                     <a href="#open-source">Open Source</a>
                 </nav>
             </div>
@@ -35,7 +35,7 @@ drift from the page it summarises. Understated voice - see brand guide section 4
                     </figcaption>
                     {% comment %} Fallback for no-JS, mobile, and screen readers {% endcomment %}
                     <ul class="foundry-viz-fallback">
-                        {% for s in pageContext.sections %}<li><a href="{{ s.view }}">{{ s.name }} &rarr;</a></li>{% endfor %}
+                        {% for s in site.context.foundry %}<li><a href="{{ s.view }}">{{ s.name }} &rarr;</a></li>{% endfor %}
                         <li><a href="https://github.com/maniartech" target="_blank" rel="noopener" class="fv-fallback-more">Open source &nearr;</a></li>
                     </ul>
                 </figure>
@@ -44,7 +44,7 @@ drift from the page it summarises. Understated voice - see brand guide section 4
     </div>
 </header>
 
-{% for s in pageContext.sections %}
+{% for s in site.context.foundry %}
 <section class="section-padding foundry-sec" id="{{ s.anchor }}">
     <div class="container">
         <div class="foundry-shelf">
@@ -162,6 +162,7 @@ UserRegistered.Emit(ctx, newUser)</pre>
                         <span class="mt-badge {% if it.live %}is-live{% endif %}">{{ it.status }}</span>
                     </div>
                     <p>{{ it.desc }}</p>
+                    {% if it.artifact %}<p class="fcard-artifact">{{ it.artifact }}</p>{% endif %}
                     <div class="fcard-tags">
                         {% for t in it.tags %}<span class="f-tag">{{ t }}</span>{% endfor %}
                     </div>
@@ -179,7 +180,7 @@ UserRegistered.Emit(ctx, newUser)</pre>
             <div class="col-lg-8">
                 <span class="mt-eyebrow">Open source</span>
                 <h2 class="fw-600 mb-20">Not a category — a habit.</h2>
-                <p class="opacity-8">Most of what we build, we open. That's why "open source" isn't a separate shelf above — it's a tag on the things that carry it. Every public repository lives on our GitHub: read it, run it, or reproduce a benchmark yourself. The point isn't to be admired for it; it's that you don't have to take our word for the engineering — you can check it.</p>
+                <p class="opacity-8">What we publish, we publish properly - which is why "open source" isn't a separate shelf above, but a tag on the things that actually carry a licence. Every public repository lives on our GitHub: read it, run it, or reproduce a benchmark yourself. The rest is labelled private just as plainly, because the point isn't to be admired - it's that you never have to guess which claims you can check.</p>
                 <div class="mt-actions mt-30">
                     <a href="https://github.com/maniartech" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Browse the repositories &nearr;</span></a>
                 </div>
@@ -206,5 +207,15 @@ UserRegistered.Emit(ctx, newUser)</pre>
 {% endblock %}
 
 {% block scripts_extra %}
+{% comment %} The constellation consumes the SAME registry as the shelves and
+menus (context.foundry) - no parallel inventory in JS. Trailing commas are
+stripped by the consumer before JSON.parse. {% endcomment %}
+<script id="foundryVizData" type="application/json">
+[
+{% for g in site.context.foundry %}{% for it in g.items %}
+  {"label": "{{ it.name }}", "cat": "{{ g.anchor }}", "one": "{{ it.short|default:it.status }}", "url": "{{ it.url }}", "badge": {% if it.live %}1{% else %}0{% endif %}},
+{% endfor %}{% endfor %}
+]
+</script>
 {% lib "foundry-viz/foundry-viz.js" %}
 {% endblock %}

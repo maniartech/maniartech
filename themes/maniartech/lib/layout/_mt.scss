@@ -540,7 +540,10 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .fcard:hover { transform: translateY(-5px); border-color: rgba($main_color,.5); }
 .fcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .fcard-top h5 { color: #fff; margin: 0; font-size: 19px; }
-.fcard-top .mt-badge { flex: 0 0 auto; }
+.fcard-top .mt-badge { flex: 0 1 auto; }
+/* Multi-fact status badges ("Pre-1.0 | Public source | MIT") are longer than a
+   375px card - let them wrap inside the pill instead of widening the page. */
+.fcard-top .mt-badge { white-space: normal; text-align: right; line-height: 1.5; max-width: 60%; }
 .fcard p { color: rgba(255,255,255,.68); font-size: 14.5px; line-height: 1.55; margin: 0 0 15px; }
 .fcard-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .f-tag { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; color: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.14); border-radius: 40px; padding: 2px 9px; }
@@ -809,6 +812,18 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
     white-space: nowrap;
   }
 }
+/* FOUNDRY HUB ONLY (2026-08-13): sr-only at ALL widths - on mobile the hero's
+   category pills already show these exact links, and pills followed by a
+   directory of the same categories read as duplication. Other viz heroes
+   (About's cube) keep their promoted mobile fallback: their lists duplicate
+   nothing. Stays in the DOM for assistive tech and no-JS everywhere. */
+.foundry-hero .foundry-viz-fallback {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
 @media (max-width: 991px) {
   .viz-hero .foundry-viz canvas,
   .viz-hero .foundry-viz-cap { display: none; }
@@ -818,6 +833,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
     gap: 10px;
     margin-top: 26px;
   }
+  .foundry-hero .foundry-viz-fallback { display: block; }
   .viz-hero .foundry-viz-fallback a {
     display: block;
     padding: 12px 16px;
@@ -2178,6 +2194,23 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
   /* Secondary block only - it restates prose that is a click away in the nav. */
   .standards-aside .sa-review, .svc-aside .sa-review { display: none; }
+  /* Foundry rail, same budget: the toc yields first (thin internal scrollbar,
+     above), the artifact notes collapse to their labels, and the meta list
+     tightens - the FACTS all stay visible, only their air is spent. */
+  .svc-aside .am-link.is-tight span { display: none; }
+  .svc-aside .fd-meta { gap: 3px 12px;
+    dd { font-size: 12.5px; } }
+  .svc-aside .aside-block .aside-kicker { margin-bottom: 6px; }
+  /* The Foundry rail carries two blocks the services rail does not (the meta
+     list and the artifact links), so its toc budget is smaller. Three classes
+     deep to outrank the shared .svc-aside .aside-inner .toc cap above. */
+  .fd-aside .aside-inner .toc { max-height: calc(100svh - 545px); }
+}
+
+/* The header-clearing sticky offset is a FOUNDRY-SHELL decision only - the
+   Insights/Standards/Services rails were verified at 36px and stay there
+   (review 2026-08-13: do not rescope previously accepted pages). */
+.fd-aside .aside-inner { top: 96px;
 }
 @media (max-height: 700px) {
   .standards-aside .aside-inner .toc, .svc-aside .aside-inner .toc { max-height: calc(100svh - 250px); }
@@ -2436,6 +2469,64 @@ a.ahf-k:hover { color: $main_color; }
 /* Hero: one restrained, practice-specific action - never a generic estimate CTA. */
 .svc-back { color: rgba(255, 255, 255, .55);
   &:hover { color: $main_color; } }
+
+/* Foundry detail shell (foundry-detail.html). One compact status line in the
+   hero - separated ASCII facts, not a row of pills - and a key/value list in
+   the rail. Both must stay legible at the rail's compact 1280x720 mode.
+
+   The hero is COMPACT by review ruling (Aamir, 2026-08-13): these are exhibit
+   pages, and the signature exhibit must begin inside the first viewport - a
+   100svh prose hero buried every exhibit ~1500px down. Height comes from the
+   content, not the viewport. */
+.fd-hero { min-height: 0; }
+.fd-hero .vh-stage { min-height: 0; padding-top: 104px; padding-bottom: 26px; }
+.fd-hero .vh-say { justify-content: flex-start; }
+.fd-hero .vh-h1 { font-size: clamp(28px, 4.2vw, 48px); margin-bottom: 10px; }
+.fd-hero .vh-dek { max-width: 78ch; font-size: clamp(15px, 1.35vw, 17px); }
+.fd-hero .fd-status { margin-top: 12px; }
+.fd-hero .mt-actions { margin-top: 18px; }
+.fd-hero .mt-actions .butn { padding-top: 10px; padding-bottom: 10px; }
+/* First heading of the article sits close under the compact hero, so the
+   exhibit it introduces lands inside the first viewport. */
+.fd-aside ~ * {}
+.svc-layout .article-body > h2:first-child,
+.svc-layout .article-body > p:first-child + h2 { margin-top: 10px; }
+@media (max-width: 767px) {
+  .fd-hero .vh-stage { padding-top: 92px; padding-bottom: 20px; }
+  .fd-hero .vh-h1 { font-size: clamp(26px, 7.4vw, 34px); }
+  /* Keep the artifact buttons on one row on phones - stacking them pushed the
+     exhibit a full button-height further down for no reading benefit. */
+  .fd-hero .mt-actions { flex-direction: row; }
+  .fd-hero .mt-actions .butn { padding-left: 14px; padding-right: 14px; }
+}
+.fd-status {
+  margin: 18px 0 0; font-family: var(--mono); font-size: 13px;
+  color: rgba(255, 255, 255, .55); letter-spacing: .01em;
+}
+.fd-meta {
+  display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0;
+  dt { font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+       color: rgba(255, 255, 255, .42); padding-top: 2px; }
+  dd { margin: 0; font-size: 13px; color: rgba(255, 255, 255, .78); }
+}
+/* Byte-count chip on an exhibit pane's title bar - the measured fact sits ON
+   the specimen it describes, never floated into prose. */
+/* Hub card: the best inspectable artifact, named on the card - so the shelf
+   answers "what can I check?" before the click. */
+.fcard-artifact {
+  margin: 8px 0 0; font-size: 12px; font-family: var(--mono);
+  color: rgba($main_color, .75);
+  &::before { content: "\2192 "; color: rgba(255, 255, 255, .35); }
+}
+
+.lp-bytes {
+  margin-left: auto; font-family: var(--mono); font-size: 11px;
+  color: rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .12); border-radius: 40px; padding: 2px 9px;
+  white-space: nowrap;
+  &.is-win { color: $main_color; background: rgba($main_color, .1);
+             border-color: rgba($main_color, .45); }
+}
 
 /* Engagement-model strip (/partnerships/). A BAND, not columns: the four cells
    are sized by their own content and divided by vertical hairlines that run

@@ -1,24 +1,44 @@
 ---
-title: "signals — a context-aware, type-safe event system for Go"
-description: "A lightweight Go event/signals library — typed, context-aware, lock-free reads, and benchmarks we hold ourselves to."
-labStatus: "Published"
-category: "Libraries & Frameworks"
-license: "MIT"
-repo: "https://github.com/maniartech/signals"
-order: 4
+title: "signals"
+headline: "One emit, N typed listeners - checked by the compiler."
+description: "A typed, in-process signaling library for Go - the observer pattern with compile-time payload safety: async fire-and-forget and error-aware sync signals inside one binary, with a context in every listener."
+eyebrow: "Library"
 titleTag: "signals - a Type-Safe Event System for Go"
+seoDescription: "signals: typed in-process signaling for Go - the observer pattern with generics, sync and async variants, transaction-safe TryEmit. MIT, v1.3.1."
+order: 4
+tocDepth: "3"
+statusLine: "MIT | Tagged v1.3.1 | In production in our own systems | 331 stars at last review"
+artifacts:
+  - label: "Repository"
+    url: "https://github.com/maniartech/signals"
+    primary: true
+  - label: "Package docs"
+    url: "https://pkg.go.dev/github.com/maniartech/signals"
+railMeta:
+  - { k: "Type", v: "Go library - typed pub/sub events" }
+  - { k: "Maturity", v: "Stable; tagged v1.3.1. A v1.4 rewrite is in progress, not yet published" }
+  - { k: "Availability", v: "Public source, public tagged release" }
+  - { k: "Licence", v: "MIT" }
+  - { k: "Adoption", v: "Adoptable; go-gettable today" }
+  - { k: "Evidence", v: "Used in production in ManiarTech's own systems" }
+  - { k: "Reviewed", v: "13 August 2026" }
+railLinks:
+  - label: "Repository"
+    note: "Source, CI and a committed benchmark file"
+    url: "https://github.com/maniartech/signals"
+  - label: "pkg.go.dev"
+    note: "API reference as Go publishes it"
+    url: "https://pkg.go.dev/github.com/maniartech/signals"
+reviewKicker: "Public evidence"
+privateReview: "The v1.4 work in progress - a lock-free copy-on-write core with a committed benchstat discipline - can be walked through on request; it has not reached the public repository yet."
 ---
 
-`signals` is a small, type-safe event/signal system for Go — published, MIT, and used in production.
+Modules in one Go binary need to react to each other without importing each other - the observer pattern, made type-safe.
 
-## What it is
-
-`signals` is a typed, thread-safe pub/sub system for Go, with two variants: fire-and-forget **async** signals and error-aware **sync** signals. Every listener receives a `context.Context`, so cancellation and deadlines flow through naturally. The read path is lock-free (copy-on-write), it has zero dependencies, and it's generic: `signals.New[User]()` gives you type-checked payloads.
-
-The core idea in one picture: one emit, many listeners, and the compiler checking the payload type the whole way.
+## One event, typed listeners
 
 <figure class="mt-figure mt-fig-diagram">
-<svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One publisher emits a typed User event through a signal, which fans it out to three independent listeners">
+<svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One publisher emits a typed User event through a signal, which fans it out to three independent listeners, each receiving the typed payload and a context">
   <g font-family="inherit" font-size="12.5">
     <rect x="40" y="80" width="160" height="40" rx="8" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.4)" stroke-width="1.2"/>
     <text x="120" y="98" text-anchor="middle" fill="rgba(255,255,255,.75)">your code</text>
@@ -46,53 +66,65 @@ The core idea in one picture: one emit, many listeners, and the compiler checkin
     </g>
   </g>
 </svg>
-<figcaption><strong>One emit, N listeners.</strong> The publisher never knows who is listening; each listener gets the typed payload and a <code>context.Context</code> for cancellation. Async signals dispatch and move on; sync signals run listeners in order and can report errors back.</figcaption>
+<figcaption><strong>The publisher never knows who is listening - but everyone is in the same process.</strong> These are function calls inside one binary, not messages on a wire. Each listener receives the typed payload and a <code>context.Context</code>, so cancellation and deadlines flow through; passing the wrong payload type is a compile error, not a runtime surprise.</figcaption>
 </figure>
 
-## Using it from code
+`signals` is **an in-process signaling mechanism** - not a message broker, not an event-driven services pattern; nothing crosses a network or gets persisted. Go teams usually improvise this shape with channels that leak goroutines, `interface{}` payloads that defer type errors to runtime, or ad-hoc callback slices with no error story. Here the payload is a type parameter - `signals.New[User]()` will not accept an `Order` - every listener receives a `context.Context`, and the failure semantics are chosen per signal.
 
-The async variant is fire-and-forget - emit and keep moving:
+## Two signal types, because two kinds of work exist
+
+Fire-and-forget work (analytics, notifications) and must-succeed-together work (payments, inventory) have different failure semantics, so the library gives them different types rather than one type with flags - from the README:
 
 ```go
-import "github.com/maniartech/signals"
-
+// Async - non-critical events; emit and move on.
 var UserRegistered = signals.New[User]()
 
 UserRegistered.AddListener(func(ctx context.Context, u User) {
     // send the welcome email
 })
+UserRegistered.Emit(ctx, User{ID: 1, Name: "John Doe"})
 
-UserRegistered.Emit(ctx, newUser)
-```
+// Sync - transaction-safe; listeners run in order, errors come back.
+var OrderProcessed = signals.NewSync[Order]()
 
-The sync variant is for work that must succeed together - listeners run in order, errors come back, and you can roll back:
-
-```go
-var OrderPlaced = signals.NewSync[Order]()
-
-OrderPlaced.AddListenerWithErr(
-    func(ctx context.Context, o Order) error {
-        return chargeCard(ctx, o) // may fail
-    })
-
-if err := OrderPlaced.TryEmit(ctx, order); err != nil {
+OrderProcessed.AddListenerWithErr(func(ctx context.Context, o Order) error {
+    return chargeCard(ctx, o) // may fail
+})
+if err := OrderProcessed.TryEmit(ctx, order); err != nil {
     // a listener failed - roll the transaction back
 }
 ```
 
-Because the signals are generic, passing the wrong payload type is a compile error, not a runtime surprise.
+`TryEmit` on a sync signal is the transaction-safety primitive: listeners execute in order, the first error stops the chain, and the caller decides what failure means. The async variant keeps its own contract - dispatch happens off the caller's critical path.
 
-## Why it matters
+## The measured result
 
-It's public, it's MIT, and it's used in production — by ManiarTech and by other developers who pulled it into their own systems. The library is the proof, not a claim about it: the repository, the CI matrix, the benchmarks, and the package docs are all open for anyone to read.
+The public repository commits its benchmark file (`signals_benchmark_test.go`), and the README's headline figure comes from it: **5.66 ns/op for a single-listener emit, with zero allocations** on that path, and **93.5% test coverage** - the README's own numbers, reproducible with `go test -bench` on your hardware. As with every microbenchmark, the figure is machine-specific: treat it as the shape of the cost, not a guarantee.
 
-What we're proud of is the discipline behind the numbers. Every performance figure comes from a committed benchmark you can re-run. On our reference machine, a sync emit on the lock-free read path measures around **8 ns with zero allocations** for a single listener. We label that as **guidance, not a guarantee** — it's machine-specific, and your hardware will differ. We'd rather under-promise a reproducible number than headline one you can't check. When an earlier blanket performance claim couldn't be reproduced, we retired it and rebuilt the numbers the honest way.
+## Interest, stated as interest
 
-## Status & how to see it
+The repository stood at **331 stars** when this page was last reviewed - the most externally validated artifact in our Foundry. That is public interest, not adoption: we know it runs in production in **our own systems**, and we do not claim to know who else has shipped it.
 
-Published and live. You can look at all of it yourself:
+## What's in flight - stated as in flight
 
-- **Source & benchmarks:** [github.com/maniartech/signals](https://github.com/maniartech/signals) — run `go test -bench` and reproduce the numbers above.
-- **CI, Go Report Card, and pkg.go.dev** are all public from the README.
+A v1.4 rewrite exists in the project's working tree and has **not yet reached the public repository**. It replaces the current `sync.RWMutex` listener list with a lock-free copy-on-write core - emission becomes a single atomic load of an immutable slice - and it carries a written measurement rule: *no performance number reaches the README until it is produced by a committed benchmark and compared against a committed baseline with `benchstat`*. It also documents a breaking change to async `Emit` semantics in advance of shipping it.
 
+We describe that work here because the discipline is the point - but none of it is public yet, so none of it is offered as evidence. What you can verify today is v1.3.1.
 
+## Known limits
+
+- **In-process only, by design.** `signals` connects modules inside one binary. It is not a message bus: there is no delivery across processes, no persistence, no retry, no ordering guarantee between separate binaries. If you need events to survive a crash or cross a service boundary, you need a broker - this library is the wrong tool, on purpose.
+- **Concurrency in v1.3.1 is mutex-based.** The published release guards its listener list with `sync.RWMutex`; the lock-free core is unreleased work in progress, as stated above.
+- **Benchmark figures are machine-specific**, and the README's coverage figure (93.5%) is its own claim - re-measure both on your checkout if they matter to your decision.
+- **A breaking change is planned** for async `Emit` semantics in v1.4. Pin the tag; the migration path is documented with the rewrite.
+
+## Status: four facts, kept separate
+
+- **Availability** - public source and a public tagged release: `go get github.com/maniartech/signals`.
+- **Licence** - **MIT**, in the repository today.
+- **Maturity** - **stable at v1.3.1**. The v1.4 rewrite is unpublished work in progress and is labelled as such everywhere on this page.
+- **Adoption** - adoptable now; pin `v1.3.1`.
+
+## What this demonstrates
+
+An in-process signaling library is a small thing to build and an easy thing to build wrong. The engineering worth noticing is in the contracts: payloads the compiler checks, contexts that flow to every listener, failure semantics chosen per signal instead of discovered in production - and a scope statement that says plainly what the library refuses to be. The work in flight shows the other half of the discipline: a performance rewrite that will not publish a number without a committed benchmark behind it. Knowing where a mechanism's boundary is - and saying so - is what an enterprise customer is actually hiring when the module seams in question are theirs.

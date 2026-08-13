@@ -1,68 +1,76 @@
 ---
-title: "GoCurl — the curl command IS the Go code"
-description: "A curl-ergonomic HTTP client and CLI for Go: paste any curl command from any API doc straight into your code, and run the exact same command in your shell."
-labStatus: "Internal | pre-1.0"
-category: "Libraries & Frameworks"
-license: "MIT"
-order: 8
+title: "GoCurl"
+headline: "The curl command IS the Go code."
+description: "A curl-ergonomic HTTP client for Go: paste the curl command an API documents and run it unchanged - with retries, timeouts and redaction wired around it."
+eyebrow: "Library"
+titleTag: "GoCurl - the curl Command as Go Code"
+seoDescription: "GoCurl: paste any documented curl command straight into Go - hardened HTTP with idempotency-aware retries. Public source, MIT, pre-1.0."
+order: 9
+tocDepth: "3"
+statusLine: "Public source | MIT | Pre-1.0 | Production-dogfooded"
+artifacts:
+  - label: "Repository"
+    url: "https://github.com/maniartech/gocurl"
+    primary: true
+railMeta:
+  - { k: "Type", v: "Go library + CLI - curl-ergonomic HTTP client" }
+  - { k: "Maturity", v: "Pre-1.0; no tagged release" }
+  - { k: "Availability", v: "Public source" }
+  - { k: "Licence", v: "MIT" }
+  - { k: "Adoption", v: "Not recommended as an external dependency yet" }
+  - { k: "Evidence", v: "Dogfooded in ManiarTech's internal integration work" }
+  - { k: "Reviewed", v: "13 August 2026" }
+railLinks:
+  - label: "Repository"
+    note: "Source, fault-injection tests, benchmarks, CHANGELOG and VISION"
+    url: "https://github.com/maniartech/gocurl"
+reviewKicker: "Public evidence"
+privateReview: "Nothing is gated - the source, its differential tests against real curl, and its doc-lint are public."
 ---
 
-Every REST API documents itself with curl. Almost none ship a Go SDK for their long-tail endpoints — so every Go developer pays the same integration tax: mentally translating a curl example into `http.NewRequest`, header maps, body encoding and auth. GoCurl removes that translation step. The curl command literally is the code.
+Every REST API documents itself with curl, and almost none ship a Go SDK for their long-tail endpoints - so every Go developer pays the same integration tax: mentally compiling a curl snippet into `http.NewRequest`, header maps, body encoding and auth. GoCurl deletes the translation step. **The command you tested in the shell is the code you ship**, and the library wires production behaviour around it.
 
-## The whole idea in one screen
+## The signature exhibit: one command, both worlds
 
 <div class="lang-diff">
 <div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot"></span> what the API doc gives you - <b>shell</b></div>
-<pre class="mt-code">curl -X POST https://api.example.com/v1/orders \
-  -H <span class="s">"Authorization: Bearer $TOKEN"</span> \
-  -H <span class="s">"Content-Type: application/json"</span> \
-  -d <span class="s">'{"sku": "A-503", "qty": 2}'</span></pre>
+<div class="lp-bar"><span class="lp-dot"></span> the shell - straight from the API docs</div>
+<pre class="mt-code">$ curl https://api.github.com/repos/golang/go</pre>
 </div>
 <span class="lang-arrow">&rarr;</span>
 <div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot ok"></span> the same command, in Go - <b>orders.go</b></div>
-<pre class="mt-code">resp, err := gocurl.Curl(ctx,
-  <span class="s">"curl -X POST https://api.example.com/v1/orders"</span>,
-  <span class="s">"-H"</span>, <span class="s">"Authorization: Bearer $TOKEN"</span>,
-  <span class="s">"-H"</span>, <span class="s">"Content-Type: application/json"</span>,
-  <span class="s">"-d"</span>, <span class="s">`{"sku": "A-503", "qty": 2}`</span>)
-<span class="c">// a standard *http.Response - net/http underneath</span></pre>
+<div class="lp-bar"><span class="lp-dot ok"></span> the Go code - the same command</div>
+<pre class="mt-code">resp, err := gocurl.Curl(ctx, <span class="s">`
+  curl https://api.github.com/repos/golang/go
+`</span>)</pre>
 </div>
 </div>
 
-This is the key distinction: GoCurl is **not** a curl-to-Go code generator that emits boilerplate for you to paste and maintain. It executes the curl command directly at runtime and hands you a standard `*http.Response`. Test the command in your shell, then run the exact same string in production code - one syntax in both places.
+The request produced is standard `net/http`; the response comes back as standard Go types. Because GoCurl receives the *curl recipe*, it knows the intent - and puts the right execution pipeline around it: an overall timeout that bounds the whole retry loop (not per-attempt), **idempotency-aware retries** (a non-idempotent POST is not replayed), classified error kinds you can `errors.As` into, **secret redaction on every error, log and span path**, and bounded reads against untrusted servers. The README's comparison table against hand-rolled `net/http` is the page-one argument, and every row of it names the test that proves it.
 
-<figure class="mt-figure mt-fig-diagram">
-<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One curl command flows to two places: the gocurl CLI in your shell and the gocurl library in your Go code - both built on net/http, both returning the same result">
-  <g font-family="inherit" font-size="12.5">
-    <rect x="40" y="66" width="200" height="58" rx="10" fill="rgba(20,207,147,.1)" stroke="rgba(20,207,147,.55)" stroke-width="1.3"/>
-    <text x="140" y="92" text-anchor="middle" fill="#14cf93" font-weight="600">one curl command</text>
-    <text x="140" y="110" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="11">from any API's docs</text>
-    <line x1="240" y1="82" x2="320" y2="56" stroke="rgba(255,255,255,.35)" stroke-width="1.3"/>
-    <line x1="240" y1="108" x2="320" y2="134" stroke="rgba(255,255,255,.35)" stroke-width="1.3"/>
-    <rect x="320" y="30" width="200" height="52" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
-    <text x="420" y="52" text-anchor="middle" fill="rgba(255,255,255,.8)" font-weight="600">shell: gocurl CLI</text>
-    <text x="420" y="70" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="11">try it, debug it</text>
-    <rect x="320" y="108" width="200" height="52" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
-    <text x="420" y="130" text-anchor="middle" fill="rgba(255,255,255,.8)" font-weight="600">code: gocurl library</text>
-    <text x="420" y="148" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="11">ship the identical command</text>
-    <line x1="520" y1="56" x2="600" y2="82" stroke="rgba(20,207,147,.55)" stroke-width="1.3"/>
-    <line x1="520" y1="134" x2="600" y2="108" stroke="rgba(20,207,147,.55)" stroke-width="1.3"/>
-    <rect x="600" y="66" width="130" height="58" rx="10" fill="rgba(255,255,255,.05)" stroke="rgba(20,207,147,.5)" stroke-width="1.3"/>
-    <text x="665" y="92" text-anchor="middle" fill="rgba(255,255,255,.85)" font-family="Consolas, monospace" font-size="12">*http.Response</text>
-    <text x="665" y="110" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="11">plain net/http</text>
-  </g>
-</svg>
-<figcaption><strong>One syntax, two places.</strong> The CLI mirrors the library exactly, so what you debugged in the shell is what runs in production - no translation, no drift.</figcaption>
-</figure>
+## Proven, not promised - the project's own discipline
 
-## The surface, briefly
+The repository's motto is *persuasion by example, not by marketing*, and it is mechanically enforced: an automated doc-lint (`TestDocHonestyLint`) fails the build if a claim ships without a named, un-skipped test behind it. The claims that matter are backed by a two-tier fault-injection harness - bounded retry budgets, HTTP/2 `GOAWAY` handling, graceful shutdown that never truncates a live stream, memory bounds against decompression bombs, no secret leaks on failure paths, soak tests for leaks and backpressure - and **wire-parity with real curl is proven by differential testing** against the actual curl binary.
 
-- **Entry points** take the command as one string or separate argv tokens: `Curl` returns the `*http.Response`; `CurlString` gives body plus response; `CurlJSON` decodes straight into your struct; `CurlBytes` and `CurlDownload` cover raw bytes and streamed file downloads.
-- **Variables:** `$VAR` / `${VAR}` expand from the environment automatically, or pass an explicit `Variables` map through the `*WithVars` variants - testable, and nothing reads your process env behind your back. `.env` files are supported.
-- **Lean by design:** built on stdlib `net/http` (plus HTTP/2 support, brotli, dotenv) - not a framework, a convenience layer with standard types at every boundary.
+On performance the README is deliberately modest: GoCurl targets **parity** with a well-tuned `net/http` client - parse once with `Prepare`, execute many with a pooled `Client` - and it publishes where it loses. It makes no "faster than net/http" claim, and neither do we.
 
-## Status, honestly
+## Supported and not supported
 
-GoCurl is **internal today, pre-1.0, under active development** - built to scratch a real daily itch, since our own team integrates many REST APIs that only document curl. The plan is to open-source it (MIT) once the parser's flag coverage and the release checklist meet our bar; per our link-dark rule there is no repository link here until the day there is a public repository to read. When it ships, this page carries the repo and runnable examples.
+The curl surface is large, and the README states the boundary rather than hiding it: flag coverage is still expanding, and the pre-1.0 caveat is the *contract*, not the quality - the public API may still change, so pin a version and read the CHANGELOG when upgrading.
+
+## Known limits
+
+- **No tagged release.** Pre-1.0; the API may move. The repository's own guidance is to pin and follow the CHANGELOG.
+- **Not recommended as an external production dependency yet** - our own position, stated plainly. We use it internally; the release-readiness bar for recommending it outward has not been met.
+- **Curl-flag coverage is incomplete**, per the README and ROADMAP.
+
+## Status: four facts, kept separate
+
+- **Availability** - **public source** at [github.com/maniartech/gocurl](https://github.com/maniartech/gocurl).
+- **Licence** - **MIT**, in the repository today.
+- **Maturity** - pre-1.0, no tagged release; production-dogfooded internally.
+- **Adoption** - inspect it freely; a stable release and public launch are planned once flag coverage and the release checklist meet our bar.
+
+## What this demonstrates
+
+The interesting engineering is the claim-verification machinery as much as the HTTP: differential testing against real curl, fault injection that breaks the network on purpose, and a lint that refuses to let documentation claim what a test does not prove. Turning "we say it works" into "the build fails if we overclaim" is exactly the standard an enterprise customer should demand of any integration layer that carries their traffic - and this is us practising it on our own account.

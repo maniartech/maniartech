@@ -35,37 +35,20 @@
                 <li class="nav-item dropdown has-mega">
                     <a class="nav-link dropdown-toggle" href="/foundry/"><span class="rolling-text">Foundry</span></a>
                     <div class="dropdown-menu foundry-mega">
+                        {% comment %} The four columns loop the ONE Foundry registry in
+                        tajmahal.yaml (context.foundry). An item appears in a column when
+                        its menuCol - or its group's menuKey - matches, and it carries a
+                        `short` menu description. Statuses/badges come from the same rows
+                        the hub renders, so the menu can never disagree with the shelves. {% endcomment %}
+                        {% for col in site.context.foundryMenuCols %}
                         <div class="mega-col">
-                            <h6>Products</h6>
-                            <a class="mega-item" href="/products/processious/"><span class="mi-name">Processious <em class="mi-badge live">Live</em></span><span class="mi-desc">Process-automation platform</span></a>
-                            <a class="mega-item" href="/products/ordin/"><span class="mi-name">Ordin</span><span class="mi-desc">Durable workflow engine</span></a>
-                            <a class="mega-item" href="/products/documentor/"><span class="mi-name">Documentor.AI</span><span class="mi-desc">AI document platform</span></a>
-                            <a class="mega-item" href="/products/tallery-gallery/"><span class="mi-name">Enterprise DAM</span><span class="mi-desc">Digital asset management</span></a>
-                            <a class="mega-more" href="/products/">All products &rarr;</a>
+                            <h6>{{ col.title }}</h6>
+                            {% for g in site.context.foundry %}{% for it in g.items %}{% if it.short %}{% if it.menuCol == col.key or (not it.menuCol and g.menuKey == col.key) %}
+                            <a class="mega-item" href="{{ it.url }}"><span class="mi-name">{{ it.name }}{% if it.menuBadge %} <em class="mi-badge{% if it.live %} live{% endif %}">{{ it.menuBadge }}</em>{% endif %}</span><span class="mi-desc">{{ it.short }}</span></a>
+                            {% endif %}{% endif %}{% endfor %}{% endfor %}
+                            <a class="mega-more" href="{{ col.moreUrl }}">{{ col.moreLabel }} &rarr;</a>
                         </div>
-                        <div class="mega-col">
-                            <h6>Languages</h6>
-                            <a class="mega-item" href="/foundry/indigo/"><span class="mi-name">Indigo</span><span class="mi-desc">A Go superset language</span></a>
-                            <a class="mega-item" href="/foundry/uexl/"><span class="mi-name">UExL</span><span class="mi-desc">Embeddable expression engine</span></a>
-                            <a class="mega-item" href="/foundry/languages/#addressql"><span class="mi-name">AddressQL</span><span class="mi-desc">URL-native query language</span></a>
-                            <a class="mega-item" href="/foundry/languages/#pressml"><span class="mi-name">PressML <em class="mi-badge">Soon</em></span><span class="mi-desc">HTML/CSS-style markup for print</span></a>
-                            <a class="mega-more" href="/foundry/languages/">All languages &rarr;</a>
-                        </div>
-                        <div class="mega-col">
-                            <h6>Libraries &amp; Frameworks</h6>
-                            <a class="mega-item" href="/foundry/signals/"><span class="mi-name">signals</span><span class="mi-desc">Type-safe Go events</span></a>
-                            <a class="mega-item" href="/foundry/gotime/"><span class="mi-name">gotime</span><span class="mi-desc">Intuitive Go date/time</span></a>
-                            <a class="mega-item" href="/foundry/vault-storage/"><span class="mi-name">vault-storage</span><span class="mi-desc">Browser storage, upgraded</span></a>
-                            <a class="mega-item" href="/foundry/gocurl/"><span class="mi-name">gocurl</span><span class="mi-desc">curl &rarr; Go HTTP code</span></a>
-                            <a class="mega-more" href="/foundry/#libraries">All libraries &rarr;</a>
-                        </div>
-                        <div class="mega-col">
-                            <h6>Developer Tools</h6>
-                            <a class="mega-item" href="/products/booster/"><span class="mi-name">Booster</span><span class="mi-desc">Dev-environment orchestrator</span></a>
-                            <a class="mega-item" href="/foundry/tajmahal-ssg/"><span class="mi-name">Taj Mahal SSG</span><span class="mi-desc">Static-site generator</span></a>
-                            <a class="mega-item" href="/foundry/gowork/"><span class="mi-name">gowork</span><span class="mi-desc">Go workspace management</span></a>
-                            <a class="mega-more" href="/foundry/#tools">All tools &rarr;</a>
-                        </div>
+                        {% endfor %}
                         <div class="mega-foot">
                             <a class="mega-foot-link" href="https://github.com/maniartech" target="_blank" rel="noopener"><strong>Open source</strong> — every public repo &nearr;</a>
                             <a class="mega-foot-link" href="/standards/"><strong>Standards &amp; specifications</strong> — Internet Object, NITES, FUSE &rarr;</a>
@@ -150,43 +133,18 @@
                             <div class="sub-menu">
                                 <ul>
                                     <li><a href="/foundry/" class="sub-link">Explore the Foundry</a></li>
+                                    {% for col in site.context.foundryMenuCols %}
                                     <li>
-                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Products">Products</span> <i></i></div></div>
+                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="{{ col.title }}">{{ col.title }}</span> <i></i></div></div>
                                         <div class="sub-menu2"><ul>
-                                            <li><a href="/products/" class="sub-link">All products</a></li>
-                                            <li><a href="/products/processious/" class="sub-link">Processious</a></li>
-                                            <li><a href="/products/ordin/" class="sub-link">Ordin</a></li>
-                                            <li><a href="/products/documentor/" class="sub-link">Documentor.AI</a></li>
-                                            <li><a href="/products/tallery-gallery/" class="sub-link">Enterprise DAM</a></li>
+                                            {% if col.key == "products" %}<li><a href="/products/" class="sub-link">All products</a></li>{% endif %}
+                                            {% for g in site.context.foundry %}{% for it in g.items %}{% if it.short %}{% if it.menuCol == col.key or (not it.menuCol and g.menuKey == col.key) %}
+                                            <li><a href="{{ it.url }}" class="sub-link">{{ it.name }}</a></li>
+                                            {% endif %}{% endif %}{% endfor %}{% endfor %}
+                                            {% if col.key == "languages" %}<li><a href="/foundry/languages/" class="sub-link">All languages</a></li>{% endif %}
                                         </ul></div>
                                     </li>
-                                    <li>
-                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Languages">Languages</span> <i></i></div></div>
-                                        <div class="sub-menu2"><ul>
-                                            <li><a href="/foundry/indigo/" class="sub-link">Indigo</a></li>
-                                            <li><a href="/foundry/uexl/" class="sub-link">UExL</a></li>
-                                            <li><a href="/foundry/languages/#addressql" class="sub-link">AddressQL</a></li>
-                                            <li><a href="/foundry/languages/#pressml" class="sub-link">PressML</a></li>
-                                            <li><a href="/foundry/languages/" class="sub-link">All languages</a></li>
-                                        </ul></div>
-                                    </li>
-                                    <li>
-                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Libraries &amp; Frameworks">Libraries &amp; Frameworks</span> <i></i></div></div>
-                                        <div class="sub-menu2"><ul>
-                                            <li><a href="/foundry/signals/" class="sub-link">signals</a></li>
-                                            <li><a href="/foundry/gotime/" class="sub-link">gotime</a></li>
-                                            <li><a href="/foundry/vault-storage/" class="sub-link">vault-storage</a></li>
-                                            <li><a href="/foundry/gocurl/" class="sub-link">gocurl</a></li>
-                                        </ul></div>
-                                    </li>
-                                    <li>
-                                        <div class="o-hidden"><div class="link cursor-pointer sub-dmenu"><span class="fill-text" data-text="Developer Tools">Developer Tools</span> <i></i></div></div>
-                                        <div class="sub-menu2"><ul>
-                                            <li><a href="/foundry/tajmahal-ssg/" class="sub-link">Taj Mahal SSG</a></li>
-                                            <li><a href="/products/booster/" class="sub-link">Booster</a></li>
-                                            <li><a href="/foundry/gowork/" class="sub-link">gowork</a></li>
-                                        </ul></div>
-                                    </li>
+                                    {% endfor %}
                                     <li><a href="/standards/" class="sub-link">Standards &amp; specifications</a></li>
                                     <li><a href="https://github.com/maniartech" class="sub-link" target="_blank" rel="noopener">Open source &nearr;</a></li>
                                 </ul>

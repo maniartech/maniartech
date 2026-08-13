@@ -101,8 +101,8 @@ For the worked example above:
 The advantage grows with record count, because the schema is paid for once. Across the sample datasets in the [live playground](https://play.internetobject.org), documents come out 40-60% smaller than minified JSON - and on multi-record data the format uses roughly 30% fewer LLM tokens than JSON (single records can break even or worse; the [benchmark repository](https://github.com/maniartech/InternetObject-vs-JSON-benchmark) shows the method, so you can verify rather than take our word).
 
 <figure class="mt-figure">
-<a href="https://play.internetobject.org" target="_blank" rel="noopener"><img src="/themes/maniartech/assets/imgs/research/io-playground.webp" alt="The Internet Object playground: schema and definitions on the left, the equivalent JSON output on the right, and a live badge reading 59.78% Smaller Than Minified JSON" loading="lazy"></a>
-<figcaption><strong>The live playground, mid-comparison.</strong> A 161-byte schema plus a 74-byte document against 184 bytes of minified JSON - the badge does the math on your data as you type. Click through and try your own.</figcaption>
+<a href="https://play.internetobject.org" target="_blank" rel="noopener"><img src="/themes/maniartech/assets/imgs/research/io-playground-2026-08.webp" alt="The Internet Object playground with the Recursive Schema Complex sample loaded: a schema pane defining $employee with a self-referencing reportingTo field, a six-record document pane of 363 bytes, the equivalent minified JSON output of 935 bytes on the right, and a computed badge reading 61.18% Smaller than minified JSON" loading="lazy"></a>
+<figcaption><strong>The live playground, mid-comparison.</strong> A 146-byte schema plus a 363-byte document against 935 bytes of minified JSON. The badge does the math on your data as you type - note that it compares the document alone, so the schema is not in that 61.18%; counted in, this sample is 43.7% smaller. Click through and try your own. Captured 12 August 2026.</figcaption>
 </figure>
 
 ## Step 5: Typed schemas

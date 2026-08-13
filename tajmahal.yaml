@@ -100,6 +100,191 @@ context:
       what: "Deliberately rare, staged, and assessed against explicit criteria."
       url: "/partnerships/"
 
+  # THE FOUNDRY REGISTRY - single source of truth (2026-08-13 reconstruction).
+  # The /foundry/ hub shelves, the desktop mega-menu and the mobile drill-down
+  # all loop THIS list, so a project's name, status and description exist once.
+  # Fields: name/desc/status/tags/url (hub card); live marks a mint badge;
+  # artifact names the best inspectable artifact (hub card); short is the
+  # mega-menu description - items without `short` stay off the menus;
+  # menuCol overrides which menu column an item appears in (its group's
+  # menuKey otherwise); menuBadge adds a small badge in the menu only.
+  # The mega-menu's four columns; items are matched from `foundry` above by
+  # menuCol / group menuKey. Standards has no column - it lives in the menu's
+  # footer link, exactly as the approved design places it.
+  foundryMenuCols:
+    - { key: "products",  title: "Products",               moreUrl: "/products/",           moreLabel: "All products" }
+    - { key: "languages", title: "Languages",              moreUrl: "/foundry/languages/",  moreLabel: "All languages" }
+    - { key: "libraries", title: "Libraries & Frameworks", moreUrl: "/foundry/#libraries",  moreLabel: "All libraries" }
+    - { key: "tools",     title: "Developer Tools",        moreUrl: "/foundry/#tools",      moreLabel: "All tools" }
+
+  foundry:
+    - name: "Products"
+      anchor: "products"
+      menuKey: "products"
+      blurb: "Software a customer can run."
+      view: "/products/"
+      viewLabel: "All products"
+      items:
+        - name: "Processious"
+          desc: "A process-automation and application platform, running a client's operations today."
+          status: "In production"
+          live: true
+          artifact: "Live client system, publicly verifiable"
+          short: "Process-automation platform"
+          menuBadge: "Live"
+          tags: ["Product"]
+          url: "/products/processious/"
+        - name: "Ordin"
+          desc: "YAML-declared workflows run through pluggable activities, with an inspectable history."
+          status: "In development | Private"
+          artifact: "Committed example workflows"
+          short: "Durable workflow engine"
+          tags: ["Product"]
+          url: "/products/ordin/"
+        - name: "Documentor.AI"
+          desc: "Drafts from your own knowledge, so it cites your facts - not the internet's."
+          status: "Early-stage | Private"
+          artifact: "Demonstration by arrangement"
+          short: "AI document platform"
+          tags: ["Product", "AI"]
+          url: "/products/documentor/"
+        - name: "Enterprise DAM"
+          desc: "Turns a shared drive into an asset system a team can run on."
+          status: "Early-stage | Private"
+          artifact: "Demonstration by arrangement"
+          short: "Digital asset management"
+          tags: ["Product"]
+          url: "/products/tallery-gallery/"
+    - name: "Languages"
+      anchor: "languages"
+      menuKey: "languages"
+      blurb: "Two of them, built over the years."
+      view: "/foundry/languages/"
+      viewLabel: "The languages page"
+      items:
+        - name: "Indigo"
+          desc: "A Go superset that compiles to clean, idiomatic Go you read in the diff."
+          status: "Research | Private"
+          artifact: "Compiler design walkthrough on request"
+          short: "A Go superset language"
+          tags: ["Language"]
+          url: "/foundry/indigo/"
+        - name: "UExL"
+          desc: "An embeddable expression engine with zero allocations on the hot path."
+          status: "Pre-1.0 | Public source | No licence"
+          artifact: "Public source on GitHub"
+          short: "Embeddable expression engine"
+          tags: ["Language"]
+          url: "/foundry/uexl/"
+    - name: "Standards"
+      anchor: "standards"
+      blurb: "Specifications we've authored - for data, time, APIs, and queries."
+      view: "/standards/"
+      viewLabel: "Standards hub"
+      items:
+        - name: "Internet Object"
+          desc: "A compact, schema-first data format - smaller than JSON, runnable in a live playground."
+          status: "Spec 1.0 working draft | JS pre-1.0"
+          live: true
+          artifact: "Live playground: play.internetobject.org"
+          tags: ["Standard", "Open source", "Playground"]
+          url: "/foundry/internet-object/"
+        - name: "NITES"
+          desc: "One human-readable date/time format to replace the fragmented mess."
+          status: "Research"
+          artifact: "Reference implementation: gotime"
+          tags: ["Standard"]
+          url: "/standards/#nites"
+        - name: "FUSE"
+          desc: "A protocol that unifies REST, live queries, and push on one server."
+          status: "Research"
+          artifact: "Specification note on /standards/"
+          tags: ["Standard"]
+          url: "/standards/#fuse"
+        - name: "AddressQL"
+          desc: "A URL-native, backend-neutral query language - SQL-like power in an address bar."
+          status: "Research"
+          artifact: "Concept note on the languages page"
+          short: "URL-native query language"
+          menuCol: "languages"
+          tags: ["Standard"]
+          url: "/foundry/languages/#addressql"
+        - name: "PressML"
+          desc: "HTML/CSS-style markup for print and paged documents."
+          status: "Research"
+          artifact: "Concept note on the languages page"
+          short: "HTML/CSS-style markup for print"
+          menuCol: "languages"
+          menuBadge: "Soon"
+          tags: ["Standard"]
+          url: "/foundry/languages/#pressml"
+    - name: "Libraries & Frameworks"
+      anchor: "libraries"
+      menuKey: "libraries"
+      blurb: "Code you import and build on."
+      view: "/foundry/#libraries"
+      viewLabel: "All libraries"
+      items:
+        - name: "signals"
+          desc: "A typed, in-process signaling library for Go - the observer pattern, compiler-checked."
+          status: "Published | MIT | v1.3.1"
+          live: true
+          artifact: "Public repo, 331 stars at last review"
+          short: "Typed in-process Go events"
+          tags: ["Library", "Open source"]
+          url: "/foundry/signals/"
+        - name: "gotime"
+          desc: "Intuitive Go date/time - the reference implementation of the NITES format."
+          status: "Published | MIT | v2.0.4"
+          live: true
+          artifact: "Public repo + tagged release"
+          short: "Intuitive Go date/time"
+          tags: ["Library", "Open source"]
+          url: "/foundry/gotime/"
+        - name: "vault-storage"
+          desc: "A ~1.5 KB TypeScript library that gives browser storage IndexedDB power."
+          status: "Published | MIT | v2.0.1"
+          live: true
+          artifact: "Public repo + npm package"
+          short: "Browser storage, upgraded"
+          tags: ["Library", "Open source"]
+          url: "/foundry/vault-storage/"
+        - name: "gocurl"
+          desc: "Run a curl command directly as Go HTTP code."
+          status: "Pre-1.0 | Public source | MIT | Dogfooded"
+          artifact: "Public repo with differential tests vs real curl"
+          short: "curl to Go HTTP code"
+          tags: ["Library", "Open source"]
+          url: "/foundry/gocurl/"
+    - name: "Developer Tools"
+      anchor: "tools"
+      menuKey: "tools"
+      blurb: "Things you run to build and ship."
+      view: "/foundry/#tools"
+      viewLabel: "All tools"
+      items:
+        - name: "Taj Mahal SSG"
+          desc: "Superfast, modular, super easy - the static site framework that renders this very site. Internal benchmark notes record ~30-35 ms to open a page on test sites up to 100,000 pages."
+          status: "Production-dogfooded | Private | OSS planned"
+          artifact: "This website is the demo"
+          short: "Superfast, modular, easy static sites"
+          tags: ["Tool"]
+          url: "/foundry/tajmahal-ssg/"
+        - name: "Booster"
+          desc: "One configuration brings up a whole local stack; we run our own products on it."
+          status: "Dogfooded | Private"
+          artifact: "Orchestration walkthrough on request"
+          short: "Dev-environment orchestrator"
+          tags: ["Tool"]
+          url: "/products/booster/"
+        - name: "gowork"
+          desc: "A workspace doctor for Go multi-module repositories."
+          status: "Pre-1.0 | Private"
+          artifact: "Doctor walkthrough on request"
+          short: "Go workspace management"
+          tags: ["Tool"]
+          url: "/foundry/gowork/"
+
 # Dev-server port (`tajmahal start`).
 port: 8080
 

@@ -781,6 +781,333 @@ correct:
   be closed until those three are rebuilt on the shared shell, then P7 partnership + cross-site
   reconciliation and P8 verification.
 
+**2026-08-13 (part 22d - FOUNDRY COMPLETE: Gates 3+4 + collective views, on Aamir's "finish all"; UNCOMMITTED):**
+- **signals reframed on Aamir's correction:** it is an IN-PROCESS signaling mechanism (observer
+  pattern within one binary), not an event-driven services pattern. Page now states "not a message
+  broker; nothing crosses a network or gets persisted", the diagram caption says the listeners are
+  function calls in the same process, and known-limits leads with the scope statement.
+- **Ordin FOUND** (Aamir): WSL projects/processious/ordin - private repo, real example workflow
+  YAMLs, and an in-tree LICENSE declaring a **Fair Code model** (terms not finalised, nothing
+  published). Register row corrected; the page states the declared-but-unfinalised position.
+- **Booster's IP-CONFIDENTIAL.md read and obeyed:** it prohibits reproducing any portion of the
+  Work, so the page describes capability with a clearly-labelled illustrative schematic, prints NO
+  real config or source, and drops the unsourced "minutes not days" claim (nothing measured).
+- **Gate 3 built:** Taj Mahal SSG (pipeline exhibit with the startup-only boundary drawn; a REAL
+  module.yaml excerpt from this site; dogfooding verifiable from outside via this site +
+  chemotestlaboratory.com), Booster (as above), Processious (state-machine exhibit on the public
+  chemo stage names with a role-REJECTED transition and the audit record as a side effect;
+  reports.chemotestlaboratory.com as the publicly checkable output; interface plate pending
+  Aamir's masked captures).
+- **Gate 4 built:** Ordin (real helloworld workflow YAML + execution-model cutaway), Indigo
+  (refusal-path exhibit: IND codes, no .go file written; six-operator discipline), GoCurl (shell
+  vs Go same-command exhibit; the repo's own TestDocHonestyLint discipline quoted; "not
+  recommended as external dependency yet"), gowork (workspace-doctor exhibit + safety model),
+  Documentor.AI (grounding pipeline consistent with the Applied AI page; early-stage, not a
+  customer deployment), Enterprise DAM (asset-lifecycle exhibit with audit band; maturity vs
+  managed-service commercial model kept separate; coarse mainstream-stack statement).
+- **Collective views - DATA NOW LIVES ONCE:** the Foundry registry moved to `tajmahal.yaml
+  context.foundry` (5 groups, 18 items: name/desc/status/live/artifact/tags/url + short/menuCol/
+  menuBadge for menus) with `context.foundryMenuCols` defining the 4 approved mega-menu columns.
+  The /foundry/ hub shelves, the desktop mega-menu AND the mobile drill-down all loop that one
+  registry - statuses can no longer drift between hub and menus. Hub cards gained an artifact
+  line ("what can I check?" answered on the shelf). PressML added to the Standards shelf.
+- **Mobile duplication FIXED:** the viz fallback list is now screen-reader-only at all widths -
+  the category pills already carry those links visibly on mobile.
+- **New defect found and fixed by the sweep:** multi-fact status badges (nowrap) blew the hub out
+  108px at 375; badges now wrap inside the card pill. lab-detail.html and product-detail.html
+  DELETED (all 14 pages on foundry-detail.html; the estimate-CTA footer died with them).
+- **Verified:** 57 pages / 0 FAIL / 5 known warns; 0 broken fragments; all 14 detail pages 0 body
+  /estimate/, exactly 1 /contact/, motif 0; responsive sweep 15 pages x 375+1280x720 all green;
+  hub renders 18 cards from context; menu checks (4 cols, Live/Soon badges, AddressQL+PressML in
+  Languages) all pass. Taj Mahal gotcha re-confirmed: root/ passthrough 500s on query strings.
+- **AWAITING AAMIR:** masked interface captures (Processious, Documentor, DAM) to add annotated
+  plates; the signals 59-commit push decision; GoCurl stable-release timing. Foundry otherwise
+  COMPLETE and uncommitted alongside the earlier gates.
+
+**2026-08-13 (part 22d - FOUNDRY GATES 3+4 + COLLECTIVE VIEWS BUILT on Aamir's "finish all"; programme page-complete, UNCOMMITTED):**
+- **signals reframed on Aamir's correction:** it is an IN-PROCESS signaling mechanism (observer
+  pattern inside one binary), not event-driven-services eventing. Opening, caption, a new
+  "In-process only, by design" limit (no cross-process delivery / persistence / retry - wrong tool
+  on purpose if you need a broker) and the capability close all restated.
+- **Gate 3 built:** Taj Mahal SSG, Booster, Processious. **Gate 4 built:** Ordin, Indigo, GoCurl,
+  gowork, Documentor.AI, Enterprise DAM. All 14 detail pages now on foundry-detail.html; old
+  lab-detail.html / product-detail.html DELETED (their /estimate/ footer went with them).
+- **Ordin FOUND and verified:** WSL `Ubuntu:/home/aamir/projects/processious/ordin` (HEAD f578f4f
+  2026-06-09; remote github.com/maniartech/ordin is PRIVATE - 404). In-tree LICENSE declares a
+  **Fair Code** model (faircode.io link) - so the register's "not decided" became "declared
+  in-tree, terms not finalised, nothing published". Page exhibits the committed `helloworld`
+  workflow YAML verbatim (scheduler.Timer / fileio.WriteFile / !expr) + the component-map pipeline.
+- **Booster under IP-CONFIDENTIAL.md:** the notice prohibits reproducing any portion of the Work,
+  so the page publishes NO real config or source - capability description + a schematic labelled
+  as such + private walkthrough. The unsourced "minutes not days" claim was NOT carried over; the
+  page says plainly we have not measured a number.
+- **Processious:** state-machine exhibit on the PUBLIC case-study vocabulary (intake -> review ->
+  testing -> authorization -> signed) with a role-REJECTED transition and the audit record drawn
+  as the machine's own side effect; evidence = case study + reports.chemotestlaboratory.com (live
+  COA verifier); "one production deployment is claimed" stated as a limit. Interface plate slot
+  reserved for Aamir's masked captures (pending).
+- **TAJ MAHAL POSITIONING (Aamir's verified brief, claims authority = the repo's
+  docs/pre-launch-notes.md):** category = modular static site FRAMEWORK; h1 "Don't build a
+  website. Build a Taj Mahal."; dek "As simple as Markdown. As powerful as a framework. As
+  beautiful as its name." Headline speed claim = THE DEV LOOP, never cold builds: 10k-post site
+  launch->page Hugo 2,763 ms vs Taj 35 ms (79x, Linux); Windows 47,500 vs 210 ms (~226x) ONLY with
+  the Defender-on note; edit->visible ~120 ms; FLAT WITH SIZE (1k/10k/100k all ~30-35 ms) with the
+  structural sentence "Hugo builds the whole site to show you one page; we build one page." Builds
+  are the supporting act: cold 2.54 vs 2.84 s (parity - same goldmark, same files), warm 1.09 s
+  (2.6x, Hugo has no incremental). FORBIDDEN (from the brief, swept - site was already clean):
+  "138 ms / 10,000 pages", "3-4x Hugo", "<100 ms ready", bare Windows numbers, flat "50 ms".
+  Numbers attributed to the project's internal benchmark notes, "harness ships with the release".
+  **Template engine correction: Taj Templates SHIPPED** (pongo2 removed from go.mod on the
+  template-system branch; old themes render via translator) - the page and pipeline SVG now say
+  Taj Templates; components with props/named slots/scoped CSS+JS stated as the differentiator.
+- **COLLECTIVE VIEWS - data lives once:** the FOUNDRY REGISTRY moved into `tajmahal.yaml
+  context.foundry` (5 groups, 18 items: name/desc/status/live/artifact/tags/url + short/menuCol/
+  menuBadge for menus) + `context.foundryMenuCols`. THREE consumers loop it: /foundry/ hub shelves
+  (foundry.html, now with per-card artifact lines), the desktop mega-menu and the mobile
+  drill-down (both rebuilt in header.html as loops - ~40 hardcoded lines gone). PressML added to
+  the Standards shelf. Hub frontmatter reduced to title/description/seo.
+- **Mobile duplication fixed, scoped:** the hub hero's fallback list is sr-only at ALL widths
+  (pills already show those links) - but scoped to `.foundry-hero` after catching that the first
+  unconditional fix would have hidden About's cube-fallback on mobile, which duplicates nothing.
+- **Verified:** 57 pages / 0 FAIL / 5 known warns; 0 broken fragments; all 14 detail pages
+  0 body /estimate/ + exactly 1 /contact/ + motif 0 + rail present; responsive probe 20 checks
+  (10 pages x 375 + 1280x720) all fitting; hub fallback measured sr-only at 375; all external
+  artifacts resolve; menus verified carrying registry data (Ordin/AddressQL/PressML present).
+- **Cross-site reconciliation pass DONE (same session):** /products/ view - Ordin badge
+  "In development | Private" + fair-code-declared wording, Booster "Dogfooded | Private" with the
+  unmeasured "productive in minutes" claim removed, Documentor/DAM "Early-stage | Private";
+  /foundry/languages/ - Indigo "Research | Private", PressML "Research"; AddressQL's
+  "used in our production" KEPT because the gated /standards/ registry verifies internal
+  production use. Site-wide sweep found no stale publish-ready/source-available/Pongo2 labels
+  outside deliberate usages; Insights article links into the rebuilt pages all resolve.
+  Re-verified: 57 pages / 0 FAIL / 5 known warns; 0 broken fragments.
+- **STILL PENDING (inputs, not pages):** Aamir's masked interface captures for Processious /
+  Documentor / DAM; the signals 59-commit push decision; GoCurl stable release.
+- **PARKED FOR DISCUSSION after review (Aamir, 2026-08-13): a filterable Foundry directory.**
+  Aamir proposed filter/tagged category views for the mega-menu's "All products / languages /
+  libraries / tools" targets (two of which are currently mere hub anchors). Agreed direction in
+  principle, approach NOT yet approved: ONE filterable directory page `/foundry/all/` looping the
+  registry (insights-lens filter pattern; chips = 5 categories + Open source + Live; deep-linkable
+  `#libraries` preselect; no-JS fallback = grouped rows) rather than five per-category pages,
+  which would re-create the drift the single-source registry just removed. Needs a module.yaml
+  route (startup-only) + rewiring six "All X ->" targets. Discuss after the current review.
+
+**2026-08-14 (part 22h - Foundry committed; LAUNCH-READINESS finding; DISCUSS TOMORROW):**
+- Aamir wants to go live ASAP and asked whether publishing now / improving later hurts SEO.
+- **Verified answer: no.** Production's live sitemap contains exactly ONE `<loc>`
+  (`https://maniartech.com/`). v2 keeps `/`. So there is no legacy URL surface, no redirect map
+  needed, and no accumulated ranking a rebuild could damage - all 56 other pages are net-new.
+  Improving a page post-publish is neutral-to-positive; the only expensive-to-change-later thing
+  is a URL, and the URLs are final. Delay is the only compounding cost (crawl/index/trust clock
+  starts on publish).
+- **Aamir's observed inconsistency (correct):** "All products" -> `/products/` and "All languages"
+  -> `/foundry/languages/` are real pages; "All libraries" -> `/foundry/#libraries` and "All tools"
+  -> `/foundry/#tools` are hub anchors (Standards does have a real `/standards/`). So 3 real, 2
+  anchors. **Safe to defer:** a fragment is not a separate indexed URL, so adding
+  `/foundry/libraries/` later is purely ADDITIVE - no 301, no change to anything indexed. Ties
+  directly to the parked `/foundry/all/` filterable directory (part 22d).
+- **The one real pre-launch item: `/sitemap.xml` 404s** while `root/robots.txt` already advertises
+  it. It is the discovery mechanism for 56 brand-new URLs. `tajmahal.yaml` notes generation is
+  owned by Aamir. Proposed (NOT yet built, awaiting his word): generate from the crawl so it cannot
+  drift from what renders, + flip the seo-check WARN to a FAIL for missing/localhost sitemap.
+- Remaining 4 warns are heading-level skips (`/`, `/contact/`, `/products/`, `/foundry/`) -
+  semantics, not ranking factors. Post-launch.
+- **NEXT SESSION: discuss launch + sitemap + the `/foundry/all/` directory. Nothing else pending.**
+
+**2026-08-13 (part 22g - review round 3: two lines; FOUNDRY ACCEPTED PENDING COMMIT):**
+- foundry/foundry/index.md:10 "most of it you can read and run yourself" -> "what is public you can
+  read and run yourself - the rest is labelled private just as plainly" (source-file fix; the hub
+  body is currently unrendered, which is exactly why it had to be corrected at the source).
+- gocurl registry `short` "curl -> Go HTTP code" -> "curl to Go HTTP code" - the template's HTML
+  escaping was leaking `-&gt;` into the viz JSON feed. Verified in the rendered feed: no entities,
+  18 items, menus clean.
+- Gate 57 pages / 0 FAIL / 5 known warns; fragments 0. **Aamir: "Fix those two lines, then I would
+  close Foundry."** Both fixed and verified - awaiting his close + commit instruction.
+
+**2026-08-13 (part 22f - review round 2: three blockers cleared; uncommitted):**
+- **1. Viz now consumes the shared registry.** foundry.html emits `#foundryVizData` (JSON built by
+  looping context.foundry); foundry-viz.js's hardcoded 17-node NODES array is GONE - nodes derive
+  ids from their urls, so EDGES still resolve. Verified in the rendered page: **18 items**, gocurl
+  and gowork urls correct, PressML present. No parallel inventory remains; feed missing = empty
+  canvas + the no-JS fallback, never stale data.
+- **2. Calibration contradictions removed at the source**: foundry/foundry/index.md description
+  ("most of it open to read and run") AND its unrendered body ("mostly in the open") both
+  recalibrated - an unrendered overclaim is a loaded gun for a future template. Taj registry desc
+  and seoDescription now carry the FULL attribution ("Internal benchmark notes record ~30-35 ms to
+  open a page on test sites up to 100,000 pages") - "flat" dropped as stronger than the evidence.
+  Taj's one-line opener removed (proof line folded below the table) to pass the strict test.
+- **3. Rail offset SCOPED to `.fd-aside .aside-inner { top: 96px }`** - the global .aside-inner
+  reverted to 36px and the shared compact toc budget to -300, so Insights/Standards/Services rails
+  are byte-identical to their accepted state (git diff over their selectors: empty). Regression
+  probe at 1280x720: standards + services stick at 36 and fit; foundry sticks at 96, bottom 710.
+  **Pre-existing, out of scope, noted:** the /insights/ ARTICLE rail (.article-aside) measures
+  bottom=769 at 1280x720 - it never had a compact mode in any programme; untouched here.
+- **Strict acceptance re-run at exactly 1280x720: all 14 pages exhibitTop 595-714 < 720.**
+  (Taj was 749 - failing the strict test the earlier "595-749" range obscured; fixed.)
+  Gate 57/0 FAIL/5 warn; fragments 0.
+
+**2026-08-13 (part 22e - review round 1 fixes: exhibits surfaced, openness calibrated, rail corrected, benchmark attributed; uncommitted):**
+- **1. Exhibits un-buried.** The 100svh prose hero was wrong for exhibit pages: a compact `fd-hero`
+  (height from content, tightened paddings/type) plus ONE-SENTENCE openers on the five longest
+  run-ups (IO, UExL, signals, Taj, Processious - displaced prose moved BELOW each exhibit, nothing
+  deleted). Measured on all 14 pages: first exhibit now begins at **595-749px on desktop 1280x720**
+  (was ~1520) - inside the first viewport on every page - and **985-1425px on 375 mobile** (was
+  ~2537), i.e. top of the second screen. Mobile hero also keeps artifact buttons on one row.
+- **2. Hub openness calibrated.** "mostly in the open" and "Most of what we build, we open" replaced
+  with Aamir's wording (public/runnable vs production/internal/research walk-through) and a
+  recalibrated open-source band ("a tag on the things that actually carry a licence"). **Viz label
+  overlap fixed properly**: a per-frame greedy collision pass over label plates in foundry-viz.js -
+  labels slide apart as the rings rotate (the earlier per-ring stagger could not survive rotation).
+- **3. Rail corrected.** Public projects (IO, signals, vault, gotime, gocurl) now carry a
+  **"Public evidence"** kicker via new `reviewKicker` frontmatter (UExL keeps "Private review" -
+  its offer concerns unpublished v1.4 work). Sticky offset `top: 36px -> 96px` clears the 73px
+  navbar (compact toc budgets re-tuned: shared -360, fd -545). Verified STUCK mid-scroll at
+  1280x720: rail top=96, bottom=710, fully visible. (Debug note: headless scroll probes MUST use
+  scrollTo({behavior:'instant'}) - bootstrap's smooth scroll silently no-ops the measurement.)
+- **4. Taj benchmark attributed on headline surfaces**: seoDescription, registry desc and the lead
+  all now read "internal benchmark notes record approximately 30-35 ms... public release is planned
+  to include the harness". The bare "100,000 pages opens in ~30 ms" headline claim is gone.
+- Re-verified: **57 pages / 0 FAIL / 5 known warns; 0 broken fragments**; targeted checks for all
+  four fixes green.
+
+**2026-08-13 (part 22c - FOUNDRY Gate 2 built: signals, Vault Storage, gotime; STOPPED FOR REVIEW, uncommitted):**
+- All three on the shared foundry-detail shell (shims + railMeta/railLinks), same verification bar
+  as Gate 1: 0 body /estimate/, exactly 1 /contact/, motif 0, rails fit at 375/768/1280x720,
+  57 pages / 0 FAIL / 5 known warns, 0 broken fragments, external artifacts resolve.
+- **signals - MAJOR FINDING: the local tree is 59 commits AHEAD of origin/master.** The public
+  v1.3.1 runs a `sync.RWMutex` core; the lock-free `atomic.Pointer` rewrite, the bench/ baseline
+  discipline, ErrStopPropagation, LIFO, MaxConcurrent and the corrected README exist ONLY locally
+  and unpushed. My first draft quoted that unpublished work as public evidence (with a bench/ link
+  that 404s) - caught by resolving my own links, and REWRITTEN to the public reality: the page now
+  cites only v1.3.1 (typed generics exhibit, sync/async + TryEmit, README's own 5.66 ns / 93.5%
+  figures attributed and qualified), presents the v1.4 rewrite explicitly as "in flight, not yet
+  public, none of it offered as evidence", and does NOT repeat the public README's "other
+  companies" adoption claim. Register row updated; the public README also carries a Go Report Card
+  badge pointing at the WRONG repo (nanomsg/mangos). **Pushing the 59 commits is Aamir's call.**
+- **Vault Storage** - thesis "localStorage's API. IndexedDB's engine."; architecture cutaway of the
+  real modules (application API -> Proxy + per-key pending-operation queue -> executeWithMiddleware
+  chain -> IndexedDB, each box mapped to a source file); README middleware composition; sizes from
+  the README with its own `npm run size` script; the APPROVED test wording verbatim (355 specs /
+  Chrome / timing-sensitive spec / Firefox launcher disabled); decrypted-backup limit; repo=vault /
+  package=vault-storage named on the page and in the rail.
+- **gotime** - thesis "yyyy-mm-dd, not 2006-01-02."; side-by-side reference-time vs NITES
+  exhibit; parse->convert->arithmetic flow with errors-not-guesses; edge-case matrix drawn from
+  docs/api-reference/calendar-math.md (leap-year Feb 28/29 rows); library maturity (stable v2.0.4)
+  kept explicitly separate from NITES notation maturity (research-stage, linked to
+  /standards/#nites); **coverage RE-MEASURED rather than repeating the badge** - `go test -cover`
+  2026-08-13: public package 100.0%, internal/nites 100.0%, internal/cache 100.0%, internal/utils
+  13.6% - the page states the 100% WITH its scope; npm `gotime` (other maintainer) disclaimed.
+- **STOPPED at Review Gate 2** per the brief. Next after approval: Gate 3 = Processious, Taj Mahal
+  SSG, Booster - which needs the screenshot/masking approvals and the IP-CONFIDENTIAL.md reading
+  listed in the register's open questions.
+
+**2026-08-13 (part 22b - FOUNDRY Gate 1 built: Internet Object + UExL; STOPPED FOR REVIEW, uncommitted):**
+- Brief accepted 2026-08-12: present EXISTING engineering, no new benchmark programme; README and
+  committed artifacts are the factual boundary; benchmark claims attributed "in the project's
+  published benchmark" with corpus and qualifications; one signature exhibit per page; no sales CTA
+  in the hero; one final /contact/ conversion; gates 1-4 with stops.
+- **Shared shell built:** `foundry-detail.html` - hero (type eyebrow, thesis h1, statusLine,
+  artifact actions), article-body + article.js TOC, and the svc-aside rail extended with a
+  `fd-aside` variant (Project facts dl via `railMeta`, artifact links via `railLinks`,
+  private-review block, template-enforced single /contact/ conversion). Rail verified to FIT at
+  1280x720: the shared toc cap loses to a 3-class-deep `.fd-aside .aside-inner .toc` budget
+  (100svh - 470px), artifact notes collapse, meta tightens - measured 689px in a 720px viewport.
+- **TWO NEW TAJ MAHAL GOTCHAS, learned the hard way:**
+  1. **Frontmatter keys `meta:` and `links:` are RESERVED** - the page 500s with "invalid-document".
+     Renamed to `railMeta`/`railLinks`. (Same family as the categories/tags trap.)
+  2. **A bare `---` line ANYWHERE in the body - including inside a fenced code block - is eaten as a
+     document separator** and invalidates the page. The IO code sample's embedded document is
+     written as string concatenation (`'---\n' +`) for exactly this reason.
+- **Internet Object rebuilt** on the shell: thesis "Declare the shape once, then send only data";
+  signature exhibit = 3-record specimen pair with byte chips measured WHOLE (77 B JSON vs 60 B IO,
+  22% at n=3, schema included) + an lz-string DEEP LINK that opens the exact document in the
+  playground (the playground encodes full state in `?d=&s=&sep=&min=&skip=`); parse-path SVG with
+  the refusal branch; record-independence figure kept; README-current code (`doc.toObject()`,
+  `createStreamReader`); trade-off section; benchmark figures attributed to
+  maniartech/InternetObject-vs-JSON-benchmark (49.25% bytes / 27.40% tokens at 100 records,
+  cl100k_base, generated user records, simulated serialization, ~+/-5% run variation - the
+  harness's own numbers and scope); known limits incl. the npm bundler requirement; four-axis
+  status; capability translation close. 2018 lineage now sourced (README (c) 2018-2026).
+- **UExL rebuilt** on the shell: thesis "Compile the expression once. Evaluate it forever.";
+  signature exhibit = pipeline SVG with BOTH refusal routes (unknownFn() refused at compile;
+  errors-never-panics at eval); language specimen with the README's real pipe chain and 11 pipe
+  types; environments section (immutable, copy-on-write Extend); benchmark chart quoting the
+  README's published table (~108 ns / 0 allocs string path vs expr ~325 / cel-go ~348, Ryzen 7
+  5700G, Go 1.26, warm-state median of 6) with the hot-path boundary stated (2 allocs fn calls,
+  ~104 map/100, ~10,000 ns one-shot Eval); no-licence/no-release/playground-not-deployed limits;
+  four-axis status; VM-engineering capability close. uexl.org NOT linked (third party).
+- **Verified:** 57 pages / 0 FAIL / 5 known warns; 0 broken fragments; both pages 0 body
+  /estimate/, exactly 1 body /contact/, motif 0; responsive 375/768/1280x720 all green, rails fit;
+  every external artifact resolves (npm 403s bot fetches - the package was verified via the
+  registry API).
+- **STOPPED at Review Gate 1** per the brief. Next after approval: Gate 2 = signals, Vault
+  Storage, gotime.
+
+**2026-08-12 (part 22 - FOUNDRY programme opens; P0 register + claim corrections done, UNCOMMITTED):**
+- Directive: rebuild the Foundry as a portfolio of engineering EVIDENCE, one project at a time,
+  each with a presentation suited to its engineering character. The desktop mega-menu is approved
+  and preserved. Full brief in the 2026-08-12 review; gates A-D and the acceptance gate stand.
+- **`_ia/foundry-project-register.md` created (P0, the precondition for any page work).** 14
+  projects, each verified against four sources in priority order: the local working tree
+  (LICENSE, README, tests, benchmarks, git HEAD), the GitHub API (visibility, SPDX, last push),
+  the npm registry, and live HTTP checks of every artifact URL. Nothing inferred from the website.
+- **What the verification actually turned up (this is why P0 exists):**
+  - **Vault Storage's repo link 404s.** The repository is `maniartech/vault`; only the PACKAGE is
+    called `vault-storage`. Two dead links on the page, fixed.
+  - **The Vault browser-test claim was false.** The page said tests "run in real Chrome and
+    Firefox"; `karma.conf.cjs:79-81` has Firefox commented out. Now: 355 executed / 354 passing,
+    Chrome only, with the disabled Firefox launcher stated.
+  - **GoCurl CONTRADICTS the directive.** `github.com/maniartech/gocurl` IS public - MIT, ~1.5 MB,
+    full source, tests, benchmarks, CHANGELOG, pushed 2026-06-21. The directive says to label it
+    "the source is private". I applied NEITHER wording: the page's false sentence ("there is no
+    repository link here until the day there is a public repository to read") is removed, and the
+    publication question is logged for Aamir. Both possible answers are publication decisions.
+  - **signals claimed third-party adoption** ("used in production - by ManiarTech and by other
+    developers who pulled it into their own systems"). Unverifiable, removed. Replaced with the
+    verifiable social signal, dated: 331 stars at last review, and interest is not adoption.
+  - **Three licence fields stated INTENTIONS** (UExL "TBC (MIT likely)", Taj Mahal "TBC", Indigo
+    "TBC (frontend BSD-3)"). UExL and Taj Mahal corrected to present-tense grants.
+  - **`uexl.org` is an unrelated third party** ("UEXL Institute") and the npm package `gotime`
+    belongs to another maintainer. Neither may ever be cited as ours. Recorded in the register.
+- **P0 corrections applied:** Vault (link + test claim), Taj Mahal SSG (Aamir's exact
+  Internal | Production-dogfooded | Open source planned wording, licence "None published"), UExL
+  (availability / licence / maturity / adoption split into four separate statements), signals
+  (adoption), and the honesty motif swept from the whole Foundry module to **0**.
+- **Verified: 57 pages / 0 FAIL / 5 warn.** Every external artifact link on every Foundry and
+  Products page now resolves (`maniartech/vault` 200, `play.internetobject.org` 200).
+- **Register ACCEPTED by Aamir 2026-08-12; P0 claim correction then completed with his rulings:**
+  - **GoCurl - public reality is canonical.** It is open source in the legal and practical sense;
+    what has not happened is a stable release. Page now carries the repo link and reads
+    **Public source | MIT | Pre-1.0 | Production-dogfooded**, with maturity, availability,
+    licence, operating evidence, adoption and roadmap listed separately. "Open source planned"
+    would be false; "stable release planned" is what is accurate.
+  - **Internet Object - specification separated from implementations.** Spec = 1.0 working draft,
+    provisional; JS package = 0.2.1, pre-1.0; licence = **ISC for JavaScript only** (Go and Python
+    repos carry none); adoption = available for evaluation, **not a stable-format commitment**.
+    The blanket "Published" label is gone. The claim that "a Python parser is live" was corrected -
+    that repo is unlicensed and has had no commits since 2021.
+  - **Vault Storage - no run-specific numbers.** "355 executed / 354 passing" describes one run and
+    would go stale; restored to *"355 specs at this writing, run under Karma in a real Chrome
+    browser"*, with the timing-sensitive performance spec and the configured-but-disabled Firefox
+    launcher stated as separate facts.
+  - **Hub reconciled** with temporary P0 labels pending P1's schema: UExL `Pre-1.0 | Public source |
+    No licence` (open-source TAG removed - no licence is granted), GoCurl `Pre-1.0 | Public source |
+    MIT | Dogfooded`, Taj Mahal SSG `Production-dogfooded | Private | OSS planned` (open-source tag
+    removed), Ordin `In development | Private`, gotime's unverified 100%-coverage claim removed
+    until remeasured, signals scoped to "used in ManiarTech's own systems".
+  - **Same summaries reconciled wherever they appear:** Languages (UExL badge), Products (Ordin's
+    fair-code/source-available claim, which the register showed is undecided), the Ordin page
+    itself, and home's open-source pillar, which implied Taj Mahal and Processious were public.
+  - **Verified after a clean restart** (server stopped, `.cache` cleared, restarted): **57 pages /
+    0 FAIL / 5 warn**, plus 17 targeted rendered-output assertions covering every correction above.
+- **STOP FOR REVIEW.** Per the directive, no page work begins until the register is accepted.
+  Five open questions for Aamir are listed at the end of the register: the GoCurl publication
+  ruling, screenshot approval and masking for Processious/Documentor/DAM (no captures exist
+  anywhere), the Booster `IP-CONFIDENTIAL.md` constraint, Ordin's source location (not found on
+  this machine), and whether Internet Object may be labelled pre-1.0 plainly (npm is at 0.2.1).
+- **NEXT after acceptance: P1** (metadata contract + gates), **P2** (shared shell), **P3** (visual
+  component system), then Gate A starting with Internet Object and UExL.
+
 **2026-08-11 (part 21d - AI corrections, P7 reconciliation, P8 sweep; SERVICES PROGRAMME COMPLETE, uncommitted):**
 - **The two AI corrections Aamir made a condition of approving P4-P6:** "Honest description of what
   happens today..." -> "**An accurate account** of what happens today when the decision is wrong";
