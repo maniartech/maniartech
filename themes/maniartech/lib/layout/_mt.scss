@@ -2474,30 +2474,97 @@ a.ahf-k:hover { color: $main_color; }
    hero - separated ASCII facts, not a row of pills - and a key/value list in
    the rail. Both must stay legible at the rail's compact 1280x720 mode.
 
-   The hero is COMPACT by review ruling (Aamir, 2026-08-13): these are exhibit
-   pages, and the signature exhibit must begin inside the first viewport - a
-   100svh prose hero buried every exhibit ~1500px down. Height comes from the
-   content, not the viewport. */
-.fd-hero { min-height: 0; }
-.fd-hero .vh-stage { min-height: 0; padding-top: 104px; padding-bottom: 26px; }
-.fd-hero .vh-say { justify-content: flex-start; }
-.fd-hero .vh-h1 { font-size: clamp(28px, 4.2vw, 48px); margin-bottom: 10px; }
-.fd-hero .vh-dek { max-width: 78ch; font-size: clamp(15px, 1.35vw, 17px); }
-.fd-hero .fd-status { margin-top: 12px; }
-.fd-hero .mt-actions { margin-top: 18px; }
+   HERO (Aamir, 2026-08-14 - supersedes the 2026-08-13 compact ruling, which is
+   REVERTED). The hero owns the full view height exactly like /white-papers/ and
+   /insights/: `.view-hero` supplies `min-height: 100svh` and `.vh-stage` the
+   navbar clearance, and NEITHER is overridden here. `min-height` (never
+   `height`) means a phone hero grows past the viewport instead of clipping.
+
+   "Evidence above the fold" is solved by DESIGNING the hero, not by shrinking
+   it: three stacked bands - identity (eyebrow/h1/dek), status + artifact
+   actions, and a project-specific proof specimen at the foot. The specimen is
+   the signature exhibit itself or an aggregate the body then expands - never a
+   decorative graphic, and never a duplicate of the figure directly below.
+
+   Height budget at the 1280x720 worst case: 96 clearance + ~282 say + 22 gap +
+   ~198 proof + 29 bottom = ~627 of 720. Everything is clamped against `vh` so
+   the band compresses with the viewport rather than overflowing it. */
+.fd-hero .vh-stage { padding-top: clamp(90px, 12.5vh, 150px); padding-bottom: clamp(22px, 3.4vh, 50px); gap: clamp(18px, 2.6vh, 40px); }
+/* Long project headlines ("Declare the shape once, then send only data.") need a
+   tighter measure than the 84px hub scale or they eat the proof band's budget.
+   24ch keeps them to TWO lines: a narrower measure wraps to three, and the third
+   line is what pushes the specimen below the fold at 720. */
+.fd-hero .vh-h1 { font-size: clamp(30px, 4.2vw, 54px); max-width: 24ch; }
+.fd-hero .vh-dek { max-width: 68ch; font-size: clamp(15px, 1.35vw, 18px); margin-top: clamp(14px, 2vh, 26px); }
+.fd-hero .fd-status { margin-top: clamp(10px, 1.6vh, 16px); }
+.fd-hero .mt-actions { margin-top: clamp(16px, 2.4vh, 26px); }
 .fd-hero .mt-actions .butn { padding-top: 10px; padding-bottom: 10px; }
-/* First heading of the article sits close under the compact hero, so the
-   exhibit it introduces lands inside the first viewport. */
-.fd-aside ~ * {}
-.svc-layout .article-body > h2:first-child,
-.svc-layout .article-body > p:first-child + h2 { margin-top: 10px; }
+
+/* --- the hero's proof band ------------------------------------------------
+   `.vh-strip` (shared with /white-papers/) gives the rule and the top padding;
+   `.fd-proof` adds the specimen forms. Every form is static and complete at
+   rest - nothing here needs hover, script or motion to carry its meaning, so
+   reduced-motion loses nothing. */
+.fd-proof .vh-kicker { margin-bottom: clamp(10px, 1.6vh, 18px); }
+.fd-proof-foot {
+  margin: clamp(10px, 1.4vh, 16px) 0 0; font-family: var(--mono);
+  font-size: 11.5px; line-height: 1.6; color: rgba(255, 255, 255, .5);
+  b { color: $main_color; font-weight: 500; }
+  a { color: $main_color; }
+}
+
+/* Form 1 - side-by-side specimen (a before/after the reader can actually read). */
+.fdp-diff { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: clamp(12px, 1.6vw, 22px); }
+.fdp-diff .lang-pane { box-shadow: none; display: flex; flex-direction: column; }
+.fdp-diff .lp-bar { padding: 8px 13px; font-size: 11px; }
+.fdp-diff .mt-code { font-size: 11.5px; line-height: 1.62; padding: 11px 13px; margin: 0; overflow-x: auto; }
+.fdp-arrow { align-self: center; color: $main_color; font-size: 21px; font-weight: 700; line-height: 1; }
+
+/* Form 2 - measured bars. Values are tabular so columns line up while reading.
+   Capped well short of the container: stretched across a 1300px hero the bars
+   all read as "nearly full" and the comparison the chart exists to make - 108ns
+   against 348ns - flattens into three near-identical strips. */
+.fdp-bars { display: grid; gap: clamp(7px, 1.1vh, 11px); max-width: 880px; }
+.fdp-bar-row { display: grid; grid-template-columns: minmax(86px, auto) 1fr minmax(0, auto); align-items: center; gap: clamp(10px, 1.4vw, 16px); }
+.fdp-bar-name { font-family: var(--mono); font-size: 12px; color: rgba(255, 255, 255, .8); }
+.fdp-bar-track { height: 9px; border-radius: 6px; background: rgba(255, 255, 255, .09); overflow: hidden; }
+.fdp-bar-fill { display: block; height: 100%; border-radius: 6px; background: rgba(255, 255, 255, .2); }
+.fdp-bar-fill.is-win { background: $main_color; }
+.fdp-bar-val { font-size: 12px; color: rgba(255, 255, 255, .62); font-variant-numeric: tabular-nums; white-space: nowrap;
+  b { color: $main_color; font-weight: 600; } }
+
+/* Form 3 - a pipeline/sequence of named stages. */
+.fdp-flow { display: flex; align-items: stretch; flex-wrap: wrap; gap: clamp(8px, 1.2vw, 14px); }
+.fdp-step {
+  flex: 1 1 0; min-width: 120px; padding: clamp(10px, 1.4vh, 15px) clamp(11px, 1.2vw, 16px);
+  border: 1px solid rgba(255, 255, 255, .11); border-radius: 11px; background: rgba(255, 255, 255, .03);
+  &.is-key { border-color: rgba($main_color, .5); background: rgba($main_color, .06); }
+  &.is-stop { border-color: rgba(255, 255, 255, .3); border-style: dashed; background: none; }
+}
+.fdp-step-n { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 255, 255, .42); margin-bottom: 5px; }
+.fdp-step-t { display: block; font-size: 13.5px; font-weight: 600; color: rgba(255, 255, 255, .93); line-height: 1.3; }
+.fdp-step-d { display: block; font-size: 11.5px; line-height: 1.5; color: rgba(255, 255, 255, .58); margin-top: 4px; }
+.fdp-step.is-key .fdp-step-t { color: $main_color; }
+
+/* Form 4 - an aggregate the body then expands (figures with their own captions). */
+.fdp-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: clamp(14px, 2vw, 30px); }
+.fdp-fact { padding-left: clamp(14px, 1.6vw, 24px); border-left: 1px solid rgba(255, 255, 255, .11);
+  &:first-child { padding-left: 0; border-left: 0; } }
+.fdp-fact-n { display: block; font-size: clamp(21px, 2.5vw, 31px); font-weight: 700; line-height: 1.05; letter-spacing: -.02em; color: $main_color; font-variant-numeric: tabular-nums; }
+.fdp-fact-l { display: block; margin-top: 6px; font-size: 12.5px; line-height: 1.45; color: rgba(255, 255, 255, .72); }
+.fdp-fact-s { display: block; margin-top: 3px; font-family: var(--mono); font-size: 10.5px; line-height: 1.45; color: rgba(255, 255, 255, .5); }
+
 @media (max-width: 767px) {
-  .fd-hero .vh-stage { padding-top: 92px; padding-bottom: 20px; }
-  .fd-hero .vh-h1 { font-size: clamp(26px, 7.4vw, 34px); }
-  /* Keep the artifact buttons on one row on phones - stacking them pushed the
-     exhibit a full button-height further down for no reading benefit. */
-  .fd-hero .mt-actions { flex-direction: row; }
+  /* The hero MAY grow past 100svh on a phone - it must never clip. Bands stack
+     and the specimen turns single-column rather than shrinking to illegibility. */
+  .fd-hero .vh-stage { padding-top: 92px; padding-bottom: 26px; }
+  .fd-hero .vh-h1 { font-size: clamp(27px, 7.4vw, 36px); max-width: none; }
+  .fd-hero .mt-actions { flex-direction: row; flex-wrap: wrap; }
   .fd-hero .mt-actions .butn { padding-left: 14px; padding-right: 14px; }
+  .fdp-diff { grid-template-columns: 1fr; }
+  .fdp-arrow { justify-self: center; transform: rotate(90deg); }
+  .fdp-step { flex-basis: 100%; }
+  .fdp-fact { padding-left: 0; border-left: 0; }
 }
 .fd-status {
   margin: 18px 0 0; font-family: var(--mono); font-size: 13px;

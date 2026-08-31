@@ -1,2 +1,31 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the day-one contrast that IS the tool's thesis. The body's
+orchestrator figure expands it by showing how the plan is derived and supervised,
+so neither repeats the other. Nothing here extracts anything from the repository -
+see IP-CONFIDENTIAL.md; this is the model as already described on the page.
+{% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">Day one on a new machine, before anyone writes a line of code</p>
+    <div class="fdp-diff">
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot"></span> the usual answer</div>
+            <pre class="mt-code">README: 14 setup steps, last edited 8 months ago
+scripts/: start-db.sh, start-cache.sh, start-all.sh
+          (nobody owns these)
+"works on my machine" -> a day of someone's week</pre>
+        </div>
+        <span class="fdp-arrow" aria-hidden="true">&rarr;</span>
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> Booster</div>
+            <pre class="mt-code">one declarative configuration
+  services, data stores, dependencies
+  -> the orchestrator derives the order,
+     starts, supervises and reports state</pre>
+        </div>
+    </div>
+    <p class="fd-proof-foot">The environment is described once and brought up the same way everywhere. We run our own products on it &mdash; <b>internal, production-dogfooded, private, proprietary.</b></p>
+</div>
+{% endblock %}

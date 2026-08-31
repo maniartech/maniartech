@@ -1,2 +1,29 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the thesis as a contrast - shared drive vs governed record.
+The body's lifecycle figure expands it into the stages that produce the right-hand
+column, so the two are aggregate and detail rather than duplicates. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">The same file, under two regimes</p>
+    <div class="fdp-diff">
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot"></span> a shared drive</div>
+            <pre class="mt-code">metadata:    the filename
+permission:  everyone
+versions:    final_v2_FINAL.psd
+history:     whoever remembers</pre>
+        </div>
+        <span class="fdp-arrow" aria-hidden="true">&rarr;</span>
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> a governed record</div>
+            <pre class="mt-code">metadata:    described, searchable
+permission:  granted per role
+versions:    tracked, with renditions
+history:     an audit trail</pre>
+        </div>
+    </div>
+    <p class="fd-proof-foot">A digital asset management system's job is to make assets behave like records: described, permissioned, versioned, reviewed and accountable. <b>Status: early-stage, private, managed-service model &mdash; no production deployment claimed.</b></p>
+</div>
+{% endblock %}

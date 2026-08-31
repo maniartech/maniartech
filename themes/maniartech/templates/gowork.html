@@ -1,2 +1,34 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): what the doctor actually reports, as findings. The body's
+workspace-graph figure expands it by showing WHERE in the module graph each finding
+sits, so the two do not repeat. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">gowork doctor &mdash; the tribal knowledge, turned into findings</p>
+    <div class="fdp-flow">
+        <div class="fdp-step is-stop">
+            <span class="fdp-step-n">finding</span>
+            <span class="fdp-step-t">replace drift</span>
+            <span class="fdp-step-d">a module's <code>replace</code> no longer matches what the workspace says</span>
+        </div>
+        <div class="fdp-step is-stop">
+            <span class="fdp-step-n">finding</span>
+            <span class="fdp-step-t">stale use entry</span>
+            <span class="fdp-step-d">a <code>use</code> path pointing at a directory that moved</span>
+        </div>
+        <div class="fdp-step is-stop">
+            <span class="fdp-step-n">finding</span>
+            <span class="fdp-step-t">go version lags</span>
+            <span class="fdp-step-d">one module trailing the rest of the workspace</span>
+        </div>
+        <div class="fdp-step is-key">
+            <span class="fdp-step-n">then</span>
+            <span class="fdp-step-t">explain, fix the safe ones</span>
+            <span class="fdp-step-d">and tidy module-by-module in dependency order</span>
+        </div>
+    </div>
+    <p class="fd-proof-foot">Go workspaces are deliberately minimal; in a real multi-module repository that minimalism has a price most teams pay in Makefiles. <b>Private, pre-1.0, internally used &mdash; Apache-2.0 in-tree, nothing published.</b></p>
+</div>
+{% endblock %}

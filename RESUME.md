@@ -892,6 +892,42 @@ correct:
   which would re-create the drift the single-source registry just removed. Needs a module.yaml
   route (startup-only) + rewiring six "All X ->" targets. Discuss after the current review.
 
+**2026-08-15 (part 22i - FOUNDRY HERO RESTORATION; Aamir WITHDREW his Foundry approval):**
+- **The 2026-08-13 compact-hero ruling is REVERTED.** Aamir: "Do not solve 'evidence above the
+  fold' by shrinking or removing the hero." Approval is withdrawn until all 14 heroes pass visually.
+- Removed `.fd-hero { min-height: 0 }` and the `.vh-stage` compact overrides. Heroes now inherit
+  `.view-hero`'s `min-height: 100svh` exactly like `/white-papers/` (the stated reference), with
+  navbar clearance inside the hero and `min-height` never `height`, so phones grow instead of clip.
+- **Three stacked bands** per thumb rule #2: identity (eyebrow/h1/dek), status + artifact actions,
+  and a **project-specific proof band** at the foot - `.vh-strip .fd-proof`, the same strip
+  Aamir circled on `/white-papers/`. Four specimen forms in `_mt.scss`: `.fdp-diff` (side-by-side
+  code), `.fdp-bars` (measured bars), `.fdp-flow` (named stages), `.fdp-facts` (figures).
+- Template seam: `foundry-detail.html` exposes `{% block fd_proof %}`; each of the 14 shims fills it.
+  Shims are no longer one-liners - that is deliberate, the proof is OF the project.
+- **No duplicates.** Where the signature exhibit moved up, it was REMOVED from the body and the body
+  rewritten to expand rather than repeat: internet-object, gotime, gocurl, indigo (pane pairs) and
+  uexl (bar figure). Dangling "the right-hand pane" references were rewritten.
+- Height budget at the 1280x720 worst case is ~627 of 720; every value is clamped against `vh`.
+  h1 capped at 24ch - a narrower measure wraps to three lines and pushes the specimen below the fold.
+- **Two design corrections found by LOOKING, not measuring:** bars stretched across a 1300px hero
+  flatten a 108-vs-348 comparison (now capped at 880px), and Taj Mahal's 35ms-vs-2,763ms is a 1.3%
+  dot as a bar - switched to the figures form, because padding it to look like a bar would misstate
+  the ratio.
+- **Pre-existing bug surfaced and fixed:** `.mt-code .s` computes to `display:inline-block` from the
+  base theme, so a span containing newlines becomes one stacked box that displaces the code around
+  it. GoCurl was the only such usage site-wide; its backtick string is now one line.
+- **Acceptance: 42/42 rows pass** (14 pages x 1440x900 / 1280x720 / 375x812) - hero >= viewport,
+  `.article-region` at or below 100svh, proof band whole and above the fold at both desktop sizes,
+  status line visible, zero horizontal overflow. All 14 reviewed visually; reduced-motion confirmed
+  to retain the complete static proof (nothing in the bands depends on script or animation).
+- **New gate** (thumb rule #6): `seo-check.mjs` fails if any Foundry hero loses its single proof
+  band, gains a sales CTA, or if the compiled CSS reintroduces `.fd-hero{min-height:0}`.
+  **Negative-tested** - the first version scraped the stylesheet href, matched nothing (the theme's
+  hrefs are relative) and silently skipped; it now fetches the bundle by absolute path and fires.
+- Gate green: 57 pages, 0 failures, 5 known warnings. Working tree: 22 uncommitted paths.
+- NOTE: the seo-check default base (port 7000) can serve a STALE compiled stylesheet; run it against
+  a freshly restarted server when the CSS assertion matters.
+
 **2026-08-14 (part 22h - Foundry committed; LAUNCH-READINESS finding; DISCUSS TOMORROW):**
 - Aamir wants to go live ASAP and asked whether publishing now / improving later hurts SEO.
 - **Verified answer: no.** Production's live sitemap contains exactly ONE `<loc>`

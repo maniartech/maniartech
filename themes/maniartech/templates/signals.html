@@ -1,2 +1,28 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gate 2 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): what "typed" actually buys, as code. Deliberately NOT the
+body's fan-out diagram - that shows the shape of a dispatch, this shows the bug the
+compiler catches. Numbers are the README's own, cited as such. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">The observer pattern, moved from runtime to compile time</p>
+    <div class="fdp-diff">
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot"></span> the usual Go event bus</div>
+            <pre class="mt-code">bus.On(<span class="s">"user.created"</span>, func(v any) {
+    u := v.(User)  <span class="c">// panics at runtime</span>
+})                 <span class="c">// typo in the topic: silence</span></pre>
+        </div>
+        <span class="fdp-arrow" aria-hidden="true">&rarr;</span>
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> signals &mdash; generic, in-process</div>
+            <pre class="mt-code">sig := signals.New[User]()
+sig.AddListener(func(ctx context.Context, u User) {
+    <span class="c">// u is a User. The compiler said so.</span>
+})</pre>
+        </div>
+    </div>
+    <p class="fd-proof-foot">In-process only &mdash; not a message broker, and not an event-driven services pattern. From the README's committed benchmark: <b>5.66 ns/op</b> for a single-listener emit with zero allocations, and <b>93.5% test coverage</b> &mdash; machine-specific, reproducible with <code>go test -bench</code> on your own checkout.</p>
+</div>
+{% endblock %}

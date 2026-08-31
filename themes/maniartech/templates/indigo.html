@@ -1,2 +1,29 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the compiler's own before/after, MOVED up from the body -
+the body no longer repeats the pane pair and goes straight to the refusal rule and
+the research-stage limits. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">What it adds &mdash; and the Go it lowers to</p>
+    <div class="fdp-diff">
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot"></span> you write &mdash; main.indigo</div>
+            <pre class="mt-code">status := ok <span class="op">?</span> <span class="s">"ready"</span> : <span class="s">"pending"</span>
+names  := users <span class="op">|filter:</span> $.Active <span class="op">|map:</span> $.Name
+city   := user<span class="op">?.</span>Address<span class="op">?.</span>City
+data   := load(path)<span class="op">!</span></pre>
+        </div>
+        <span class="fdp-arrow" aria-hidden="true">&rarr;</span>
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> it ships &mdash; main.go, idiomatic</div>
+            <pre class="mt-code"><span class="c">// if/else lowering, safe anywhere</span>
+<span class="c">// ONE fused for loop, not N passes</span>
+<span class="c">// explicit nil-guarded access</span>
+<span class="c">// if err != nil { return ... }</span></pre>
+        </div>
+    </div>
+    <p class="fd-proof-foot">Every valid Go file is already valid Indigo, and the output stays inside the plain Go toolchain. The founding constraint is a refusal: <b>where the compiler cannot preserve Go's semantics exactly, it emits nothing at all</b>. Active research, private, licence not decided.</p>
+</div>
+{% endblock %}

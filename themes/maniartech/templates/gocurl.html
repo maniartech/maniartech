@@ -1,2 +1,27 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the page's own declared signature exhibit, MOVED up from
+the body - the body's "signature exhibit" section is gone and it opens instead on
+the execution pipeline the library wraps around the recipe. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">One command, both worlds &mdash; the shell recipe is the shipped code</p>
+    <div class="fdp-diff">
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot"></span> the shell &mdash; straight from the API docs</div>
+            <pre class="mt-code">$ curl https://api.github.com/repos/golang/go</pre>
+        </div>
+        <span class="fdp-arrow" aria-hidden="true">&rarr;</span>
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> the Go code &mdash; the same command</div>
+            {% comment %} The backtick string stays on ONE line: `.s` computes to
+            display:inline-block from the base theme, so a span containing newlines
+            becomes a single stacked box that displaces the code around it. {% endcomment %}
+            <pre class="mt-code">resp, err := gocurl.Curl(ctx,
+    <span class="s">`curl https://api.github.com/repos/golang/go`</span>)</pre>
+        </div>
+    </div>
+    <p class="fd-proof-foot">The request produced is standard <code>net/http</code>; the response comes back as standard Go types. The repository's doc-lint (<code>TestDocHonestyLint</code>) <b>fails the build if a claim ships without a named, un-skipped test behind it</b>, and wire-parity with real curl is proven by differential testing against the actual curl binary.</p>
+</div>
+{% endblock %}

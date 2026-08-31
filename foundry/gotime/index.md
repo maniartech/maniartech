@@ -38,28 +38,9 @@ privateReview: "Nothing is gated - source, docs and tests are public."
 
 Go's date formatting is famous for the wrong reason: to format a date you must remember that January 2nd, 2006 at 15:04:05 is the reference moment, and write your layout as that literal date. It is clever, it is documented, and after a decade of Go, most of us still look it up. gotime's position is that a format string should say what it means.
 
-## The signature exhibit: the same format, twice
+## Two maturities, kept apart
 
-<div class="lang-diff">
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot"></span> standard Go - the reference-time layout</div>
-<pre class="mt-code">time.Now().Format(<span class="s">"2006-01-02 15:04:05"</span>)
-
-<span class="c">// you must remember that 2006 means yyyy,</span>
-<span class="c">// 01 means the month, 02 the day, 15 the</span>
-<span class="c">// hour, 04 the minute, 05 the second</span></pre>
-</div>
-<span class="lang-arrow">&rarr;</span>
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot ok"></span> gotime - NITES specifiers</div>
-<pre class="mt-code">gotime.Format(time.Now(), <span class="s">"yyyy-mm-dd hh:ii:ss"</span>)
-
-<span class="c">// the format string says what it means:</span>
-<span class="c">// year, month, day, hour, minute, second</span></pre>
-</div>
-</div>
-
-The right-hand notation is **NITES** - a format-specifier notation we author, with its own entry on [/standards/](/standards/#nites). gotime is its **reference implementation**: the library is stable and tagged, while the notation itself is still research-stage. Those are two different maturities, and this page keeps them apart.
+The readable notation in that specimen is **NITES** - a format-specifier notation we author, with its own entry on [/standards/](/standards/#nites). gotime is its **reference implementation**: the library is stable and tagged, while the notation itself is still research-stage. Those are two different maturities, and this page keeps them apart.
 
 ## What flows through it
 

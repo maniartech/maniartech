@@ -30,29 +30,7 @@ Transpiled languages have a credibility problem: the generated code is where bug
 
 ## What it adds, and what that compiles to
 
-From the compiler's own documentation - each ergonomic lowers to the idiomatic Go pattern, not to runtime helpers:
-
-<div class="lang-diff">
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot"></span> you write - main.indigo</div>
-<pre class="mt-code">status := ok <span class="op">?</span> <span class="s">"ready"</span> : <span class="s">"pending"</span>
-double := x <span class="op">=&gt;</span> x * 2
-names  := users <span class="op">|filter:</span> $.Active <span class="op">|map:</span> $.Name
-city   := user<span class="op">?.</span>Address<span class="op">?.</span>City
-data   := load(path)<span class="op">!</span></pre>
-</div>
-<span class="lang-arrow">&rarr;</span>
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot ok"></span> it ships - main.go, idiomatic</div>
-<pre class="mt-code"><span class="c">// if/else lowering, safe anywhere</span>
-<span class="c">// a typed func literal</span>
-<span class="c">// ONE fused for loop, not N passes</span>
-<span class="c">// explicit nil-guarded access</span>
-<span class="c">// if err != nil { return ... }</span></pre>
-</div>
-</div>
-
-The pipeline operator set is deliberately closed - `map`, `filter`, `take`, `skip`, `reduce`, `sortBy`, exactly six - and anything else is rejected with a structured diagnostic. The compiler is pure Go: an extended `go/parser` frontend with `go/types`-backed lowering, no CGo, no runtime library injected into your code.
+Each ergonomic in the specimen above lowers to the idiomatic Go pattern named beside it, from the compiler's own documentation - not to runtime helpers. The pipeline operator set is deliberately closed - `map`, `filter`, `take`, `skip`, `reduce`, `sortBy`, exactly six - and anything else is rejected with a structured diagnostic. The compiler is pure Go: an extended `go/parser` frontend with `go/types`-backed lowering, no CGo, no runtime library injected into your code.
 
 ## The refusal path is the design
 

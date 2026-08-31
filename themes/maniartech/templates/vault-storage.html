@@ -1,2 +1,35 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gate 2 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the measured budget - an aggregate the body then expands
+into the Proxy/queue/middleware architecture. Deliberately NOT the API code block
+that opens the body: this is the size claim, that is the ergonomics claim.
+Every figure is the README's own, measurable with `npm run size`. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">The budget the whole design has to fit inside</p>
+    <div class="fdp-facts">
+        <div class="fdp-fact">
+            <span class="fdp-fact-n">~1.5 KB</span>
+            <span class="fdp-fact-l">the core Vault class</span>
+            <span class="fdp-fact-s">minified + gzipped</span>
+        </div>
+        <div class="fdp-fact">
+            <span class="fdp-fact-n">~4 KB</span>
+            <span class="fdp-fact-l">bundled with encryption</span>
+            <span class="fdp-fact-s">EncryptedVault included</span>
+        </div>
+        <div class="fdp-fact">
+            <span class="fdp-fact-n">355</span>
+            <span class="fdp-fact-l">specs in real Chrome</span>
+            <span class="fdp-fact-s">actual IndexedDB, not a simulated DOM</span>
+        </div>
+        <div class="fdp-fact">
+            <span class="fdp-fact-n">0</span>
+            <span class="fdp-fact-l">dependencies</span>
+            <span class="fdp-fact-s">modular, tree-shakeable</span>
+        </div>
+    </div>
+    <p class="fd-proof-foot">Sizes are the README's own, measurable from the repository with <code>npm run size</code>. Two qualifications stated rather than hidden: <b>one performance-threshold spec is timing-sensitive</b> and may fail on slower runs, and Firefox is configured as a launcher but not enabled.</p>
+</div>
+{% endblock %}

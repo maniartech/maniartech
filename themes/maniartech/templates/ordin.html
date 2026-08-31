@@ -1,2 +1,29 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the three-part model as an aggregate. The body expands it
+with the actual committed example workflow from the repository, so the YAML is not
+shown twice. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">A workflow you can read, review and diff &mdash; then an engine that records what happened</p>
+    <div class="fdp-flow">
+        <div class="fdp-step is-key">
+            <span class="fdp-step-n">declared</span>
+            <span class="fdp-step-t">YAML document</span>
+            <span class="fdp-step-d">nodes, types and params in plain text &mdash; reviewable in a pull request</span>
+        </div>
+        <div class="fdp-step">
+            <span class="fdp-step-n">executed</span>
+            <span class="fdp-step-t">pluggable activities</span>
+            <span class="fdp-step-d">each node type is a unit the engine resolves and runs</span>
+        </div>
+        <div class="fdp-step">
+            <span class="fdp-step-n">recorded</span>
+            <span class="fdp-step-t">inspectable history</span>
+            <span class="fdp-step-d">what actually ran, in what order, with what result</span>
+        </div>
+    </div>
+    <p class="fd-proof-foot">Workflow engines usually fail in one of two ways: they hide the process inside code nobody can read, or they draw it in a proprietary designer <b>nobody can diff</b>. Status: in development, private &mdash; fair-code model declared in-tree, terms not finalised.</p>
+</div>
+{% endblock %}

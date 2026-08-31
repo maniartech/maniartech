@@ -30,21 +30,8 @@ privateReview: "Nothing is gated - the source, its differential tests against re
 
 Every REST API documents itself with curl, and almost none ship a Go SDK for their long-tail endpoints - so every Go developer pays the same integration tax: mentally compiling a curl snippet into `http.NewRequest`, header maps, body encoding and auth. GoCurl deletes the translation step. **The command you tested in the shell is the code you ship**, and the library wires production behaviour around it.
 
-## The signature exhibit: one command, both worlds
+## What the library wraps around the recipe
 
-<div class="lang-diff">
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot"></span> the shell - straight from the API docs</div>
-<pre class="mt-code">$ curl https://api.github.com/repos/golang/go</pre>
-</div>
-<span class="lang-arrow">&rarr;</span>
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot ok"></span> the Go code - the same command</div>
-<pre class="mt-code">resp, err := gocurl.Curl(ctx, <span class="s">`
-  curl https://api.github.com/repos/golang/go
-`</span>)</pre>
-</div>
-</div>
 
 The request produced is standard `net/http`; the response comes back as standard Go types. Because GoCurl receives the *curl recipe*, it knows the intent - and puts the right execution pipeline around it: an overall timeout that bounds the whole retry loop (not per-attempt), **idempotency-aware retries** (a non-idempotent POST is not replayed), classified error kinds you can `errors.As` into, **secret redaction on every error, log and span path**, and bounded reads against untrusted servers. The README's comparison table against hand-rolled `net/http` is the page-one argument, and every row of it names the test that proves it.
 

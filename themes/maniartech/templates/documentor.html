@@ -1,2 +1,36 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the citation path specifically - claim back to source -
+rather than the body's full grounding pipeline, which expands it with indexing and
+the revision feedback loop. Maturity qualification is carried IN the band, per the
+standing rule that Documentor is early-stage and not a customer deployment.
+{% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">What a reviewer can check &mdash; every claim, back to its source</p>
+    <div class="fdp-flow">
+        <div class="fdp-step">
+            <span class="fdp-step-n">01</span>
+            <span class="fdp-step-t">your sources</span>
+            <span class="fdp-step-d">your documents and data &mdash; not the open internet</span>
+        </div>
+        <div class="fdp-step">
+            <span class="fdp-step-n">02</span>
+            <span class="fdp-step-t">retrieval bounds the draft</span>
+            <span class="fdp-step-d">what the model may see is decided before it writes</span>
+        </div>
+        <div class="fdp-step is-key">
+            <span class="fdp-step-n">03</span>
+            <span class="fdp-step-t">claim &rarr; citation</span>
+            <span class="fdp-step-d">each sentence keeps the path back to the material it came from</span>
+        </div>
+        <div class="fdp-step">
+            <span class="fdp-step-n">04</span>
+            <span class="fdp-step-t">a human revises</span>
+            <span class="fdp-step-d">with the evidence in view, not after the fact</span>
+        </div>
+    </div>
+    <p class="fd-proof-foot">The failure mode this attacks is fluent text with no provenance. <b>Status: early-stage, in development, private &mdash; not a customer deployment</b>, and the pipeline above describes the product's design, not a measured result.</p>
+</div>
+{% endblock %}

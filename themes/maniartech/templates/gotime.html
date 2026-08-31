@@ -1,2 +1,27 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gate 2 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the page's own declared signature exhibit, MOVED up from
+the body - so the body's "signature exhibit" section is gone and it opens instead
+on what flows through the library. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">The same format string, twice</p>
+    <div class="fdp-diff">
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot"></span> standard Go &mdash; the reference-time layout</div>
+            <pre class="mt-code">time.Now().Format(<span class="s">"2006-01-02 15:04:05"</span>)
+<span class="c">// 2006 means yyyy, 01 the month, 02 the</span>
+<span class="c">// day, 15 the hour, 04 minute, 05 second</span></pre>
+        </div>
+        <span class="fdp-arrow" aria-hidden="true">&rarr;</span>
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> gotime &mdash; NITES specifiers</div>
+            <pre class="mt-code">gotime.Format(time.Now(), <span class="s">"yyyy-mm-dd hh:ii:ss"</span>)
+<span class="c">// the format string says what it means:</span>
+<span class="c">// year, month, day, hour, minute, second</span></pre>
+        </div>
+    </div>
+    <p class="fd-proof-foot">Two maturities this page keeps apart: the <b>library is stable and tagged</b> (MIT, v2.0.4, zero dependencies), while <b>NITES &mdash; the notation itself &mdash; is still research-stage</b>. gotime is its reference implementation, not a ratified standard.</p>
+</div>
+{% endblock %}

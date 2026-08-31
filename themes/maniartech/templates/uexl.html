@@ -1,2 +1,30 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gate 1 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the published benchmark's headline scenario. It MOVED
+here from the body's third section, so the body no longer renders the bar figure -
+it opens on the pipeline (the architecture that MAKES the zeros possible) and
+expands into the hot-path boundary the README states. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">String pattern match &mdash; ns per evaluation, lower is better</p>
+    <div class="fdp-bars">
+        <div class="fdp-bar-row">
+            <span class="fdp-bar-name">UExL</span>
+            <span class="fdp-bar-track"><span class="fdp-bar-fill is-win" style="width:31%"></span></span>
+            <span class="fdp-bar-val">~108 ns &nbsp;<b>0 allocs</b></span>
+        </div>
+        <div class="fdp-bar-row">
+            <span class="fdp-bar-name">expr</span>
+            <span class="fdp-bar-track"><span class="fdp-bar-fill" style="width:93%"></span></span>
+            <span class="fdp-bar-val">~325 ns &nbsp;4 allocs</span>
+        </div>
+        <div class="fdp-bar-row">
+            <span class="fdp-bar-name">cel-go</span>
+            <span class="fdp-bar-track"><span class="fdp-bar-fill" style="width:100%"></span></span>
+            <span class="fdp-bar-val">~348 ns &nbsp;4 allocs</span>
+        </div>
+    </div>
+    <p class="fd-proof-foot">One scenario of four in the project's published table; UExL leads all four in that measurement. <b>Lead with the zeros, not the nanoseconds</b> &mdash; timings drift with hardware, the allocation counts reproduce exactly.</p>
+</div>
+{% endblock %}

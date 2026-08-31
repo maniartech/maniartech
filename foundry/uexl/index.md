@@ -119,28 +119,8 @@ child := env.Extend(uexl.WithGlobals(map[string]any{"tenantID": "acme"}))
 
 ## The measured result
 
-From the repository's own README - benchmarked head-to-head against `expr` and `cel-go` on AMD Ryzen 7 5700G (Windows/amd64), Go 1.26, `-benchmem`, reporting the **warm-state median of 6 runs**, all engines on their pre-compiled hot paths:
+From the repository's own README - benchmarked head-to-head against `expr` and `cel-go` on AMD Ryzen 7 5700G (Windows/amd64), Go 1.26, `-benchmem`, reporting the **warm-state median of 6 runs**, all engines on their pre-compiled hot paths. The headline scenario is the one in the hero above; UExL leads all four scenarios in that measurement, with 0 allocs on the boolean/comparison and string paths.
 
-<figure class="mt-figure mt-fig-diagram">
-<svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart of the string pattern match benchmark: UExL about 108 nanoseconds with zero allocations versus about 325 nanoseconds with 4 allocations for expr and about 348 nanoseconds with 4 allocations for cel-go">
-  <g font-family="inherit" font-size="12">
-    <text x="40" y="28" fill="rgba(255,255,255,.8)" font-weight="600">String pattern match - ns per evaluation (lower is better)</text>
-    <text x="40" y="64" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">UExL</text>
-    <rect x="130" y="50" width="149" height="18" rx="4" fill="#14cf93"/>
-    <text x="290" y="64" fill="rgba(255,255,255,.7)">~108 ns</text>
-    <text x="362" y="64" fill="#14cf93" font-weight="600">0 allocs</text>
-    <text x="40" y="96" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">expr</text>
-    <rect x="130" y="82" width="448" height="18" rx="4" fill="rgba(255,255,255,.28)"/>
-    <text x="590" y="96" fill="rgba(255,255,255,.7)">~325 ns | 4 allocs</text>
-    <text x="40" y="128" fill="rgba(255,255,255,.75)" font-family="Consolas, monospace">cel-go</text>
-    <rect x="130" y="114" width="480" height="18" rx="4" fill="rgba(255,255,255,.28)"/>
-    <text x="622" y="128" fill="rgba(255,255,255,.7)">~348 ns | 4 allocs</text>
-    <text x="40" y="164" fill="rgba(255,255,255,.45)" font-size="11">One scenario of four in the published table; UExL leads all four in this measurement, with 0 allocs on the</text>
-    <text x="40" y="180" fill="rgba(255,255,255,.45)" font-size="11">boolean/comparison and string paths. Timings drift with hardware; the allocation counts reproduce exactly.</text>
-  </g>
-</svg>
-<figcaption><strong>Lead with the zeros, not the nanoseconds.</strong> Zero allocations means no GC pressure and predictable latency - the durable claim a re-run will confirm even when the timings drift. Method, full scenario table and reproduction steps are in the README and in <a href="/insights/uexl-zero-alloc/">the zero-allocation write-up</a>.</figcaption>
-</figure>
 
 The hot-path boundary is stated as plainly as the numbers, in the README's own note: a custom function call still costs 2 allocations, a `|map:` over 100 items costs ~104, and one-shot `Eval()` - parse, compile and run in a single call - costs roughly 10,000 ns with allocations. **Pre-compiling is not an optimization tip; it is the intended use.**
 

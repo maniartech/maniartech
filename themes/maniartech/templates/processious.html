@@ -1,2 +1,35 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gates 3-4 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+Hero proof (2026-08-14): the REFUSAL - the single sharpest fact about the platform,
+and the one a prospect actually needs. The body's state-machine figure expands it
+into the full lifecycle, so this is the aggregate and that is the detail; neither
+repeats the other. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">A laboratory sample lifecycle &mdash; and the transition the platform refuses</p>
+    <div class="fdp-flow">
+        <div class="fdp-step">
+            <span class="fdp-step-n">state</span>
+            <span class="fdp-step-t">testing</span>
+            <span class="fdp-step-d">technician holds the sample</span>
+        </div>
+        <div class="fdp-step is-stop">
+            <span class="fdp-step-n">refused</span>
+            <span class="fdp-step-t">testing &rarr; signed</span>
+            <span class="fdp-step-d">not a warning, not a validation message &mdash; the transition does not exist for this role</span>
+        </div>
+        <div class="fdp-step">
+            <span class="fdp-step-n">required</span>
+            <span class="fdp-step-t">authorization</span>
+            <span class="fdp-step-d">only the authorizer role can move it</span>
+        </div>
+        <div class="fdp-step is-key">
+            <span class="fdp-step-n">then</span>
+            <span class="fdp-step-t">signed</span>
+            <span class="fdp-step-d">with an audit record of who, what and when</span>
+        </div>
+    </div>
+    <p class="fd-proof-foot">A business process is a state machine with permissions &mdash; and the platform's job is to make illegal transitions <b>impossible, not merely discouraged</b>. In production, carrying a client's operations today.</p>
+</div>
+{% endblock %}

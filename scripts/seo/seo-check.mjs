@@ -219,6 +219,52 @@ for (const [path, page] of seen) {
 }
 
 // ---------------------------------------------------------------------------
+// Foundry hero integrity (added 2026-08-14). Two regressions this gate exists
+// to stop, both of which actually happened:
+//
+//  1. The hero was shrunk to fit the exhibit above the fold - overriding
+//     `.view-hero`'s `min-height: 100svh` with `min-height: 0`. The rule is
+//     that "evidence above the fold" is solved by DESIGNING the hero (a proof
+//     band at its foot), never by removing it. Height cannot be measured over
+//     HTTP, but the override that causes it is a string in the compiled CSS.
+//  2. A page shipped without its proof band, leaving a prose-only hero with
+//     nothing of the project in it.
+// ---------------------------------------------------------------------------
+{
+  const FOUNDRY_DETAIL = [
+    '/foundry/internet-object/', '/foundry/uexl/', '/foundry/signals/',
+    '/foundry/vault-storage/', '/foundry/gotime/', '/foundry/tajmahal-ssg/',
+    '/foundry/gocurl/', '/foundry/gowork/', '/foundry/indigo/',
+    '/products/processious/', '/products/ordin/', '/products/documentor/',
+    '/products/tallery-gallery/', '/products/booster/'];
+  let hits = 0;
+  for (const path of FOUNDRY_DETAIL) {
+    const page = seen.get(path);
+    if (!page || page.status !== 200) { F(`${path} not crawled - Foundry hero unverified`); hits++; continue; }
+    const hero = page.body.match(/<header[^>]*class="[^"]*\bfd-hero\b[^"]*"[\s\S]*?<\/header>/i);
+    if (!hero) { F(`${path} has no .fd-hero header`); hits++; continue; }
+    const bands = [...hero[0].matchAll(/class="vh-strip fd-proof"/g)].length;
+    if (bands !== 1) { F(`${path} hero has ${bands} proof band(s) - expected exactly 1 project-specific specimen`); hits++; }
+    // The hero must not carry a sales CTA; artifacts only (repo, spec, demo).
+    if (/href="\/contact\/|href="\/estimate\//.test(hero[0])) {
+      F(`${path} hero contains a conversion link - the hero carries artifacts, never a sales CTA`); hits++;
+    }
+  }
+  // The compact override, in whatever whitespace form the compiler emits.
+  // NOTE: the theme's stylesheet hrefs are RELATIVE ("../../themes/..."), so this
+  // fetches the compiled bundle by its known absolute path instead of scraping
+  // the href - an earlier version scraped it, matched nothing, and silently
+  // skipped the check entirely, which is exactly the failure a gate must not have.
+  const sheet = await fetchPage('/themes/maniartech/lib/style.css');
+  if (sheet.status !== 200) {
+    F(`compiled stylesheet unreachable (HTTP ${sheet.status}) - hero height rule unverified`); hits++;
+  } else if (/\.fd-hero\s*\{[^}]*min-height\s*:\s*0/.test(sheet.body)) {
+    F('.fd-hero overrides min-height to 0 - the compact hero is REVERTED; heroes own 100svh'); hits++;
+  }
+  if (!hits) P('every Foundry detail hero is full-height and carries exactly one proof band');
+}
+
+// ---------------------------------------------------------------------------
 // Separator character (added 2026-08-11, P8). The ASCII-first rule: a middot
 // between two facts survives nothing - it mangles the moment a reader pastes a
 // line into LinkedIn, a form, or a plain-text editor. The separator is "|".

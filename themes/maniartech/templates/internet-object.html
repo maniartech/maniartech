@@ -1,2 +1,30 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gate 1 rebuild). {% endcomment %}
+{% comment %} Shim: Foundry detail pages share foundry-detail.html (Gate 1 rebuild).
+Hero proof (2026-08-14): the signature exhibit itself - the same three records in
+both formats, measured whole. It MOVED here from the body, so the body no longer
+repeats it: it goes on to what the schema language can express and what having
+the schema inside the document changes. {% endcomment %}
 {% extends "foundry-detail.html" %}
+
+{% block fd_proof %}
+<div class="vh-strip fd-proof">
+    <p class="vh-kicker">The idea in one specimen &mdash; three records, both formats, measured whole</p>
+    <div class="fdp-diff">
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot"></span> minified JSON <span class="lp-bytes">77 B</span></div>
+            <pre class="mt-code">[{<span class="s">"name"</span>:<span class="s">"Alice"</span>,<span class="s">"age"</span>:30},
+ {<span class="s">"name"</span>:<span class="s">"Bob"</span>,<span class="s">"age"</span>:25},
+ {<span class="s">"name"</span>:<span class="s">"Carol"</span>,<span class="s">"age"</span>:28}]</pre>
+        </div>
+        <span class="fdp-arrow" aria-hidden="true">&rarr;</span>
+        <div class="lang-pane">
+            <div class="lp-bar"><span class="lp-dot ok"></span> Internet Object <span class="lp-bytes is-win">60 B</span></div>
+            <pre class="mt-code"><span class="c">name: string, age: int</span>
+<span class="op">---</span>
+<span class="op">~</span> Alice, 30
+<span class="op">~</span> Bob, 25
+<span class="op">~</span> Carol, 28</pre>
+        </div>
+    </div>
+    <p class="fd-proof-foot">The keys JSON repeats are exactly the characters Internet Object deletes &mdash; the schema line above the <code>---</code> carries them once. <b>22% smaller at three records</b>, and the header is a fixed cost, so the margin grows with every record after it. <a href="https://play.internetobject.org/?d=H4AgggNglgxgpgGhAZgAwChQCED2AjJAJgFZMQBhAQwCccIiAOIA&amp;s=HYQwtgpgXABAzgFwE4EtgHMA0MTujNBIA&amp;sep=true&amp;min=true&amp;skip=false" target="_blank" rel="noopener">Open this exact document in the playground &rarr;</a></p>
+</div>
+{% endblock %}

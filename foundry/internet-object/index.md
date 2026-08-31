@@ -41,31 +41,13 @@ reviewKicker: "Public evidence"
 privateReview: "Nothing is gated. The specification, source, package, benchmark harness and playground are all public - inspect them before you talk to us."
 ---
 
-Every JSON document repeats its field names in every record; Internet Object moves the shape into a header the document declares once.
+The specimen in the hero is the whole idea at three records: the keys JSON repeats are exactly the characters Internet Object deletes. That repetition is invisible at three records and expensive at thirty thousand - on the wire, in a context window, and in the eyes of whoever has to check the data's shape, which JSON itself has no opinion about.
 
-## The idea in one specimen
+What makes the format worth evaluating is not the byte saving on its own. It is what the schema being *in* the document lets the parser do, and how far the schema language goes beyond field names.
 
-<div class="lang-diff">
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot"></span> minified JSON <span class="lp-bytes">77 B</span></div>
-<pre class="mt-code">[{<span class="s">"name"</span>:<span class="s">"Alice"</span>,<span class="s">"age"</span>:30},
- {<span class="s">"name"</span>:<span class="s">"Bob"</span>,<span class="s">"age"</span>:25},
- {<span class="s">"name"</span>:<span class="s">"Carol"</span>,<span class="s">"age"</span>:28}]</pre>
-</div>
-<span class="lang-arrow">&rarr;</span>
-<div class="lang-pane">
-<div class="lp-bar"><span class="lp-dot ok"></span> Internet Object <span class="lp-bytes is-win">60 B</span></div>
-<pre class="mt-code"><span class="c">name: string, age: int</span>
-<span class="op">---</span>
-<span class="op">~</span> Alice, 30
-<span class="op">~</span> Bob, 25
-<span class="op">~</span> Carol, 28</pre>
-</div>
-</div>
+## What the schema language can express
 
-Same three records, both formats: the keys JSON repeats are exactly the characters Internet Object deletes, because the schema line above the `---` carries them once. That repetition is invisible at three records and expensive at thirty thousand - on the wire, in a context window, and in the eyes of whoever has to check the data's shape, which JSON itself has no opinion about. The byte counts are the two specimens measured whole, schema included; at three records the saving is 22%, and the header is a fixed cost, so the margin grows with every record after it. [Open this exact document in the playground &rarr;](https://play.internetobject.org/?d=H4AgggNglgxgpgGhAZgAwChQCED2AjJAJgFZMQBhAQwCccIiAOIA&s=HYQwtgpgXABAzgFwE4EtgHMA0MTujNBIA&sep=true&min=true&skip=false)
-
-The schema language goes far beyond primitive types: derived string types (`email`, `url`, `date`), constrained numbers (`int32`, ranges, `min`/`max`), optional `?` and nullable `*` modifiers, defaults, choices, and reusable named schemas that can reference themselves:
+A header that only listed field names would be a compression trick. Internet Object's schema line is a type system: derived string types (`email`, `url`, `date`), constrained numbers (`int32`, ranges, `min`/`max`), optional `?` and nullable `*` modifiers, defaults, choices, and reusable named schemas that can reference themselves:
 
 <figure class="mt-figure">
 <a href="https://play.internetobject.org" target="_blank" rel="noopener"><img src="/themes/maniartech/assets/imgs/research/io-playground-2026-08.webp" alt="The Internet Object playground with the Recursive Schema Complex sample loaded: a schema pane defining $employee with a self-referencing reportingTo field, a six-record document pane of 363 bytes, the equivalent minified JSON output of 935 bytes on the right, and a computed badge reading 61.18% Smaller than minified JSON" loading="lazy"></a>
