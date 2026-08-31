@@ -995,11 +995,18 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 @media (prefers-reduced-motion: reduce) { .term-proof .tp-cursor { animation: none; } }
 .term-proof .term-cap { margin-top: 14px; color: rgba(255, 255, 255, .5); font-size: 13px; }
 
-/* ---- Home > What we do: expanding service stage with living vignettes ----
+/* ---- Home > What we do: expanding practice stage with living vignettes ----
    Four panels; the open one widens, its SVG vignette runs, and the proof line
    appears. State is pure CSS: hover/focus opens a panel; at rest (no hover or
-   focus anywhere in the stage) the first panel sits open. */
-.svc-stage { display: flex; gap: 16px; align-items: stretch; }
+   focus anywhere in the stage) the first panel sits open.
+
+   NAMED `.practice-stage`, NOT `.svc-stage` (renamed 2026-08-31). The Services
+   rebuild introduced a SECOND, unrelated `.svc-stage` further down this file -
+   the method-stage card (display:block, bordered, padded). Same name, same
+   specificity, later in the file, so it won every tie and silently flattened
+   this row into four stacked full-width blocks on the live home page. Two
+   different components must never share a class name; keep these distinct. */
+.practice-stage { display: flex; gap: 16px; align-items: stretch; }
 .svc-panel {
   flex: 1 1 0; min-width: 0; display: block;
   padding: clamp(20px, 2.4vw, 30px);
@@ -1066,12 +1073,12 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 @keyframes mdSwap { to { fill: rgba($main_color, .55); stroke: $main_color; } }
 
 .svc-panel:hover, .svc-panel:focus-visible { @include svc-open; }
-.svc-stage:not(:hover):not(:focus-within) .svc-panel:first-child { @include svc-open; }
+.practice-stage:not(:hover):not(:focus-within) .svc-panel:first-child { @include svc-open; }
 
 @media (prefers-reduced-motion: reduce) {
   .svc-panel, .svc-panel .svc-more, .ai-d, .sc-b { transition: none; }
   .bp-path, .md-b, .md-pulse { animation: none; }
-  .svc-panel:hover, .svc-panel:focus-visible, .svc-stage:not(:hover):not(:focus-within) .svc-panel:first-child {
+  .svc-panel:hover, .svc-panel:focus-visible, .practice-stage:not(:hover):not(:focus-within) .svc-panel:first-child {
     .bp-path { stroke-dasharray: none; stroke-dashoffset: 0; }
     .md-b { fill: rgba($main_color, .55); stroke: $main_color; }
   }
@@ -1079,7 +1086,7 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 
 /* mobile: no accordion — four full cards, everything visible */
 @media (max-width: 991px) {
-  .svc-stage { flex-direction: column; }
+  .practice-stage { flex-direction: column; }
   .svc-panel .svc-more { max-height: none; opacity: 1; }
   .svc-panel h3 { color: #fff; }
   .bp-path { stroke-dasharray: none; }

@@ -892,6 +892,42 @@ correct:
   which would re-create the drift the single-source registry just removed. Needs a module.yaml
   route (startup-only) + rewiring six "All X ->" targets. Discuss after the current review.
 
+**2026-08-31 (part 24 - FIX: home "What we do" was silently broken by a class-name collision):**
+- Aamir: the four practice blocks were stacking one per row instead of four across. Root cause was
+  NOT responsive CSS - it was a CLASS-NAME COLLISION shipped in ce88b3c (the Services rebuild):
+  `.svc-stage` names two unrelated components. Home's is the four-panel expanding row
+  (`display:flex`); Services' is the method-stage card (`display:block`, bordered, padded). Same
+  name, same specificity, and the Services one sits LATER in `_mt.scss`, so it won every tie.
+  Measured on the live page before the fix: `display:block`, panels 1242px wide stacked at tops
+  2071/3090/4014/4938, stage 3845px tall.
+- Fix: renamed the HOME component to `.practice-stage` (SCSS block + `home.html`) - it was used in
+  exactly one template, while `.svc-stage` appears in four Services content files, so renaming
+  home touched the least. Comment in `_mt.scss` records the collision so it is not re-introduced.
+- Verified: 1440 -> flex row, four panels all at top 2044 (first open at rest, 474px, others 258px);
+  992 -> still a row; 375 -> `flex-direction: column`, four stacked cards (the intended <=991
+  behaviour); no horizontal overflow at any width. `/services/modernization/` unchanged - its four
+  `.svc-stage` method cards still `display:block` with their border and 26px padding.
+- Gate: 57 pages / 0 FAIL / 5 known warns. A scan for other duplicate top-level class blocks in
+  `_mt.scss` found none.
+- UNCOMMITTED (standing rule: commit and push only when Aamir asks).
+
+**2026-08-31 (part 23 - home revamp built, REJECTED, fully reverted):**
+- A full home revamp ("power transmission": band hero, programmatic canvas gear machine replacing
+  the original gears SVG, drive-line, star finale, section merges) was built and then REJECTED by
+  Aamir: "please dont change the original gears" and "Please reset the home page, you made it
+  pathetic". Everything was reverted to the committed state (git checkout of home.html, _mt.scss,
+  seo-check.mjs, includes/gears.html, js/gear-caption.js; new lib/gear-machine/ and
+  home-testimonials include deleted). Home is EXACTLY the committed v2 page again.
+- **Lessons (do not relearn):** (1) The ORIGINAL gears artwork is loved - its look including the
+  multicolor is part of what Aamir likes; "build the idea around it" meant AROUND the existing
+  artwork, never replacing it. (2) A big-bang single-turn page rebuild was the wrong shape for the
+  home page - iterate section by section with him, the way the theme was originally built.
+- Approved-in-discussion content points that may survive a future, gentler pass (NOT applied,
+  awaiting his lead): JPMC off home ("only 1 year"); the "100%% senior engineers" stat is on the
+  do-not-publish list; home's IO figures (40%%/30%%) drifted from the audited 49%%/~27%%; the
+  duplicate-credibility sections. All still present on the live committed page.
+- Working tree after reset: only this RESUME entry differs from HEAD.
+
 **2026-08-15 (part 22i - FOUNDRY HERO RESTORATION; Aamir WITHDREW his Foundry approval):**
 - **The 2026-08-13 compact-hero ruling is REVERTED.** Aamir: "Do not solve 'evidence above the
   fold' by shrinking or removing the hero." Approval is withdrawn until all 14 heroes pass visually.
