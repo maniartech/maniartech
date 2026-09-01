@@ -892,6 +892,145 @@ correct:
   which would re-create the drift the single-source registry just removed. Needs a module.yaml
   route (startup-only) + rewiring six "All X ->" targets. Discuss after the current review.
 
+**2026-09-01 (part 29 - About improvements: decisions from Aamir; PENDING ITEMS created):**
+- **APPROVED, blocked on asset:** founder PHOTO on the About founder section - the single
+  highest-value trust element for an offshore-gap company. Waiting on Aamir to supply the
+  photograph; layout work starts when it arrives.
+- **REJECTED for About: client quotes** ("client voices are everywhere - home, work pages - too
+  much here"). Agreed alternative direction (proposed, awaiting his pick): let BEHAVIOURAL
+  outside-evidence carry the page instead of words - tenure and artifact facts (clients who
+  return/stay, the Chemo "they waited about a year for us" fact already in the case study,
+  public-repo numbers like signals' 331 stars). Evidence, not endorsements.
+- **PENDING ITEM - ISO certification pages** (Aamir: "we'll create ISO certification pages...
+  probably in a month or two", i.e. ~Oct-Nov 2026): dedicated pages for ISO 9001:2015 and
+  ISO/IEC 27001:2022 with the URS/UKAS verification route, which the inline "verify at the
+  claim" links across the site will then point to. Until they exist, no new inline ISO links.
+- **Founder MILESTONES: DEFERRED by Aamir (2026-09-01: "I will think and plan later this
+  month", i.e. during September 2026).** The agreed shape when he returns to it: SIX entries,
+  not ten - sparse is deliberate (gaps carry the tenure; filling every year is padding and a
+  Rule #1 failure in miniature). Draft: 1999 starts professionally | 2000s fintech era (FIX
+  analyzer at JPMC + architect roles, ONE entry) | 2010 founds ManiarTech | ? Touchpoint
+  (principal architect -> years of managed delivery, through an acquisition; YEAR NEEDED) |
+  2018 begins authoring standards | today (Chemo in production, Shantee launching 2026).
+  Prose or compact list under the founder heading - never the rejected timeline graphic.
+  Also parked with it: the Chemo "they waited about a year for us" sentence for the team
+  section (the behavioural-evidence alternative to quotes).
+
+**2026-08-31 (part 28 - About: cube caption fixed; page-confidence review delivered; UNCOMMITTED):**
+- Cube caption was misaligned by measurement, not taste: painted ink starts 100px right of the
+  column edge the caption aligned to, with 54px dead canvas below the ink + 12px margin = 66px
+  visual gap. Fix in `_mt.scss`: caption centered under the drawing, `margin-top: -30px`
+  (position:relative to paint over the canvas's empty strip). After: caption center within 13px of
+  ink center, gap 26px. The 100svh hero question for About is parked as a separate decision.
+- Terminal middot finding stands OPEN (part of the same review): `term-proof.js` types U+00B7
+  middots at runtime - the middot gate scans rendered HTML only and is BLIND to JS-injected text.
+  Also "350+ tests" (register: 355 specs) and unqualified "used in production" for signals
+  (register: "in production in our own systems"). Fix + gate extension proposed, awaiting word.
+- Delivered the "would this page give you confidence/wow" review to Aamir (see conversation /
+  the summary below): verdict - credible but assertion-heavy; every trust claim on the page is
+  SELF-made; the missing pieces are outside evidence: a founder photo (blocked on Aamir), a client
+  voice about honesty (Peter Haid quote exists on home), inline verification links (URS cert
+  check, GitHub), and concrete founder milestones in prose (NOT a timeline graphic - that visual
+  was already tried and rejected).
+**2026-08-31 (part 27 - founder's full name; UNCOMMITTED):**
+- Aamir: use "Mohamed Aamir Maniar", "and fondly called Aamir". He typed the surname as "Manbiar";
+  CONFIRMED with him that this was a slip - correct spelling is **Maniar** (matches ManiarTech, the
+  LinkedIn handle, the git author and all 22 existing instances). Never publish "Manbiar".
+- Scope (his choice): FORMAL spots only - about/founder.md, about/team.md, the About roster card,
+  the home founder paragraph, and the Organization JSON-LD founder entity (full name, with
+  `alternateName: "Aamir Maniar"`). Article bylines, case studies, white papers and every other
+  mention keep "Aamir Maniar"/"Aamir" untouched.
+- Pattern: full name once, "Aamir" thereafter - founder.md reads "founded in 2010 by Mohamed Aamir
+  Maniar, Aamir to everyone who works with him"; team.md "led by Mohamed Aamir Maniar - Aamir -
+  Managing Director and Engineering Head".
+- **GOTCHA:** the first draft put ", Aamir to everyone..." on a NEW LINE starting with "- ", which
+  markdown parsed as a LIST MARKER - it swallowed the dash and rendered "Mohamed Aamir Maniar Aamir
+  to everyone who works with him". Keep such asides on the SAME line. Caught only by reading the
+  rendered sentence, not the source.
+- Gate: 57 pages / 0 FAIL / 5 known warns.
+
+**2026-08-31 (part 26 - hero copy corrections + ABOUT review fixes; UNCOMMITTED):**
+- HOME hero: JP Morgan removed (Aamir: one year there, not a hero-weight credential), replaced with
+  the owned claim "building software since 1999"; "mainstream technology" dropped from the lead
+  because the note directly below already says it (same claim twice in one viewport). Audited-
+  process wording deliberately left SOFT - no new certification claim in the hero. Estimator link
+  relabelled "Estimate your project cost" - /estimate/ is NOT a tool (a senior engineer reads the
+  brief and replies), and "project estimator" implied a calculator. The label change hit BOTH home
+  estimate links (hero + close). Home now has ZERO JPMC mentions - it was also in the founder
+  paragraph, removed there too (domain fact "built financial-technology systems" kept).
+- ABOUT review, all findings agreed by Aamir and fixed:
+  1. **BLOCKER removed:** the team roster printed `0 - juniors on your project`, i.e. the
+     senior-only staffing guarantee on the do-not-publish list, contradicting the defensible
+     sentence beside it ("we do not substitute trainees for the engineers presented"). Replaced
+     with `2010 - building for clients since`.
+  2. "like everything we claim, you can verify it yourself" - the SAME overclaim already corrected
+     on the Foundry hub (most of the Foundry is private). Rewritten to the approved wording: what
+     is public you can verify; the rest is labelled private just as plainly.
+  3. seoDescription led with JP Morgan (made a one-year employer the search-snippet credential) -
+     rewritten; 164 chars. The substantive body mention in founder.md is KEPT (real detail: the
+     FIX-protocol analyzer).
+  4. H1 lost its exclamation mark and stopped doing the founder section's job:
+     "Deliberately small, deeply experienced, and honest by rule."
+  5. Closing CTA was inverted vs the approved system (estimator primary, /contact/ demoted to
+     "Talk to a human"). Now /contact/ "Discuss a system" primary, /estimate/ "Estimate your
+     project cost" secondary.
+- **"Talk to a human" retired site-wide** (5 templates: about, case-studies, estimate, products,
+  security) -> "Discuss a system". NOTE: case-studies, products and security still have the
+  estimator as their PRIMARY button - same inversion as About had. NOT changed (those pages were
+  not reviewed); flagged for Aamir's call.
+- **Oomera's name AND the operations role removed from every PUBLISHED surface** (Aamir, two
+  steps: first the name, then "remove operation lead role itself - only highlight founder, present
+  in such a way that other is not needed"). Touched: about roster, about/team.md, careers/index.md,
+  partnerships/stay.md, home.html founder paragraph. The roster is now founder-only and reads as
+  deliberate rather than short-staffed: head relabelled "Senior core" -> "Who leads the work" (it
+  now describes what the single card IS), and the divider carries the plurality without naming
+  anyone - "+ senior engineers and vetted specialists, per engagement". partnerships/stay.md still
+  answers "what if one person is gone": its weight was always the three bullets (documented
+  process + audited ISO systems, code and docs protected as a written term, mainstream hireable
+  tech), not the named roles. Her name remains in unpublished planning docs (_ia/, _inbox/,
+  _marketing/) - NOT swept; say if that should change.
+- GOTCHA re-confirmed: Taj Mahal served STALE body text for these content-file edits until the
+  server was restarted with `.cache` cleared - the source was already correct. Verify content
+  edits against a restarted server, not just the file.
+- Verified on the served site: 0 Oomera mentions across /, /about/, /careers/, /partnerships/;
+  0 "Talk to a human" across all 5; 0 "juniors"; roster avatars unclipped; no horizontal overflow.
+  Gate: 57 pages / 0 FAIL / 5 known warns.
+
+**2026-08-31 (part 25 - practice stage: at-rest receipts + viewport-armed animation; UNCOMMITTED):**
+- Review verdict on "What we do" (Aamir asked "does this section do its job"): structurally yes,
+  persuasively half - the proof sentences were hover-gated, so at rest 3 of 4 panels showed no
+  evidence. Fix approved by Aamir with his product lists for 03/04.
+- Added `.svc-fact` - one small mono receipt line per panel, VISIBLE AT REST:
+  01 "Built this way: Touchpoint, Shantee Homes" | 02 "RTL: modernized in production, no big-bang"
+  | 03 "Our own products first: Documentor.AI, DocsRight" (register-safe: claims only that they
+  are ours; no deployed-client-AI implication) | 04 "Processious (in production), DocsRight,
+  Tallery Gallery" (production claimed ONLY for Processious - Tallery register says no production
+  deployment claimed). ASCII separators (commas) - the middot gate stays clean.
+- **DocsRight is named on the site for the first time** (Aamir supplied it; it exists in
+  _ia/document-leak-check decisions). It has NO public page/registry entry yet - flagged to Aamir;
+  consider adding it to the Foundry registry later.
+- Animation gating (Aamir: first card must animate only when scrolled into view): at-rest open is
+  now `.practice-stage.is-armed ...` - new `js/practice-stage.js` adds `.is-armed` once via
+  IntersectionObserver (threshold .35), so the expansion AND the blueprint draw play on screen,
+  not during load. Reduced-motion arms to the finished state instantly; without JS the stage rests
+  as four equal hoverable panels; mobile <=991 unaffected (all cards open, no arming needed).
+- **Trigger corrected** (Aamir: "it expands little before view comes into scroll"). An AREA
+  threshold was wrong: `threshold: .35` on a 554px stage fires once 194px has peeked past the
+  bottom edge - measured firing with the stage top still at ~78% of the viewport - and it scales
+  badly (a taller stage arms even earlier; one taller than the viewport may never reach a high
+  threshold). Replaced with a VIEWPORT LINE, height-independent: `threshold: 0` +
+  `rootMargin: '0px 0px -60% 0px'`, i.e. arm when the stage's top edge rises above 40% of the
+  viewport. Measured firing at 35-40% across 1440x900 / 1280x720 / 1200x800 / 1024x768; the
+  settled expanded stage then sits within view at 1440 (3px over) and ~100px over on the short
+  720/768 viewports, which is inherent - a 574px card plus the section header cannot fit in 720px.
+- Verified via CDP: below-fold load -> un-armed, four equal 312px panels; scroll -> armed, caught
+  mid-expansion at 300ms (468px), settled 474/258/258/258 with the blueprint drawn (stroke mint,
+  dashoffset 0). Facts single-line at 1440, 2-4 stacked lines at 992 (reads as metadata, checked
+  visually). Gate 57 pages / 0 FAIL / 5 known warns.
+- Open follow-ups from the same review, NOT done (awaiting word): 190px -> 240px `.svc-more`
+  reveal-height hardening (panel 01 measures 188px at 992 - 2px headroom); optional pain-loop
+  tags ("answers 01-02 above").
+
 **2026-08-31 (part 24 - FIX: home "What we do" was silently broken by a class-name collision):**
 - Aamir: the four practice blocks were stacking one per row instead of four across. Root cause was
   NOT responsive CSS - it was a CLASS-NAME COLLISION shipped in ce88b3c (the Services rebuild):

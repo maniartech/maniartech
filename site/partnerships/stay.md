@@ -8,4 +8,4 @@ An equity partner has the right to ask: what if your one person is gone? It's a 
 - **In a partnership, your code and its documentation are protected for you** — held so that if anything happened to us, you (or another team) could pick the codebase up and keep going. Continuity is a written term of the deal, not a hope.
 - **We build on mainstream, hireable technology** — Go, Python, React, PostgreSQL — so any competent team can maintain what we build.
 
-**Aamir Maniar (Managing Director & Engineering Head)** leads the engineering, **Oomera Maniar** runs operations, and delivery is carried by a senior core plus a vetted network of specialist engineers. The continuity terms above are our answer to "what if one person is gone" — not a claim to be larger than we are.
+**Aamir Maniar (Managing Director & Engineering Head)** leads the engineering, and delivery is carried by a senior core plus a vetted network of specialist engineers. The continuity terms above are our answer to "what if one person is gone" — not a claim to be larger than we are.

@@ -777,9 +777,14 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 .viz-hero .foundry-viz-cap {
   display: block;
-  margin-top: 12px;
+  /* The caption belongs to the CUBE, not the column: the drawing is centered
+     in its canvas with ~54px of dead space under the ink, so a left-aligned
+     caption sat 100px left of the artwork and a full gap below it (measured
+     2026-08-31). Center it under the drawing and reclaim the dead space. */
+  margin-top: -30px;
   min-height: 42px;
-  padding-left: 2px;
+  text-align: center;
+  position: relative;   /* paint above the canvas's empty bottom strip */
 }
 .viz-hero .foundry-viz-cap .fv-name {
   display: block;
@@ -1019,6 +1024,10 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .svc-panel .svc-num { font-style: normal; font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, .35); font-variant-numeric: tabular-nums; transition: color .35s ease; }
 .svc-panel h3 { color: rgba(255, 255, 255, .85); font-size: clamp(17px, 1.5vw, 20px); line-height: 1.25; margin: 0; transition: color .35s ease; }
 .svc-panel .svc-tag { margin: 10px 0 0; color: rgba(255, 255, 255, .55); font-size: 14px; line-height: 1.55; }
+.svc-panel .svc-fact {
+  margin: 9px 0 0; font-family: var(--mono); font-size: 10.5px; line-height: 1.6;
+  letter-spacing: .04em; color: rgba(255, 255, 255, .45);
+}
 .svc-panel .svc-more { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .55s cubic-bezier(.22, .9, .28, 1), opacity .4s ease .1s; }
 .svc-panel .svc-more p { margin: 14px 0 0; color: rgba(255, 255, 255, .72); font-size: 14.5px; line-height: 1.6; }
 .svc-panel .svc-more em { color: $main_color; font-style: normal; font-weight: 600; }
@@ -1073,12 +1082,15 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 @keyframes mdSwap { to { fill: rgba($main_color, .55); stroke: $main_color; } }
 
 .svc-panel:hover, .svc-panel:focus-visible { @include svc-open; }
-.practice-stage:not(:hover):not(:focus-within) .svc-panel:first-child { @include svc-open; }
+/* armed by js/practice-stage.js when the stage enters the viewport - the
+   expansion and the blueprint draw must play on screen, not during load.
+   Without JS the stage stays un-armed: panels rest equal, hover still opens. */
+.practice-stage.is-armed:not(:hover):not(:focus-within) .svc-panel:first-child { @include svc-open; }
 
 @media (prefers-reduced-motion: reduce) {
   .svc-panel, .svc-panel .svc-more, .ai-d, .sc-b { transition: none; }
   .bp-path, .md-b, .md-pulse { animation: none; }
-  .svc-panel:hover, .svc-panel:focus-visible, .practice-stage:not(:hover):not(:focus-within) .svc-panel:first-child {
+  .svc-panel:hover, .svc-panel:focus-visible, .practice-stage.is-armed:not(:hover):not(:focus-within) .svc-panel:first-child {
     .bp-path { stroke-dasharray: none; stroke-dashoffset: 0; }
     .md-b { fill: rgba($main_color, .55); stroke: $main_color; }
   }

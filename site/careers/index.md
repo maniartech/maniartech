@@ -32,7 +32,7 @@ ManiarTech is a small, senior team that builds the layers beneath software — p
 
 ## How we engage
 
-You'd work with a senior core led by **Aamir Maniar (Managing Director & Engineering Head)**, with **Oomera Maniar** on operations and a vetted network of specialist engineers brought in by discipline. We're growing deliberately: today we work with senior engineers on a project and associate basis, and we grow our core team as the work justifies it. So the door is open in a few ways:
+You'd work with a senior core led by **Aamir Maniar (Managing Director & Engineering Head)**, with a vetted network of specialist engineers brought in by discipline. We're growing deliberately: today we work with senior engineers on a project and associate basis, and we grow our core team as the work justifies it. So the door is open in a few ways:
 
 - **Associate / contract** — experienced engineers we bring onto specific engagements.
 - **Core team** — as we grow.
