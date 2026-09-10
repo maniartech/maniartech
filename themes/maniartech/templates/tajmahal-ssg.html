@@ -1,4 +1,4 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+{# Shim: Foundry detail pages share foundry-detail.html.
 Hero proof (2026-08-14): the DEV LOOP, which is what the architecture actually
 wins - not the cold build. Deliberately the figures form, not bars: at 35 ms
 against 2,763 ms a proportional bar is a 1.3% dot that reads as nothing, and
@@ -8,7 +8,7 @@ this with the Windows row and the full build comparison.
 Every number is from the project's internal benchmark notes and is labelled as
 such. Nothing here states a cold-build multiple - see the do-not-publish list in
 RESUME ("3-4x Hugo on cold builds" is forbidden; cold-build parity is the
-structural expectation). {% endcomment %}
+structural expectation). #}
 {% extends "foundry-detail.html" %}
 
 {% block fd_proof %}

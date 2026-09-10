@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% comment %} Inferred article page for /white-papers/:slug/. v3 - same reading
+{# Inferred article page for /white-papers/:slug/. v3 - same reading
 frame as the insights article (full-view band hero + prose/sidebar layout,
 article/article.js drives the derived "On this page" nav): a paper is an
 evidence document, so its strip leads with the METHOD, honestly labeled
 (`method`/`methodNote` frontmatter, quoted from the paper's own "Method and
 sources" section), then the length of the read, then the writing rule every
-paper is held to. TL;DR block stays at the top of the prose column. {% endcomment %}
+paper is held to. TL;DR block stays at the top of the prose column. #}
 
 {% block og_type %}<meta property="og:type" content="article">{% endblock %}
 {% block og_image %}{% if pageContext.heroImage %}<meta property="og:image" content="{{ site.url }}{{ pageContext.heroImage }}">{% else %}<meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">{% endif %}{% endblock %}

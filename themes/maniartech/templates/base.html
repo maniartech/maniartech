@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% comment %} titleTag / seoDescription frontmatter override the visible title/description
-    for search snippets ONLY - H1s and page copy keep the editorial versions. {% endcomment %}
+    {# titleTag / seoDescription frontmatter override the visible title/description
+    for search snippets ONLY - H1s and page copy keep the editorial versions. #}
     <title>{% block title %}{% if pageContext.titleTag %}{{ pageContext.titleTag }}{% else %}{{ title }}{% endif %} | {{ site.name }}{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}{% if pageContext.seoDescription %}{{ pageContext.seoDescription }}{% else %}{{ description }}{% endif %}{% endblock %}">
     <link rel="canonical" href="{{ site.url }}{{ uri }}">

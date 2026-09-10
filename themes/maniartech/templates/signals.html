@@ -1,8 +1,8 @@
-{% comment %} Shim: Foundry detail pages share foundry-detail.html.
+{% extends "foundry-detail.html" %}
+{# Shim: Foundry detail pages share foundry-detail.html.
 Hero proof (2026-08-14): what "typed" actually buys, as code. Deliberately NOT the
 body's fan-out diagram - that shows the shape of a dispatch, this shows the bug the
-compiler catches. Numbers are the README's own, cited as such. {% endcomment %}
-{% extends "foundry-detail.html" %}
+compiler catches. Numbers are the README's own, cited as such. #}
 
 {% block fd_proof %}
 <div class="vh-strip fd-proof">

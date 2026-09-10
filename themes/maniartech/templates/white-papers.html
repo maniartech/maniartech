@@ -3,12 +3,12 @@
 {% block title %}White Papers - Applied Research{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
 {% block meta_description %}Open-access white papers on the decisions behind custom software: what drives cost, how people move through systems, and what makes teams adopt the tools you build.{% endblock %}
 
-{% comment %} White papers hub v4 - full-view band hero per the CLAUDE.md page-design
+{# White papers hub v4 - full-view band hero per the CLAUDE.md page-design
 thumb rules (reference: /insights/). A papers page presents EVIDENCE DOCUMENTS, so
 the hero strip carries the one thing the cards below cannot: each paper's method,
 honestly labeled - synthesis / practitioner / experience - quoted from the paper's
 own "Method and sources" section via `method`/`methodNote` frontmatter. The cards
-below keep the key figures; the hero does not duplicate them. {% endcomment %}
+below keep the key figures; the hero does not duplicate them. #}
 
 {% block content %}
 <header class="main-header view-hero">
@@ -44,7 +44,7 @@ below keep the key figures; the hero does not duplicate them. {% endcomment %}
                 <a href="{{ a.url }}" class="paper-card has-fig">
                     <span class="pc-fig">
                         {% if a.figure == "cost-range" %}
-                        {% comment %} One brief, five vendors. The spread is the paper's central fact. {% endcomment %}
+                        {# One brief, five vendors. The spread is the paper's central fact. #}
                         <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img"
                              aria-label="Chart: five quotes for one identical brief, the longest bar roughly five to ten times the shortest">
                             <text class="pf-lab" x="14" y="18">One brief, five vendors</text>
@@ -56,7 +56,7 @@ below keep the key figures; the hero does not duplicate them. {% endcomment %}
                             <text class="pf-note" x="14" y="136">The same document. A 5-10x spread.</text>
                         </svg>
                         {% elif a.figure == "journey-cross" %}
-                        {% comment %} Departments run vertically; the person's journey cuts across them. {% endcomment %}
+                        {# Departments run vertically; the person's journey cuts across them. #}
                         <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img"
                              aria-label="Diagram: four department columns with a customer journey line cutting across all of them">
                             <text class="pf-lab" x="14" y="18">Modules the system is built in</text>
@@ -70,7 +70,7 @@ below keep the key figures; the hero does not duplicate them. {% endcomment %}
                             <text class="pf-note" x="14" y="136">The journey people take crosses every one.</text>
                         </svg>
                         {% elif a.figure == "motivation" %}
-                        {% comment %} What the evidence supports, and the two mechanics that carry the most risk. {% endcomment %}
+                        {# What the evidence supports, and the two mechanics that carry the most risk. #}
                         <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" role="img"
                              aria-label="Diagram: competence, autonomy and connection support motivation; public ranking and points economies are the high-risk mechanics">
                             <text class="pf-lab" x="14" y="18">Raises motivation</text>
@@ -91,9 +91,9 @@ below keep the key figures; the hero does not duplicate them. {% endcomment %}
                         {% endif %}
                     </span>
                     <span class="pc-kind">White paper</span>
-                    {% comment %} h2, not h3: these card titles are the first content
+                    {# h2, not h3: these card titles are the first content
                     headings under the page h1, so a lower level skips a rank and trips
-                    the accessibility gate. {% endcomment %}
+                    the accessibility gate. #}
                     <h2 class="pc-title">{{ a.title }}</h2>
                     <p>{{ a.description }}</p>
                     <span class="pc-foot">Open access - read in full &rarr;</span>

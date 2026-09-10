@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% comment %} How We Work - the SUBSTANCE page every service page links to (spine: engagement models, delivery process, quality-as-behaviors, ethics, ISO, handover). NOTE: the site takes NO public position on code/IP ownership or lock-in - those are deal-dependent (see CLAUDE.md). {% endcomment %}
-{% comment %} Content directory: site/how-we-work/ - one .md per section (index, engage, process, quality, ethics, iso, handover, faq). {% endcomment %}
-{% comment %} SEO: title tag = buyer vocabulary; Service + FAQPage JSON-LD below. No proof strip and no mid-page CTA on this page by design. {% endcomment %}
+{# How We Work - the SUBSTANCE page every service page links to (spine: engagement models, delivery process, quality-as-behaviors, ethics, ISO, handover). NOTE: the site takes NO public position on code/IP ownership or lock-in - those are deal-dependent (see CLAUDE.md). #}
+{# Content directory: site/how-we-work/ - one .md per section (index, engage, process, quality, ethics, iso, handover, faq). #}
+{# SEO: title tag = buyer vocabulary; Service + FAQPage JSON-LD below. No proof strip and no mid-page CTA on this page by design. #}
 
 {% block title %}How We Work - Process, Quality and Engagement Models | {{ site.name }}{% endblock %}
 
 {% block head_extra %}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Software Design, Development and Consultancy Services","serviceType":"Software Development","provider":{"@type":"Organization","name":"Maniar Technologies Private Limited","url":"https://www.maniartech.com/"},"areaServed":"Worldwide"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for f in faq.faqs %}{"@type":"Question","name":"{{ f.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ f.a }}"}}{% if not forloop.Last %},{% endif %}{% endfor %}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for f in faq.faqs %}{"@type":"Question","name":"{{ f.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ f.a }}"}}{% if not loop.last %},{% endif %}{% endfor %}]}</script>
 {% endblock %}
 
 {% block content %}
@@ -19,11 +19,11 @@
                 <span class="mt-eyebrow d-inline-block" style="color:rgba(255,255,255,.55);">How a project runs here</span>
                 <h1 class="fw-bold mt-15 mb-20 prod-h1">{{ title }}</h1>
                 <p class="lead-text prod-lead">{{ description }}</p>
-                {% comment %} Orientation, not conversion. This page's job is to
+                {# Orientation, not conversion. This page's job is to
                 answer "how does an engagement actually run" BEFORE anyone is
                 asked for anything; the single conversion lives at the bottom,
                 after the process, the assurance facts and the handover section
-                have been read. {% endcomment %}
+                have been read. #}
                 <div class="mt-actions">
                     <a href="#process" class="butn butn-md butn-rounded butn-bord text-light"><span>See how an engagement runs</span></a>
                 </div>
@@ -101,7 +101,7 @@
             {% for s in process.stages %}
             <div class="col-lg-9 mb-25">
                 <div class="row">
-                    <div class="col-md-2"><span class="mt-eyebrow">0{{ forloop.Counter }}</span><h3 class="fw-600 fz-20 text-light">{{ s.name }}</h3></div>
+                    <div class="col-md-2"><span class="mt-eyebrow">0{{ loop.index }}</span><h3 class="fw-600 fz-20 text-light">{{ s.name }}</h3></div>
                     <div class="col-md-6"><p style="color:rgba(255,255,255,.65);">{{ s.what }}</p></div>
                     <div class="col-md-4"><p style="color:#14cf93;font-size:15px;">{{ s.gives }}</p></div>
                 </div>
@@ -141,7 +141,7 @@
             <div class="col-lg-9">
                 <div style="border:1px solid rgba(20,207,147,.35);border-radius:8px;overflow:hidden;">
                     {% for f in iso.facts %}
-                    <div class="row" style="margin:0;{% if not forloop.Last %}border-bottom:1px solid rgba(255,255,255,.08);{% endif %}">
+                    <div class="row" style="margin:0;{% if not loop.last %}border-bottom:1px solid rgba(255,255,255,.08);{% endif %}">
                         <div class="col-md-4" style="padding:14px 20px;color:rgba(255,255,255,.5);font-size:14px;letter-spacing:.02em;">{{ f.label }}</div>
                         <div class="col-md-8" style="padding:14px 20px;color:rgba(255,255,255,.85);">{{ f.value }}</div>
                     </div>
@@ -185,11 +185,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                {% comment %} The page's ONE conversion, deliberately last: it
+                {# The page's ONE conversion, deliberately last: it
                 arrives after the process, the assurance facts, the handover and
                 the FAQ. "See the work" beside it is an evidence link, not a
                 second conversion. The estimator is a distinct scoping tool and
-                is reached from its own entrances, never as this page's ask. {% endcomment %}
+                is reached from its own entrances, never as this page's ask. #}
                 <div class="mt-actions pt-40 bord-thin-top">
                     <a href="/contact/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Discuss a system</span></a>
                     <a href="/case-studies/" class="butn butn-md butn-rounded butn-bord text-light"><span>See the work</span></a>

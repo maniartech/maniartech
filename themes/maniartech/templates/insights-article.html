@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% comment %} Inferred article page for /insights/:slug/. v3 - the reading page,
+{# Inferred article page for /insights/:slug/. v3 - the reading page,
 built per the CLAUDE.md page-design thumb rules: a full-view band hero (vh frame)
 whose strip shows what the prose below cannot - the thread it belongs to, the
 length of the read, and the receipt the post stands on (heroProof/keyReceipt
@@ -9,11 +9,11 @@ sidebar with a derived "On this page" nav (article/article.js builds it from the
 h2s actually present; scrollspy tracks the reading line), keep-reading links from
 site.context.threads (data lives once), a copy-link control and a quiet CTA.
 Optional cover image via `heroImage`/`heroImageAlt`/`heroImageCaption`
-frontmatter, which also feeds og:image and the BlogPosting schema. {% endcomment %}
+frontmatter, which also feeds og:image and the BlogPosting schema. #}
 
 {% block og_type %}<meta property="og:type" content="article">{% endblock %}
 {% block og_image %}{% if pageContext.heroImage %}<meta property="og:image" content="{{ site.url }}{{ pageContext.heroImage }}">{% else %}<meta property="og:image" content="{{ site.url }}/themes/maniartech/assets/imgs/mt-imgs/logo-white.png">{% endif %}{% endblock %}
-{% comment %} Dates are gated on site.context.showPostDates - see tajmahal.yaml for the why. True dates stay in frontmatter regardless. {% endcomment %}
+{# Dates are gated on site.context.showPostDates - see tajmahal.yaml for the why. True dates stay in frontmatter regardless. #}
 {% block og_extra %}{% if pageContext.audience %}<meta name="mt-audience" content="{{ pageContext.audience }}"><meta name="mt-content-type" content="{{ pageContext.contentType }}"><meta name="mt-evidence" content="{{ pageContext.evidenceType }}">{% endif %}{% if site.context.showPostDates %}<meta property="article:published_time" content="{{ pageContext.date }}">{% endif %}<meta property="article:publisher" content="https://maniartech.com/"><meta property="article:section" content="Insights">{% endblock %}
 {% block schema_extra %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title }}","description":"{{ description }}",{% if site.context.showPostDates %}"datePublished":"{{ pageContext.date }}","dateModified":"{{ pageContext.date }}",{% endif %}"author":{% if pageContext.author %}{"@type":"Person","name":"{{ pageContext.author }}"{% if pageContext.authorRole %},"jobTitle":"{{ pageContext.authorRole }}"{% endif %}{% if pageContext.authorUrl %},"url":"{{ pageContext.authorUrl }}","sameAs":["{{ pageContext.authorUrl }}"]{% endif %},"worksFor":{"@type":"Organization","name":"ManiarTech"}}{% else %}{"@type":"Organization","name":"ManiarTech","url":"https://maniartech.com/"}{% endif %},"publisher":{"@type":"Organization","name":"ManiarTech","logo":{"@type":"ImageObject","url":"https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png"}},"image":"{% if pageContext.heroImage %}{{ site.url }}{{ pageContext.heroImage }}{% else %}https://maniartech.com/themes/maniartech/assets/imgs/mt-imgs/logo-white.png{% endif %}","mainEntityOfPage":{"@type":"WebPage","@id":"{{ site.url }}{{ uri }}"},"inLanguage":"en"}</script>{% endblock %}
 

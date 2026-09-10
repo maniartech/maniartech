@@ -3,7 +3,7 @@
 {% block title %}Insights - Engineering Notes and Write-ups{% if pagination.page > 1 %} - Page {{ pagination.page }}{% endif %} | {{ site.name }}{% endblock %}
 {% block meta_description %}Engineering notes, applied write-ups and reproducible benchmarks from the ManiarTech team{% if pagination.page > 1 %} - page {{ pagination.page }} of the archive{% endif %}. Read how we build, and check our claims yourself.{% endblock %}
 
-{% comment %} Insights hub - the hero is a CONTROL, not a picture: the whole shelf
+{# Insights hub - the hero is a CONTROL, not a picture: the whole shelf
 sits in it as real post titles, and picking a thread re-groups the shelf AND
 filters the index below from one piece of state.
 
@@ -24,10 +24,10 @@ carries an unknown thread or if the archive outgrows one page.
 
 `page_size` is 30 in research/module.yaml on purpose: the filter is client-side,
 so a paginated index would silently filter only the current page.
-forloop vars are CAPITALIZED in this binary. {% endcomment %}
+forloop vars are CAPITALIZED in this binary. #}
 
 {% block content %}
-{% comment %} The hero owns the viewport: 100svh, with the statement at the top of
+{# The hero owns the viewport: 100svh, with the statement at the top of
 the stage and the proof pinned to the bottom of it.
 
 It is BANDS, not columns, and that is the whole point. Six of this site's seven
@@ -36,7 +36,7 @@ right half - and anything whose natural width is under half the container leaves
 a ragged hole. Measured on the previous version: the invite was 330px of content
 in a 660px column, and every proof rule ran ~206px past its own text. A band is
 sized by its own content and spans the full width by construction, so neither
-hole can occur. {% endcomment %}
+hole can occur. #}
 <header class="main-header insights-hero">
     <div class="container ins-stage">
 
@@ -44,19 +44,19 @@ hole can occur. {% endcomment %}
             <span class="mt-eyebrow ins-eyebrow">Insights</span>
             <h1 class="fw-bold ins-h1">Notes from the workshop &mdash; engineering, <em>told straight</em>.</h1>
             <p class="ins-dek">We publish what we learn: engineering notes, applied write-ups, and reproducible benchmarks. Read how we build &mdash; and check our claims for yourself.</p>
-            {% comment %} No publishing cadence is stated here, deliberately. A frequency is
+            {# No publishing cadence is stated here, deliberately. A frequency is
             a promise about the future that cannot be verified when it is made and is plainly
             visible when it breaks - Governing Rule #1 cuts against it. What replaces it is a
             standard (which we control) and an invitation to falsify us (the strongest thing
-            we can offer a stranger). {% endcomment %}
+            we can offer a stranger). #}
             <p class="ins-invite">Nothing goes up here to fill a schedule &mdash; there isn't one. If a claim in any piece doesn't hold up, <b>tell us</b> and we'll correct it in the post.</p>
         </div>
 
-        {% comment %} The proof strip. Not a list of the posts - the index below does that
+        {# The proof strip. Not a list of the posts - the index below does that
         properly, and a second, lower-fidelity copy of it was the earlier flaw. It carries
         what a list of titles cannot: the archive's strongest checkable numbers, each from
         the post that proves it (`heroProof` in frontmatter). Dividers run BETWEEN cells,
-        vertically, so no rule can ever run over empty space. {% endcomment %}
+        vertically, so no rule can ever run over empty space. #}
         <div class="proof-strip">
             <p class="proof-head">What is actually in here &mdash; every number worked through in the piece it comes from</p>
             <ul class="proof-row">
@@ -86,7 +86,7 @@ hole can occur. {% endcomment %}
         <div class="thread-cards" id="threadCards">
             {% for t in site.context.threads %}
             <div class="thread-card" data-thread="{{ t.key }}" role="button" tabindex="0" aria-label="Show only the {{ t.short }} thread">
-                <span class="tc-i">Thread {% if forloop.Counter < 10 %}0{% endif %}{{ forloop.Counter }}</span>
+                <span class="tc-i">Thread {% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
                 <h3>{{ t.title }}</h3>
                 <p>{{ t.blurb }}</p>
                 <a href="{{ t.lead }}" class="tc-go">{{ t.leadLabel }} <span>&rarr;</span></a>
@@ -96,10 +96,10 @@ hole can occur. {% endcomment %}
     </div>
 </section>
 
-{% comment %} The two audience entrances (editorial program P1): built on the
+{# The two audience entrances (editorial program P1): built on the
 audience metadata every post now carries. Prototype per the reviewer directive -
 the hero stays; the doors sit beneath it and drive the same index as a second
-filter dimension. Counts are derived by shelf.js from the rows, never typed. {% endcomment %}
+filter dimension. Counts are derived by shelf.js from the rows, never typed. #}
 <section class="section-padding pt-0" id="audiences">
     <div class="container">
         <div class="aud-doors" id="audDoors" role="group" aria-label="Choose your entrance">
@@ -127,8 +127,8 @@ filter dimension. Counts are derived by shelf.js from the rows, never typed. {% 
             <p class="index-count">Showing <b id="liveCount">{{ articles|length }}</b> of <span id="liveTotal">{{ articles|length }}</span> - <span id="liveLens">all threads</span></p>
         </div>
 
-        {% comment %} The filter sits with the thing it filters. It used to live up in the
-        hero, away from the rows it acts on. {% endcomment %}
+        {# The filter sits with the thing it filters. It used to live up in the
+        hero, away from the rows it acts on. #}
         <div class="shelf-lenses" id="shelfLenses" role="group" aria-label="Filter the index by thread">
             <button type="button" class="lens" data-thread="all" data-label="all threads" aria-pressed="true">Everything <span class="n"></span></button>
             {% for t in site.context.threads %}
@@ -140,7 +140,7 @@ filter dimension. Counts are derived by shelf.js from the rows, never typed. {% 
             {% for a in articles %}
             <article class="post-row" data-thread="{{ a.thread }}" data-audience="{{ a.audience }}">
                 <div class="pr-meta">
-                    <span class="pr-n">{% if forloop.Counter < 10 %}0{% endif %}{{ forloop.Counter }}</span>
+                    <span class="pr-n">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
                     {% if site.context.showPostDates %}{% if a.date %}<span>{{ a.date }}</span>{% endif %}{% endif %}
                 </div>
                 <div class="pr-main">
@@ -152,7 +152,7 @@ filter dimension. Counts are derived by shelf.js from the rows, never typed. {% 
                     </div>
                 </div>
                 <div class="pr-tail">
-                    {% comment %} Label looked up from the one thread list - no if/elif map here. {% endcomment %}
+                    {# Label looked up from the one thread list - no if/elif map here. #}
                     {% for t in site.context.threads %}{% if t.key == a.thread %}<span>{{ t.short }}</span>{% endif %}{% endfor %}
                     <span class="pr-arrow" aria-hidden="true">&rarr;</span>
                 </div>

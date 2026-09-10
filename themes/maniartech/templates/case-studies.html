@@ -2,7 +2,7 @@
 
 {% block title %}Case Studies - Real Client Work, Verifiable | {{ site.name }}{% endblock %}
 
-{% comment %} Work hub v3 - the cabinet, not the index.
+{# Work hub v3 - the cabinet, not the index.
 
 The hero is a canvas piece (hub-viz.js, "work-timeline") that plots the REAL
 engagement record to scale, 2010 -> today. Every year on it is sourced from the
@@ -12,7 +12,7 @@ service, which is the strongest honest thing we can show a stranger.
 Below it, each case is a file with its strongest artifact at rest - the actual
 screenshot where one exists, a diagram where it honestly does not - instead of a
 title and a sentence. Data: pageContext.studies in work/case-studies/index.md.
-forloop vars are CAPITALIZED in this binary. {% endcomment %}
+forloop vars are CAPITALIZED in this binary. #}
 
 {% block content %}
 <header class="main-header">
@@ -42,7 +42,7 @@ forloop vars are CAPITALIZED in this binary. {% endcomment %}
                 {% if s.shot %}
                 <img src="{{ s.shot }}" loading="lazy" decoding="async" alt="{{ s.shotAlt }}">
                 {% elif s.viz == "paraphrase" %}
-                {% comment %} Content Engine: a sentence rewritten, sense preserved. {% endcomment %}
+                {# Content Engine: a sentence rewritten, sense preserved. #}
                 <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{{ s.vizAlt }}">
                     <rect class="cfv-w" x="18" y="34" width="42" height="11" rx="3"/>
                     <rect class="cfv-w on" x="66" y="34" width="30" height="11" rx="3"/>
@@ -57,7 +57,7 @@ forloop vars are CAPITALIZED in this binary. {% endcomment %}
                     <rect class="cfv-w" x="18" y="120" width="34" height="11" rx="3"/>
                 </svg>
                 {% elif s.viz == "annotate" %}
-                {% comment %} UpSport: ink over running video. {% endcomment %}
+                {# UpSport: ink over running video. #}
                 <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{{ s.vizAlt }}">
                     <rect class="cfv-frame" x="16" y="18" width="208" height="104" rx="7"/>
                     <line class="cfv-court" x1="30" y1="104" x2="210" y2="104"/>

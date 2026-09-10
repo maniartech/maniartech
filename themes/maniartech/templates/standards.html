@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% comment %} Standards & Languages - full-view band hero per the CLAUDE.md page-design
+{# Standards & Languages - full-view band hero per the CLAUDE.md page-design
 thumb rules (reference: /insights/). A standards page presents SPECIFICATIONS WITH
 THEIR PUBLICATION STATUS, so the hero strip IS the registry.
 
@@ -13,7 +13,7 @@ site/standards/index.md and anchor into the prose; seo-check enforces that all f
 fields are present, plus the working-draft notice and review date below.
 
 The page is a maintained public working draft and is deliberately indexable - the
-notice states that, so publication never implies completion. {% endcomment %}
+notice states that, so publication never implies completion. #}
 
 {% block content %}
 <header class="main-header view-hero">
@@ -22,9 +22,9 @@ notice states that, so publication never implies completion. {% endcomment %}
             <span class="mt-eyebrow vh-eyebrow">{{ pageContext.eyebrow }}</span>
             <h1 class="fw-bold vh-h1">The foundations we've authored &mdash; <em>published with their actual status</em>.</h1>
             <p class="vh-dek">A programming language, and data, time, expression and API standards we've designed over the years. One specification is public today; the rest are public implementations or concept notes over work that is still private. None of it is something we'd make you adopt.</p>
-            {% comment %} The status has to be readable WITHOUT scrolling - the full
+            {# The status has to be readable WITHOUT scrolling - the full
             notice sits below the hero, and a reader who never scrolls must still know
-            this page is unfinished on purpose. {% endcomment %}
+            this page is unfinished on purpose. #}
             <p class="vh-status"><a href="#publication-status"><b>{{ pageContext.pageStatus }}</b> | Last reviewed {{ pageContext.lastReviewed }}</a></p>
         </div>
 
@@ -53,14 +53,14 @@ notice states that, so publication never implies completion. {% endcomment %}
     </div>
 </header>
 
-{% comment %} The body uses the SAME reading shell as an insights article
+{# The body uses the SAME reading shell as an insights article
 (.article-layout geometry, .aside-inner sticky, .toc built by article/article.js
 from the rendered h2[id]s) - only the wrapper names and the rail's content are
 standards-specific. Reusing the runtime is deliberate: the TOC, its scrollspy and
 the breakpoints are already proven there, and a second implementation would be a
 second thing to keep correct. The rail carries navigation, publication status and
 evidence links only - no extra conversion prompt, since the page closes with
-"Inspect the work with us". {% endcomment %}
+"Inspect the work with us". #}
 <section class="section-padding pt-0 article-region">
     <div class="container">
         <div class="standards-layout">
@@ -74,28 +74,28 @@ evidence links only - no extra conversion prompt, since the page closes with
 
             <aside class="standards-aside" aria-label="Standards page navigation">
                 <div class="aside-inner">
-                    {% comment %} data-depth="3" nests the six project headings under
+                    {# data-depth="3" nests the six project headings under
                     their sections: on a registry page the project IS what a reader
-                    wants to jump to, and h2s alone cannot reach them. {% endcomment %}
+                    wants to jump to, and h2s alone cannot reach them. #}
                     <nav class="toc" data-depth="3" aria-label="On this page" hidden>
                         <p class="aside-kicker">On this page</p>
                         <ol class="toc-list"></ol>
                     </nav>
 
-                    {% comment %} Two lines, not a definition list: the same status is
+                    {# Two lines, not a definition list: the same status is
                     already in the hero pill and the notice, so the rail carries the
                     short form and the one fact a reader scanning the rail needs -
-                    which specification is actually published. {% endcomment %}
+                    which specification is actually published. #}
                     <div class="aside-block sa-status">
                         <p class="aside-kicker">Publication status</p>
                         <p class="sa-line">{{ pageContext.pageStatus }} | {{ pageContext.lastReviewed }}</p>
                         <p class="sa-line">Published specification: <b>Internet Object</b> - the only one</p>
                     </div>
 
-                    {% comment %} A "public artifacts" link list lived here and was cut:
+                    {# A "public artifacts" link list lived here and was cut:
                     with the project entries now in the nav, every one of those links is
                     one click away in its own section, and the rail has to fit the
-                    viewport or its foot is unreachable while sticky. {% endcomment %}
+                    viewport or its foot is unreachable while sticky. #}
                     <div class="aside-block sa-review">
                         <p class="aside-kicker">Private review</p>
                         <p>Selected unpublished specifications and implementations can be reviewed with prospective customers on request.</p>

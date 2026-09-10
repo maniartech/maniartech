@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% comment %} The Foundry hub v3 - the workshop, one treatment per shelf.
+{# The Foundry hub v3 - the workshop, one treatment per shelf.
 
 Projects still render from site.context.foundry (content in foundry/foundry/index.md),
 but each shelf now opens with a SPECIMEN of the thing it holds: the Languages shelf
@@ -10,7 +10,7 @@ and Products shows the two public URLs anyone can open. A shelf of cards describ
 language, with no language on it, was the flaw here.
 
 Every specimen below is copied from the detail page it belongs to, so the hub cannot
-drift from the page it summarises. Understated voice - see brand guide section 4. {% endcomment %}
+drift from the page it summarises. Understated voice - see brand guide section 4. #}
 
 {% block content %}
 <header class="main-header viz-hero foundry-hero">
@@ -33,7 +33,7 @@ drift from the page it summarises. Understated voice - see brand guide section 4
                         <span class="fv-name">The ManiarTech Foundry</span>
                         <span class="fv-desc">Everything we've authored — hover a node, or a category, to trace what it's built on.</span>
                     </figcaption>
-                    {% comment %} Fallback for no-JS, mobile, and screen readers {% endcomment %}
+                    {# Fallback for no-JS, mobile, and screen readers #}
                     <ul class="foundry-viz-fallback">
                         {% for s in site.context.foundry %}<li><a href="{{ s.view }}">{{ s.name }} &rarr;</a></li>{% endfor %}
                         <li><a href="https://github.com/maniartech" target="_blank" rel="noopener" class="fv-fallback-more">Open source &nearr;</a></li>
@@ -56,7 +56,7 @@ drift from the page it summarises. Understated voice - see brand guide section 4
             <div class="shelf-spec">
 
                 {% if s.anchor == "products" %}
-                {% comment %} Products: the only claim that matters is that you can open it. {% endcomment %}
+                {# Products: the only claim that matters is that you can open it. #}
                 <div class="spec-live">
                     <span class="spec-kind">Running in production right now</span>
                     <a href="https://www.chemotestlaboratory.com" target="_blank" rel="noopener"><span class="live-dot"></span> chemotestlaboratory.com</a>
@@ -65,7 +65,7 @@ drift from the page it summarises. Understated voice - see brand guide section 4
                 </div>
 
                 {% elif s.anchor == "languages" %}
-                {% comment %} Languages shelf shows language. Indigo, from /foundry/indigo/. {% endcomment %}
+                {# Languages shelf shows language. Indigo, from /foundry/indigo/. #}
                 <span class="spec-kind">Specimen: Indigo, a Go superset</span>
                 <div class="lang-diff">
                     <div class="lang-pane">
@@ -97,7 +97,7 @@ drift from the page it summarises. Understated voice - see brand guide section 4
                 <p class="spec-note">Ordinary Go comes out the other side - the diff your team reviews is Go they already know.</p>
 
                 {% elif s.anchor == "standards" %}
-                {% comment %} Standards: Internet Object beside the JSON it replaces. {% endcomment %}
+                {# Standards: Internet Object beside the JSON it replaces. #}
                 <span class="spec-kind">Specimen: Internet Object, the same data</span>
                 <div class="lang-diff">
                     <div class="lang-pane">
@@ -119,7 +119,7 @@ drift from the page it summarises. Understated voice - see brand guide section 4
                 <p class="spec-note">The schema is sent once; every <code>~</code> row is validated against it as it parses. <a href="/foundry/internet-object/" class="main-color">See the measured savings &rarr;</a></p>
 
                 {% elif s.anchor == "libraries" %}
-                {% comment %} Libraries: code you would actually import. signals, from /foundry/signals/. {% endcomment %}
+                {# Libraries: code you would actually import. signals, from /foundry/signals/. #}
                 <span class="spec-kind">Specimen: signals, in a Go service</span>
                 <div class="mt-frame">
                     <div class="bar"><i></i><i></i><i></i></div>
@@ -136,7 +136,7 @@ UserRegistered.Emit(ctx, newUser)</pre>
                 <p class="spec-note">Context-aware, type-safe, and used in production. Every library on this shelf is public - read it, run it, or check the tests yourself.</p>
 
                 {% elif s.anchor == "tools" %}
-                {% comment %} Tools: things you run. Booster, from /products/booster/. {% endcomment %}
+                {# Tools: things you run. Booster, from /products/booster/. #}
                 <span class="spec-kind">Specimen: Booster, bringing up a stack</span>
                 <div class="mt-frame">
                     <div class="bar"><i></i><i></i><i></i></div>
@@ -207,9 +207,9 @@ UserRegistered.Emit(ctx, newUser)</pre>
 {% endblock %}
 
 {% block scripts_extra %}
-{% comment %} The constellation consumes the SAME registry as the shelves and
+{# The constellation consumes the SAME registry as the shelves and
 menus (context.foundry) - no parallel inventory in JS. Trailing commas are
-stripped by the consumer before JSON.parse. {% endcomment %}
+stripped by the consumer before JSON.parse. #}
 <script id="foundryVizData" type="application/json">
 [
 {% for g in site.context.foundry %}{% for it in g.items %}

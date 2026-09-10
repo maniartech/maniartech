@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% comment %} CANONICAL FOUNDRY DETAIL SHELL (2026-08-12 reconstruction brief).
+{# CANONICAL FOUNDRY DETAIL SHELL (2026-08-12 reconstruction brief).
 Per-project pages reduce to one-line {% extends %} shims; everything
 project-specific arrives through frontmatter, never through template forks.
 
@@ -24,7 +24,7 @@ Frontmatter contract (all optional except title/description):
 
 Conversion rule (gated): exactly ONE body /contact/ conversion, rendered here
 after the content - the body markdown must not add another, and no /estimate/
-links exist on Foundry substance pages. {% endcomment %}
+links exist on Foundry substance pages. #}
 
 {% block content %}
 <header class="main-header view-hero svc-hero fd-hero">
@@ -43,13 +43,13 @@ links exist on Foundry substance pages. {% endcomment %}
             {% endif %}
         </div>
 
-        {% comment %} Band 3 - the project's own proof specimen, at the foot of a
+        {# Band 3 - the project's own proof specimen, at the foot of a
         full-height hero. Each shim fills this with something OF its project (a
         byte comparison, a measured run, a refusal, a transformation), never a
         decorative graphic and never a copy of the figure directly below: where
         the signature exhibit moved up here, the body expands it instead of
         repeating it. `proofKicker` labels the band; `proofFoot` carries the
-        attribution line that keeps every number traceable. {% endcomment %}
+        attribution line that keeps every number traceable. #}
         {% block fd_proof %}{% endblock %}
     </div>
 </header>
@@ -60,8 +60,8 @@ links exist on Foundry substance pages. {% endcomment %}
             <main class="svc-main">
                 <div class="article-body mt-prose">{{ content|safe }}</div>
 
-                {% comment %} The page's single conversion - after the evidence,
-                template-enforced so every Foundry page carries exactly one. {% endcomment %}
+                {# The page's single conversion - after the evidence,
+                template-enforced so every Foundry page carries exactly one. #}
                 <div class="mt-actions mt-50 pt-40 bord-thin-top">
                     <a href="/contact/" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Discuss a system</span></a>
                     <a href="/foundry/" class="butn butn-md butn-rounded butn-bord text-light"><span>&larr; Back to the Foundry</span></a>

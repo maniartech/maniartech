@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% comment %} Estimate - the primary conversion page. Concept: "the specimen" -
+{# Estimate - the primary conversion page. Concept: "the specimen" -
 show the actual thing you get back (a reply with a range and its assumptions),
 window-chromed, sticky beside the pitch, and honestly labeled ILLUSTRATIVE.
 Content directory: site/estimate/ (index + how + include + safe + who).
-forloop vars are CAPITALIZED in this binary. {% endcomment %}
+forloop vars are CAPITALIZED in this binary. #}
 
 {% block title %}Free Project Estimate - Custom Software | {{ site.name }}{% endblock %}
 
@@ -32,7 +32,7 @@ forloop vars are CAPITALIZED in this binary. {% endcomment %}
                     <div class="mt-25">
                         {% for s in how.steps %}
                         <div class="mt-diag mb-25">
-                            <span class="num">0{{ forloop.Counter }}</span>
+                            <span class="num">0{{ loop.index }}</span>
                             <div class="d">
                                 <h3 class="fw-600 fz-20 text-light mb-8">{{ s.t }}</h3>
                                 <p style="color:rgba(255,255,255,.65);margin:0;">{{ s.d }}</p>
