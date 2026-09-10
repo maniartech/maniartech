@@ -43,10 +43,10 @@ If it panics / 500s on content: **stop tajmahal, `rm -rf .cache`, restart** (cac
 
 ### 0. CURRENT STATE (2026-09-10) — START HERE; everything below this block is history
 
-**Where we are:** the CAREERS PACKAGE is built, iterated through Aamir's live review (the Gear
-Foundry canvas reached v5 - see parts 32-37), all checks green, and sits **UNCOMMITTED awaiting
-his explicit commit word** (standing rule: review precedes commit, commit only when asked).
-Last commit: `444994a` on `v2`. The working tree holds 47 modified/new paths in two groups:
+**Where we are:** COMMITTED AND PUSHED 2026-09-10 on Aamir's word: `5bbbae3` (the dialect
+migration, on its own per the migration guide) + `82d8a8a` (the careers package) — origin/v2
+in sync through `82d8a8a`. The two review-flag items below were pushed as written; Aamir can
+still veto post-hoc. What the two commits contain:
 
 1. **The careers package (this session's work, ready):** `templates/careers.html` (band hero +
    doors strip + gear-foundry stage + public-work rail), `site/careers/index.md` (copy fixes +
@@ -70,8 +70,10 @@ errors). Harnesses live in the session scratchpad (`gfaccept/gfzoom/gfstation/gf
 re-derive from RESUME part 35-37 notes if lost.
 
 **Next, in order:**
-1. **Aamir reviews `/careers/` and gives the commit word** -> one commit for the whole package
-   (message should carry the gear v1->v5 bug history and name the two veto flags above).
+1. **DONE 2026-09-10** — committed (`5bbbae3` migration, `82d8a8a` careers) and pushed.
+   Remaining from that thread: Aamir reviews/commits the ENGINE FIX in E:/Projects/tajmahal
+   (uncommitted there) and rebuilds `E:\Portables\tajmahal.exe` — until then his own server
+   serves the 14 foundry/product pages without hero proof bands.
 2. **His open ruling:** "Discuss a system" now goes two places (header -> `/estimate/`,
    page-bottom CTAs -> `/contact/`). Options: sweep all to /estimate/; relabel the /contact/
    ones "Contact us"; or leave. (Part 37 tail.)
