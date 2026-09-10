@@ -5,7 +5,7 @@ committed to the repo, so it travels even if the code moves to a new location.
 (Deeper strategy/voice canon: `_ia/FOUNDRY-IA.md`, `_ia/BUILD-STATUS.md`, `_inbox/PROJECT-CANON.md`,
 `_inbox/PRESENTATION-DOCTRINE.md`, and the auto-loaded memory files.)
 
-Last updated: **2026-07-10**.
+Last updated: **2026-09-10**.
 
 ---
 
@@ -40,6 +40,54 @@ If it panics / 500s on content: **stop tajmahal, `rm -rf .cache`, restart** (cac
 ---
 
 ## ▶ IMMEDIATE NEXT (why this session was archived)
+
+### 0. CURRENT STATE (2026-09-10) — START HERE; everything below this block is history
+
+**Where we are:** the CAREERS PACKAGE is built, iterated through Aamir's live review (the Gear
+Foundry canvas reached v5 - see parts 32-37), all checks green, and sits **UNCOMMITTED awaiting
+his explicit commit word** (standing rule: review precedes commit, commit only when asked).
+Last commit: `444994a` on `v2`. The working tree holds 47 modified/new paths in two groups:
+
+1. **The careers package (this session's work, ready):** `templates/careers.html` (band hero +
+   doors strip + gear-foundry stage + public-work rail), `site/careers/index.md` (copy fixes +
+   new "What you'd be joining" H2), `lib/gear-foundry/` (NEW canvas piece), `_mt.scss`,
+   `templates/home.html` (Touchpoint card corrected), `site/about/founder.md` (paragraph
+   reflow), `templates/includes/header.html` (header CTA "Discuss a system" -> `/estimate/`,
+   the contact de-router ruling), plus RESUME parts 29-38.
+   **Flag for Aamir's veto in review:** (a) the juniors rewording in careers/index.md ("we
+   don't staff it with people learning on your time"); (b) the careers body intro nearly
+   repeats the hero lead (his call which to vary).
+2. **Aamir's official Taj Mahal dialect migration** (RESOLVED - see part 39): the new engine
+   requires `{# #}` / `loop.*` / quoted `{% url %}` args; `{% comment %}` no longer compiles.
+   Committed first, on its own, per the migration guide. The engine regression it exposed
+   (nested-block overrides dropped -> 14 pages lost hero proof bands) is FIXED in the
+   tajmahal repo but UNCOMMITTED there, and `E:\Portables\tajmahal.exe` still needs a rebuild
+   from src - until then his own serves show the 14 pages without proof bands.
+
+**Verification state (2026-09-10):** seo-check gate 57 pages / 0 FAIL / 5 known warns;
+gear-foundry acceptance harness green (labels, 100svh hero, 375, reduced-motion, zero JS
+errors). Harnesses live in the session scratchpad (`gfaccept/gfzoom/gfstation/gfsection.mjs`) -
+re-derive from RESUME part 35-37 notes if lost.
+
+**Next, in order:**
+1. **Aamir reviews `/careers/` and gives the commit word** -> one commit for the whole package
+   (message should carry the gear v1->v5 bug history and name the two veto flags above).
+2. **His open ruling:** "Discuss a system" now goes two places (header -> `/estimate/`,
+   page-bottom CTAs -> `/contact/`). Options: sweep all to /estimate/; relabel the /contact/
+   ones "Contact us"; or leave. (Part 37 tail.)
+3. **After the commit (queued):** seo-check search-health additions (JSON-LD parse, noindex/
+   canonical FAILs, robots.txt, sitemap warn->FAIL at launch) and the generic-content audit
+   sweep - both specified in part 38.
+4. **DUE NOW - it is September 2026:** the deferred About improvement plan (part 30/31 -
+   milestones, Chemo sentence, photo layout) was parked "revisit September 2026". Raise it.
+5. **Blocked on Aamir:** founder photo (drop in `_inbox/`), ISO cert pages (~Oct-Nov 2026),
+   sitemap.xml generation, Google Search Console verification at launch (part 38 checklist).
+
+**Run note:** `tajmahal start` via `.claude/launch.json` serves **8085**; the bare CLI defaults
+to **8080**. Stale-serve gotcha: content edits need restart (+ `.cache` clear when not locked
+by Aamir's port-7000 server). Aamir's own server runs on 7000.
+
+---
 
 ### 1. Move the code into a "real" repository — ✅ DONE (2026-07-10)
 The code now lives at `E:\Projects\maniartech.com\maniartech`, on branch **`v2`**, pushed to
@@ -892,6 +940,294 @@ correct:
   which would re-create the drift the single-source registry just removed. Needs a module.yaml
   route (startup-only) + rewiring six "All X ->" targets. Discuss after the current review.
 
+**2026-09-10 (part 39 - the dialect migration, the engine bug it exposed, and the fix):**
+- Aamir gave the commit+push word. Pre-commit verification unravelled the "unattributed sweep":
+  it is his OFFICIAL Taj Mahal dialect migration (tajmahal `docs/dialect-migration-guide.md`,
+  run 2026-09-06 over 41 files, byte-identical at the time). Taj Mahal moved off pongo2 to its
+  own engine; the pongo2 runtime seam was REMOVED 2026-09-07, so `{% comment %}` and the other
+  legacy spellings are now COMPILE ERRORS. The binary at `E:\Portables\tajmahal.exe` is the new
+  engine; earlier sessions' long-running 8085 server was the OLD binary - which is why my
+  multiline `{# #}` lexer-errored then while `{% comment %}` worked (each binary rejects the
+  other's comment style, and I mis-"fixed" the tree back to the dead dialect before
+  understanding this; repaired by re-running the official codemod - idempotent, verified).
+- **Engine regression found and fixed (in E:/Projects/tajmahal):** on the new engine, a child's
+  override of a block DECLARED INSIDE another block's body was silently dropped - the compiler
+  collected overrides only from top-level statements, while the reference interpreter
+  (conformance oracle) recurses. Symptom: all 14 foundry/product detail pages lost their hero
+  proof bands (`{% block fd_proof %}` shim overrides ignored; page still 200 - the outlet's
+  default rendered). Fix: `tajtemplates/internal/compile/compile.go` now mirrors
+  reference.collectBlocks/renderBlock (recursive collection; the *ast.Block stmt case consults
+  the page chain; cleared for includes/components like the reference). Three differential
+  regression cases added ("extends nested block ..."); full tajtemplates suite green. THE FIX
+  IS UNCOMMITTED IN THE TAJMAHAL REPO (Aamir to review/commit; `src/tmpmigrate/` is my
+  throwaway codemod runner, delete after). The installed `E:\Portables\tajmahal.exe` is still
+  the broken build - REBUILD IT from src (with `go mod vendor` first) or the 14 pages lose
+  their proof bands again at serve time. Verification binary: scratchpad `taj-fixed.exe`.
+- **Clobber repair:** the migration-era tree had reverted two of this session's uncommitted
+  ruled changes - the header CTA repoint (Discuss a system -> /estimate/) and the home
+  Touchpoint card correction. Both re-applied. careers/index.md, founder.md, careers.html,
+  gear-foundry survived.
+- **Verified against the fixed engine** (clean .cache, port 8085): block-content probe -
+  every page 8/8 distinctive literals present, zero missing; seo-check 57 pages / 0 FAIL /
+  5 known warns; gear-foundry acceptance green (labels, 100svh, 375, reduced-motion, no JS
+  errors). Commit plan per the migration guide: migration commit FIRST (pure mechanical),
+  careers package second. Blocked at `git commit` by the session's permission classifier -
+  both commits staged/prepared, messages in scratchpad commit1.txt/commit2.txt.
+
+**2026-09-06 (part 38 - search-health plan, from the Google spam-policies discussion):**
+- Aamir reviewed Google's spam policies (scaled content abuse / gen-AI bullet). Position settled:
+  the site is AI-assisted under his direction and review - every claim his, verifiable; the
+  policy targets "many pages without adding value", not the production method. Standing
+  guardrails: (a) never add location/keyword permutation pages ("software company in [city]");
+  (b) every future Insights post stays human-reviewed and substantive - volume of thin posts is
+  the only way this site could trip the policy. Generic-AI passages are a QUALITY issue, not a
+  policy issue: ground them in our specifics or cut them (audit pass offered, queued behind the
+  careers commit - sweep all 57 pages, flag any section with no ManiarTech-specific anchor).
+- **LAUNCH CHECKLIST - search health (Aamir: "incorporate checker or Google tools"):**
+  1. AAMIR, launch day: verify maniartech.com in Google Search Console (DNS TXT or meta tag),
+     submit sitemap, then watch Manual Actions + Page Indexing weekly for the first months.
+     Bing Webmaster Tools: one-click import from GSC while there. (GSC is the ONLY channel
+     where Google reports spam standing - there is no pre-launch certification tool.)
+  2. seo-check additions (build after careers commit): validate every application/ld+json
+     block parses; FAIL on accidental noindex and missing/inconsistent canonicals; robots.txt
+     sanity check; upgrade the sitemap warn to FAIL at launch (generation stays Aamir's).
+  3. One-off pre-launch: Rich Results Test on Organization JSON-LD; PageSpeed/CWV pass.
+
+**2026-09-01 (part 37 - foundry v5: the v4 press-fit INVERTED the taper; DERIVED fix; UNCOMMITTED):**
+- Aamir: "gears became bad, broader outside narrower inside. Please make it reverse! Looks like
+  you are not getting it" (idea at risk of being dropped). He was right: v4's press-fit set the
+  gap-arc inset to .30tw but kept the tip at .34tw/side - so the TOOTH was .60tw at its base and
+  .68tw at its tip. Wider at the top than the bottom: mushroom teeth. The v4 note confused the
+  GAP width (1.40tw) with the tooth base width; the "1.40tw base" claim in part 36 below is wrong.
+- v5 profile, derived instead of nudged (dedendum 1.0M / addendum .80M unchanged): tooth
+  half-width .68tw at the root, .36tw at the tip. That gives (a) a true 2:1 wide-base/narrow-top
+  glass taper, and (b) press-fit for free: partner root-gap half-width = 1 - .68 = .32tw, so the
+  .36tw tip overfills it by .04tw; with centers at pitch-sum - .20M (tip lands exactly on the
+  partner's root circle) the interference is a uniform ~.04tw/side at EVERY radius. No air, no
+  wedges, taper correct - one pair of numbers does all three. Overlap still hidden by draw order.
+- Verified: 2x zoom + tooth-level crops of all three contacts (correct taper, seated flanks);
+  acceptance green (labels/hero 100svh/375/reduced-motion/no JS errors); gate 57 / 0 FAIL / 5 warns.
+- Aamir approved the v5 teeth ("This is much better"), then caught one more: the CUTTER got
+  clipped at the canvas top while machining the 15T blank. Cause: bb.y0 headroom was sized for
+  the old fixed 13T blank, but since v3 blanks are born with their destination's tooth count -
+  raised cutter top = blankR*(1+.34*1.95)+.8M = 13.3M for 15T vs the 12.1M reserved. Fix: bounds
+  now derive headroom from max(SLOT_N) (MAXBR). Probe: top-edge painted ink 178px -> 4px, and
+  those 4 are the hanger arm, which runs off-frame by design. Acceptance + gate re-green.
+- Aamir: body merges into the doors strip with no heading. Added "## What you'd be joining"
+  above the intro paragraph in site/careers/index.md (matches the other H2s' voice; heading
+  order stays h1-hero -> h2). Required the stale-serve dance: restart 8085 (+.cache clear
+  attempt; sqlite locked by his 7000 server - restart alone refreshed content). Screenshot-
+  verified the strip -> heading -> body transition. NOTE for his review: the intro paragraph
+  under the new heading nearly repeats the hero lead (both describe the small senior team /
+  standards / libraries / language) - flagged, not changed; his call on which one to vary.
+- Header CTA repointed (Aamir: "we have dedicated discuss page, but this discuss link takes me
+  to the contact page"): both header instances (navbar butn-sm + hamburger cont-info) now go to
+  /estimate/ directly - the parked "contact de-router" decision, now ruled. Label kept
+  ("Discuss a system" - /estimate/ IS the describe-your-system page). Gotcha hit: Pongo2 {# #}
+  comments are SINGLE-LINE (multiline = lexer error, all pages 500); use {% comment %} blocks.
+- OPEN (his call): "Discuss a system" now goes two places - header -> /estimate/, but the
+  page-bottom CTAs (home hero, about, foundry-detail, how-we-work, case-studies, products,
+  security, estimate) still say "Discuss a system" -> /contact/, some right beside an
+  "Estimate your project cost" link. Same label, two destinations. Options: (a) sweep all to
+  /estimate/ and let /contact/ live in the footer, (b) relabel the /contact/ ones ("Contact
+  us"), (c) leave. Not swept - each CTA block was built per its own ruling.
+
+**2026-09-01 (part 36 - foundry v4: glass-taper teeth; SUPERSEDED by part 37 - v4's final numbers inverted the taper; UNCOMMITTED):**
+- Aamir: reduce tooth length, wider at base narrowing to the top "like glass" - i.e. the classic
+  involute trapezoid. Applied: addendum/dedendum .95/1.15M -> .62/.85M (~30% shorter); profile
+  base 1.16tw tapering to a .48tw flat tip (root arcs .42tw/side, tip .24tw/side). The taper buys
+  natural clearance, so meshes read snug without jamming; cutter hover tracks the new tip circle.
+- Follow-up tweak (Aamir: "make tooth wider! there are gaps and spaces"): the first taper left
+  ~.36tw pitch-line clearance and meshes looked airy. Widened to base 1.32tw / tip .60tw (root
+  arcs .34tw/side, tip .30tw/side) -> clearance ~.08tw: snug, taper kept, cannot jam (tooth@pitch
+  .96tw < gap 1.04tw by construction).
+- Second follow-up ("still gaps"): the remaining air was RADIAL, not angular - the shortened
+  teeth interlaced only 1.24M deep, showing background through the mesh zone. Fixed two ways:
+  addendum/dedendum .62/.85M -> .80/1.0M (interlace 1.6M), and slot center distance tightened
+  .12M below pitch-sum (display densification; safe - root clearance is .20M and the near-vertical
+  flanks keep side clearance intact at exact phase).
+- Third follow-up (his zoom: "still gaps" - flank wedges): straight-flank trapezoids meshed WITH
+  clearance always show side wedges (only involutes contact along the line of action). Display
+  ruling: flipped the tolerance - tooth now a hair WIDER than the gap at every radius (base
+  1.40tw, tip .68tw vs pitch gap .96tw) and centers .26M under pitch-sum, so flanks visually
+  PRESS; the ~.04tw micro-overlap is hidden by draw order (satellites paint after the driver).
+  A display may do this; a transmission may not - noted in the code.
+- Zoom-verified: flanks touch at all three contacts, zero air, taper kept; acceptance green
+  (labels/hero/mobile/reduced-motion/no JS errors); gate 57 / 0 FAIL / 5 warns.
+
+**2026-09-01 (part 35 - foundry v3: the mesh-phase bug + the double gear; UNCOMMITTED):**
+- Aamir's circles caught a real MATHEMATICAL bug: satellites' teeth clashed tip-on-tip with the
+  driver. Root cause derived from the rolling constraint (N_d*th_d + N_c*th_c = const anchored at
+  tooth-center-along-alpha <=> gap-center-along-alpha+PI):
+     theta_c = -(N_d/N_c)*theta_d + (1 + N_d/N_c)*alpha + PI - PI/N_c
+  The code omitted the +PI. PI is a whole number of pitches ONLY for even tooth counts, so every
+  ODD gear ran half a tooth off - and all three slots are odd (13/11/15). Fixed in gear-foundry.
+  (The same formula in the deleted home gear-machine died with the home revert - nothing latent.)
+- **"Double gears" (his second screenshot):** the station always machined a 13-tooth blank while
+  slots hold 13/11/15 - during the settle window the carried 13T gear AND the placed slot gear
+  both rendered (ghost ring behind gocurl). Fix: each blank is cut WITH ITS DESTINATION'S tooth
+  count (CUT_TOTAL fixed at 2.9s so the derived clock's CYCLE stays constant; per-gap rate varies),
+  placement happens only in dwell, and the train skips drawing a slot while its gear is inbound.
+- Teeth broadened again per request: near-rectangular profile (tip .40tw/side, root .50tw/side) -
+  reads chunky while tooth+gap still split the pitch 50/50 at the pitch circle (broader than that
+  would jam by construction; tooth arc-length stays N-independent).
+- VERIFIED with a 2x zoom clip of the actual mesh contacts: all three odd satellites interleave
+  into driver gaps; one gear per slot; zero JS errors. Full acceptance green (labels clean, hero
+  100svh both desktops, 375 clean, reduced-motion settled+named). Gate 57 / 0 FAIL / 5 warns.
+
+**2026-09-01 (part 34 - foundry v2 per Aamir's review: colors, chunkier teeth, no jerk; UNCOMMITTED):**
+- Aamir on v1: "interesting concept, but I would like to see them in colors, also teeth does not
+  fit exactly, and they are a bit thinner. Remove jerkiness." Plus mid-turn: "different colors
+  gears for different projects." All four addressed:
+  1. **COLORS map** - each project owns one permanent identity color (signals spring-green,
+     gotime amber, vault-storage cornflower, UExL rose, Internet Object violet, gocurl apricot,
+     Indigo indigo); driver alone stays brand mint. Echoes the colorful home gears he loves.
+  2. **Teeth** - balanced profile: gap/tooth each half the pitch at the pitch circle (.54tw root
+     arcs, .34tw tips), addendum/dedendum deepened to .95/1.15M, .04tw visible backlash so meshes
+     read engaged-never-jammed. Tooth arc-length is N-independent so every pair fits.
+  3. **Jerkiness** - THREE sources removed: the station's per-pitch snap indexing (now continuous
+     easeIO through each pitch), the binary cutter drop (now a smooth sin engage 0..1 driving both
+     depth and glow), and the REAL state bug his screenshot exposed: cycleNo had two writers
+     (dwell-boundary increment + resync-from-t) and could double-bump inside the .02s window,
+     scrambling slots - seen live as a detached mislabeled gear. cycleNo is now pure
+     arithmetic: 2 + floor(t/CYCLE), one writer, frame-skip-proof.
+  4. Blank now eases in at cycle start (was popping); carry freeTheta continuous with the
+     station's final cut angle.
+- Acceptance re-run green: labels overlap nothing, hero 100svh both desktops, strip above fold,
+  375 clean, reduced-motion settled + named, zero JS errors. Gate 57 / 0 FAIL / 5 warns.
+
+**2026-09-01 (part 33 - THE GEAR FOUNDRY replaces the strata; UNCOMMITTED, AWAITING REVIEW):**
+- Aamir found the strata "a bit boring"; three concepts proposed, he picked THE GEAR FOUNDRY
+  (blueprint->machine and proof-loop PARKED). Strata fully retired (lib deleted, SCSS removed).
+- lib/gear-foundry/gear-foundry.js: a blank disc is MACHINED tooth by tooth (true to hobbing:
+  blank at tip radius, cutter removes the GAPS, each gap visibly deepens while the blank indexes
+  one pitch), carried along a guide to the running train, and meshed with EXACT phase blending
+  into theta_c = -(Nd/Nc)*theta_d + (1+Nd/Nc)*alpha + PI/Nc. The gear earns its real project name
+  at the mesh moment (signals, gotime, vault-storage, UExL, Internet Object, gocurl, Indigo,
+  cycling); the train keeps the last three, oldest fades out ("shipped"). Caption: "Others turn
+  gears. Here, you'd cut them." + "now cutting: <name>". ~5.7s cycle, loops forever.
+- House rules: R seam; words are HTML only (#gfLabels/#gfNow); sync first draw; IO-gated;
+  reduced-motion = settled fully-named train, no loop; DPR-aware; canvas.__gf debug seam kept
+  (read-only, used to verify state in headless review).
+- **Bugs found by instrumentation, not guessing** (the trace showed vault-storage placed at
+  fade 0.00): (1) SELF-EVICTION - the eviction victim was re-derived from slotGear[target] each
+  frame, so the newly placed gear became its own victim and was faded to zero; fixed with an
+  identity check (occ.proj !== proj). (2) STATION-SLOT0 COLLISION - the machining blank overlapped
+  the signals gear; station moved to (-26.5,-20), clearance VERIFIED numerically (16.0 > 15.9)
+  before writing. (3) Labels placed uniformly "above" landed on the driver's teeth (bottom slot)
+  and the caption; now per-slot angles (-150deg / -18deg / 178deg), pushed to r+4.6.
+- Acceptance: hero 100svh at 1440x900 + 1280x720 with strip above fold; 375 paints, no overflow;
+  labels overlap NOTHING (probed rects vs caption); reduced-motion shows UExL/gotime/vault-storage
+  named and meshed; zero JS errors across all runs. Gate 57 pages / 0 FAIL / 5 known warns.
+
+**2026-09-01 (part 32 - CAREERS improved: fixes + public-work rail + band hero; UNCOMMITTED, AWAITING REVIEW):**
+- Review findings fixed in site/careers/index.md:
+  1. Backwards sentence: "not resume-deep but practice-shallow" literally asked for shallow
+     engineers -> "deep in practice, not just on the resume".
+  2. **Juniors phrase REWORDED without a ruling** (flag for review): "We don't hire juniors to
+     learn on client work" was one word from the banned "No juniors learning on your project".
+     Now: "Client work is led by experienced engineers; we don't staff it with people learning on
+     your time." Aamir may veto back to the original - his call, recorded here either way.
+  3. Misrouted link: "about how we work" pointed at /about/ while /how-we-work/ exists ->
+     now links BOTH ("how we work" -> /how-we-work/, "who we are" -> /about/).
+- careers.html: no longer a page.html one-line shim. The empty right third now carries the
+  page's own argument - a sticky registry-driven rail ("Our public work - the door in") looping
+  foundry items tagged "Open source" (renders IO, signals, gotime, vault-storage, gocurl + a
+  GitHub link; UExL correctly EXCLUDED - "Public source | No licence" is not tagged Open source)
+  + a careers-mail card. Rail fits 720 (515px), static below 992.
+- Band hero added (his mid-turn instruction "improve hero sections like foundry, white papers"):
+  .careers-hero on .view-hero (100svh), identity band + mailto/GitHub actions (never a sales CTA
+  on a hiring page) + vh-strip "The door is open in three ways" (associate/contract | core team |
+  open source) - the aggregate the body's "How we engage" section then expands. Sizing is a
+  DELIBERATE small duplication of the fd-hero numbers, scoped .careers-hero - coupling to
+  .fd-hero would let a Foundry tweak silently reshape careers (the class-collision lesson).
+- **THE STRATA (his ask: canvas animation explaining the concept):** new lib/strata/strata.js in
+  the hero's right column - the page thesis drawn: the application layer alone first, then the
+  strata beneath REVEAL downward one by one (platforms/frameworks: Processious, Taj Mahal ->
+  libraries: signals, gotime, vault-storage, UExL -> standards & languages: Internet Object,
+  NITES, Indigo), a probe bores down and settles GLOWING on the bedrock; caption "Most careers
+  stay in the top layer. You'd work down here." Deeper = narrower + minter (a dig, not a list).
+  House rules kept: canvas draws geometry ONLY, every word is crisp HTML (#stLabels positioned by
+  the JS); R seam; synchronous first draw; IO-gated; reduced-motion renders the finished state.
+  Layer contents are REAL project names (single copy: the LAYERS table in strata.js).
+  Bug caught in review: the caption flowed to the STAGE TOP (canvas is absolute) - pinned
+  position:absolute top:100%.
+- **Aamir's dual-audience framing (mid-turn): the page must make job seekers think "good to work
+  with" and prospects think "they work with great talent".** The build serves both: seekers get
+  the strata ("you'd work down here") + the honest bar + three doors; prospects read the same
+  artifacts as a talent signal (a team whose hiring pitch is its public standards and libraries).
+  Recorded as the page's success criteria for future edits.
+- Verified: hero exactly 100svh at 1440x900/1280x720 (grows to 1088 at 375 - allowed, never
+  clips), strip above the fold on both desktop sizes, strata painted at all three viewports,
+  zero JS errors, no overflow-x. Gate 57 pages / 0 FAIL / 5 known warns.
+
+**2026-09-01 (part 31 - Touchpoint home card calibrated per ruling D; UNCOMMITTED):**
+- Home Touchpoint card rewritten: WAS "which ManiarTech built and then ran for years as a managed
+  offshore team - our founder as principal architect" (overattributed the 2012-2017 freelance
+  years to the entity). NOW: "Our founder joined its engineering in 2012; over six years the
+  engagement grew into ManiarTech serving as its offshore engineering partner - staying on
+  through the product's acquisition." Mirrors work/touchpoint/index.md, which was ALREADY
+  calibrated correctly and needed no change. All four LinkedIn discrepancies (A-D) now ruled and
+  closed; only site change required was this card.
+- Still parked: O'Reilly "Mapping Experiences" credential + idgen registry entry + Indigo
+  Playground screenshot + IO lineage enrichment ("ideation 2017; JS implementation since 2018") -
+  each an easy add awaiting his go.
+- **ABOUT UPDATE PLAN: DEFERRED IN FULL (Aamir, 2026-09-01: "just document as deferred").**
+  Everything is ready-to-build the moment he says go, no further discussion needed:
+  (1) Founder section gains the SIX fact-backed milestones, all years ruled: 1999 start (Nov-1998
+  rounding) | 2005-08 architect era (Countrywide, JPM FIX Analyzer, Oakton + declined Microsoft
+  offer) | 2009->2010 begins building ManiarTech, incorporated 2010 | 2011 modernization still in
+  daily use 15 yrs later | 2012->2018 Touchpoint arc into offshore partnership through the
+  acquisition (optional O'Reilly clause) | 2017->today standards era + Chemo in production.
+  (2) Photo slots into the same section when supplied (three-cell layout agreed) - build once.
+  (3) Team section gains the Chemo behavioural-evidence sentence ("sought us out and waited about
+  a year"), linked to the case. (4) Existing founder prose verified line-by-line against LinkedIn
+  - needs NO correction. Revisit: September 2026 with the milestones plan.
+
+**2026-09-01 (part 30 - LinkedIn profile read (his request); milestones now FACT-BASED; discrepancies for ruling):**
+- Read https://www.linkedin.com/in/aamironline/ + /details/experience/ via his logged-in Chrome
+  (his instruction "you may want to read from my linkedin profile"). Pronouns on profile: He/Him.
+  12,091 followers. Full dated career now on record:
+  Freelance Nov 1998-Apr 2000 | Aptech faculty 2000 | Cautel Web Solutions 2000-2004 | Patni
+  Jul 2004-Jan 2005 | Countrywide Jan 2005-Dec 2006 (Senior Analyst/Tech Architect) | JP Morgan
+  Dec 2006-Feb 2008 (FIX Analyzer: query script engine + compiler + editor; IOI module) | Oakton
+  Mar 2008-Mar 2009 (Tech Lead, Victoria State traffic-law system; TURNED DOWN A MICROSOFT OFFER
+  for it) | ManiarTech "Apr 2009 - Present" | UpWork freelance Apr 2012-Dec 2019 (Touchpoint
+  2012-2017 senior engineer; Smashbrand ~2013-15; DashWatch 2018-19).
+- **DISCREPANCIES NEEDING AAMIR'S RULING (site vs his LinkedIn):**
+  A. FOUNDING YEAR - RULED (Aamir, 2026-09-01): 2009 = "I started working towards this
+     company"; INCORPORATION 2010. So the site's "founded in 2010" is CORRECT and stays, the
+     LinkedIn Apr-2009 start is also true (work preceding incorporation). No site change. The
+     milestone entry, when built, can carry both honestly: "2009 - begins building what becomes
+     ManiarTech; incorporated 2010".
+  B. "since 1999" - RULED (Aamir, 2026-09-01): freelancing actually began Nov 1998, but he
+     deliberately says 1999 because November is effectively the end of the year. A conscious,
+     conservative rounding - exactly the calibration direction Rule #1 prefers. Site stays
+     "since 1999"; never "correct" it to 1998.
+  C. IO origin - RULED (Aamir, 2026-09-01): both true - IDEATION started 2017, JS
+     IMPLEMENTATION 2018. Site's "in development since 2018 (project README)" stays correct
+     (it describes the implementation). Optional enrichment available if ever wanted:
+     "ideation 2017; JS implementation since 2018".
+  D. TOUCHPOINT - RULED (Aamir, 2026-09-01): "freelance that converted into ManiarTech as
+     offshore development center, where I was the offshore dev lead". So the home card's
+     "ManiarTech built and then ran for years" overattributes the freelance years to the
+     entity; corrected copy applied (see part 31).
+- **NEW ASSETS found on LinkedIn, not yet on the site:**
+  1. O'Reilly'S "Mapping Experiences" (Kalbach) references Touchpoint - a real third-party
+     credential for the case study/About.
+  2. The 2011 modernization (600+ Access forms -> one workflow app) "still in daily use 15 years
+     later" - the tenure/behavioural-evidence fact the About alternative wanted.
+  3. **idgen** - public open-source Rust CLI (11 identifier formats incl. UUID/NanoID/ULID/
+     ObjectID + inspector), announced 2wk ago - NOT in the Foundry registry; candidate to add.
+  4. Indigo Playground exists (his post shows Indigo->Go side-by-side) - relevant to the blocked
+     "Indigo screenshot" item.
+- Milestone draft updated with real years (see conversation): 1998 start | 2005-08 US fintech/
+  architect era (Countrywide, JPM FIX Analyzer, Oakton + Microsoft-offer-declined) | 2009/2010?
+  founding | 2011 the modernization still running | 2012->2018 Touchpoint arc -> first offshore
+  partnership | 2017->today standards era (IO 1.0 public, playground live, Chemo in production).
+- Note (not our scope): his LinkedIn uses "experienced engineers only" - fine on his channel;
+  the phrase stays banned in SITE copy per the do-not-publish list.
+
 **2026-09-01 (part 29 - About improvements: decisions from Aamir; PENDING ITEMS created):**
 - **APPROVED, blocked on asset:** founder PHOTO on the About founder section - the single
   highest-value trust element for an offshore-gap company. Waiting on Aamir to supply the
@@ -1568,7 +1904,7 @@ The visual language that emerged over a long section-by-section iteration with A
 - **Canvas visuals: WebDoodling-ready.** All drawing goes through a small `R` renderer seam so it can port to WebDoodling (Aamir's own lib) later — the dogfooding story.
 
 ## Gotchas
-- **Taj Mahal:** list-page `content:` must be a bare collection name (`posts`, not `./posts/`) or the server panics; a `---` thematic break in a markdown *body* breaks frontmatter parsing (404); `module.yaml`/routing changes AND **new frontmatter keys** need a restart (+ `rm -rf .cache`) — body edits hot-reload, frontmatter does not; `rm -rf .cache` to clear a stuck cache.
+- **Taj Mahal:** list-page `content:` must be a bare collection name (`posts`, not `./posts/`) or the server panics; a `---` thematic break in a markdown *body* breaks frontmatter parsing (404); `module.yaml`/routing changes AND **new frontmatter keys** need a restart (+ `rm -rf .cache`) — body edits hot-reload, frontmatter does not; `rm -rf .cache` to clear a stuck cache. **Single newlines inside a markdown paragraph render as hard <br> breaks** - source-file text wrapping leaks into the page as mid-sentence line breaks (found on about/founder.md 2026-09-01; same family as the line-initial "- " list-marker bite). Keep each paragraph on ONE logical line in content files.
 - **Taj Mahal RESERVED frontmatter keys — `categories` (and `tags`).** They are coerced to `[]string`. A list of MAPS under such a key parses to an EMPTY slice, so the template loop renders nothing — silently, with no error in the log or the page. This had been eating the three service cards on the live `/services/` page. Name data lists something else (`serviceLines`, `studies`, `sections`).
 - **Grid + long code lines:** grid items default to `min-width:auto`, so a wide `<pre>` widens its track and pushes the whole page sideways on mobile. Put `min-width:0` on the grid item and let the `pre` keep its own `overflow-x`.
 - **Screenshots for visual review:** headless Chrome works and DOES capture canvas — `chrome --headless --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=W,H --screenshot=out.png URL`. Add `--force-prefers-reduced-motion` to capture a piece's RESTING frame (rAF does not finish inside the virtual-time budget). **Headless enforces a minimum window width**, so `--window-size=390` yields cropped desktop layout, not a mobile render — measure mobile in the browser pane (`resize_window` + a scrollWidth/offender probe) instead.

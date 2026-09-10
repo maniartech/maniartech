@@ -6,11 +6,13 @@ titleTag: "Careers at ManiarTech - for Senior Engineers"
 seoDescription: "A small, senior team building production systems, authored standards, open-source libraries and a language. Experienced engineers, come talk to us."
 ---
 
+## What you'd be joining
+
 ManiarTech is a small, senior team that builds the layers beneath software — production systems for clients, plus the standards we've authored, our libraries, and a programming language in development. If you're an experienced engineer who cares more about doing the work *right* than doing it fast, we should talk.
 
 ## Who we're looking for
 
-- **Experienced and current.** Senior engineers who are still hands-on with modern stacks — not résumé-deep but practice-shallow. We don't hire juniors to learn on client work.
+- **Experienced and current.** Senior engineers who are still hands-on with modern stacks — deep in practice, not just on the résumé. Client work is led by experienced engineers; we don't staff it with people learning on your time.
 - **Craftspeople.** People who care about correctness, clarity, and the parts most teams skip.
 - **Honest.** You'd rather tell a client the truth than win the argument.
 - **Deep over fast.** You're drawn to hard problems and willing to sit with them until they're right.
@@ -40,7 +42,7 @@ You'd work with a senior core led by **Aamir Maniar (Managing Director & Enginee
 
 **Our bar, so you know what to expect:** a real technical conversation, and a small paid trial on real work — because we hire on what you *do*, not what your CV says.
 
-We're not advertising a specific open role right now, but we're always glad to hear from engineers who'd fit. If that's you, say hello — tell us about yourself and the work you care about. It's also worth reading a little more [about how we work](/about/).
+We're not advertising a specific open role right now, but we're always glad to hear from engineers who'd fit. If that's you, say hello — tell us about yourself and the work you care about. It's also worth reading about [how we work](/how-we-work/) and [who we are](/about/).
 
 ## Think you'd fit?
 

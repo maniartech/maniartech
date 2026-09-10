@@ -1,1 +1,73 @@
-{% extends "page.html" %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<header class="main-header view-hero careers-hero">
+    <div class="container vh-stage">
+        <div class="cr-grid">
+            <div class="vh-say">
+                <span class="mt-eyebrow vh-eyebrow">Careers</span>
+                <h1 class="fw-bold vh-h1">{{ title }}</h1>
+                <p class="vh-dek">{{ description }}</p>
+                <div class="mt-actions">
+                    <a href="mailto:careers@maniartech.com" class="butn butn-md butn-rounded butn-bg main-colorbg"><span>Tell us about yourself</span></a>
+                    <a href="https://github.com/maniartech" target="_blank" rel="noopener" class="butn butn-md butn-rounded butn-bord text-light"><span>See our public work</span></a>
+                </div>
+            </div>
+
+            
+            <div class="gf-stage" aria-hidden="false">
+                <canvas id="gearFoundry" role="img" aria-label="A small gear foundry: a cutter machines teeth into a blank disc one by one, the finished gear is carried to a running gear train and meshed - each finished gear named for a real ManiarTech project such as signals, gotime or Internet Object"></canvas>
+                <div class="gf-labels" id="gfLabels"></div>
+                <p class="gf-cap">Others turn gears. <b>Here, you'd cut them.</b> <span class="gf-now">now cutting: <b id="gfNow">signals</b></span></p>
+            </div>
+        </div>
+
+        <div class="vh-strip cr-strip">
+            <p class="vh-kicker">The door is open in three ways</p>
+            <ul class="cr-doors">
+                <li><b>Associate / contract</b><span>experienced engineers we bring onto specific engagements</span></li>
+                <li><b>Core team</b><span>as we grow - deliberately, when the work justifies it</span></li>
+                <li><b>Open source</b><span>engage with our public work; we notice the people who get it</span></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section class="section-padding pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="article-body mt-prose">{{ content|safe }}</div>
+            </div>
+
+            <div class="col-lg-3 offset-lg-1 careers-rail">
+                <div class="aside-inner">
+                    <div class="aside-block">
+                        <p class="aside-kicker">Our public work &mdash; the door in</p>
+                        {% for g in site.context.foundry %}{% for it in g.items %}{% if "Open source" in it.tags %}
+                        <a class="am-link is-tight" href="{{ it.url }}">
+                            <b>{{ it.name }}</b><span>{{ it.short|default:it.status }}</span>
+                        </a>
+                        {% endif %}{% endfor %}{% endfor %}
+                        <a class="am-link is-tight" href="https://github.com/maniartech" target="_blank" rel="noopener">
+                            <b>github.com/maniartech</b><span>every public repo, open to read and run</span>
+                        </a>
+                    </div>
+
+                    <div class="aside-block sa-review">
+                        <p class="aside-kicker">Say hello</p>
+                        <p>An issue, a pull request, or a note about the work you care about: <a href="mailto:careers@maniartech.com" class="main-color">careers@maniartech.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% lib "gear-foundry/gear-foundry.js" %}
+{% endblock %}

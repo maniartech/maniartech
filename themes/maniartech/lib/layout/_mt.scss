@@ -959,6 +959,76 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .team-roster .tr-stat span { display: block; margin-top: 6px; color: rgba(255, 255, 255, .55); font-size: 12px; line-height: 1.4; }
 @media (max-width: 575px) { .team-roster .tr-stats { grid-template-columns: 1fr; gap: 12px; } }
 
+/* ---- Careers: full-height band hero -------------------------------------
+   Inherits .view-hero's min-height:100svh; sizing mirrors the Foundry compact
+   type (deliberate small duplication - coupling careers to .fd-hero would let
+   a Foundry tweak silently reshape this page; the class-collision lesson). */
+.careers-hero .vh-stage { padding-top: clamp(90px, 12.5vh, 150px); padding-bottom: clamp(22px, 3.4vh, 50px); gap: clamp(18px, 2.6vh, 40px); }
+.careers-hero .vh-h1 { font-size: clamp(30px, 4vw, 52px); max-width: 24ch; }
+.careers-hero .vh-dek { max-width: 62ch; font-size: clamp(15px, 1.35vw, 18px); margin-top: clamp(14px, 2vh, 26px); }
+.careers-hero .mt-actions { margin-top: clamp(18px, 2.6vh, 30px); }
+.cr-strip .vh-kicker { margin-bottom: clamp(12px, 1.8vh, 20px); }
+.cr-doors {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(16px, 2.4vw, 34px);
+  li { padding-left: clamp(14px, 1.8vw, 26px); border-left: 1px solid rgba(255, 255, 255, .1);
+       &:first-child { padding-left: 0; border-left: 0; } }
+  b { display: block; font-family: var(--mono); font-size: clamp(13px, 1.15vw, 16px);
+      font-weight: 500; color: rgba(255, 255, 255, .93); }
+  span { display: block; margin-top: 5px; font-size: 12.5px; line-height: 1.55; color: rgba(255, 255, 255, .55); }
+}
+@media (max-width: 767px) {
+  .cr-doors { grid-template-columns: 1fr; gap: 14px;
+    li { padding-left: 0; border-left: 0; border-top: 1px solid rgba(255, 255, 255, .08); padding-top: 12px;
+         &:first-child { border-top: 0; padding-top: 0; } } }
+}
+
+/* ---- Careers hero: the gear foundry --------------------------------------- */
+.cr-grid {
+  flex: 1 1 auto; min-height: 0;
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  align-items: center; column-gap: clamp(28px, 4vw, 60px);
+}
+.gf-stage {
+  position: relative; width: 100%;
+  height: clamp(250px, 42vh, 400px);
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+}
+.gf-labels { position: absolute; inset: 0; pointer-events: none; }
+.gf-label {
+  position: absolute; transform: translate(-50%, -50%); white-space: nowrap;   /* centered on its outward anchor */
+  font-family: var(--mono); font-size: clamp(10px, .95vw, 12.5px); letter-spacing: .08em;
+  color: rgba(255, 255, 255, .78);
+  background: rgba(20, 22, 21, .78); border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 30px; padding: 2px 9px;
+  transition: opacity .3s ease;
+}
+.gf-cap {
+  /* the canvas is absolute - pin the caption under the stage, not over it */
+  position: absolute; top: 100%; left: 0; right: 0;
+  margin: 12px 0 0; text-align: center;
+  font-size: 12.5px; color: rgba(255, 255, 255, .5);
+  b { color: rgba(255, 255, 255, .85); font-weight: 600; }
+  .gf-now { display: block; margin-top: 3px; font-family: var(--mono); font-size: 11px;
+            color: rgba(255, 255, 255, .45); transition: opacity .4s ease;
+            b { color: $main_color; font-weight: 500; } }
+}
+@media (max-width: 1199px) {
+  .cr-grid { grid-template-columns: 1fr; row-gap: 34px; }
+  .gf-stage { height: clamp(230px, 34vh, 330px); }
+}
+
+/* ---- Careers: the public-work rail --------------------------------------
+   Fills the generic editorial shell's empty right third with the page's own
+   argument (engage with our public work). Registry-driven; .aside-inner is
+   globally sticky. On <992 the prose stands alone and the rail follows it. */
+.careers-rail .aside-inner { position: sticky; top: 96px; }
+.careers-rail .aside-block + .aside-block { margin-top: 26px; }
+@media (max-width: 991px) {
+  .careers-rail { margin-top: 40px; }
+  .careers-rail .aside-inner { position: static; }
+}
+
 /* ---- About > What drives us: the verify-it-yourself terminal ---- */
 .term-proof { margin: 0; }
 .term-proof .term-win {

@@ -35,11 +35,11 @@
                 <li class="nav-item dropdown has-mega">
                     <a class="nav-link dropdown-toggle" href="/foundry/"><span class="rolling-text">Foundry</span></a>
                     <div class="dropdown-menu foundry-mega">
-                        {% comment %} The four columns loop the ONE Foundry registry in
+                        {# The four columns loop the ONE Foundry registry in
                         tajmahal.yaml (context.foundry). An item appears in a column when
                         its menuCol - or its group's menuKey - matches, and it carries a
                         `short` menu description. Statuses/badges come from the same rows
-                        the hub renders, so the menu can never disagree with the shelves. {% endcomment %}
+                        the hub renders, so the menu can never disagree with the shelves. #}
                         {% for col in site.context.foundryMenuCols %}
                         <div class="mega-col">
                             <h6>{{ col.title }}</h6>
@@ -69,7 +69,11 @@
         </div>
 
         <div class="topnav d-flex align-items-center">
-            <a href="/contact/" class="butn butn-sm butn-rounded main-colorbg d-none d-lg-inline-block">
+            {# The CTA lands on /estimate/ - the page where you actually
+               describe your system and a senior engineer replies. Routing it via
+               /contact/ (which then points at /estimate/) was ceremony
+               (Aamir, 2026-09-06). #}
+            <a href="/estimate/" class="butn butn-sm butn-rounded main-colorbg d-none d-lg-inline-block">
                 <span>Discuss a system</span>
             </a>
             <button class="menu-icon" type="button" aria-label="Open menu" aria-controls="mtHamenu" aria-expanded="false">
@@ -160,7 +164,7 @@
 
             <div class="col-lg-3">
                 <div class="cont-info">
-                    <a href="/contact/" class="butn butn-md butn-rounded butn-bg main-colorbg mb-40 item"><span>Discuss a system</span></a>
+                    <a href="/estimate/" class="butn butn-md butn-rounded butn-bg main-colorbg mb-40 item"><span>Discuss a system</span></a>
                     <div class="item mb-30">
                         <h6 class="sub-title opacity-6 mb-10">Get in touch</h6>
                         <p class="mb-5"><a href="mailto:contact@maniartech.com">contact@maniartech.com</a></p>
