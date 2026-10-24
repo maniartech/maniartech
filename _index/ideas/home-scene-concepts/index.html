@@ -1,0 +1,586 @@
+<title>ManiarTech Home Concepts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: one argument in four scenes - a documented system holds the load, not a person.
+   Dark ground and mint accent are ManiarTech's own brand; a single committed look, by choice. */
+:root {
+  --bg: #1a1a1a;
+  --panel: #202221;
+  --panel-2: #262928;
+  --line: rgba(255,255,255,.12);
+  --fg: #eef1ef;
+  --muted: rgba(255,255,255,.64);
+  --mint: #14cf93;
+  --mint-soft: rgba(20,207,147,.16);
+  --warn: #f0c987;
+  --bad: #f08a8a;
+  --display: "Outfit", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, "Liberation Mono", monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--display); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 80px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(30px, 5vw, 48px); font-weight: 600; letter-spacing: -.01em; }
+h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 600; }
+p { margin: 0; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--mint); }
+.lead { color: var(--muted); max-width: 62ch; font-size: 17px; }
+.intro { display: flex; flex-direction: column; gap: 14px; }
+.note { font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
+section { display: flex; flex-direction: column; gap: 18px; }
+.head { display: flex; flex-direction: column; gap: 8px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.cols { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+.cols > * { min-width: 0; }
+.stage { padding: clamp(10px, 2vw, 22px); }
+.side { padding: clamp(16px, 2.4vw, 28px); border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+.side h3 { font-size: 13px; font-family: var(--mono); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--mint); margin-bottom: 4px; }
+.side p { color: var(--fg); font-size: 16px; }
+.draft { font-family: var(--mono); font-size: 11px; color: var(--warn); border: 1px dashed rgba(240,201,135,.5); padding: 2px 8px; border-radius: 999px; align-self: flex-start; }
+.cap { padding: 12px clamp(14px, 2.4vw, 24px) 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14.5px; min-height: 56px; }
+.cap strong { color: var(--fg); font-weight: 500; }
+.ill { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px clamp(14px, 2.4vw, 24px); border-top: 1px solid var(--line); }
+.btn {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1; padding: 10px 14px; border-radius: 999px; cursor: pointer;
+  background: transparent; border: 1px solid rgba(255,255,255,.3); color: var(--fg); transition: border-color .2s, background .2s;
+}
+.btn:hover { border-color: var(--mint); }
+.btn:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+.btn[aria-pressed="true"], .btn.on { border-color: var(--mint); background: var(--mint-soft); }
+.btn.danger { border-color: rgba(240,138,138,.6); }
+.btn.danger:hover { border-color: var(--bad); }
+.sep { width: 1px; height: 22px; background: var(--line); margin: 0 4px; }
+svg { display: block; width: 100%; height: auto; }
+svg text { font-family: var(--display); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- 1. the arch ---------- */
+.stone { fill: #2c3230; stroke: var(--bg); stroke-width: 3; opacity: 0; transform: translate(var(--dx, 0), var(--dy, 0)); transition: opacity .55s ease, transform .6s cubic-bezier(.2,.8,.2,1), fill .3s; cursor: default; }
+.stone.in { opacity: 1; transform: none; }
+.stone:hover, .stone.hl { fill: #36403c; }
+.stone.key { fill: var(--mint); }
+.stone.key:hover, .stone.key.hl { fill: #35e0a9; }
+.scaf { transition: opacity .9s ease, transform 1s cubic-bezier(.4,0,.6,1); }
+.scaf.gone { opacity: 0; transform: translateY(26px); }
+.scaf path, .scaf line { stroke: rgba(255,255,255,.34); stroke-width: 2; stroke-dasharray: 5 6; fill: none; }
+.ground { stroke: rgba(255,255,255,.3); stroke-width: 2; }
+.arch-glow { fill: url(#archG); opacity: 0; transition: opacity .8s; }
+.arch-glow.on { opacity: 1; }
+
+/* ---------- 2. the quiet killers ---------- */
+.edge { stroke: rgba(255,255,255,.22); stroke-width: 1.6; fill: none; transition: stroke .3s, stroke-width .3s, opacity .3s; }
+.edge.fav { stroke: var(--mint); stroke-width: 4.2; }
+.edge.dim { opacity: .35; }
+.edge.cut { stroke: var(--bad); stroke-dasharray: 4 6; }
+.mesh { stroke: rgba(20,207,147,.35); stroke-width: 1.2; fill: none; }
+.node circle.body { fill: var(--panel-2); stroke: rgba(255,255,255,.4); stroke-width: 1.6; }
+.node .eye { fill: none; stroke: var(--warn); stroke-width: 1.6; stroke-dasharray: 3 4; opacity: 0; transition: opacity .3s; }
+.node.watched .eye { opacity: 1; animation: spin 6s linear infinite; transform-box: fill-box; transform-origin: center; }
+.node text { fill: var(--muted); font-size: 11px; text-anchor: middle; }
+.dot { fill: #fff; }
+.hub text { fill: var(--fg); font-size: 11px; text-anchor: middle; }
+.hub-person .body { fill: var(--mint-soft); stroke: var(--mint); stroke-width: 2; }
+.hub-person.gone .body { fill: none; stroke: var(--bad); stroke-dasharray: 5 5; }
+.hub-person.gone text, .hub-person.gone .glyph { opacity: .35; }
+.glyph { stroke: var(--fg); stroke-width: 2; fill: none; stroke-linecap: round; }
+.hub-sys rect { fill: var(--mint-soft); stroke: var(--mint); stroke-width: 2; }
+.hidden { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- 3. the five stages ---------- */
+.steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.stepbtn {
+  position: relative; text-align: left; background: transparent; border: 0; border-right: 1px solid var(--line); color: var(--muted);
+  font: inherit; padding: 14px 14px 16px; cursor: pointer; display: flex; flex-direction: column; gap: 2px;
+}
+.stepbtn:last-child { border-right: 0; }
+.stepbtn .n { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.55); }
+.stepbtn .t { font-size: 15px; font-weight: 500; line-height: 1.25; }
+.stepbtn:hover { color: var(--fg); }
+.stepbtn:focus-visible { outline: 2px solid var(--mint); outline-offset: -2px; }
+.stepbtn[aria-selected="true"] { color: var(--fg); background: rgba(255,255,255,.035); }
+.stepbtn[aria-selected="true"] .n { color: var(--mint); }
+.stepbtn .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; }
+.stepbtn .bar::after { content: ""; display: block; height: 100%; width: 0; background: var(--mint); }
+.stepbtn[aria-selected="true"] .bar::after { width: 100%; }
+.timed .stepbtn[aria-selected="true"] .bar::after { width: 0; animation: fill 6s linear forwards; }
+@keyframes fill { to { width: 100%; } }
+.sc { display: none; }
+.sc.on { display: block; }
+.s1 .tier { stroke: rgba(255,255,255,.22); stroke-width: 1.5; fill: none; }
+.s1 .p { fill: var(--panel-2); stroke: rgba(255,255,255,.4); stroke-width: 1.6; animation: lit 5s linear infinite; animation-delay: calc(var(--x) * 3.4s / 640); }
+@keyframes lit { 0% { fill: var(--panel-2); stroke: rgba(255,255,255,.4); } 5% { fill: var(--mint-soft); stroke: var(--mint); } 80% { fill: var(--mint-soft); stroke: var(--mint); } 100% { fill: var(--panel-2); stroke: rgba(255,255,255,.4); } }
+.s1 .scan { fill: var(--mint); opacity: .5; animation: scan 5s linear infinite; }
+@keyframes scan { 0% { transform: translateX(-10px); } 68% { transform: translateX(650px); } 100% { transform: translateX(650px); } }
+.s2 .note { fill: var(--panel-2); stroke: rgba(255,255,255,.4); stroke-width: 1.4; animation: fly 5s ease-in-out infinite; animation-delay: calc(var(--i) * .45s); }
+@keyframes fly { 0% { transform: translate(0, 0) rotate(var(--r)); opacity: 1; } 45% { transform: translate(var(--tx), var(--ty)) rotate(0); opacity: 1; } 55% { transform: translate(var(--tx), var(--ty)) scale(.9); opacity: 0; } 100% { transform: translate(0, 0) rotate(var(--r)); opacity: 0; } }
+.s2 .row { fill: var(--mint); opacity: 0; animation: row 5s ease-in-out infinite; animation-delay: calc(var(--i) * .45s + 1.1s); }
+@keyframes row { 0% { opacity: 0; } 10% { opacity: .9; } 85% { opacity: .9; } 100% { opacity: 0; } }
+.s2 .ledger { fill: none; stroke: var(--mint); stroke-width: 2; }
+.s3 .draw { fill: none; stroke: var(--mint); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: var(--l); stroke-dashoffset: var(--l); animation: draw 5s ease-in-out infinite; animation-delay: calc(var(--i) * .35s); }
+@keyframes draw { 0% { stroke-dashoffset: var(--l); } 40% { stroke-dashoffset: 0; } 88% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: var(--l); } }
+.s3 .grid path { stroke: rgba(255,255,255,.06); stroke-width: 1; }
+.s3 .lbl { fill: var(--muted); font-size: 12px; }
+.s4 .st.keyst { animation: drop 5s cubic-bezier(.3,.7,.2,1) infinite; fill: var(--mint); }
+@keyframes drop { 0% { transform: translateY(-80px); opacity: 0; } 12% { opacity: 1; } 40% { transform: translateY(0); } 90% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(0); opacity: 0; } }
+.s4 .scaf2 { animation: scafout 5s ease-in-out infinite; }
+@keyframes scafout { 0%, 45% { opacity: 1; transform: none; } 65%, 92% { opacity: 0; transform: translateY(20px); } 100% { opacity: 0; } }
+.s4 .st, .s5 .st { fill: #2c3230; stroke: var(--bg); stroke-width: 3; }
+.s5 .load { fill: none; stroke: var(--warn); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; animation: press 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+@keyframes press { 0%, 100% { transform: scaleY(.55); opacity: .55; } 50% { transform: scaleY(1); opacity: 1; } }
+.s5 .bar { fill: var(--mint); transform-box: fill-box; transform-origin: bottom; animation: grow 5s ease-in-out infinite; animation-delay: calc(var(--i) * .25s); }
+@keyframes grow { 0% { transform: scaleY(.25); } 55%, 90% { transform: scaleY(1); } 100% { transform: scaleY(.25); } }
+.s5 .barlbl { fill: var(--muted); font-size: 11px; text-anchor: middle; }
+.stagetext { padding: 14px clamp(14px, 2.4vw, 24px) 18px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+.stagetext h3 { font-size: 20px; font-weight: 600; }
+.stagetext p { color: var(--muted); max-width: 70ch; }
+
+/* ---------- 4. a change travels ---------- */
+.track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: relative; padding: 22px 0 8px; }
+.track::before { content: ""; position: absolute; left: 10%; right: 10%; top: 38px; height: 2px; background: var(--line); }
+.track .prog { position: absolute; left: 10%; top: 38px; height: 2px; background: var(--mint); width: 0; transition: width .6s ease; }
+.gate { background: transparent; border: 0; font: inherit; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 4px; position: relative; z-index: 1; }
+.gate i { width: 34px; height: 34px; border-radius: 50%; background: var(--panel); border: 2px solid rgba(255,255,255,.35); display: grid; place-items: center; font-style: normal; font-family: var(--mono); font-size: 12px; transition: border-color .3s, background .3s, color .3s; }
+.gate span { font-size: 13.5px; text-align: center; line-height: 1.25; }
+.gate:hover { color: var(--fg); }
+.gate:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; border-radius: 8px; }
+.gate.done i { border-color: var(--mint); background: var(--mint); color: #0e1512; }
+.gate.at i { border-color: var(--mint); background: var(--mint-soft); color: #fff; box-shadow: 0 0 0 5px rgba(20,207,147,.16); }
+.gate.at, .gate.done { color: var(--fg); }
+.doc { margin: 8px clamp(14px, 2.4vw, 24px) 20px; border: 1px solid var(--line); border-radius: 12px; background: #1d1f1e; overflow: hidden; }
+.doc-bar { display: flex; justify-content: space-between; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--fg); }
+.doc-bar span:last-child { color: var(--muted); }
+.doc-body { padding: 14px 16px 16px; font-family: var(--mono); font-size: 13px; line-height: 1.75; color: rgba(255,255,255,.86); min-height: 150px; animation: docin .35s ease both; }
+@keyframes docin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.doc-body .k { color: rgba(255,255,255,.55); display: inline-block; min-width: 86px; }
+.doc-body .add { color: var(--mint); }
+.doc-body .del { color: var(--bad); }
+.doc-body .ok { color: var(--mint); }
+
+@media (max-width: 860px) {
+  .cols { grid-template-columns: 1fr; }
+  .side { border-left: 0; border-top: 1px solid var(--line); }
+  .steps { display: flex; overflow-x: auto; }
+  .stepbtn { flex: 0 0 150px; }
+  .gate span { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stone, .scaf, .edge, .doc-body, .track .prog { transition: none; animation: none; }
+  .s1 .p, .s1 .scan, .s2 .note, .s2 .row, .s3 .draw, .s4 .st.keyst, .s4 .scaf2, .s5 .load, .s5 .bar, .node.watched .eye { animation: none; }
+  .s3 .draw { stroke-dashoffset: 0; }
+  .s2 .row { opacity: .9; }
+  .s2 .note { opacity: 0; }
+  .s1 .p { fill: var(--mint-soft); stroke: var(--mint); }
+  .s1 .scan { display: none; }
+  .s4 .scaf2 { opacity: 0; }
+}
+</style>
+
+<div class="wrap">
+
+  <div class="intro">
+    <span class="eyebrow">Concept prototype | not the site</span>
+    <h1>One idea, shown four ways</h1>
+    <p class="lead">A documented system holds the load, not a person. Each scene below shows that idea, or the proof behind it, as something you can press. The hero stays as it is.</p>
+    <p class="note">Everything here is an illustration and carries no invented numbers. Vision and mission lines are drafts for you to edit. The Foundry graph (what drives us) and the objectives need your input and are not shown.</p>
+  </div>
+
+  <!-- ===================== 1. VISION: the arch ===================== -->
+  <section aria-labelledby="t1">
+    <div class="head">
+      <span class="eyebrow">Concept 1 | Vision and mission</span>
+      <h2 id="t1">A system that stands on its own</h2>
+    </div>
+    <div class="card">
+      <div class="cols">
+        <div class="stage">
+          <svg id="arch" viewBox="0 0 640 310" role="img" aria-label="An arch of eight department stones is assembled, the keystone drops in last, and the scaffolding falls away; the arch stands alone."></svg>
+        </div>
+        <div class="side">
+          <span class="draft">Draft wording, for your edit</span>
+          <div><h3>Vision</h3><p>Systems that keep a business running without depending on any one person.</p></div>
+          <div><h3>Mission</h3><p>Engineer senior-first, document everything, and tell the truth about what will and will not work.</p></div>
+        </div>
+      </div>
+      <div class="cap" id="archCap"><strong>Stones are departments.</strong> The keystone is the documented system. Hover a stone.</div>
+      <div class="controls"><button class="btn" id="archReplay" type="button">Replay</button><span class="ill">illustration</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== 2. THE QUIET KILLERS ===================== -->
+  <section aria-labelledby="t2">
+    <div class="head">
+      <span class="eyebrow">Concept 2 | The problem</span>
+      <h2 id="t2">Three quiet killers of a growing business</h2>
+    </div>
+    <div class="card">
+      <div class="controls" role="group" aria-label="Choose a problem">
+        <button class="btn" type="button" data-mode="sup" aria-pressed="false">Supervision cost</button>
+        <button class="btn" type="button" data-mode="bias" aria-pressed="false">Human bias</button>
+        <button class="btn" type="button" data-mode="dep" aria-pressed="true">Single point of dependency</button>
+        <span class="sep" aria-hidden="true"></span>
+        <button class="btn" type="button" data-doc="0" aria-pressed="true">Knowledge in people</button>
+        <button class="btn" type="button" data-doc="1" aria-pressed="false">Knowledge in the system</button>
+      </div>
+      <div class="stage">
+        <svg id="net" viewBox="0 0 640 300" role="img" aria-label="Eight teams that route their work through one person, or through a documented system.">
+          <g id="edges"></g>
+          <g id="mesh"></g>
+          <g id="dots"></g>
+          <g id="nodes"></g>
+          <g class="hub hub-person" id="hubPerson">
+            <circle class="body" cx="320" cy="150" r="34"/>
+            <circle class="glyph" cx="320" cy="141" r="7"/><path class="glyph" d="M306 164 q14 -17 28 0"/>
+            <text x="320" y="203">One person</text>
+          </g>
+          <g class="hub hub-sys hidden" id="hubSys">
+            <rect x="286" y="116" width="68" height="68" rx="12"/>
+            <path class="glyph" d="M302 140 H338 M302 152 H338 M302 164 H326"/>
+            <text x="320" y="203">The documented system</text>
+          </g>
+        </svg>
+      </div>
+      <div class="controls"><button class="btn danger" type="button" id="removeBtn">Remove the person</button><button class="btn" type="button" id="returnBtn">Bring them back</button><span class="ill">illustration</span></div>
+      <div class="cap" id="netCap"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 3. THE PROCESS ===================== -->
+  <section aria-labelledby="t3">
+    <div class="head">
+      <span class="eyebrow">Concept 3 | The process</span>
+      <h2 id="t3">The ManiarTech Keystone Method, in five stages</h2>
+    </div>
+    <div class="card" id="proc">
+      <div class="steps" role="tablist" aria-label="Stages"></div>
+      <div class="stage">
+        <svg viewBox="0 0 640 230" role="img" aria-label="An animated scene for the selected stage.">
+          <!-- 1 Survey -->
+          <g class="sc s1 on" data-s="0">
+            <path class="tier" d="M320 52 V80 M180 80 H460 M180 80 V100 M320 80 V100 M460 80 V100 M100 134 H540 M100 134 V158 M210 134 V158 M320 134 V158 M430 134 V158 M540 134 V158 M180 128 V134 M320 128 V134 M460 128 V134"/>
+            <circle class="p" style="--x:320" cx="320" cy="36" r="16"/>
+            <circle class="p" style="--x:180" cx="180" cy="112" r="16"/><circle class="p" style="--x:320" cx="320" cy="112" r="16"/><circle class="p" style="--x:460" cx="460" cy="112" r="16"/>
+            <circle class="p" style="--x:100" cx="100" cy="176" r="16"/><circle class="p" style="--x:210" cx="210" cy="176" r="16"/><circle class="p" style="--x:320" cx="320" cy="176" r="16"/><circle class="p" style="--x:430" cx="430" cy="176" r="16"/><circle class="p" style="--x:540" cx="540" cy="176" r="16"/>
+            <rect class="scan" x="0" y="10" width="3" height="200" rx="1.5"/>
+          </g>
+          <!-- 2 Document -->
+          <g class="sc s2" data-s="1">
+            <rect class="note" style="--i:0;--tx:380px;--ty:70px;--r:-8deg" x="40"  y="30"  width="70" height="46" rx="5"/>
+            <rect class="note" style="--i:1;--tx:340px;--ty:50px;--r:6deg" x="120" y="110" width="70" height="46" rx="5"/>
+            <rect class="note" style="--i:2;--tx:330px;--ty:-10px;--r:-4deg" x="60"  y="160" width="70" height="46" rx="5"/>
+            <rect class="note" style="--i:3;--tx:260px;--ty:30px;--r:9deg" x="150" y="40"  width="70" height="46" rx="5"/>
+            <rect class="note" style="--i:4;--tx:240px;--ty:-30px;--r:-10deg" x="200" y="150" width="70" height="46" rx="5"/>
+            <rect class="ledger" x="410" y="30" width="190" height="170" rx="10"/>
+            <rect class="row" style="--i:0" x="428" y="48"  width="154" height="16" rx="3"/>
+            <rect class="row" style="--i:1" x="428" y="74"  width="154" height="16" rx="3"/>
+            <rect class="row" style="--i:2" x="428" y="100" width="154" height="16" rx="3"/>
+            <rect class="row" style="--i:3" x="428" y="126" width="154" height="16" rx="3"/>
+            <rect class="row" style="--i:4" x="428" y="152" width="154" height="16" rx="3"/>
+          </g>
+          <!-- 3 Design -->
+          <g class="sc s3" data-s="2">
+            <g class="grid"><path d="M0 46 H640 M0 92 H640 M0 138 H640 M0 184 H640 M80 0 V230 M160 0 V230 M240 0 V230 M320 0 V230 M400 0 V230 M480 0 V230 M560 0 V230"/></g>
+            <rect class="draw" style="--i:0;--l:320" x="60" y="40" width="110" height="52" rx="6"/>
+            <path class="draw" style="--i:1;--l:100" d="M170 66 H250"/>
+            <rect class="draw" style="--i:2;--l:320" x="250" y="40" width="110" height="52" rx="6"/>
+            <path class="draw" style="--i:3;--l:140" d="M360 66 H420 V120 H480"/>
+            <rect class="draw" style="--i:4;--l:320" x="480" y="94" width="110" height="52" rx="6"/>
+            <path class="draw" style="--i:5;--l:130" d="M305 92 V150 H250"/>
+            <rect class="draw" style="--i:6;--l:320" x="140" y="150" width="110" height="52" rx="6"/>
+            <text class="lbl" x="115" y="70" text-anchor="middle">input</text><text class="lbl" x="305" y="70" text-anchor="middle">rule</text><text class="lbl" x="535" y="124" text-anchor="middle">record</text><text class="lbl" x="195" y="180" text-anchor="middle">where it will not help</text>
+          </g>
+          <!-- 4 Set the keystone -->
+          <g class="sc s4" data-s="3"></g>
+          <!-- 5 Bear load -->
+          <g class="sc s5" data-s="4"></g>
+        </svg>
+      </div>
+      <div class="stagetext" aria-live="polite"><h3 id="stH"></h3><p id="stP"></p></div>
+    </div>
+  </section>
+
+  <!-- ===================== 4. HOW A CHANGE TRAVELS ===================== -->
+  <section aria-labelledby="t4">
+    <div class="head">
+      <span class="eyebrow">Concept 4 | The engineering</span>
+      <h2 id="t4">How a change travels</h2>
+    </div>
+    <div class="card" id="travel">
+      <div class="track" role="tablist" aria-label="Gates">
+        <div class="prog" id="prog"></div>
+      </div>
+      <div class="doc"><div class="doc-bar"><span id="docT"></span><span>illustrative artifact</span></div><div class="doc-body" id="docB"></div></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  /* ---------- shared: arch geometry ---------- */
+  function archPaths(cx, cy, ri, ro, n, keyExtra) {
+    var step = Math.PI / n, out = [];
+    function pt(r, a) { return (cx + r * Math.cos(a)).toFixed(1) + ' ' + (cy - r * Math.sin(a)).toFixed(1); }
+    for (var i = 0; i < n; i++) {
+      var a0 = Math.PI - i * step, a1 = Math.PI - (i + 1) * step;
+      var key = i === (n - 1) / 2, R = ro + (key ? keyExtra : 0);
+      out.push({
+        i: i, key: key, a: (a0 + a1) / 2,
+        d: 'M' + pt(R, a0) + ' A' + R + ' ' + R + ' 0 0 1 ' + pt(R, a1) + ' L' + pt(ri, a1) + ' A' + ri + ' ' + ri + ' 0 0 0 ' + pt(ri, a0) + ' Z'
+      });
+    }
+    return out;
+  }
+
+  /* ================= 1. the arch ================= */
+  (function () {
+    var svg = $('#arch'), cap = $('#archCap');
+    var base = '<strong>Stones are departments.</strong> The keystone is the documented system. Hover a stone.';
+    var names = ['Sales', 'Operations', 'Quality', 'Human resources', 'The documented system', 'Accounts', 'Marketing', 'Support', 'Procurement'];
+    var cx = 320, cy = 268;
+    var defs = el('defs', {}, svg), rg = el('radialGradient', { id: 'archG' }, defs);
+    el('stop', { offset: '0', 'stop-color': '#14cf93', 'stop-opacity': '.24' }, rg);
+    el('stop', { offset: '1', 'stop-color': '#14cf93', 'stop-opacity': '0' }, rg);
+    var glow = el('circle', { class: 'arch-glow', cx: cx, cy: cy - 70, r: 210 }, svg);
+    var scaf = el('g', { class: 'scaf' }, svg);
+    el('path', { d: 'M' + (cx - 98) + ' ' + cy + ' A98 98 0 0 1 ' + (cx + 98) + ' ' + cy }, scaf);
+    [-78, -42, 0, 42, 78].forEach(function (dx) { el('line', { x1: cx + dx, y1: cy, x2: cx + dx, y2: cy - Math.sqrt(98 * 98 - dx * dx) }, scaf); });
+    var stones = archPaths(cx, cy, 108, 168, 9, 14).map(function (s) {
+      var dx = Math.cos(s.a) * 46, dy = -Math.sin(s.a) * 46;
+      var p = el('path', { class: 'stone' + (s.key ? ' key' : ''), d: s.d, tabindex: '0', 'aria-label': names[s.i] }, svg);
+      p.style.setProperty('--dx', (s.key ? 0 : dx) + 'px'); p.style.setProperty('--dy', (s.key ? -90 : dy) + 'px');
+      function say() { cap.innerHTML = '<strong>' + names[s.i] + '.</strong> ' + (s.key ? 'Locks the arch. Once it is set the scaffolding is no longer needed.' : 'One department, held in place by the stones beside it.'); }
+      p.addEventListener('mouseenter', say); p.addEventListener('focus', say);
+      p.addEventListener('mouseleave', function () { cap.innerHTML = base; });
+      return p;
+    });
+    el('line', { class: 'ground', x1: cx - 190, y1: cy + 6, x2: cx + 190, y2: cy + 6 }, svg);
+    var timers = [];
+    function clear() { timers.forEach(clearTimeout); timers = []; }
+    function show() { stones.forEach(function (s) { s.classList.add('in'); }); scaf.classList.add('gone'); glow.classList.add('on'); }
+    function play() {
+      clear();
+      stones.forEach(function (s) { s.classList.remove('in'); });
+      scaf.classList.remove('gone'); glow.classList.remove('on');
+      if (reduce) { show(); return; }
+      var order = [[0, 8], [1, 7], [2, 6], [3, 5]];
+      order.forEach(function (pair, k) {
+        timers.push(setTimeout(function () { pair.forEach(function (i) { stones[i].classList.add('in'); }); }, 500 + k * 520));
+      });
+      timers.push(setTimeout(function () { stones[4].classList.add('in'); }, 500 + 4 * 520 + 350));
+      timers.push(setTimeout(function () { scaf.classList.add('gone'); glow.classList.add('on'); }, 500 + 4 * 520 + 1500));
+    }
+    $('#archReplay').addEventListener('click', play);
+    if ('IntersectionObserver' in window) {
+      var seen = false;
+      new IntersectionObserver(function (e) { if (e[0].isIntersecting && !seen) { seen = true; play(); } }, { threshold: 0.4 }).observe(svg);
+    } else { play(); }
+    show();   // a finished frame at rest; the observer replays it when it scrolls into view
+  })();
+
+  /* ================= 2. the quiet killers ================= */
+  (function () {
+    var edgesG = $('#edges'), meshG = $('#mesh'), dotsG = $('#dots'), nodesG = $('#nodes');
+    var hubP = $('#hubPerson'), hubS = $('#hubSys'), cap = $('#netCap');
+    var cx = 320, cy = 150, R = 118, N = 8, labels = ['Sales', 'Orders', 'Billing', 'Support', 'HR', 'Stock', 'Quality', 'Reports'];
+    var nodes = [];
+    for (var i = 0; i < N; i++) {
+      var a = -Math.PI / 2 + (i / N) * Math.PI * 2;
+      var nx = cx + Math.cos(a) * R * 1.55, ny = cy + Math.sin(a) * R;
+      var e = el('line', { class: 'edge', x1: nx, y1: ny, x2: cx, y2: cy }, edgesG);
+      var g = el('g', { class: 'node' }, nodesG);
+      el('circle', { class: 'eye', cx: nx, cy: ny, r: 24 }, g);
+      el('circle', { class: 'body', cx: nx, cy: ny, r: 17 }, g);
+      var t = el('text', { x: nx, y: ny + 33 }, g); t.textContent = labels[i];
+      var d = el('circle', { class: 'dot', r: 3.4, cx: nx, cy: ny }, dotsG);
+      nodes.push({ x: nx, y: ny, edge: e, g: g, dot: d, t: (i * 0.13) % 1 });
+    }
+    // lateral links that only exist once knowledge sits in the system
+    for (var j = 0; j < N; j++) {
+      var n1 = nodes[j], n2 = nodes[(j + 1) % N];
+      el('line', { class: 'mesh', x1: n1.x, y1: n1.y, x2: n2.x, y2: n2.y }, meshG);
+    }
+    var st = { mode: 'dep', doc: 0, removed: 0 };
+    var CAPS = {
+      '0-sup': '<strong>Supervision cost.</strong> When only a person knows how work is done, someone must watch every handoff.',
+      '0-bias': '<strong>Human bias.</strong> The teams closest to the one person get served first. The rest wait.',
+      '0-dep': '<strong>Single point of dependency.</strong> Everything routes through one person. Press Remove the person.',
+      '0-dep-gone': '<strong>The work stops.</strong> Nobody else knows how it runs. This is the bus factor.',
+      '1-sup': '<strong>No one needs to watch.</strong> The steps are written down and the system enforces them.',
+      '1-bias': '<strong>Every team is served the same way.</strong> The rule is in the system, not in a favour.',
+      '1-dep': '<strong>The knowledge lives in the system.</strong> Press Remove the person.',
+      '1-dep-gone': '<strong>The person left. The work did not stop.</strong> Every route still runs.'
+    };
+    function render() {
+      var doc = st.doc === 1, gone = st.removed === 1;
+      hubP.classList.toggle('hidden', doc); hubS.classList.toggle('hidden', !doc);
+      hubP.classList.toggle('gone', gone && !doc);
+      meshG.style.display = doc ? '' : 'none';
+      nodes.forEach(function (n, i) {
+        var cls = 'edge';
+        if (!doc && gone) cls += ' cut';
+        if (!doc && st.mode === 'bias') cls += (i === 0 || i === 1) ? ' fav' : ' dim';
+        n.edge.setAttribute('class', cls);
+        n.g.classList.toggle('watched', !doc && st.mode === 'sup');
+      });
+      var key = st.doc + '-' + st.mode + ((st.mode === 'dep' && gone) ? '-gone' : '');
+      cap.innerHTML = CAPS[key];
+      $$('[data-mode]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mode') === st.mode ? 'true' : 'false'); });
+      $$('[data-doc]').forEach(function (b) { b.setAttribute('aria-pressed', +b.getAttribute('data-doc') === st.doc ? 'true' : 'false'); });
+      $('#removeBtn').disabled = gone; $('#returnBtn').disabled = !gone;
+    }
+    $$('[data-mode]').forEach(function (b) { b.addEventListener('click', function () { st.mode = b.getAttribute('data-mode'); if (st.mode !== 'dep') st.removed = 0; render(); }); });
+    $$('[data-doc]').forEach(function (b) { b.addEventListener('click', function () { st.doc = +b.getAttribute('data-doc'); render(); }); });
+    $('#removeBtn').addEventListener('click', function () { st.mode = 'dep'; st.removed = 1; render(); });
+    $('#returnBtn').addEventListener('click', function () { st.removed = 0; render(); });
+
+    // flowing work: dots travel along the edges; they stall when the hub is gone
+    var last = 0;
+    function tick(ts) {
+      var dt = Math.min((ts - last) / 1000, 0.05); last = ts;
+      var doc = st.doc === 1, stalled = !doc && st.removed === 1;
+      nodes.forEach(function (n, i) {
+        var speed = (!doc && st.mode === 'bias') ? ((i === 0 || i === 1) ? 0.5 : 0.12) : 0.3;
+        if (!stalled && !reduce) n.t = (n.t + dt * speed) % 1;
+        var tt = stalled ? Math.min(n.t, 0.62) : n.t;
+        n.dot.setAttribute('cx', (n.x + (cx - n.x) * tt).toFixed(1));
+        n.dot.setAttribute('cy', (n.y + (cy - n.y) * tt).toFixed(1));
+        n.dot.style.fill = stalled ? 'var(--bad)' : '#fff';
+      });
+      requestAnimationFrame(tick);
+    }
+    render();
+    requestAnimationFrame(tick);
+  })();
+
+  /* ================= 3. the five stages ================= */
+  (function () {
+    var box = $('#proc'), tabs = $('.steps', box);
+    var S = [
+      ['Survey', 'Understand the department.', 'Start with the people and the handoffs: what each role is for, and where the work really goes. Nothing is designed yet.'],
+      ['Document', 'Capture how work is actually done.', 'Processes, formats, procedures and records are written down, so the knowledge lives in the system and not in one head.'],
+      ['Design', 'Recommend, and design the systems.', 'Including where a system will not help. The design says plainly what it can and cannot be expected to do.'],
+      ['Set the Keystone', 'Build and integrate until it stands.', 'The documented system is built and joined to the work, so the department is self-supporting without scaffolding or supervision.'],
+      ['Bear Load', 'Lift motivation and skill, measure, repeat.', 'People are kept motivated and skilled, the results are measured, and the same method moves on to the next department.']
+    ];
+    var btns = S.map(function (s, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'stepbtn'; b.setAttribute('role', 'tab');
+      b.innerHTML = '<span class="n">0' + (i + 1) + '</span><span class="t">' + s[0] + '</span><span class="bar" aria-hidden="true"></span>';
+      b.addEventListener('click', function () { manual = true; box.classList.remove('timed'); go(i); });
+      tabs.appendChild(b); return b;
+    });
+    // stage 4 and 5 share an arch
+    function buildArch(g, withKey, scaffold) {
+      var cx = 250, cy = 190, ps = archPaths(cx, cy, 70, 108, 9, 10);
+      if (scaffold) {
+        var sc = el('g', { class: 'scaf2' }, g);
+        el('path', { d: 'M' + (cx - 62) + ' ' + cy + ' A62 62 0 0 1 ' + (cx + 62) + ' ' + cy, fill: 'none', stroke: 'rgba(255,255,255,.34)', 'stroke-width': 2, 'stroke-dasharray': '5 6' }, sc);
+      }
+      ps.forEach(function (s) {
+        var p = el('path', { class: 'st' + (s.key ? ' keyst' : ''), d: s.d }, g);
+        if (s.key && !withKey) p.setAttribute('class', 'st');
+        if (s.key && withKey) p.setAttribute('class', 'st keyst');
+      });
+      el('line', { x1: cx - 130, y1: cy + 6, x2: cx + 130, y2: cy + 6, stroke: 'rgba(255,255,255,.3)', 'stroke-width': 2 }, g);
+    }
+    var g4 = $('.s4', box), g5 = $('.s5', box);
+    buildArch(g4, true, true);
+    var t4 = el('text', { x: 430, y: 110, fill: 'rgba(255,255,255,.7)', 'font-size': 14, 'text-anchor': 'middle' }, g4); t4.textContent = 'One stone locks the rest';
+    buildArch(g5, false, false);
+    $$('.st', g5).forEach(function (p, i) { if (i === 4) p.setAttribute('style', 'fill:#14cf93'); });
+    [190, 250, 310].forEach(function (x, i) {
+      el('path', { class: 'load', d: 'M' + x + ' 30 V70 M' + (x - 9) + ' 60 L' + x + ' 72 L' + (x + 9) + ' 60', style: 'animation-delay:' + (i * 0.25) + 's' }, g5);
+    });
+    ['motivation', 'skill', 'results'].forEach(function (name, i) {
+      var x = 430 + i * 62;
+      el('rect', { class: 'bar', style: '--i:' + i, x: x - 16, y: 70, width: 32, height: 110, rx: 4 }, g5);
+      var tx = el('text', { class: 'barlbl', x: x, y: 200 }, g5); tx.textContent = name;
+    });
+    var cur = 0, manual = false, timer = null;
+    function go(i) {
+      cur = i;
+      btns.forEach(function (b, k) { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+      $$('.sc', box).forEach(function (g) { g.classList.toggle('on', +g.getAttribute('data-s') === i); });
+      $('#stH').textContent = '0' + (i + 1) + '  ' + S[i][0] + ': ' + S[i][1];
+      $('#stP').textContent = S[i][2];
+      if (timer) clearTimeout(timer);
+      if (!manual && !reduce) {
+        box.classList.remove('timed'); void box.offsetWidth; box.classList.add('timed');
+        timer = setTimeout(function () { go((cur + 1) % S.length); }, 6000);
+      }
+    }
+    var started = false;
+    function begin() { if (!started) { started = true; go(0); } }
+    go(0);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        if (!e[0].isIntersecting) { if (timer) clearTimeout(timer); box.classList.remove('timed'); }
+        else if (!manual) { go(cur); }
+      }, { threshold: 0.3 }).observe(box);
+    }
+  })();
+
+  /* ================= 4. how a change travels ================= */
+  (function () {
+    var box = $('#travel'), track = $('.track', box), prog = $('#prog');
+    var G = [
+      { n: 'Decision written down', t: 'ADR | decision record', b: '<span class="k">Context</span>The ledger must never be half-written.<br><span class="k">Decision</span>Postgres, every change inside a transaction.<br><span class="k">Result</span>No reconciliation scripts later.' },
+      { n: 'Build', t: 'Change | one concern', b: '<span class="k">Branch</span>ledger/atomic-writes<br><span class="del">- save(entry)</span><br><span class="add">+ saveInTransaction(entry)</span><br><span class="k">Scope</span>one concern, small enough to review' },
+      { n: 'Senior review', t: 'Review note', b: '<span class="k">Reviewer</span>a senior engineer, not the author<br><span class="k">Comment</span>name the failure case in the test<br><span class="k">Status</span><span class="ok">resolved</span>' },
+      { n: 'Checks', t: 'Checks | before it moves', b: '<span class="k">Tests</span><span class="ok">pass</span><br><span class="k">Lint, types</span><span class="ok">pass</span><br><span class="k">Security</span><span class="ok">pass</span><br><span class="k">Docs updated</span><span class="ok">yes</span>' },
+      { n: 'Hand-off', t: 'Hand-off document', b: '<span class="k">How it runs</span>deploy, restart, recover<br><span class="k">How to change</span>where to start, what to keep<br><span class="k">Why</span>the decisions, in plain words<br><span class="k">Stack</span>mainstream, hireable' }
+    ];
+    var gates = G.map(function (g, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'gate'; b.setAttribute('role', 'tab');
+      b.innerHTML = '<i>' + (i + 1) + '</i><span>' + g.n + '</span>';
+      b.addEventListener('click', function () { manual = true; go(i); });
+      track.appendChild(b); return b;
+    });
+    var cur = 0, manual = false, timer = null, active = false;
+    function go(i) {
+      cur = i;
+      gates.forEach(function (b, k) {
+        b.classList.toggle('done', k < i); b.classList.toggle('at', k === i);
+        b.setAttribute('aria-selected', k === i ? 'true' : 'false');
+      });
+      prog.style.width = (i / (G.length - 1) * 80) + '%';
+      $('#docT').textContent = G[i].t;
+      var body = $('#docB'); body.innerHTML = G[i].b;
+      body.style.animation = 'none'; void body.offsetWidth; body.style.animation = '';
+      if (timer) clearTimeout(timer);
+      if (!manual && !reduce && active) timer = setTimeout(function () { go((cur + 1) % G.length); }, 3600);
+    }
+    go(0);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        active = e[0].isIntersecting;
+        if (active) go(cur); else if (timer) clearTimeout(timer);
+      }, { threshold: 0.35 }).observe(box);
+    }
+  })();
+})();
+</script>

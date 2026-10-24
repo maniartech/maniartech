@@ -1,0 +1,471 @@
+<title>Software Scenes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: three cinematic frames (2.39:1), one per direction, stacked so they can be compared.
+   Dark ground and mint accent are ManiarTech's brand; one committed look. */
+:root {
+  --bg: #0b0d0c; --panel: #121514; --line: rgba(255,255,255,.12);
+  --fg: #eef1ef; --muted: rgba(255,255,255,.64); --mint: #14cf93; --warn: #f0c987;
+  --display: "Outfit", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--display); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 32px 72px; }
+.wrap { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1 { margin: 0; font-size: clamp(26px, 4vw, 40px); font-weight: 600; line-height: 1.15; text-wrap: balance; }
+h2 { margin: 0; font-size: clamp(20px, 2.6vw, 28px); font-weight: 600; line-height: 1.2; }
+p { margin: 0; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--mint); }
+.lead { color: var(--muted); max-width: 70ch; }
+.intro, .scene { display: flex; flex-direction: column; gap: 14px; }
+.stage { position: relative; aspect-ratio: 2.39 / 1; width: 100%; background: #000; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+@media (max-width: 700px) { .stage { aspect-ratio: 4 / 3; } }
+canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cap { position: absolute; left: clamp(14px, 3vw, 40px); bottom: clamp(12px, 3.4vw, 36px); max-width: 60%; font-size: clamp(13px, 1.5vw, 20px); font-weight: 300; color: rgba(255,255,255,.9); opacity: 0; transform: translateY(8px); transition: opacity .6s ease, transform .6s ease; text-shadow: 0 2px 14px rgba(0,0,0,.85); z-index: 5; }
+.cap.on { opacity: 1; transform: none; }
+.tag { position: absolute; right: clamp(12px, 2vw, 24px); top: clamp(10px, 1.6vw, 18px); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: rgba(255,255,255,.55); z-index: 5; }
+.meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; color: var(--muted); font-size: 14.5px; }
+.meta b { display: block; font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--mint); font-weight: 500; margin-bottom: 4px; }
+.nogl { display: none; position: absolute; inset: 0; place-items: center; text-align: center; padding: 24px; color: var(--muted); }
+.stage.fail .nogl { display: grid; }
+@media (max-width: 760px) { .meta { grid-template-columns: 1fr; } .cap { max-width: 85%; } }
+
+/* ---- Scene B: code flythrough in CSS 3D ---- */
+.b-stage { perspective: 1100px; perspective-origin: 50% 46%; position: absolute; inset: 0; overflow: hidden; background: radial-gradient(120% 90% at 50% 40%, #0f1613, #060807 70%); }
+.b-grid { position: absolute; left: -50%; right: -50%; bottom: -30%; height: 90%; transform: rotateX(72deg); transform-origin: 50% 0; background-image: linear-gradient(rgba(20,207,147,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(20,207,147,.22) 1px, transparent 1px); background-size: 70px 70px; mask-image: linear-gradient(to bottom, transparent, #000 40%, transparent); }
+.b-world { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.pane { position: absolute; width: 640px; background: rgba(15,19,17,.92); border: 1px solid rgba(20,207,147,.35); border-radius: 12px; box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(20,207,147,.07); font-family: var(--mono); font-size: 14px; color: rgba(255,255,255,.88); overflow: hidden; left: 0; top: 0; }
+.pane header { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.pane header i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.2); }
+.pane header span { margin-left: 8px; }
+.pane .body { padding: 16px 18px 18px; line-height: 1.75; white-space: pre; }
+.k { color: #14cf93; } .s { color: #f0c987; } .c { color: rgba(255,255,255,.45); } .f { color: #8fd3ff; } .m { color: rgba(255,255,255,.5); }
+.pass { color: #14cf93; } .run { color: rgba(255,255,255,.4); }
+.step { display: grid; grid-template-columns: 90px 1fr 34px; gap: 12px; align-items: center; margin: 9px 0; }
+.step .bar { height: 8px; border-radius: 4px; background: rgba(255,255,255,.1); overflow: hidden; }
+.step .bar b { display: block; height: 100%; width: 0; background: #14cf93; }
+.step em { font-style: normal; color: #14cf93; opacity: 0; }
+.ui { font-family: var(--display); white-space: normal; }
+.ui .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.ui .top b { font-size: 18px; font-weight: 600; }
+.ui .btn { background: #14cf93; color: #0e1512; border-radius: 6px; padding: 6px 12px; font-size: 13px; font-weight: 600; }
+.ui .row { display: grid; grid-template-columns: 70px 1fr 100px 70px; gap: 10px; padding: 10px 0; border-top: 1px solid rgba(255,255,255,.1); font-size: 14px; align-items: center; }
+.ui .chip { font-size: 12px; padding: 2px 10px; border-radius: 999px; text-align: center; }
+.ui .ok { background: rgba(20,207,147,.18); color: #14cf93; } .ui .wait { background: rgba(240,201,135,.16); color: #f0c987; }
+.toast { position: absolute; right: 18px; bottom: 16px; background: #14cf93; color: #0e1512; font-family: var(--display); font-weight: 600; padding: 8px 14px; border-radius: 8px; font-size: 14px; opacity: 0; transform: translateY(10px); }
+.fade { position: absolute; inset: 0; background: #060807; opacity: 0; pointer-events: none; z-index: 4; }
+@media (prefers-reduced-motion: reduce) { .cap { transition: none; } }
+</style>
+
+<div class="wrap">
+  <div class="intro">
+    <span class="eyebrow">Three directions | real-time</span>
+    <h1>Software Scenes</h1>
+    <p class="lead">The stone arch looked like a builder. These three look like software. Each runs live and loops, so you can judge the look, the motion and the story. Scroll down; each scene plays while it is on screen.</p>
+  </div>
+
+  <section class="scene">
+    <span class="eyebrow">A | The system, alive</span>
+    <h2>Traffic that never needed one person</h2>
+    <div class="stage" id="stageA"><canvas id="glA"></canvas><div class="cap" id="capA"></div><div class="tag">ILLUSTRATION</div><div class="nogl">This scene needs WebGL.</div></div>
+    <div class="meta"><div><b>Story</b>Work flows through layers of services. One part fails. The system routes around it.</div><div><b>Look</b>Glass modules on a dark grid, cables of light, packets in motion, a camera on a slow dolly.</div><div><b>Best for</b>The quiet continuous background of sections, and the "we build reliable systems" claim.</div></div>
+  </section>
+
+  <section class="scene">
+    <span class="eyebrow">B | Code to production</span>
+    <h2>A decision becomes a running product</h2>
+    <div class="stage" id="stageB">
+      <div class="b-stage"><div class="b-grid"></div><div class="b-world" id="bWorld"></div></div>
+      <div class="fade" id="fadeB"></div><div class="cap" id="capB"></div><div class="tag">ILLUSTRATION</div>
+    </div>
+    <div class="meta"><div><b>Story</b>Write the decision, write the code, prove it, ship it, see it run.</div><div><b>Look</b>Real code and tests in floating panes that the camera flies through. Sharp text, not a picture of text.</div><div><b>Best for</b>"How we engineer", and the hand-off between design and delivery.</div></div>
+  </section>
+
+  <section class="scene">
+    <span class="eyebrow">C | Tangle to order</span>
+    <h2>Everything depended on one person. Now it does not.</h2>
+    <div class="stage" id="stageC"><canvas id="glC"></canvas><div class="cap" id="capC"></div><div class="tag">ILLUSTRATION</div><div class="nogl">This scene needs WebGL.</div></div>
+    <div class="meta"><div><b>Story</b>A tangle of dependencies around one person is surveyed, documented and given layers. One contract locks in. It runs without them.</div><div><b>Look</b>A living graph that rearranges itself, with data flowing once it is ordered.</div><div><b>Best for</b>The Keystone Method centrepiece and the "quiet killers" problem statement.</div></div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script>
+(function () {
+  'use strict';
+  var PI = Math.PI, sin = Math.sin, cos = Math.cos;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+  function smooth(x) { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function seeded(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+
+  /* ---------- shared: renderer, post, shaders ---------- */
+  var FINAL = function () {
+    return {
+      uniforms: { tDiffuse: { value: null }, time: { value: 0 }, aberr: { value: 0.0005 }, exposure: { value: 1.0 } },
+      vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
+      fragmentShader: [
+        'uniform sampler2D tDiffuse; uniform float time; uniform float aberr; uniform float exposure; varying vec2 vUv;',
+        'vec3 aces(vec3 x){ float a=2.51,b=0.03,c=2.43,d=0.59,e=0.14; return clamp((x*(a*x+b))/(x*(c*x+d)+e),0.0,1.0); }',
+        'void main(){ vec2 d=vUv-0.5; float r=dot(d,d); vec2 off=d*aberr*(0.4+r*3.0);',
+        ' vec3 col; col.r=texture2D(tDiffuse,vUv+off).r; col.g=texture2D(tDiffuse,vUv).g; col.b=texture2D(tDiffuse,vUv-off).b;',
+        ' col*=exposure; col=aces(col); col=pow(col,vec3(1.0/2.2));',
+        ' float vig=smoothstep(0.95,0.28,length(d)*1.18); col*=mix(0.5,1.0,vig);',
+        ' float n=fract(sin(dot(vUv*vec2(1920.0,800.0)+time,vec2(12.9898,78.233)))*43758.5453); col+=(n-0.5)*0.028;',
+        ' gl_FragColor=vec4(col,1.0); }'
+      ].join('\n')
+    };
+  };
+  var PV = 'attribute float aSize; attribute vec3 aColor; attribute float aAlpha; varying vec3 vC; varying float vA; uniform float uScale; void main(){ vC=aColor; vA=aAlpha; vec4 mv=modelViewMatrix*vec4(position,1.0); gl_PointSize=aSize*uScale/(-mv.z); gl_Position=projectionMatrix*mv; }';
+  var PF = 'varying vec3 vC; varying float vA; void main(){ float d=length(gl_PointCoord-0.5); float glow=smoothstep(0.5,0.0,d); float core=smoothstep(0.2,0.0,d); vec3 col=vC*(0.55+1.4*core); float a=glow*glow*vA; if(a<0.004) discard; gl_FragColor=vec4(col,a); }';
+  function pointCloud(n) {
+    var geo = new THREE.BufferGeometry();
+    var pos = new Float32Array(n * 3), size = new Float32Array(n), col = new Float32Array(n * 3), alpha = new Float32Array(n);
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('aSize', new THREE.BufferAttribute(size, 1));
+    geo.setAttribute('aColor', new THREE.BufferAttribute(col, 3));
+    geo.setAttribute('aAlpha', new THREE.BufferAttribute(alpha, 1));
+    var mat = new THREE.ShaderMaterial({ vertexShader: PV, fragmentShader: PF, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { uScale: { value: 600 } } });
+    var pts = new THREE.Points(geo, mat); pts.frustumCulled = false;
+    return { pts: pts, geo: geo, pos: pos, size: size, col: col, alpha: alpha, mat: mat, flush: function () { geo.attributes.position.needsUpdate = true; geo.attributes.aSize.needsUpdate = true; geo.attributes.aColor.needsUpdate = true; geo.attributes.aAlpha.needsUpdate = true; } };
+  }
+  function createGL(stageId, canvasId, bgHex, bloom) {
+    var stage = document.getElementById(stageId), canvas = document.getElementById(canvasId), g = { stage: stage, ok: true };
+    try { g.renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' }); }
+    catch (e) { stage.classList.add('fail'); g.ok = false; return g; }
+    g.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+    g.scene = new THREE.Scene(); g.scene.background = new THREE.Color(bgHex); g.scene.fog = new THREE.FogExp2(bgHex, 0.022);
+    g.camera = new THREE.PerspectiveCamera(32, 2.39, 0.1, 220);
+    g.composer = new THREE.EffectComposer(g.renderer);
+    g.composer.addPass(new THREE.RenderPass(g.scene, g.camera));
+    g.bloom = new THREE.UnrealBloomPass(new THREE.Vector2(512, 256), bloom[0], bloom[1], bloom[2]); g.composer.addPass(g.bloom);
+    g.fin = new THREE.ShaderPass(FINAL()); g.composer.addPass(g.fin);
+    g.clouds = [];
+    g.size = function () {
+      var w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
+      g.renderer.setSize(w, h, false); g.camera.aspect = w / h; g.camera.updateProjectionMatrix();
+      g.composer.setSize(w, h); g.bloom.resolution.set(w / 2, h / 2);
+      var s = g.renderer.domElement.height / (2 * Math.tan(THREE.MathUtils.degToRad(g.camera.fov) / 2));
+      g.clouds.forEach(function (c) { c.mat.uniforms.uScale.value = s; });
+    };
+    if ('ResizeObserver' in window) new ResizeObserver(g.size).observe(stage); else window.addEventListener('resize', g.size);
+    g.size();
+    g.visible = true;
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { g.visible = e[0].isIntersecting; }, { threshold: 0.1 }).observe(stage);
+    return g;
+  }
+  function caption(el, text) { if (text) { if (el.textContent !== text) el.textContent = text; el.classList.add('on'); } else el.classList.remove('on'); }
+
+  /* =====================================================================
+     A | the system, alive
+     ===================================================================== */
+  (function () {
+    var G = createGL('stageA', 'glA', 0x050706, [0.85, 0.7, 0.18]);
+    if (!G.ok) return;
+    var scene = G.scene, camera = G.camera, capEl = document.getElementById('capA');
+    camera.fov = 34; camera.updateProjectionMatrix(); G.size();
+    var rand = seeded(7);
+
+    var tiers = [[-9, 2], [-4.5, 3], [0, 4], [4.5, 3], [9, 2]], mods = [], tierNodes = [];
+    var bodyMat = new THREE.MeshStandardMaterial({ color: 0x0c1110, roughness: 0.28, metalness: 0.7 });
+    scene.add(new THREE.HemisphereLight(0x58786d, 0x040605, 0.55));
+    var key = new THREE.DirectionalLight(0xcfe9df, 0.9); key.position.set(6, 12, 8); scene.add(key);
+    var grid = new THREE.GridHelper(80, 80, 0x14cf93, 0x0c3a2d); grid.material.transparent = true; grid.material.opacity = 0.35; scene.add(grid);
+
+    tiers.forEach(function (t, ti) {
+      var list = [];
+      for (var k = 0; k < t[1]; k++) {
+        var h = 0.7 + rand() * 1.1, z = (k - (t[1] - 1) / 2) * 4.4, body = new THREE.Mesh(new THREE.BoxGeometry(1.9, h, 1.9), bodyMat.clone());
+        body.position.set(t[0], h / 2, z); scene.add(body);
+        var edges = new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry), new THREE.LineBasicMaterial({ color: 0x14cf93, transparent: true, opacity: 0.95 }));
+        body.add(edges);
+        var top = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), new THREE.MeshBasicMaterial({ color: 0x14cf93, transparent: true, opacity: 0.28 }));
+        top.rotation.x = -PI / 2; top.position.y = h / 2 + 0.012; body.add(top);
+        var m = { tier: ti, body: body, edges: edges, top: top, h: h, alive: true, p: new THREE.Vector3(t[0], h + 0.15, z) };
+        list.push(m); mods.push(m);
+      }
+      tierNodes.push(list);
+    });
+    // cables: each module to its two nearest in the next tier
+    var curves = {}, cableMat = new THREE.MeshBasicMaterial({ color: 0x14cf93, transparent: true, opacity: 0.55 });
+    function curveBetween(a, b) {
+      var id = mods.indexOf(a) + '-' + mods.indexOf(b);
+      if (!curves[id]) {
+        var p0 = a.p.clone(), p3 = b.p.clone(), mid = p0.clone().lerp(p3, 0.5); mid.y += 1.5 + Math.abs(p0.z - p3.z) * 0.12;
+        curves[id] = new THREE.CatmullRomCurve3([p0, p0.clone().lerp(mid, 0.5).setY(p0.y + 0.7), mid, mid.clone().lerp(p3, 0.5).setY(p3.y + 0.7), p3]);
+      }
+      return curves[id];
+    }
+    var links = [];
+    for (var ti = 0; ti < tiers.length - 1; ti++) {
+      tierNodes[ti].forEach(function (a) {
+        var near = tierNodes[ti + 1].slice().sort(function (x, y) { return Math.abs(x.p.z - a.p.z) - Math.abs(y.p.z - a.p.z); }).slice(0, 2);
+        near.forEach(function (b) {
+          links.push([a, b]);
+          scene.add(new THREE.Mesh(new THREE.TubeGeometry(curveBetween(a, b), 40, 0.028, 6, false), cableMat));
+        });
+      });
+    }
+    function neighbours(a) { return links.filter(function (l) { return l[0] === a; }).map(function (l) { return l[1]; }); }
+
+    // packets
+    var NP = 90, P = pointCloud(NP), packets = [];
+    scene.add(P.pts); G.clouds.push(P);
+    function startPacket(p) {
+      p.a = tierNodes[0][(rand() * tierNodes[0].length) | 0]; p.b = null; p.t = rand() * 0.5; p.speed = 0.18 + rand() * 0.2; p.tint = rand() < 0.2 ? 1 : 0; pickNext(p);
+    }
+    function pickNext(p) {
+      var nb = neighbours(p.a).filter(function (m) { return m.alive; });
+      if (!nb.length) { nb = tierNodes[p.a.tier + 1] ? tierNodes[p.a.tier + 1].filter(function (m) { return m.alive; }) : []; }
+      p.b = nb.length ? nb[(rand() * nb.length) | 0] : null;
+    }
+    for (var i = 0; i < NP; i++) { var p = {}; startPacket(p); p.t = rand(); packets.push(p); }
+
+    var failure = null, T = 0;
+    var CAP = [[1.0, 'Work flows through layers of services.'], [7.0, null]];
+    function frame(dt) {
+      T += dt;
+      var cyc = T % 10, phase = cyc > 2.5 && cyc < 7.5;
+      if (phase && !failure) { var mids = mods.filter(function (m) { return m.tier > 0 && m.tier < 4; }); failure = mids[(rand() * mids.length) | 0]; failure.alive = false; }
+      if (!phase && failure) { failure.alive = true; failure = null; }
+      mods.forEach(function (m) {
+        var ok = m.alive, c = ok ? 0x14cf93 : 0xf0c987;
+        m.edges.material.color.setHex(c); m.top.material.color.setHex(c);
+        m.top.material.opacity = ok ? 0.22 + 0.12 * sin(T * 2 + m.h * 7) : 0.5 + 0.3 * sin(T * 9);
+      });
+      for (var i = 0; i < NP; i++) {
+        var p = packets[i];
+        if (!p.b) { startPacket(p); }
+        if (!p.a.alive) { pickNext(p); }
+        p.t += dt * p.speed;
+        if (p.t >= 1) {
+          p.a = p.b; p.t = 0;
+          if (!tierNodes[p.a.tier + 1]) startPacket(p); else { p.b = null; pickNext(p); }
+          if (!p.b) startPacket(p);
+        }
+        var pt = curveBetween(p.a, p.b).getPoint(smooth(p.t) * 0.0 + p.t);
+        P.pos[i * 3] = pt.x; P.pos[i * 3 + 1] = pt.y; P.pos[i * 3 + 2] = pt.z;
+        P.size[i] = 0.2 + 0.08 * p.tint; P.alpha[i] = 0.95;
+        if (p.tint) { P.col[i * 3] = 1.0; P.col[i * 3 + 1] = 0.85; P.col[i * 3 + 2] = 0.5; } else { P.col[i * 3] = 0.2; P.col[i * 3 + 1] = 1.0; P.col[i * 3 + 2] = 0.72; }
+      }
+      P.flush();
+      // camera: a slow dolly and sway
+      var u = T * 0.06;
+      camera.position.set(sin(u) * 6 - 2, 6.2 + sin(u * 1.3) * 0.8, 20 + cos(u * 0.8) * 2.5);
+      camera.lookAt(sin(u) * 2, 1.2, 0);
+      caption(capEl, failure ? 'One part fails. The system routes around it.' : (T > 1 ? 'Work flows through layers of services.' : ''));
+      G.fin.uniforms.time.value = T % 100;
+    }
+    var last = performance.now();
+    function loop(now) {
+      requestAnimationFrame(loop);
+      var dt = clamp((now - last) / 1000, 0, 0.05); last = now;
+      if (!G.visible) return;
+      frame(dt); G.composer.render();
+    }
+    frame(0); G.composer.render();
+    requestAnimationFrame(loop);
+  })();
+
+  /* =====================================================================
+     C | tangle to order
+     ===================================================================== */
+  (function () {
+    var G = createGL('stageC', 'glC', 0x050706, [1.05, 0.75, 0.12]);
+    if (!G.ok) return;
+    var scene = G.scene, camera = G.camera, capEl = document.getElementById('capC');
+    var rand = seeded(11);
+    var layers = [10, 18, 22, 18, 12], nodes = [], i, k;
+    var ringR = [2.6, 3.4, 3.8, 3.4, 2.6];
+    layers.forEach(function (n, li) {
+      for (k = 0; k < n; k++) {
+        var a = (k / n) * PI * 2 + li * 0.2, y = (2 - li) * 2.5;
+        var tp = new THREE.Vector3(rnd(-1, 1), rnd(-1, 1), rnd(-1, 1)).normalize().multiplyScalar(2.2 + Math.pow(rand(), 0.6) * 5.5);
+        nodes.push({ layer: li, k: k, order: new THREE.Vector3(cos(a) * ringR[li], y, sin(a) * ringR[li]), tangle: tp, ph: rand() * 6.28, sp: 0.2 + rand() * 0.4, s: li / 4 * 0.7 + rand() * 0.3, pos: new THREE.Vector3(), type: 0 });
+      }
+    });
+    var hub = { type: 1, order: new THREE.Vector3(9.5, 4.5, -5), tangle: new THREE.Vector3(0, 0, 0), ph: 0, sp: 0.3, s: 0, pos: new THREE.Vector3() };
+    var contract = { type: 2, order: new THREE.Vector3(0, 0, 0), tangle: new THREE.Vector3(2.5, -1.5, 1.5), ph: 1, sp: 0.2, s: 0.95, pos: new THREE.Vector3() };
+    nodes.push(hub); nodes.push(contract);
+    var layerStart = [0], acc = 0; layers.forEach(function (n) { acc += n; layerStart.push(acc); });
+    var edges = [];
+    for (var li = 0; li < 4; li++) {
+      for (k = 0; k < layers[li]; k++) {
+        var a = layerStart[li] + k, j = Math.round(k * layers[li + 1] / layers[li]);
+        edges.push({ a: a, b: layerStart[li + 1] + (j % layers[li + 1]), t: 0 });
+        edges.push({ a: a, b: layerStart[li + 1] + ((j + 1) % layers[li + 1]), t: 0 });
+      }
+    }
+    var hubIdx = nodes.indexOf(hub), conIdx = nodes.indexOf(contract);
+    for (i = 0; i < 34; i++) edges.push({ a: hubIdx, b: (rand() * layerStart[5]) | 0, t: 1 });
+    for (k = 0; k < layers[2]; k++) edges.push({ a: conIdx, b: layerStart[2] + k, t: 2 });
+
+    var NN = nodes.length, NE = edges.length;
+    var Nc = pointCloud(NN); scene.add(Nc.pts); G.clouds.push(Nc);
+    var lgeo = new THREE.BufferGeometry(), lpos = new Float32Array(NE * 6), lcol = new Float32Array(NE * 6);
+    lgeo.setAttribute('position', new THREE.BufferAttribute(lpos, 3)); lgeo.setAttribute('color', new THREE.BufferAttribute(lcol, 3));
+    var lines = new THREE.LineSegments(lgeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })); lines.frustumCulled = false; scene.add(lines);
+    var NP = 110, Pc = pointCloud(NP); scene.add(Pc.pts); G.clouds.push(Pc);
+    var flow = edges.map(function (e, idx) { return idx; }).filter(function (idx) { return edges[idx].t === 0; });
+    var packets = []; for (i = 0; i < NP; i++) packets.push({ e: flow[(rand() * flow.length) | 0], t: rand(), sp: 0.25 + rand() * 0.35, dir: rand() < 0.5 ? 1 : -1 });
+    var ring = new THREE.Mesh(new THREE.RingGeometry(0.96, 1.0, 96), new THREE.MeshBasicMaterial({ color: 0x35f0b4, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    ring.rotation.x = -PI / 2; scene.add(ring);
+
+    var CYCLE = 22, T = 0;
+    function progress(t) { if (t < 3.6) return 0; if (t < 10) return (t - 3.6) / 6.4; if (t < 17) return 1; if (t < 20.4) return 1 - (t - 17) / 3.4; return 0; }
+    var CAPS = [[0.4, 3.5, 'Everything depends on one person.'], [3.8, 5.6, 'Survey: see every dependency.'], [5.7, 7.6, 'Document: write it down.'], [7.7, 9.5, 'Design: give it layers.'], [9.7, 12.2, 'Set the keystone: one contract everything agrees to.'], [12.4, 17, 'It runs without them.']];
+    function frame(dt) {
+      T += dt; var t = T % CYCLE, g = progress(t), lock = t > 9.7 && t < 11.2 ? Math.pow(1 - (t - 9.7) / 1.5, 2) : 0;
+      for (var n = 0; n < NN; n++) {
+        var nd = nodes[n], p = smooth((g - 0.35 * nd.s) / 0.65), tp = nd.tangle;
+        var dx = sin(T * nd.sp + nd.ph) * 0.45, dy = cos(T * nd.sp * 0.8 + nd.ph) * 0.45, dz = sin(T * nd.sp * 0.6 + nd.ph * 2) * 0.45;
+        nd.pos.set(tp.x + dx, tp.y + dy, tp.z + dz).lerp(nd.order, p); nd.p = p;
+        Nc.pos[n * 3] = nd.pos.x; Nc.pos[n * 3 + 1] = nd.pos.y; Nc.pos[n * 3 + 2] = nd.pos.z;
+        var r, gg, b, sz, al = 0.9;
+        if (nd.type === 1) { r = 1; gg = 0.7; b = 0.28; sz = 0.95 - 0.45 * p; al = 1 - 0.7 * p; }
+        else if (nd.type === 2) { r = 0.2; gg = 1; b = 0.75; sz = 0.3 + 0.7 * p + lock * 1.2; al = 0.45 + 0.55 * p; }
+        else { r = 0.62 - 0.4 * p; gg = 0.68 + 0.27 * p; b = 0.64 + 0.08 * p; sz = 0.26 - 0.03 * p; }
+        Nc.col[n * 3] = r; Nc.col[n * 3 + 1] = gg; Nc.col[n * 3 + 2] = b; Nc.size[n] = sz; Nc.alpha[n] = al;
+      }
+      Nc.flush();
+      for (var e = 0; e < NE; e++) {
+        var ed = edges[e], A = nodes[ed.a], B = nodes[ed.b], q = Math.min(A.p, B.p), cr, cg, cb, k2 = 0.5;
+        if (ed.t === 0) { cr = 0.45 - 0.37 * q; cg = 0.26 + 0.44 * q; cb = 0.26 + 0.24 * q; k2 = 0.5 + 0.2 * q; }
+        else if (ed.t === 1) { cr = 1; cg = 0.62; cb = 0.2; k2 = 0.45 * (1 - g); }
+        else { cr = 0.2; cg = 1; cb = 0.7; k2 = 0.4 * smooth((g - 0.8) / 0.2) + lock * 0.6; }
+        lpos[e * 6] = A.pos.x; lpos[e * 6 + 1] = A.pos.y; lpos[e * 6 + 2] = A.pos.z; lpos[e * 6 + 3] = B.pos.x; lpos[e * 6 + 4] = B.pos.y; lpos[e * 6 + 5] = B.pos.z;
+        lcol[e * 6] = lcol[e * 6 + 3] = cr * k2; lcol[e * 6 + 1] = lcol[e * 6 + 4] = cg * k2; lcol[e * 6 + 2] = lcol[e * 6 + 5] = cb * k2;
+      }
+      lgeo.attributes.position.needsUpdate = true; lgeo.attributes.color.needsUpdate = true;
+      var flowOn = smooth((g - 0.82) / 0.18);
+      for (var q2 = 0; q2 < NP; q2++) {
+        var pk = packets[q2]; pk.t += dt * pk.sp * pk.dir;
+        if (pk.t > 1 || pk.t < 0) { pk.e = flow[(rand() * flow.length) | 0]; pk.t = pk.dir > 0 ? 0 : 1; }
+        var E = edges[pk.e], a2 = nodes[E.a].pos, b2 = nodes[E.b].pos;
+        Pc.pos[q2 * 3] = a2.x + (b2.x - a2.x) * pk.t; Pc.pos[q2 * 3 + 1] = a2.y + (b2.y - a2.y) * pk.t; Pc.pos[q2 * 3 + 2] = a2.z + (b2.z - a2.z) * pk.t;
+        Pc.size[q2] = 0.2; Pc.alpha[q2] = flowOn; Pc.col[q2 * 3] = 0.3; Pc.col[q2 * 3 + 1] = 1; Pc.col[q2 * 3 + 2] = 0.78;
+      }
+      Pc.flush();
+      ring.visible = lock > 0; var rs = 1 + (1 - lock) * 11; ring.scale.set(rs, rs, rs); ring.material.opacity = lock * 0.8; ring.position.y = 0;
+      G.bloom.strength = 1.05 + lock * 0.7;
+      var u = T * 0.055 + 0.6;
+      camera.position.set(sin(u) * (23 - g * 1.5), 3.4 + g * 1.4, cos(u) * (23 - g * 1.5)); camera.lookAt(0, 0, 0);
+      var txt = ''; CAPS.forEach(function (c) { if (t >= c[0] && t < c[1]) txt = c[2]; }); caption(capEl, txt);
+      G.fin.uniforms.time.value = T % 100;
+    }
+    var last = performance.now();
+    function loop(now) { requestAnimationFrame(loop); var dt = clamp((now - last) / 1000, 0, 0.05); last = now; if (!G.visible) return; frame(dt); G.composer.render(); }
+    T = 12.5; frame(0); G.composer.render();   // rests on the ordered frame
+    requestAnimationFrame(loop);
+    // start the story from the beginning when first seen
+    if ('IntersectionObserver' in window) { var seen = false; new IntersectionObserver(function (e) { if (e[0].isIntersecting && !seen) { seen = true; T = 0.01; } }, { threshold: 0.5 }).observe(G.stage); }
+  })();
+
+  /* =====================================================================
+     B | code to production (CSS 3D flythrough)
+     ===================================================================== */
+  (function () {
+    var stage = document.getElementById('stageB'), world = document.getElementById('bWorld'), capEl = document.getElementById('capB'), fade = document.getElementById('fadeB');
+    var Z = -820, panes = [];
+    function pane(x, y, z, ry, title, html, cls) {
+      var d = document.createElement('div'); d.className = 'pane ' + (cls || '');
+      d.style.transform = 'translate3d(' + (x - 320) + 'px,' + (y - 150) + 'px,' + z + 'px) rotateY(' + ry + 'deg)';
+      d.innerHTML = '<header><i></i><i></i><i></i><span>' + title + '</span></header><div class="body">' + html + '</div>';
+      world.appendChild(d); panes.push(d); return d;
+    }
+    var p1 = pane(0, -20, 0, 6, 'docs/adr/007-ledger-writes.md',
+      '<span class="k"># ADR-007 | Ledger writes</span>\n\n<span class="m">Context</span>   The ledger must never be half-written.\n<span class="m">Decision</span>  Postgres. Every change in a transaction.\n<span class="m">Result</span>    No reconciliation scripts later.\n\n<span class="c">Written before the code. Reviewed by a senior.</span>');
+    var codeText = [
+      '<span class="k">func</span> (l *Ledger) <span class="f">Save</span>(ctx context.Context, e Entry) <span class="k">error</span> {',
+      '    tx, err := l.db.<span class="f">BeginTx</span>(ctx, <span class="k">nil</span>)',
+      '    <span class="k">if</span> err != <span class="k">nil</span> { <span class="k">return</span> err }',
+      '    <span class="k">defer</span> tx.<span class="f">Rollback</span>()',
+      '    <span class="k">if</span> err := l.<span class="f">append</span>(ctx, tx, e); err != <span class="k">nil</span> {',
+      '        <span class="k">return</span> err',
+      '    }',
+      '    <span class="k">return</span> tx.<span class="f">Commit</span>()',
+      '}'
+    ];
+    var p2 = pane(560, 30, -820, -7, 'ledger/save.go', '<span class="c">// one change, one transaction</span>\n<span id="codeOut"></span>');
+    var p3 = pane(-560, 0, -1640, 6, 'go test ./ledger/...',
+      '<span class="m">$ go test ./ledger/...</span>\n<span class="t run">RUN   TestSaveIsAtomic</span>\n<span class="t run">RUN   TestRollbackOnError</span>\n<span class="t run">RUN   TestConcurrentWriters</span>\n<span class="t run">RUN   TestHandoffDocsBuild</span>\n<span class="m" id="okLine"></span>');
+    var p4 = pane(560, 10, -2460, -6, 'pipeline | main',
+      '<div class="step"><span>lint</span><span class="bar"><b></b></span><em>ok</em></div><div class="step"><span>test</span><span class="bar"><b></b></span><em>ok</em></div><div class="step"><span>security</span><span class="bar"><b></b></span><em>ok</em></div><div class="step"><span>build</span><span class="bar"><b></b></span><em>ok</em></div><div class="step"><span>deploy</span><span class="bar"><b></b></span><em>ok</em></div>');
+    var p5 = pane(0, 0, -3300, 0, 'orders.example.com',
+      '<div class="ui"><div class="top"><b>Orders</b><span class="btn">New order</span></div>' +
+      '<div class="row"><span>#1042</span><span>Northwind Ltd</span><span class="chip ok">Shipped</span><span>1,240</span></div>' +
+      '<div class="row"><span>#1043</span><span>Acme Foods</span><span class="chip wait">Packing</span><span>860</span></div>' +
+      '<div class="row"><span>#1044</span><span>Lumen Labs</span><span class="chip ok">Shipped</span><span>2,975</span></div>' +
+      '<div class="row newrow" style="opacity:0"><span>#1045</span><span>Orbit Works</span><span class="chip ok">Shipped</span><span>1,180</span></div></div><div class="toast" id="toast">Deployed</div>');
+    p5.style.position = 'absolute'; p5.style.overflow = 'hidden';
+    var codeOut = document.getElementById('codeOut'), okLine = document.getElementById('okLine'), tests = p3.querySelectorAll('.t'), bars = p4.querySelectorAll('.bar b'), oks = p4.querySelectorAll('.step em'), toast = document.getElementById('toast'), newrow = p5.querySelector('.newrow');
+    var typed = { n: 0 };
+    function renderCode() {
+      var total = codeText.join('\n'), plain = total.replace(/<[^>]+>/g, '').length, want = Math.floor(typed.n * plain), out = '', count = 0, inTag = false, i2 = 0, open = 0;
+      for (i2 = 0; i2 < total.length && count < want; i2++) {
+        var ch = total[i2]; out += ch;
+        if (ch === '<') inTag = true; else if (ch === '>') inTag = false; else if (!inTag) count++;
+      }
+      // close any span left open by the cut
+      var opens = (out.match(/<span/g) || []).length, closes = (out.match(/<\/span>/g) || []).length;
+      for (open = 0; open < opens - closes; open++) out += '</span>';
+      codeOut.innerHTML = out + (typed.n < 1 ? '<span class="k">|</span>' : '');
+    }
+    function reset() {
+      typed.n = 0; renderCode(); okLine.textContent = '';
+      tests.forEach(function (t) { t.className = 't run'; t.textContent = t.textContent.replace('PASS ', 'RUN  '); });
+      gsap.set(bars, { width: '0%' }); gsap.set(oks, { opacity: 0 }); gsap.set(toast, { opacity: 0, y: 10 }); gsap.set(newrow, { opacity: 0 });
+    }
+    reset();
+    var cam = { z: 0, ry: 0, x: 0, y: 0 };
+    function place() { world.style.transform = 'translate3d(' + (-cam.x) + 'px,' + (-cam.y) + 'px,' + cam.z + 'px) rotateY(' + cam.ry + 'deg)'; }
+    var tl = gsap.timeline({ repeat: -1, paused: true, onUpdate: place });
+    var stops = [[0, 0, 'Decide it.'], [820, 1.2, 'Write it.'], [1640, 2.4, 'Prove it.'], [2460, 3.6, 'Ship it.'], [3300, 4.8, 'Run it.']];
+    tl.set(fade, { opacity: 1 }, 0);
+    tl.to(fade, { opacity: 0, duration: 0.8 }, 0);
+    tl.fromTo(cam, { z: -420, ry: 6 }, { z: 220, ry: 0, duration: 2.2, ease: 'power2.out' }, 0);
+    // fly to each stop, linger while its pane animates
+    var t0 = 3.2;
+    function fly(z, ry, x, at, dur) { tl.to(cam, { z: z, duration: dur, ease: 'power2.inOut' }, at); tl.to(cam, { x: x, ry: ry, duration: dur * 0.55, ease: 'power2.out' }, at); }
+    fly(820 + 160, -4, 560, t0, 1.8);
+    tl.to(typed, { n: 1, duration: 3.2, ease: 'none', onUpdate: renderCode }, t0 + 1.4);
+    fly(1640 + 160, 3, -560, t0 + 5.4, 1.8);
+    tl.call(function () { tests.forEach(function (t, i3) { setTimeout(function () { t.className = 't pass'; t.textContent = t.textContent.replace('RUN  ', 'PASS '); if (i3 === 3) okLine.textContent = 'ok   ledger   0.412s'; }, 500 + i3 * 520); }); }, null, t0 + 6.9);
+    fly(2460 + 160, -3, 560, t0 + 10.2, 1.8);
+    tl.to(bars, { width: '100%', duration: 0.9, stagger: 0.55, ease: 'power1.inOut' }, t0 + 11.6);
+    tl.to(oks, { opacity: 1, duration: 0.25, stagger: 0.55 }, t0 + 12.4);
+    fly(3300 + 200, 0, 0, t0 + 15.6, 2.0);
+    tl.to(toast, { opacity: 1, y: 0, duration: 0.4 }, t0 + 17.6);
+    tl.to(newrow, { opacity: 1, duration: 0.5 }, t0 + 18.1);
+    tl.to(cam, { z: 3300 + 330, duration: 2.6, ease: 'sine.inOut' }, t0 + 19);
+    tl.to(fade, { opacity: 1, duration: 1.0 }, t0 + 22.2);
+    tl.call(reset, null, t0 + 23.4);
+    var BCAP = [[t0 - 3.2, t0 + 0.4, 'Decide it.'], [t0 + 1.0, t0 + 5.2, 'Write it.'], [t0 + 6.6, t0 + 9.8, 'Prove it.'], [t0 + 11, t0 + 15.2, 'Ship it.'], [t0 + 16.6, t0 + 22, 'Run it.']];
+    gsap.ticker.add(function () { var t = tl.time(), txt = ''; BCAP.forEach(function (c) { if (t >= c[0] && t < c[1]) txt = c[2]; }); caption(capEl, txt); });
+    function fit() { var s = clamp(stage.clientWidth / 1240, 0.42, 1.2); world.parentElement.style.setProperty('--s', s); world.style.scale = s; }
+    fit(); if ('ResizeObserver' in window) new ResizeObserver(fit).observe(stage);
+    // rest on a meaningful frame, play when seen
+    tl.time(t0 + 1.0 + 3.3).pause(); place();
+    typed.n = 1; renderCode(); tests.forEach(function (t) { t.className = 't pass'; t.textContent = t.textContent.replace('RUN  ', 'PASS '); }); okLine.textContent = 'ok   ledger   0.412s';
+    if ('IntersectionObserver' in window) {
+      var started = false;
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { if (!started) { started = true; reset(); tl.time(0); } if (!reduce) tl.play(); } else tl.pause();
+      }, { threshold: 0.4 }).observe(stage);
+    }
+  })();
+})();
+</script>

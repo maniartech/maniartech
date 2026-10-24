@@ -1,0 +1,745 @@
+diff --git a/scripts/seo/seo-check.mjs b/scripts/seo/seo-check.mjs
+index 25553f1..ad0a56d 100644
+--- a/scripts/seo/seo-check.mjs
++++ b/scripts/seo/seo-check.mjs
+@@ -15,6 +15,10 @@
+ 
+ const BASE = (process.argv[2] || 'http://localhost:7000').replace(/\/+$/, '');
+ const SEEDS = ['/'];
++// --launch: pre-launch gate. Promotes launch-only warnings (missing sitemap) to FAIL.
++const LAUNCH = process.argv.includes('--launch');
++// Pages that are deliberately noindex. Empty on purpose: add a path here only by decision.
++const NOINDEX_OK = new Set([]);
+ 
+ // ---------------------------------------------------------------------------
+ // Tunables (documented in README.md - change deliberately, not casually)
+@@ -111,13 +115,14 @@ for (const [path, page] of seen) {
+     if (!/^https:\/\//.test(canon)) F(`${id} canonical not absolute https: ${canon}`);
+     if (canon.includes('localhost')) F(`${id} canonical points at localhost`);
+     const canonPath = canon.replace(/^https?:\/\/[^/]+/, '');
+-    if (canonPath !== path) W(`${id} canonical path differs: ${canonPath}`);
++    if (canonPath !== path) F(`${id} canonical path differs from page path: ${canonPath}`);
+   }
+ 
+   // -- robots / noindex awareness
+   const robotsTag = (html.match(/<meta[^>]+name="robots"[^>]*>/i) || [])[0];
+   const robots = robotsTag ? attr(robotsTag, 'content') : '';
+-  if (/noindex/i.test(robots)) W(`${id} is NOINDEX (deliberate?)`);
++  const xRobots = page.headers?.get('x-robots-tag') || '';
++  if (/noindex/i.test(robots + ' ' + xRobots) && !NOINDEX_OK.has(path)) F(`${id} is NOINDEX and not in NOINDEX_OK`);
+ 
+   // -- Open Graph + Twitter
+   for (const req of ['og:title', 'og:description', 'og:url', 'og:type']) {
+@@ -127,7 +132,7 @@ for (const [path, page] of seen) {
+   if (!/name="twitter:card"/i.test(html)) W(`${id} missing twitter:card`);
+ 
+   // -- JSON-LD validity
+-  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
++  for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+     try { JSON.parse(m[1]); } catch (e) { F(`${id} INVALID JSON-LD: ${String(e).slice(0, 60)}`); }
+   }
+   if (!/application\/ld\+json/.test(html)) W(`${id} has no JSON-LD at all`);
+@@ -172,7 +177,7 @@ for (const [path, page] of seen) {
+   else P('robots.txt present and permissive');
+ 
+   const sitemap = await fetchPage('/sitemap.xml');
+-  if (sitemap.status !== 200) W('sitemap.xml missing (build-time generation is owned by Aamir)');
++  if (sitemap.status !== 200) (LAUNCH ? F : W)('sitemap.xml missing (build-time generation is owned by Aamir)');
+   else {
+     P('sitemap.xml present');
+     const locs = [...sitemap.body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+@@ -645,6 +650,31 @@ for (const [path, page] of seen) {
+   }
+ }
+ 
++// ---------------------------------------------------------------------------
++// Home work stage: its status chips are a copy of each Foundry page's own
++// statusLine (the data lives once, on the project page). A reworded or
++// re-labelled project page must not leave Home stating the old status.
++// ---------------------------------------------------------------------------
++{
++  const home = seen.get('/');
++  if (home && home.status === 200) {
++    const panels = [...home.body.matchAll(/<div class="ws-panel[^"]*"[\s\S]*?<ul class="ws-chips"[^>]*>([\s\S]*?)<\/ul>[\s\S]*?<a href="([^"]+)" class="ws-primary"/g)];
++    if (!panels.length) F('/ has no work stage (ws-panel) - expected tabbed specimens above "What we build"');
++    let drift = 0;
++    for (const m of panels) {
++      const chips = [...m[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((c) => decode(c[1]).trim());
++      const target = seen.get(m[2]) || await fetchPage(m[2]);
++      const line = (target.body.match(/<p class="fd-status">([\s\S]*?)<\/p>/) || [])[1];
++      if (!line) { F(`/ work stage links ${m[2]}, which has no fd-status line`); drift++; continue; }
++      if (decode(line).trim() !== chips.join(' | ')) {
++        F(`/ work stage chips for ${m[2]} drifted from its statusLine: "${chips.join(' | ')}" vs "${decode(line).trim()}"`);
++        drift++;
++      }
++    }
++    if (panels.length && !drift) P(`/ work stage: ${panels.length} tabs, status chips match each Foundry statusLine`);
++  }
++}
++
+ // ---------------------------------------------------------------------------
+ // Report
+ // ---------------------------------------------------------------------------
+diff --git a/site/home/index.md b/site/home/index.md
+index 82620f2..dc2aeea 100644
+--- a/site/home/index.md
++++ b/site/home/index.md
+@@ -2,6 +2,43 @@
+ title: Senior Software Engineering, Built to Last
+ description: ManiarTech designs, builds, and modernizes the systems companies depend on — senior engineers, an independently audited process, and mainstream technology your own team can maintain.
+ seoDescription: "Senior software engineering from India for clients worldwide: custom applications, process automation and modernization, on an independently audited process."
++# The Home work stage (templates/includes/work-stage.html). `chips` must equal the
++# matching foundry page's `statusLine` split on " | " - seo-check.mjs fails on drift.
++# Named `workStage`, not tags/categories: a list of maps under those keys is silently emptied.
++workStage:
++  - key: processious
++    name: Processious
++    kind: "Platform | in production"
++    line: "A workflow is not automated until invalid transitions are impossible."
++    page: /products/processious/
++    chips: ["In production", "Client-carrying", "Private", "Commercial engagement"]
++    verifyLabel: "Verify a live output"
++    verifyUrl: "https://reports.chemotestlaboratory.com"
++    verifyExternal: true
++  - key: internet-object
++    name: Internet Object
++    kind: "Data format | standard"
++    line: "Declare the shape once, then send only data."
++    page: /foundry/internet-object/
++    chips: ["Spec: 1.0 working draft", "JS package: 0.2.1 (ISC)", "Playground: live", "Adoption: evaluate, don't commit"]
++    verifyLabel: "Try the playground"
++    verifyUrl: "https://play.internetobject.org"
++    verifyExternal: true
++  - key: uexl
++    name: UExL
++    kind: "Expression language | Go"
++    line: "Compile the expression once. Evaluate it forever."
++    page: /foundry/uexl/
++    chips: ["Public source", "Pre-1.0, no release", "Licence: none granted", "Adoption: not yet"]
++    verifyLabel: "Read the source"
++    verifyUrl: "https://github.com/maniartech/uexl-go"
++    verifyExternal: true
++  - key: tajmahal
++    name: Taj Mahal
++    kind: "Site framework | Go"
++    line: "Don't build a website. Build a Taj Mahal."
++    page: /foundry/tajmahal-ssg/
++    chips: ["Production-dogfooded", "Private", "Open source planned"]
+ ---
+ 
+ You're looking at the default starter. This page is rendered from
+diff --git a/themes/maniartech/lib/cube-viz/cube-viz.js b/themes/maniartech/lib/cube-viz/cube-viz.js
+index 45739c6..2556da0 100644
+--- a/themes/maniartech/lib/cube-viz/cube-viz.js
++++ b/themes/maniartech/lib/cube-viz/cube-viz.js
+@@ -16,6 +16,10 @@
+   var ctx = canvas.getContext('2d');
+   var cap = document.getElementById('cubeVizCap');
+   var capDesc = cap && cap.querySelector('.fv-desc');
++  var capName = cap && cap.querySelector('.fv-name');
++  var defaultName = capName ? capName.textContent : '';
++  var faceBox = document.getElementById('cubeFaces');
++  var faceMore = document.getElementById('cubeFaceMore');
+ 
+   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   var PI = Math.PI, cos = Math.cos, sin = Math.sin;
+@@ -27,6 +31,7 @@
+     var n = parseInt(v, 16); return isNaN(n) ? [20, 207, 147] : [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+   }
+   var ACCENT = accentRgb();
++  var MONO = (getComputedStyle(canvas).getPropertyValue('--mono') || '').trim() || 'ui-monospace, Consolas, monospace';
+   var FACE = {                 // keyed by outward direction
+     '0,1,0': [226, 240, 233],  // U — pale
+     '0,-1,0': [24, 30, 27],    // D — near-black
+@@ -36,6 +41,10 @@
+     '-1,0,0': [128, 150, 142]  // L — muted sage
+   };
+ 
++  // The six centre facelets are the six "How we work" principles, in page order.
++  var LABELS = { '0,0,1': 0, '1,0,0': 1, '0,1,0': 2, '-1,0,0': 3, '0,0,-1': 4, '0,-1,0': 5 };
++  var NORMALS = [[0, 0, 1], [1, 0, 0], [0, 1, 0], [-1, 0, 0], [0, 0, -1], [0, -1, 0]];
++
+   // ---- cubie model: 26 outer cubies, each carrying its outward facelets ----
+   var DIRS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+   var cubies = [];
+@@ -46,7 +55,11 @@
+       if ((d[0] === 1 && x === 1) || (d[0] === -1 && x === -1) ||
+           (d[1] === 1 && y === 1) || (d[1] === -1 && y === -1) ||
+           (d[2] === 1 && z === 1) || (d[2] === -1 && z === -1)) {
+-        faces.push({ dir: d.slice(), color: FACE[d.join(',')] });
++        var key = d.join(',');
++        var f = { dir: d.slice(), color: FACE[key] };
++        // a centre cubie shows exactly one facelet: that one carries a principle number
++        if (Math.abs(x) + Math.abs(y) + Math.abs(z) === 1) f.label = LABELS[key];
++        faces.push(f);
+       }
+     });
+     cubies.push({ pos: [x, y, z], faces: faces });
+@@ -78,7 +91,14 @@
+     solving: 'Bringing it to order — by method, not luck.',
+     solved: 'Drag to turn it. Click to scramble it and watch it resolve.'
+   };
+-  function state(s) { if (s === curState) return; curState = s; canvas.setAttribute('data-state', s); if (capDesc) capDesc.textContent = CAP[s]; }
++  var faceCaption = false;
++  function state(s) {
++    if (s === curState) return;
++    curState = s; canvas.setAttribute('data-state', s);
++    if (s !== 'solved') clearFace();
++    if (faceCaption && s === 'solved') return;
++    if (capDesc) capDesc.textContent = CAP[s];
++  }
+   function next() {
+     if (queue.length) { anim = { m: queue.shift(), t: 0 }; state(anim.m.phase); }
+     else { anim = null; solved = true; state('solved'); }
+@@ -136,6 +156,51 @@
+       g.addColorStop(1, 'rgba(' + ACCENT[0] + ',' + ACCENT[1] + ',' + ACCENT[2] + ',0)');
+       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(CX, CY, r, 0, PI * 2); ctx.fill();
+     },
++    shadow: function () {
++      var cy = CY + PX * 2.55, rx = PX * 2.5, ry = PX * 0.55;
++      ctx.save();
++      ctx.translate(CX, cy); ctx.scale(1, ry / rx);
++      var g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
++      g.addColorStop(0, 'rgba(0,0,0,.5)'); g.addColorStop(1, 'rgba(0,0,0,0)');
++      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, rx, 0, PI * 2); ctx.fill();
++      ctx.restore();
++    },
++    // Draw into the facelet's own plane: local space is 0..100 on both axes.
++    mark: function (p, idx, col, on) {
++      var ux = p[1][0] - p[0][0], uy = p[1][1] - p[0][1], vx = p[3][0] - p[0][0], vy = p[3][1] - p[0][1];
++      // Keep the numeral upright and readable on every face: of the facelet's four edge
++      // directions, the one pointing most to the right becomes the text's x axis, and the
++      // text's y axis always reads top to bottom.
++      var cand = [[ux, uy, vx, vy], [vx, vy, -ux, -uy], [-ux, -uy, -vx, -vy], [-vx, -vy, ux, uy]];
++      var best = cand[0];
++      for (var c = 1; c < 4; c++) if (cand[c][0] > best[0]) best = cand[c];
++      var X0 = best[0], X1 = best[1], Y0 = best[2], Y1 = best[3];
++      if (Y1 < 0) { Y0 = -Y0; Y1 = -Y1; }
++      var cx = (p[0][0] + p[2][0]) / 2 - (X0 + Y0) / 2, cy = (p[0][1] + p[2][1]) / 2 - (X1 + Y1) / 2;
++      var lum = 0.2126 * col[0] + 0.7152 * col[1] + 0.0722 * col[2];
++      var ink = lum > 120 ? 'rgba(8,16,12,' : 'rgba(255,255,255,';
++      ctx.save();
++      ctx.transform(X0 / 100, X1 / 100, Y0 / 100, Y1 / 100, cx, cy);
++      // gear ring
++      var teeth = 10, ro = 38, ri = 31, rot = gearT * (idx % 2 ? -1 : 1);
++      ctx.beginPath();
++      for (var i = 0; i < teeth * 2; i++) {
++        var a0 = rot + (i / (teeth * 2)) * PI * 2, a1 = rot + ((i + 1) / (teeth * 2)) * PI * 2;
++        var r = i % 2 ? ri : ro;
++        ctx.lineTo(50 + cos(a0) * r, 50 + sin(a0) * r);
++        ctx.lineTo(50 + cos(a1) * r, 50 + sin(a1) * r);
++      }
++      ctx.closePath();
++      ctx.lineWidth = on ? 4 : 2.6; ctx.lineJoin = 'round';
++      ctx.strokeStyle = ink + (on ? '.95)' : '.5)');
++      ctx.stroke();
++      // numeral
++      ctx.fillStyle = ink + (on ? '1)' : '.82)');
++      ctx.font = '700 30px ' + MONO;
++      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
++      ctx.fillText(('0' + (idx + 1)).slice(-2), 50, 52);
++      ctx.restore();
++    },
+     quad: function (pts, col, shade) {
+       ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+       for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+@@ -149,6 +214,7 @@
+   function draw() {
+     R.clear();
+     R.glow(Math.min(W, H) * 0.44, solved ? 0.11 : 0.07);
++    R.shadow();
+     var quads = [];
+     for (var i = 0; i < cubies.length; i++) {
+       var cu = cubies[i];
+@@ -161,24 +227,64 @@
+         var cs = corners(cu.pos, f.dir).map(function (p) { if (aff) p = slice(p, anim.m.axis, ang); return orient(p); });
+         var depth = (cs[0][2] + cs[1][2] + cs[2][2] + cs[3][2]) / 4;
+         var diff = Math.max(0, n[0] * LIGHT[0] + n[1] * LIGHT[1] + n[2] * LIGHT[2]);
+-        quads.push({ p: cs.map(project), col: f.color, shade: 0.52 + 0.48 * diff, depth: depth });
++        quads.push({ p: cs.map(project), col: f.color, shade: 0.52 + 0.48 * diff, depth: depth, label: f.label });
+       }
+     }
+     quads.sort(function (a, b) { return a.depth - b.depth; });
+-    for (var q = 0; q < quads.length; q++) R.quad(quads[q].p, quads[q].col, quads[q].shade);
++    for (var q = 0; q < quads.length; q++) {
++      var Q = quads[q];
++      R.quad(Q.p, Q.col, Q.shade);
++      if (Q.label !== undefined) R.mark(Q.p, Q.label, Q.col, Q.label === focusLabel);
++    }
+   }
+ 
+   // ---- loop ----
+-  var raf, last = null, dragging = false;
++  var raf, last = null, dragging = false, visible = true, gearT = 0;
++  var focusLabel = -1, target = null;
++  function wrap(a) { while (a > PI) a -= PI * 2; while (a < -PI) a += PI * 2; return a; }
++  function clearFace() {
++    focusLabel = -1; target = null; faceCaption = false;
++    if (capName) capName.textContent = defaultName;
++    if (faceBox) {
++      var bs = faceBox.querySelectorAll('.cube-face');
++      for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', 'false');
++    }
++    if (faceMore) faceMore.hidden = true;
++  }
++  // Turn the cube to show principle i, and say which one it is.
++  function focusFace(i) {
++    if (i < 0 || i > 5) return;
++    var n = NORMALS[i];
++    focusLabel = i;
++    if (n[1] === 0) target = { yaw: Math.atan2(-n[0], n[2]) - 0.5, pitch: 0.38 };
++    else target = { yaw: -0.5, pitch: n[1] > 0 ? 1.05 : -1.05 };
++    if (reduce) { yaw = target.yaw; pitch = target.pitch; }
++    var btn = faceBox && faceBox.querySelector('[data-face="' + i + '"]');
++    var title = btn ? btn.getAttribute('data-title') : '';
++    faceCaption = true;
++    if (capName) capName.textContent = ('0' + (i + 1)).slice(-2) + ' | ' + title;
++    if (capDesc) capDesc.textContent = 'Principle ' + (i + 1) + ' of 6. Drag to turn the cube.';
++    if (faceBox) {
++      var bs = faceBox.querySelectorAll('.cube-face');
++      for (var k = 0; k < bs.length; k++) bs[k].setAttribute('aria-pressed', k === i ? 'true' : 'false');
++    }
++    if (faceMore) { faceMore.hidden = false; faceMore.setAttribute('data-face', String(i)); }
++  }
+   function frame(ts) {
+     if (last == null) last = ts;
+     var dt = Math.min((ts - last) / 1000, 0.05); last = ts;
+     if (W === 0) resize();
+-    if (canvas.clientWidth === 0) { raf = requestAnimationFrame(frame); return; }
++    if (canvas.clientWidth === 0 || !visible) { raf = requestAnimationFrame(frame); return; }
++    if (!reduce) gearT += dt * 0.55;
++    if (target && !dragging && !anim) {
++      var k = Math.min(1, dt * 4.5);
++      yaw += wrap(target.yaw - yaw) * k;
++      pitch += (target.pitch - pitch) * k;
++    }
+     if (anim) {
+       anim.t += dt / MOVE_DUR;
+       if (anim.t >= 1) { commit(anim.m); next(); }
+-    } else if (!dragging && !reduce) {
++    } else if (!dragging && !reduce && !target) {
+       yaw += 0.22 * dt; // gentle idle turn
+     }
+     draw();
+@@ -196,7 +302,7 @@
+     if (!dragging) return;
+     var dx = ev.clientX - downX, dy = ev.clientY - downY; downX = ev.clientX; downY = ev.clientY;
+     moved += Math.abs(dx) + Math.abs(dy);
+-    yaw += dx * 0.01; pitch += dy * 0.01;
++    yaw += dx * 0.01; pitch += dy * 0.01; target = null;
+     if (pitch > 1.2) pitch = 1.2; if (pitch < -1.2) pitch = -1.2;
+   });
+   function release() { if (!dragging) return; dragging = false; canvas.style.cursor = 'grab'; }
+@@ -214,6 +320,22 @@
+     else if ((ev.key === 'Enter' || ev.key === ' ') && solved && queue.length === 0) { scrambleThenSolve(true); ev.preventDefault(); }
+   });
+ 
++  // ---- principles: the chips under the cube, and the How-we-work tabs ----
++  if (faceBox) {
++    faceBox.addEventListener('click', function (ev) {
++      var b = ev.target.closest && ev.target.closest('.cube-face');
++      if (b) focusFace(parseInt(b.getAttribute('data-face'), 10));
++    });
++  }
++  if (faceMore) faceMore.addEventListener('click', function () {
++    var i = parseInt(faceMore.getAttribute('data-face'), 10);
++    document.dispatchEvent(new CustomEvent('hw:select', { detail: i }));
++  });
++  document.addEventListener('hw:picked', function (ev) { focusFace(ev.detail); });
++  if ('IntersectionObserver' in window) {
++    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }, { threshold: 0 }).observe(canvas);
++  }
++
+   // ---- boot ----
+   if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
+   else window.addEventListener('resize', resize);
+diff --git a/themes/maniartech/lib/how-showcase/how-showcase.js b/themes/maniartech/lib/how-showcase/how-showcase.js
+index 37a4674..1378f46 100644
+--- a/themes/maniartech/lib/how-showcase/how-showcase.js
++++ b/themes/maniartech/lib/how-showcase/how-showcase.js
+@@ -42,7 +42,10 @@
+       // browsers take the full 6s, so this only blocks spurious instant fires)
+       if (it.classList.contains('is-active') && nowFn() - activatedAt > 1500) setActive((i + 1) % N);
+     });
+-    it.addEventListener('click', function () { setActive(i); it.focus(); });
++    it.addEventListener('click', function () {
++      setActive(i); it.focus();
++      document.dispatchEvent(new CustomEvent('hw:picked', { detail: i }));   // the About cube turns to match
++    });
+     it.addEventListener('keydown', function (ev) {
+       if (ev.key === 'ArrowDown' || ev.key === 'ArrowRight') { setActive((active + 1) % N); items[active].focus(); ev.preventDefault(); }
+       else if (ev.key === 'ArrowUp' || ev.key === 'ArrowLeft') { setActive((active - 1 + N) % N); items[active].focus(); ev.preventDefault(); }
+@@ -51,5 +54,8 @@
+     });
+   });
+ 
++  // The About hero cube can send a visitor here with a principle already chosen.
++  document.addEventListener('hw:select', function (ev) { setActive(ev.detail); });
++
+   setActive(0);
+ })();
+diff --git a/themes/maniartech/lib/layout/_mt.scss b/themes/maniartech/lib/layout/_mt.scss
+index fc09d8c..5288f07 100644
+--- a/themes/maniartech/lib/layout/_mt.scss
++++ b/themes/maniartech/lib/layout/_mt.scss
+@@ -1108,73 +1108,30 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
+ .svc-viz svg { display: block; width: 100%; height: auto; }
+ .svc-viz svg * { vector-effect: non-scaling-stroke; }
+ 
+-/* -- vignette base (closed = dim, resting) -- */
+-.bp-grid path { stroke: rgba(255, 255, 255, .05); stroke-width: 1; }
+-.bp-path { fill: none; stroke: rgba(255, 255, 255, .35); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+-.bp-tip { fill: rgba(255, 255, 255, .35); }
+-.md-base { stroke: rgba(255, 255, 255, .18); stroke-width: 1.5; }
+-.md-b { fill: rgba(255, 255, 255, .1); stroke: rgba(255, 255, 255, .18); stroke-width: 1; }
+-.md-pulse { fill: rgba($main_color, .9); animation: mdPulse 1.6s ease-in-out infinite; }  /* uptime never stops */
+-.md-up { fill: rgba(255, 255, 255, .4); font-family: "Poppins", sans-serif; font-size: 9px; letter-spacing: .08em; }
+-@keyframes mdPulse { 50% { opacity: .25; } }
+-.ai-d { fill: rgba(255, 255, 255, .4); transform: translate(var(--sx), var(--sy)); transition: transform .6s cubic-bezier(.22, .9, .28, 1), fill .4s ease; }
+-.ai-arrow { fill: none; stroke: rgba(255, 255, 255, .25); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: stroke .4s ease; }
+-.sc-line { stroke: rgba($main_color, .7); stroke-width: 1.8; stroke-linecap: round; }
+-.sc-b { fill: rgba(255, 255, 255, .1); transform: scaleY(.22); transform-origin: bottom; transform-box: fill-box; transition: transform .55s cubic-bezier(.22, .9, .28, 1), fill .4s ease; }
+-
+ /* -- open state (hover / keyboard focus / at-rest first panel) -- */
+ @mixin svc-open {
+   flex-grow: 2.1;
+   border-color: rgba($main_color, .45);
+   .svc-num { color: $main_color; }
+   h3 { color: #fff; }
+-  .svc-more { max-height: 190px; opacity: 1; }
+-  /* 01 — the blueprint draws itself, once */
+-  .bp-path { stroke: $main_color; stroke-dasharray: 420; stroke-dashoffset: 420; animation: bpDraw 1.1s ease-out forwards; }
+-  .bp-tip { fill: $main_color; }
+-  /* 02 — parts get replaced one at a time; the pulse never stopped */
+-  .md-b1 { animation: mdSwap .01s .15s forwards; } .md-b2 { animation: mdSwap .01s .45s forwards; }
+-  .md-b3 { animation: mdSwap .01s .75s forwards; } .md-b4 { animation: mdSwap .01s 1.05s forwards; }
+-  .md-b5 { animation: mdSwap .01s 1.35s forwards; }
+-  /* 03 — the noise aligns into one clean output */
+-  .ai-d { fill: $main_color; transform: translate(0, 0); }
+-  .ai-d:nth-of-type(2) { transition-delay: .06s; } .ai-d:nth-of-type(3) { transition-delay: .12s; }
+-  .ai-d:nth-of-type(4) { transition-delay: .18s; } .ai-d:nth-of-type(5) { transition-delay: .24s; }
+-  .ai-d:nth-of-type(6) { transition-delay: .3s; }  .ai-d:nth-of-type(7) { transition-delay: .36s; }
+-  .ai-arrow { stroke: $main_color; }
+-  /* 04 — the load rises; the line holds */
+-  .sc-b { transform: scaleY(1); fill: rgba($main_color, .55); }
+-  .sc-b2 { transition-delay: .07s; } .sc-b3 { transition-delay: .14s; }
+-  .sc-b4 { transition-delay: .21s; } .sc-b5 { transition-delay: .28s; }
+-  .sc-b6 { transition-delay: .35s; }
+-}
+-@keyframes bpDraw { to { stroke-dashoffset: 0; } }
+-@keyframes mdSwap { to { fill: rgba($main_color, .55); stroke: $main_color; } }
+-
+-.svc-panel:hover, .svc-panel:focus-visible { @include svc-open; }
++  .svc-more { max-height: 230px; opacity: 1; }
++}
++
++.svc-panel:hover, .svc-panel:focus-within { @include svc-open; }
+ /* armed by js/practice-stage.js when the stage enters the viewport - the
+    expansion and the blueprint draw must play on screen, not during load.
+    Without JS the stage stays un-armed: panels rest equal, hover still opens. */
+ .practice-stage.is-armed:not(:hover):not(:focus-within) .svc-panel:first-child { @include svc-open; }
+ 
+ @media (prefers-reduced-motion: reduce) {
+-  .svc-panel, .svc-panel .svc-more, .ai-d, .sc-b { transition: none; }
+-  .bp-path, .md-b, .md-pulse { animation: none; }
+-  .svc-panel:hover, .svc-panel:focus-visible, .practice-stage.is-armed:not(:hover):not(:focus-within) .svc-panel:first-child {
+-    .bp-path { stroke-dasharray: none; stroke-dashoffset: 0; }
+-    .md-b { fill: rgba($main_color, .55); stroke: $main_color; }
+-  }
++  .svc-panel, .svc-panel .svc-more { transition: none; }
+ }
+ 
+-/* mobile: no accordion — four full cards, everything visible */
++/* mobile: no accordion - four full cards, everything visible */
+ @media (max-width: 991px) {
+   .practice-stage { flex-direction: column; }
+   .svc-panel .svc-more { max-height: none; opacity: 1; }
+   .svc-panel h3 { color: #fff; }
+-  .bp-path { stroke-dasharray: none; }
+-  .ai-d { transform: none; fill: rgba($main_color, .8); }
+-  .sc-b { transform: none; fill: rgba($main_color, .45); }
+-  .md-b { fill: rgba($main_color, .35); stroke: rgba($main_color, .6); }
+ }
+ 
+ /* ---- Home hero: gear caption — the machine names itself ------------------ */
+diff --git a/themes/maniartech/lib/style.scss b/themes/maniartech/lib/style.scss
+index 1fa8bed..2c3671b 100644
+--- a/themes/maniartech/lib/style.scss
++++ b/themes/maniartech/lib/style.scss
+@@ -61,4 +61,5 @@
+ @import "components/gears.scss";
+ 
+ // ManiarTech custom components (cards, button modifiers, etc.)
+-@import "layout/mt.scss";
+\ No newline at end of file
++@import "layout/mt.scss";@import "layout/stage.scss";
++@import "layout/practice-live.scss";
+diff --git a/themes/maniartech/templates/about.html b/themes/maniartech/templates/about.html
+index 05ae346..fb72932 100644
+--- a/themes/maniartech/templates/about.html
++++ b/themes/maniartech/templates/about.html
+@@ -21,6 +21,11 @@ composed here. Edit a section by editing its file. #}
+                         <span class="fv-name">Complexity, solved.</span>
+                         <span class="fv-desc">Twenty-seven years of turning tangled problems into simple, solid software.</span>
+                     </figcaption>
++                    {# The six faces are the six principles below; this turns the cube to one. #}
++                    <div class="cube-faces" id="cubeFaces" role="group" aria-label="Turn the cube to a principle">
++                        {% for p in work.principles %}<button type="button" class="cube-face" data-face="{{ loop.index0 }}" data-title="{{ p.title }}" aria-pressed="false" title="{{ p.title }}"><span>0{{ loop.index }}</span></button>{% endfor %}
++                        <a class="cube-face-more" id="cubeFaceMore" href="#howShowcase" hidden>Read how we work &rarr;</a>
++                    </div>
+                     {# Fallback for no-JS, mobile, and screen readers #}
+                     <ul class="foundry-viz-fallback">
+                         <li>Senior engineers who make hard problems look simple.</li>
+@@ -33,6 +38,19 @@ composed here. Edit a section by editing its file. #}
+     </div>
+ </header>
+ 
++{# Verifiable facts, in the first scroll. Every line here is already published elsewhere on the
++   site (footer, /how-we-work/, /security/); this surfaces it where a skeptical reader looks. #}
++<section class="ab-facts" aria-label="Company facts">
++    <div class="container">
++        <ul class="ab-facts-grid">
++            <li><strong>Maniar Technologies Private Limited</strong><span>Registered in Thane, Maharashtra, India</span></li>
++            <li><strong>Since 2010</strong><span>A small senior team that grows slowly, on purpose</span></li>
++            <li><strong>ISO 9001:2015 and ISO/IEC 27001:2022</strong><span>Certificates 123961/B/0001 and 123961/A/0001, audited by URS under UKAS. Verify with the registrar. <a href="/how-we-work/">How</a></span></li>
++            <li><strong>Public repositories</strong><span><a href="https://github.com/maniartech" target="_blank" rel="noopener">github.com/maniartech</a>, open to read and run</span></li>
++        </ul>
++    </div>
++</section>
++
+ <section class="section-padding">
+     <div class="container">
+         <div class="row">
+diff --git a/themes/maniartech/templates/home.html b/themes/maniartech/templates/home.html
+index 313b745..7467f11 100644
+--- a/themes/maniartech/templates/home.html
++++ b/themes/maniartech/templates/home.html
+@@ -72,6 +72,21 @@
+ </div>
+ </div><!-- /hero-screen -->
+ 
++<!-- ==================== 2b - Proof strip: claims already made lower on this page, surfaced ==================== -->
++<section class="ws-proof" aria-label="At a glance">
++    <div class="container">
++        <ul class="ws-proof-grid">
++            <li><strong>ISO 9001:2015 &amp; ISO/IEC 27001:2022</strong><span>Independently audited by URS under UKAS accreditation</span></li>
++            <li><strong>27 years</strong><span>Engineering software, led by the founder</span></li>
++            <li><strong>100% senior</strong><span>Senior engineers lead and review the work</span></li>
++            <li><strong>Since 2010</strong><span>A small team that grows slowly, on purpose</span></li>
++        </ul>
++    </div>
++</section>
++
++<!-- ==================== 2c - The work stage (tabbed specimens of what we make) ==================== -->
++{% include "includes/work-stage.html" %}
++
+ <!-- ==================== 3 · Is this you? ==================== -->
+ <section class="services section-padding">
+     <div class="container">
+@@ -145,94 +160,128 @@
+         {# Expanding-panel stage: hover/tab a service to open it — its
+         vignette (a small SVG "machine" embodying that service's metaphor) runs,
+         and the proof line appears. Pure CSS state; first panel open at rest. #}
+-        <div class="practice-stage">
+-
+-            <a class="svc-panel" href="/services/application-software-engineering/">
+-                <div class="svc-viz svc-viz-build" aria-hidden="true">
+-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+-                        <g class="bp-grid">
+-                            <path d="M6 22 H126 M6 44 H126 M6 66 H126"/>
+-                            <path d="M26 6 V82 M66 6 V82 M106 6 V82"/>
+-                        </g>
+-                        <path class="bp-path" d="M18 76 V40 H48 V24 H84 V40 H114 V76 Z"/>
+-                        <path class="bp-path bp-door" d="M58 76 V60 H74 V76"/>
+-                        <line class="bp-path bp-ant" x1="66" y1="24" x2="66" y2="12"/>
+-                        <circle class="bp-tip" cx="66" cy="9" r="2.5"/>
+-                    </svg>
++        <div class="practice-stage" data-practice>
++
++            {# Each panel is an <article>, not an <a>: it carries a real <button>, and a
++               button inside a link is invalid. The whole card stays clickable through
++               the title link's stretched ::after; controls sit above it (z-index).
++               Every vignette is ILLUSTRATIVE (labelled so) and rests in a readable
++               finished state with no JS and under reduced-motion. #}
++
++            <article class="svc-panel" data-vig="build">
++                <div class="svc-viz svc-viz-app" aria-hidden="true">
++                    <div class="bp-app" data-app style="--p:1">
++                        <div class="bp-layer bp-wireframe">
++                            <div class="ba-top"><i class="ba-logo"></i><span class="ba-bar ba-w40"></span><i class="ba-av"></i></div>
++                            <div class="ba-tools"><span class="ba-field"></span><span class="ba-btn"></span></div>
++                            <div class="ba-row"><span class="ba-bar ba-w20"></span><span class="ba-bar ba-w40"></span><span class="ba-chip"></span><span class="ba-bar ba-w20"></span></div>
++                            <div class="ba-row"><span class="ba-bar ba-w20"></span><span class="ba-bar ba-w40"></span><span class="ba-chip"></span><span class="ba-bar ba-w20"></span></div>
++                            <div class="ba-row"><span class="ba-bar ba-w20"></span><span class="ba-bar ba-w40"></span><span class="ba-chip"></span><span class="ba-bar ba-w20"></span></div>
++                        </div>
++                        <div class="bp-layer bp-finished">
++                            <div class="ba-top"><i class="ba-logo"></i><b class="ba-title">Orders</b><i class="ba-av">AM</i></div>
++                            <div class="ba-tools"><span class="ba-field">Search orders</span><span class="ba-btn">New order</span></div>
++                            <div class="ba-row"><span>#1042</span><span>Northwind Ltd</span><em class="ok">Shipped</em><span>1,240</span></div>
++                            <div class="ba-row"><span>#1043</span><span>Acme Foods</span><em class="wait">Packing</em><span>860</span></div>
++                            <div class="ba-row"><span>#1044</span><span>Lumen Labs</span><em class="ok">Shipped</em><span>2,975</span></div>
++                            <span class="ba-live">deployed</span>
++                        </div>
++                        <span class="bp-scrub" aria-hidden="true"></span>
++                    </div>
++                    <span class="svc-ill">illustration</span>
+                 </div>
+-                <div class="svc-head"><i class="svc-num">01</i><h3>Application &amp; Product Engineering</h3></div>
++                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>Production: shipped, with the decisions on record</span></p>
++                <div class="svc-head"><i class="svc-num">01</i><h3><a class="svc-link" href="/services/application-software-engineering/">Application &amp; Product Engineering</a></h3></div>
+                 <p class="svc-tag">A bounded product, with the architecture written down.</p>
+                 <p class="svc-fact">Built this way: Touchpoint, Shantee Homes</p>
+                 <div class="svc-more">
+-                    <p>From blueprint to production <em>once</em> — scoped straight, led and reviewed by senior engineers, with the consequential decisions recorded. The client platforms in our case studies were built exactly this way.</p>
+-                    <span class="go">Explore →</span>
+-                </div>
+-            </a>
+-
+-            <a class="svc-panel" href="/services/modernization/">
+-                <div class="svc-viz svc-viz-modern" aria-hidden="true">
+-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+-                        <line class="md-base" x1="10" y1="76" x2="122" y2="76"/>
+-                        <rect class="md-b md-b1" x="14" y="50" width="18" height="26" rx="3"/>
+-                        <rect class="md-b md-b2" x="36" y="38" width="18" height="38" rx="3"/>
+-                        <rect class="md-b md-b3" x="58" y="46" width="18" height="30" rx="3"/>
+-                        <rect class="md-b md-b4" x="80" y="34" width="18" height="42" rx="3"/>
+-                        <rect class="md-b md-b5" x="102" y="52" width="18" height="24" rx="3"/>
+-                        <circle class="md-pulse" cx="116" cy="14" r="4"/>
+-                        <text class="md-up" x="108" y="18" text-anchor="end">live</text>
++                    <p>From blueprint to production <em>once</em> &mdash; scoped straight, led and reviewed by senior engineers, with the consequential decisions recorded. The client platforms in our case studies were built exactly this way.</p>
++                    <div class="svc-act">
++                        <label class="svc-range"><span>Blueprint</span>
++                            <input type="range" min="0" max="100" value="100" data-scrub aria-label="Slide from blueprint to production">
++                        <span>Production</span></label>
++                        <span class="go">Explore &rarr;</span>
++                    </div>
++                </div>
++            </article>
++
++            <article class="svc-panel" data-vig="modern">
++                <div class="svc-viz" aria-hidden="true">
++                    <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
++                        <line class="md-rail" x1="6" y1="70" x2="234" y2="70"/>
++                        <rect class="md-env" data-env x="14" y="40" width="48" height="60" rx="7"/>
++                        <rect class="md-blk is-new" data-i="0" x="18"  y="46" width="40" height="48" rx="5"/>
++                        <rect class="md-blk is-new" data-i="1" x="74"  y="46" width="40" height="48" rx="5"/>
++                        <rect class="md-blk is-new" data-i="2" x="130" y="46" width="40" height="48" rx="5"/>
++                        <rect class="md-blk is-new" data-i="3" x="186" y="46" width="40" height="48" rx="5"/>
++                        <circle class="md-req" cx="0" cy="70" r="3.4" style="--d:0s"/>
++                        <circle class="md-req" cx="0" cy="70" r="3.4" style="--d:-1.2s"/>
++                        <circle class="md-req" cx="0" cy="70" r="3.4" style="--d:-2.4s"/>
+                     </svg>
++                    <span class="svc-ill">illustration</span>
+                 </div>
+-                <div class="svc-head"><i class="svc-num">02</i><h3>Modernization &amp; Migration</h3></div>
+-                <p class="svc-tag">Bring an aging system up to date — without a big-bang rewrite.</p>
++                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>4 of 4 seams replaced | still serving</span></p>
++                <div class="svc-head"><i class="svc-num">02</i><h3><a class="svc-link" href="/services/modernization/">Modernization &amp; Migration</a></h3></div>
++                <p class="svc-tag">Bring an aging system up to date &mdash; without a big-bang rewrite.</p>
+                 <p class="svc-fact">RTL: modernized in production, no big-bang</p>
+                 <div class="svc-more">
+-                    <p>We replace the parts <em>while the system keeps serving</em> — one seam at a time, each step with a stated rollback envelope decided before the step is taken.</p>
+-                    <span class="go">Explore →</span>
+-                </div>
+-            </a>
+-
+-            <a class="svc-panel" href="/services/ai/">
+-                <div class="svc-viz svc-viz-ai" aria-hidden="true">
+-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+-                        <circle class="ai-d" cx="18"  cy="44" r="3" style="--sx:-4px;  --sy:-26px"/>
+-                        <circle class="ai-d" cx="32"  cy="44" r="3" style="--sx:6px;   --sy:22px"/>
+-                        <circle class="ai-d" cx="46"  cy="44" r="3" style="--sx:-10px; --sy:14px"/>
+-                        <circle class="ai-d" cx="60"  cy="44" r="3" style="--sx:8px;   --sy:-18px"/>
+-                        <circle class="ai-d" cx="74"  cy="44" r="3" style="--sx:-6px;  --sy:28px"/>
+-                        <circle class="ai-d" cx="88"  cy="44" r="3" style="--sx:12px;  --sy:-12px"/>
+-                        <circle class="ai-d" cx="102" cy="44" r="3" style="--sx:-8px;  --sy:-30px"/>
+-                        <path class="ai-arrow" d="M108 44 h12 m-5 -5 l5 5 -5 5"/>
++                    <p>We replace the parts <em>while the system keeps serving</em> &mdash; one seam at a time, each step with a stated rollback envelope decided before the step is taken.</p>
++                    <div class="svc-act"><button type="button" class="svc-btn" data-act="rollback">Roll back a step</button><span class="go">Explore &rarr;</span></div>
++                </div>
++            </article>
++
++            <article class="svc-panel" data-vig="ai" data-strict="on">
++                <div class="svc-viz" aria-hidden="true">
++                    <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
++                        <line class="ai-gate" x1="118" y1="14" x2="118" y2="126"/>
++                        <path class="ai-lane ai-lane-ok" d="M122 45 H226"/>
++                        <path class="ai-lane ai-lane-esc" d="M122 100 H196"/>
++                        <circle class="ai-who" cx="212" cy="94" r="5"/><path class="ai-who" d="M203 112 q9 -14 18 0"/>
++                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:-34px;--d:0s"/>
++                        <circle class="ai-d ai-unsure" cx="8" cy="70" r="3.6" style="--sy:20px;--d:-.9s"/>
++                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:-12px;--d:-1.8s"/>
++                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:36px;--d:-2.7s"/>
++                        <circle class="ai-d ai-unsure" cx="8" cy="70" r="3.6" style="--sy:-26px;--d:-3.6s"/>
++                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:8px;--d:-4.5s"/>
+                     </svg>
++                    <span class="svc-ill">illustration</span>
+                 </div>
+-                <div class="svc-head"><i class="svc-num">03</i><h3>Applied AI Systems</h3></div>
++                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>Unsure answers go to a person, not to a customer</span></p>
++                <div class="svc-head"><i class="svc-num">03</i><h3><a class="svc-link" href="/services/ai/">Applied AI Systems</a></h3></div>
+                 <p class="svc-tag">Probabilistic components placed where the answer can be checked.</p>
+                 <p class="svc-fact">Our own products first: Documentor.AI, DocsRight</p>
+                 <div class="svc-more">
+-                    <p>Noise in, <em>decisions out</em> — with grounding, an evaluation set built from your own cases, and a stated escalation path. Often the finding is that a deterministic rule is the better engineering.</p>
+-                    <span class="go">Explore →</span>
+-                </div>
+-            </a>
+-
+-            <a class="svc-panel" href="/services/enterprise-software-engineering/">
+-                <div class="svc-viz svc-viz-scale" aria-hidden="true">
+-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
+-                        <line class="sc-line" x1="12" y1="22" x2="120" y2="22"/>
+-                        <rect class="sc-b sc-b1" x="16"  y="52" width="12" height="24" rx="2"/>
+-                        <rect class="sc-b sc-b2" x="33"  y="44" width="12" height="32" rx="2"/>
+-                        <rect class="sc-b sc-b3" x="50"  y="56" width="12" height="20" rx="2"/>
+-                        <rect class="sc-b sc-b4" x="67"  y="38" width="12" height="38" rx="2"/>
+-                        <rect class="sc-b sc-b5" x="84"  y="48" width="12" height="28" rx="2"/>
+-                        <rect class="sc-b sc-b6" x="101" y="32" width="12" height="44" rx="2"/>
+-                    </svg>
+-                </div>
+-                <div class="svc-head"><i class="svc-num">04</i><h3>Enterprise Systems Engineering</h3></div>
++                    <p>Noise in, <em>decisions out</em> &mdash; with grounding, an evaluation set built from your own cases, and a stated escalation path. Often the finding is that a deterministic rule is the better answer.</p>
++                    <div class="svc-act"><button type="button" class="svc-btn" data-act="strict" aria-pressed="true">Require a source: on</button><span class="go">Explore &rarr;</span></div>
++                </div>
++            </article>
++
++            <article class="svc-panel" data-vig="scale">
++                <div class="svc-viz svc-viz-chain" aria-hidden="true">
++                    <ol class="ch" data-chain>
++                        <li><span class="ch-n">1</span><span class="ch-t">Payroll run</span><span class="ch-v">12,400</span><code>4a1f</code></li>
++                        <li><span class="ch-n">2</span><span class="ch-t">Supplier INV-88</span><span class="ch-v">3,150</span><code>9c07</code></li>
++                        <li><span class="ch-n">3</span><span class="ch-t">Refund R-17</span><span class="ch-v">480</span><code>e22b</code></li>
++                        <li><span class="ch-n">4</span><span class="ch-t">Transfer T-402</span><span class="ch-v">9,000</span><code>51d3</code></li>
++                        <li><span class="ch-n">5</span><span class="ch-t">Payout P-9</span><span class="ch-v">1,250</span><code>b8a6</code></li>
++                    </ol>
++                    <span class="svc-ill">illustration of the principle</span>
++                </div>
++                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>5 of 5 entries verify</span></p>
++                <div class="svc-head"><i class="svc-num">04</i><h3><a class="svc-link" href="/services/enterprise-software-engineering/">Enterprise Systems Engineering</a></h3></div>
+                 <p class="svc-tag">Work that crosses departments, and a record that survives an audit.</p>
+                 <p class="svc-fact">Processious (in production), DocsRight, Tallery Gallery</p>
+                 <div class="svc-more">
+-                    <p>The load grows; <em>the line holds</em>. Engineered under our audited ISO 9001 / 27001 process — the same discipline keeping a client's operations running today.</p>
+-                    <span class="go">Explore →</span>
++                    <p>Every entry is sealed to the one before it, so <em>an edit cannot hide</em>. Engineered under our audited ISO 9001 / 27001 process &mdash; the same discipline keeping a client's operations running today.</p>
++                    <div class="svc-act">
++                        <div class="svc-seg">
++                            <button type="button" class="svc-btn" data-act="alter">Alter an entry</button>
++                            <button type="button" class="svc-btn" data-act="restore">Restore</button>
++                        </div>
++                        <span class="go">Explore &rarr;</span>
++                    </div>
+                 </div>
+-            </a>
++            </article>
+ 
+         </div>
+     </div>
+@@ -585,4 +634,6 @@
+ {% block scripts_extra %}
+ {% lib "js/gear-caption.js" %}
+ {% lib "js/practice-stage.js" %}
++{% lib "js/practice-live.js" %}
++{% lib "js/stage.js" %}
+ {% endblock %}

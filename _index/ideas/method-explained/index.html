@@ -1,0 +1,237 @@
+<title>The Method Explained</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: an explainer in the manner of a product page. Text steps scroll on the left;
+   one diagram stays put on the right and changes exactly one thing per step.
+   Dark ground and mint accent are ManiarTech's brand. Mint appears only where something has changed. */
+:root {
+  --bg: #1a1a1a; --panel: #212322; --line: rgba(255,255,255,.14);
+  --fg: #f2f4f3; --muted: rgba(255,255,255,.64); --mint: #14cf93; --warn: #f0c987;
+  --display: "Outfit", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--display); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+p { margin: 0; }
+.intro { max-width: 1120px; margin: 0 auto; padding-block: 64px 24px; display: flex; flex-direction: column; gap: 14px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--mint); }
+h1 { margin: 0; font-size: clamp(34px, 6vw, 64px); line-height: 1.04; font-weight: 600; letter-spacing: -.02em; text-wrap: balance; max-width: 16ch; }
+.lead { color: var(--muted); max-width: 56ch; font-size: clamp(17px, 1.6vw, 21px); }
+.rules { max-width: 1120px; margin: 0 auto; padding-block: 8px 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; color: var(--muted); font-size: 14.5px; border-bottom: 1px solid var(--line); }
+.rules b { display: block; color: var(--fg); font-weight: 500; margin-bottom: 2px; }
+
+.story { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(20px, 5vw, 72px); }
+.steps { display: flex; flex-direction: column; }
+.step { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; gap: 14px; opacity: .32; transition: opacity .5s ease; }
+.step.on { opacity: 1; }
+.step .n { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.step.on .n { color: var(--mint); }
+.step h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.08; font-weight: 600; letter-spacing: -.015em; text-wrap: balance; }
+.step p { color: var(--muted); max-width: 44ch; font-size: clamp(16px, 1.4vw, 19px); }
+.step .try { align-self: flex-start; margin-top: 6px; font-family: var(--mono); font-size: 13px; padding: 11px 18px; border-radius: 999px; background: transparent; color: var(--fg); border: 1px solid rgba(255,255,255,.35); cursor: pointer; }
+.step .try:hover { border-color: var(--mint); }
+.step .try:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+.step .after { font-size: 15px; color: var(--mint); min-height: 24px; }
+.stage { position: sticky; top: 8vh; height: 84vh; align-self: start; display: grid; place-items: center; }
+.stage svg { width: 100%; max-height: 100%; height: auto; overflow: visible; }
+.stage .tag { position: absolute; right: 0; top: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: rgba(255,255,255,.55); }
+.end { max-width: 1120px; margin: 0 auto; padding-block: 40px 90px; color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); }
+svg text { font-family: var(--display); }
+.edge { stroke: rgba(255,255,255,.3); stroke-width: 1.6; fill: none; }
+.node circle { fill: var(--panel); stroke: rgba(255,255,255,.45); stroke-width: 1.6; transition: stroke .4s, fill .4s; }
+.node text { fill: rgba(255,255,255,.9); font-size: 13px; text-anchor: middle; dominant-baseline: central; }
+.node.hot circle { stroke: var(--mint); }
+.person circle.b { fill: #2b2e2d; stroke: #fff; stroke-opacity: .7; stroke-width: 1.8; }
+.glyph { fill: none; stroke: #fff; stroke-opacity: .85; stroke-width: 2; stroke-linecap: round; }
+.lbl { fill: rgba(255,255,255,.75); font-size: 13px; text-anchor: middle; }
+.know { fill: var(--mint); }
+.book rect.shell { fill: var(--panel); stroke: rgba(255,255,255,.5); stroke-width: 1.8; transition: stroke .4s, fill .4s; }
+.book.sys rect.shell { stroke: var(--mint); fill: #16251f; stroke-width: 2.2; }
+.book .row { fill: rgba(255,255,255,.55); }
+.book.sys .row { fill: var(--mint); }
+.dot { fill: #fff; }
+.bar { fill: var(--mint); }
+.bartrack { fill: rgba(255,255,255,.12); }
+@media (max-width: 860px) {
+  .story { grid-template-columns: 1fr; }
+  .stage { order: -1; position: sticky; top: 0; height: 44vh; z-index: 2; background: var(--bg); }
+  .step { min-height: 60vh; }
+  .rules { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .step { transition: none; } }
+</style>
+
+<div class="intro">
+  <span class="eyebrow">Style proof | one section</span>
+  <h1>How a department stops depending on one person</h1>
+  <p class="lead">The same idea as the arch and the graph, told the plain way: five steps, one diagram, one change at a time. Scroll.</p>
+</div>
+<div class="rules">
+  <div><b>One change per step</b>Each step moves exactly one thing in the diagram, so the motion is the explanation.</div>
+  <div><b>Real words, real roles</b>Sales, Orders, Billing. Plain labels, no decoration.</div>
+  <div><b>Colour means "this changed"</b>Mint appears only on what the step just did. No glow, no particles, no camera moves.</div>
+</div>
+
+<div class="story" id="story">
+  <div class="steps">
+    <div class="step" data-i="0"><span class="n">01 | Survey</span><h2>See who everything depends on.</h2><p>We start with the people and the handoffs: who knows how the work gets done, and who has to ask them.</p></div>
+    <div class="step" data-i="1"><span class="n">02 | Document</span><h2>Get it out of one head.</h2><p>Processes, formats and records are written down, so the knowledge lives on pages and not in a person.</p></div>
+    <div class="step" data-i="2"><span class="n">03 | Design</span><h2>Point the work at the page.</h2><p>Each handoff is redesigned to go to the written process. We also say plainly where a system will not help.</p></div>
+    <div class="step" data-i="3"><span class="n">04 | Set the keystone</span><h2>Make the system the centre.</h2><p>The documented system takes the middle. The person reviews it. The work no longer waits for them.</p></div>
+    <div class="step" data-i="4"><span class="n">05 | Bear load</span><h2>Then let it carry the work.</h2><p>Motivation, skill and results are measured, and the method moves on to the next department.</p><button class="try" id="removeBtn" type="button">Remove the person</button><div class="after" id="after" aria-live="polite"></div></div>
+  </div>
+  <div class="stage"><div class="tag">ILLUSTRATION</div>
+    <svg id="svg" viewBox="0 0 640 520" role="img" aria-label="Six departments connected to one person. Step by step the knowledge is written down, the connections move to the written process, the system becomes the centre, and the work flows without the person."></svg>
+  </div>
+</div>
+<div class="end">This is a style proof of a single section. The same treatment would apply to the other sections, with the real content of each.</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg', PI = Math.PI;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var D = function (x) { return reduce ? 0 : x; };
+  var svg = document.getElementById('svg');
+  function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+
+  var CX = 320, CY = 230, R = 175;
+  var names = ['Sales', 'Orders', 'Billing', 'Support', 'HR', 'Stock'];
+  var edgesG = el('g', {}, svg), flowG = el('g', {}, svg), nodesG = el('g', {}, svg);
+
+  // the target every edge points at (person, then the written process, then the system)
+  var tgt = { x: CX, y: CY };
+  var depts = names.map(function (n, i) {
+    var a = (-90 + i * 60) * PI / 180, x = CX + Math.cos(a) * R * 1.12, y = CY + Math.sin(a) * R * 0.92;
+    var g = el('g', { class: 'node', transform: 'translate(' + x + ' ' + y + ')' }, nodesG);
+    el('circle', { r: 36 }, g); var t = el('text', {}, g); t.textContent = n;
+    var e = el('line', { class: 'edge', x1: x, y1: y, x2: CX, y2: CY }, edgesG);
+    return { x: x, y: y, g: g, e: e, t: Math.random() };
+  });
+
+  // the person
+  var P = { x: CX, y: CY, s: 1, o: 1 };
+  var pg = el('g', { class: 'person' }, nodesG);
+  el('circle', { class: 'b', r: 44 }, pg);
+  el('circle', { class: 'glyph', cx: 0, cy: -9, r: 8 }, pg); el('path', { class: 'glyph', d: 'M-17 14 q17 -20 34 0' }, pg);
+  var plab = el('text', { class: 'lbl', y: 88 }, pg); plab.textContent = 'One person';
+  // the knowledge they hold: six dots in a ring
+  var know = [];
+  for (var i = 0; i < 6; i++) { var a2 = (i / 6) * PI * 2 - PI / 2; know.push({ c: el('circle', { class: 'know', r: 5.5 }, nodesG), ox: Math.cos(a2) * 62, oy: Math.sin(a2) * 62, x: 0, y: 0, o: 1 }); }
+
+  // the written process (becomes the system)
+  var B = { x: 520, y: 428, s: 1, o: 0 };
+  var bg = el('g', { class: 'book' }, nodesG);
+  el('rect', { class: 'shell', x: -64, y: -46, width: 128, height: 92, rx: 12 }, bg);
+  var rows = [0, 1, 2, 3, 4, 5].map(function (r) { return el('rect', { class: 'row', x: -48, y: -32 + r * 12.5, width: 96 - (r % 3) * 16, height: 5, rx: 2.5, opacity: 0 }, bg); });
+  var blab = el('text', { class: 'lbl', y: 70 }, bg); blab.textContent = 'Written down';
+
+  // later: motivation / skill / results
+  var barsG = el('g', { opacity: 0 }, svg), bars = ['Motivation', 'Skill', 'Results'].map(function (n, i) {
+    var x = 190 + i * 110; el('rect', { class: 'bartrack', x: x, y: 468, width: 80, height: 8, rx: 4 }, barsG);
+    var b = el('rect', { class: 'bar', x: x, y: 468, width: 8, height: 8, rx: 4 }, barsG); var t = el('text', { class: 'lbl', x: x + 40, y: 496 }, barsG); t.textContent = n; return { b: b };
+  });
+  var flow = []; for (i = 0; i < 18; i++) flow.push({ c: el('circle', { class: 'dot', r: 3.2, opacity: 0 }, flowG), e: i % 6, t: Math.random(), sp: 0.22 + Math.random() * 0.2 });
+  var flowOn = { v: 0 }, removed = false;
+
+  function draw() {
+    depts.forEach(function (d) { d.e.setAttribute('x2', tgt.x); d.e.setAttribute('y2', tgt.y); });
+    pg.setAttribute('transform', 'translate(' + P.x + ' ' + P.y + ') scale(' + P.s + ')'); pg.setAttribute('opacity', P.o); plab.setAttribute('font-size', 13 / P.s); plab.setAttribute('y', P.s < 1 ? 66 : 88);
+    know.forEach(function (k) { k.c.setAttribute('cx', P.x + k.x * 1); k.c.setAttribute('cy', P.y + k.y); k.c.setAttribute('opacity', k.o); });
+    bg.setAttribute('transform', 'translate(' + B.x + ' ' + B.y + ') scale(' + B.s + ')'); bg.setAttribute('opacity', B.o);
+  }
+  // initial placement of knowledge dots (a ring around the person)
+  know.forEach(function (k) { k.x = k.ox; k.y = k.oy; });
+  draw();
+  gsap.ticker.add(function (t, dt) {
+    var d = Math.min(dt / 1000, 0.05);
+    flow.forEach(function (f) {
+      if (flowOn.v > 0) f.t = (f.t + d * f.sp) % 1;
+      var s = depts[f.e], x = s.x + (tgt.x - s.x) * f.t, y = s.y + (tgt.y - s.y) * f.t;
+      f.c.setAttribute('cx', x); f.c.setAttribute('cy', y); f.c.setAttribute('opacity', flowOn.v * (0.25 + 0.75 * Math.sin(f.t * PI)));
+    });
+  });
+
+  var cur = -1;
+  function setBook(sys) { bg.classList.toggle('sys', sys); blab.textContent = sys ? 'The documented system' : 'Written down'; }
+  function state(i) {
+    if (i === cur) return; var prev = cur; cur = i;
+    gsap.killTweensOf([tgt, P, B, flowOn]); know.forEach(function (k) { gsap.killTweensOf(k); }); rows.forEach(function (r) { gsap.killTweensOf(r); });
+    var up = draw, eo = 'power2.inOut';
+    // 0 survey: all six depend on the person at the centre
+    if (i === 0) {
+      gsap.to(tgt, { x: CX, y: CY, duration: D(0.8), ease: eo, onUpdate: up });
+      gsap.to(P, { x: CX, y: CY, s: 1, o: 1, duration: D(0.8), ease: eo, onUpdate: up });
+      gsap.to(B, { o: 0, duration: D(0.4), onUpdate: up }); gsap.to(barsG, { attr: { opacity: 0 }, duration: D(0.4) });
+      know.forEach(function (k) { gsap.to(k, { x: k.ox, y: k.oy, o: 1, duration: D(0.8), ease: eo, onUpdate: up }); });
+      rows.forEach(function (r) { gsap.to(r, { attr: { opacity: 0 }, duration: D(0.3) }); });
+      gsap.to(flowOn, { v: 0, duration: D(0.4) }); setBook(false); removed = false; document.getElementById('after').textContent = '';
+      depts.forEach(function (d, k) { gsap.fromTo(d.g.querySelector('circle'), { attr: { 'stroke-width': 4 } }, { attr: { 'stroke-width': 1.6 }, duration: D(0.6), delay: D(0.12 * k) }); });
+      depts.forEach(function (d) { d.g.classList.remove('hot'); });
+    }
+    // 1 document: the knowledge leaves the person and lands on pages
+    if (i === 1) {
+      gsap.to(tgt, { x: CX, y: CY, duration: D(0.6), onUpdate: up });
+      gsap.to(P, { x: CX, y: CY, s: 1, o: 1, duration: D(0.6), onUpdate: up });
+      gsap.to(B, { x: 520, y: 428, s: 1, o: 1, duration: D(0.6), onUpdate: up }); setBook(false);
+      gsap.to(barsG, { attr: { opacity: 0 }, duration: D(0.3) }); gsap.to(flowOn, { v: 0, duration: D(0.3) });
+      know.forEach(function (k, n) {
+        gsap.to(k, { x: B.x - P.x - 40 + (n % 3) * 40, y: B.y - P.y - 14 + Math.floor(n / 3) * 24, o: 0, duration: D(0.9), delay: D(0.15 * n), ease: 'power2.inOut', onUpdate: up });
+        gsap.to(rows[n], { attr: { opacity: 1 }, duration: D(0.35), delay: D(0.15 * n + 0.8) });
+      });
+    }
+    // 2 design: the handoffs re-point from the person to the written process
+    if (i === 2) {
+      gsap.to(P, { x: CX, y: CY, s: 1, o: 1, duration: D(0.4), onUpdate: up });
+      gsap.to(B, { x: 520, y: 428, s: 1, o: 1, duration: D(0.4), onUpdate: up }); setBook(false);
+      gsap.to(tgt, { x: 520, y: 428, duration: D(1.1), ease: eo, onUpdate: up });
+      know.forEach(function (k) { gsap.to(k, { o: 0, duration: D(0.2) }); }); rows.forEach(function (r) { gsap.to(r, { attr: { opacity: 1 }, duration: D(0.2) }); });
+      gsap.to(barsG, { attr: { opacity: 0 }, duration: D(0.3) }); gsap.to(flowOn, { v: 0, duration: D(0.3) });
+      depts.forEach(function (d) { d.g.classList.add('hot'); });
+    }
+    // 3 keystone: the written process becomes the centre; the person steps aside to review it
+    if (i === 3) {
+      gsap.to(B, { x: CX, y: CY, s: 1.15, o: 1, duration: D(1.0), ease: eo, onUpdate: up });
+      gsap.to(tgt, { x: CX, y: CY, duration: D(1.0), ease: eo, onUpdate: up });
+      gsap.to(P, { x: 560, y: 60, s: 0.55, o: 1, duration: D(1.0), ease: eo, onUpdate: up });
+      setTimeout(function () { setBook(true); plab.textContent = 'Reviewer'; }, D(500));
+      know.forEach(function (k) { k.c.setAttribute('opacity', 0); });
+      gsap.to(barsG, { attr: { opacity: 0 }, duration: D(0.3) }); gsap.to(flowOn, { v: 0, duration: D(0.3) });
+      depts.forEach(function (d) { d.g.classList.add('hot'); });
+    }
+    if (i !== 3 && i !== 4) plab.textContent = 'One person';
+    // 4 bear load: work flows, and the three measures rise
+    if (i === 4) {
+      gsap.to(B, { x: CX, y: CY, s: 1.15, o: 1, duration: D(0.4), onUpdate: up }); gsap.to(tgt, { x: CX, y: CY, duration: D(0.4), onUpdate: up });
+      gsap.to(P, { x: 560, y: 60, s: 0.55, o: removed ? 0 : 1, duration: D(0.4), onUpdate: up }); setBook(true); plab.textContent = 'Reviewer';
+      gsap.to(barsG, { attr: { opacity: 1 }, duration: D(0.5) });
+      bars.forEach(function (b, n) { gsap.fromTo(b.b, { attr: { width: 8 } }, { attr: { width: 80 - n * 6 }, duration: D(1.4), delay: D(0.2 * n), ease: 'power2.out' }); });
+      gsap.to(flowOn, { v: 1, duration: D(0.8), delay: D(0.3) });
+      depts.forEach(function (d) { d.g.classList.add('hot'); });
+    }
+    if (i < 4) { removed = false; document.getElementById('after').textContent = ''; }
+  }
+
+  document.getElementById('removeBtn').addEventListener('click', function () {
+    removed = true; gsap.to(P, { o: 0, duration: D(0.6), onUpdate: draw });
+    document.getElementById('after').textContent = 'The person left. The work did not stop.';
+  });
+
+  // which step is on screen
+  var stepsEl = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  function pick() {
+    var mid = window.innerHeight * 0.5, best = 0, bd = 1e9;
+    stepsEl.forEach(function (s, i) { var r = s.getBoundingClientRect(), d = Math.abs((r.top + r.height / 2) - mid); if (d < bd) { bd = d; best = i; } });
+    stepsEl.forEach(function (s, i) { s.classList.toggle('on', i === best); });
+    state(best);
+  }
+  window.addEventListener('scroll', pick, { passive: true }); window.addEventListener('resize', pick);
+  pick();
+})();
+</script>

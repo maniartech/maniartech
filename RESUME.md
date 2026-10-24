@@ -7,6 +7,14 @@ committed to the repo, so it travels even if the code moves to a new location.
 
 Last updated: **2026-09-10**.
 
+**2026-10-20 addendum (design exploration, uncommitted).** Home and About are being redesigned on the
+local branch `home-work-stage` (cut from `v2`, nothing committed or pushed). Aamir keeps the hero gears
+and wants everything below them rebuilt to a "professional design agency" standard: best quality, but
+simple, continuous animation. All ideas, prototypes and reviews are saved in `_index/ideas/` (start with
+`_index/ideas/README.md`; runnable pages are `index.html` files). The built-but-uncommitted site work is
+described in `_index/ideas/branch-home-work-stage/README.md`. Rule for this thread: discuss ideas first,
+no commits or PRs unless Aamir asks.
+
 ---
 
 ## What this is
