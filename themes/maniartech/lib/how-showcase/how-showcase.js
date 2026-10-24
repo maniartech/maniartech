@@ -42,7 +42,10 @@
       // browsers take the full 6s, so this only blocks spurious instant fires)
       if (it.classList.contains('is-active') && nowFn() - activatedAt > 1500) setActive((i + 1) % N);
     });
-    it.addEventListener('click', function () { setActive(i); it.focus(); });
+    it.addEventListener('click', function () {
+      setActive(i); it.focus();
+      document.dispatchEvent(new CustomEvent('hw:picked', { detail: i }));   // the About cube turns to match
+    });
     it.addEventListener('keydown', function (ev) {
       if (ev.key === 'ArrowDown' || ev.key === 'ArrowRight') { setActive((active + 1) % N); items[active].focus(); ev.preventDefault(); }
       else if (ev.key === 'ArrowUp' || ev.key === 'ArrowLeft') { setActive((active - 1 + N) % N); items[active].focus(); ev.preventDefault(); }
@@ -50,6 +53,9 @@
       else if (ev.key === 'End') { setActive(N - 1); items[N - 1].focus(); ev.preventDefault(); }
     });
   });
+
+  // The About hero cube can send a visitor here with a principle already chosen.
+  document.addEventListener('hw:select', function (ev) { setActive(ev.detail); });
 
   setActive(0);
 })();

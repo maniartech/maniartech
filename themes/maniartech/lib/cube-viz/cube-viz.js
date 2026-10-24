@@ -16,6 +16,10 @@
   var ctx = canvas.getContext('2d');
   var cap = document.getElementById('cubeVizCap');
   var capDesc = cap && cap.querySelector('.fv-desc');
+  var capName = cap && cap.querySelector('.fv-name');
+  var defaultName = capName ? capName.textContent : '';
+  var faceBox = document.getElementById('cubeFaces');
+  var faceMore = document.getElementById('cubeFaceMore');
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var PI = Math.PI, cos = Math.cos, sin = Math.sin;
@@ -27,6 +31,7 @@
     var n = parseInt(v, 16); return isNaN(n) ? [20, 207, 147] : [(n >> 16) & 255, (n >> 8) & 255, n & 255];
   }
   var ACCENT = accentRgb();
+  var MONO = (getComputedStyle(canvas).getPropertyValue('--mono') || '').trim() || 'ui-monospace, Consolas, monospace';
   var FACE = {                 // keyed by outward direction
     '0,1,0': [226, 240, 233],  // U — pale
     '0,-1,0': [24, 30, 27],    // D — near-black
@@ -35,6 +40,10 @@
     '1,0,0': [58, 78, 71],     // R — dark slate-green
     '-1,0,0': [128, 150, 142]  // L — muted sage
   };
+
+  // The six centre facelets are the six "How we work" principles, in page order.
+  var LABELS = { '0,0,1': 0, '1,0,0': 1, '0,1,0': 2, '-1,0,0': 3, '0,0,-1': 4, '0,-1,0': 5 };
+  var NORMALS = [[0, 0, 1], [1, 0, 0], [0, 1, 0], [-1, 0, 0], [0, 0, -1], [0, -1, 0]];
 
   // ---- cubie model: 26 outer cubies, each carrying its outward facelets ----
   var DIRS = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
@@ -46,7 +55,11 @@
       if ((d[0] === 1 && x === 1) || (d[0] === -1 && x === -1) ||
           (d[1] === 1 && y === 1) || (d[1] === -1 && y === -1) ||
           (d[2] === 1 && z === 1) || (d[2] === -1 && z === -1)) {
-        faces.push({ dir: d.slice(), color: FACE[d.join(',')] });
+        var key = d.join(',');
+        var f = { dir: d.slice(), color: FACE[key] };
+        // a centre cubie shows exactly one facelet: that one carries a principle number
+        if (Math.abs(x) + Math.abs(y) + Math.abs(z) === 1) f.label = LABELS[key];
+        faces.push(f);
       }
     });
     cubies.push({ pos: [x, y, z], faces: faces });
@@ -78,7 +91,14 @@
     solving: 'Bringing it to order — by method, not luck.',
     solved: 'Drag to turn it. Click to scramble it and watch it resolve.'
   };
-  function state(s) { if (s === curState) return; curState = s; canvas.setAttribute('data-state', s); if (capDesc) capDesc.textContent = CAP[s]; }
+  var faceCaption = false;
+  function state(s) {
+    if (s === curState) return;
+    curState = s; canvas.setAttribute('data-state', s);
+    if (s !== 'solved') clearFace();
+    if (faceCaption && s === 'solved') return;
+    if (capDesc) capDesc.textContent = CAP[s];
+  }
   function next() {
     if (queue.length) { anim = { m: queue.shift(), t: 0 }; state(anim.m.phase); }
     else { anim = null; solved = true; state('solved'); }
@@ -136,6 +156,51 @@
       g.addColorStop(1, 'rgba(' + ACCENT[0] + ',' + ACCENT[1] + ',' + ACCENT[2] + ',0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(CX, CY, r, 0, PI * 2); ctx.fill();
     },
+    shadow: function () {
+      var cy = CY + PX * 2.55, rx = PX * 2.5, ry = PX * 0.55;
+      ctx.save();
+      ctx.translate(CX, cy); ctx.scale(1, ry / rx);
+      var g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+      g.addColorStop(0, 'rgba(0,0,0,.5)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, rx, 0, PI * 2); ctx.fill();
+      ctx.restore();
+    },
+    // Draw into the facelet's own plane: local space is 0..100 on both axes.
+    mark: function (p, idx, col, on) {
+      var ux = p[1][0] - p[0][0], uy = p[1][1] - p[0][1], vx = p[3][0] - p[0][0], vy = p[3][1] - p[0][1];
+      // Keep the numeral upright and readable on every face: of the facelet's four edge
+      // directions, the one pointing most to the right becomes the text's x axis, and the
+      // text's y axis always reads top to bottom.
+      var cand = [[ux, uy, vx, vy], [vx, vy, -ux, -uy], [-ux, -uy, -vx, -vy], [-vx, -vy, ux, uy]];
+      var best = cand[0];
+      for (var c = 1; c < 4; c++) if (cand[c][0] > best[0]) best = cand[c];
+      var X0 = best[0], X1 = best[1], Y0 = best[2], Y1 = best[3];
+      if (Y1 < 0) { Y0 = -Y0; Y1 = -Y1; }
+      var cx = (p[0][0] + p[2][0]) / 2 - (X0 + Y0) / 2, cy = (p[0][1] + p[2][1]) / 2 - (X1 + Y1) / 2;
+      var lum = 0.2126 * col[0] + 0.7152 * col[1] + 0.0722 * col[2];
+      var ink = lum > 120 ? 'rgba(8,16,12,' : 'rgba(255,255,255,';
+      ctx.save();
+      ctx.transform(X0 / 100, X1 / 100, Y0 / 100, Y1 / 100, cx, cy);
+      // gear ring
+      var teeth = 10, ro = 38, ri = 31, rot = gearT * (idx % 2 ? -1 : 1);
+      ctx.beginPath();
+      for (var i = 0; i < teeth * 2; i++) {
+        var a0 = rot + (i / (teeth * 2)) * PI * 2, a1 = rot + ((i + 1) / (teeth * 2)) * PI * 2;
+        var r = i % 2 ? ri : ro;
+        ctx.lineTo(50 + cos(a0) * r, 50 + sin(a0) * r);
+        ctx.lineTo(50 + cos(a1) * r, 50 + sin(a1) * r);
+      }
+      ctx.closePath();
+      ctx.lineWidth = on ? 4 : 2.6; ctx.lineJoin = 'round';
+      ctx.strokeStyle = ink + (on ? '.95)' : '.5)');
+      ctx.stroke();
+      // numeral
+      ctx.fillStyle = ink + (on ? '1)' : '.82)');
+      ctx.font = '700 30px ' + MONO;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(('0' + (idx + 1)).slice(-2), 50, 52);
+      ctx.restore();
+    },
     quad: function (pts, col, shade) {
       ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
       for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
@@ -149,6 +214,7 @@
   function draw() {
     R.clear();
     R.glow(Math.min(W, H) * 0.44, solved ? 0.11 : 0.07);
+    R.shadow();
     var quads = [];
     for (var i = 0; i < cubies.length; i++) {
       var cu = cubies[i];
@@ -161,24 +227,64 @@
         var cs = corners(cu.pos, f.dir).map(function (p) { if (aff) p = slice(p, anim.m.axis, ang); return orient(p); });
         var depth = (cs[0][2] + cs[1][2] + cs[2][2] + cs[3][2]) / 4;
         var diff = Math.max(0, n[0] * LIGHT[0] + n[1] * LIGHT[1] + n[2] * LIGHT[2]);
-        quads.push({ p: cs.map(project), col: f.color, shade: 0.52 + 0.48 * diff, depth: depth });
+        quads.push({ p: cs.map(project), col: f.color, shade: 0.52 + 0.48 * diff, depth: depth, label: f.label });
       }
     }
     quads.sort(function (a, b) { return a.depth - b.depth; });
-    for (var q = 0; q < quads.length; q++) R.quad(quads[q].p, quads[q].col, quads[q].shade);
+    for (var q = 0; q < quads.length; q++) {
+      var Q = quads[q];
+      R.quad(Q.p, Q.col, Q.shade);
+      if (Q.label !== undefined) R.mark(Q.p, Q.label, Q.col, Q.label === focusLabel);
+    }
   }
 
   // ---- loop ----
-  var raf, last = null, dragging = false;
+  var raf, last = null, dragging = false, visible = true, gearT = 0;
+  var focusLabel = -1, target = null;
+  function wrap(a) { while (a > PI) a -= PI * 2; while (a < -PI) a += PI * 2; return a; }
+  function clearFace() {
+    focusLabel = -1; target = null; faceCaption = false;
+    if (capName) capName.textContent = defaultName;
+    if (faceBox) {
+      var bs = faceBox.querySelectorAll('.cube-face');
+      for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', 'false');
+    }
+    if (faceMore) faceMore.hidden = true;
+  }
+  // Turn the cube to show principle i, and say which one it is.
+  function focusFace(i) {
+    if (i < 0 || i > 5) return;
+    var n = NORMALS[i];
+    focusLabel = i;
+    if (n[1] === 0) target = { yaw: Math.atan2(-n[0], n[2]) - 0.5, pitch: 0.38 };
+    else target = { yaw: -0.5, pitch: n[1] > 0 ? 1.05 : -1.05 };
+    if (reduce) { yaw = target.yaw; pitch = target.pitch; }
+    var btn = faceBox && faceBox.querySelector('[data-face="' + i + '"]');
+    var title = btn ? btn.getAttribute('data-title') : '';
+    faceCaption = true;
+    if (capName) capName.textContent = ('0' + (i + 1)).slice(-2) + ' | ' + title;
+    if (capDesc) capDesc.textContent = 'Principle ' + (i + 1) + ' of 6. Drag to turn the cube.';
+    if (faceBox) {
+      var bs = faceBox.querySelectorAll('.cube-face');
+      for (var k = 0; k < bs.length; k++) bs[k].setAttribute('aria-pressed', k === i ? 'true' : 'false');
+    }
+    if (faceMore) { faceMore.hidden = false; faceMore.setAttribute('data-face', String(i)); }
+  }
   function frame(ts) {
     if (last == null) last = ts;
     var dt = Math.min((ts - last) / 1000, 0.05); last = ts;
     if (W === 0) resize();
-    if (canvas.clientWidth === 0) { raf = requestAnimationFrame(frame); return; }
+    if (canvas.clientWidth === 0 || !visible) { raf = requestAnimationFrame(frame); return; }
+    if (!reduce) gearT += dt * 0.55;
+    if (target && !dragging && !anim) {
+      var k = Math.min(1, dt * 4.5);
+      yaw += wrap(target.yaw - yaw) * k;
+      pitch += (target.pitch - pitch) * k;
+    }
     if (anim) {
       anim.t += dt / MOVE_DUR;
       if (anim.t >= 1) { commit(anim.m); next(); }
-    } else if (!dragging && !reduce) {
+    } else if (!dragging && !reduce && !target) {
       yaw += 0.22 * dt; // gentle idle turn
     }
     draw();
@@ -196,7 +302,7 @@
     if (!dragging) return;
     var dx = ev.clientX - downX, dy = ev.clientY - downY; downX = ev.clientX; downY = ev.clientY;
     moved += Math.abs(dx) + Math.abs(dy);
-    yaw += dx * 0.01; pitch += dy * 0.01;
+    yaw += dx * 0.01; pitch += dy * 0.01; target = null;
     if (pitch > 1.2) pitch = 1.2; if (pitch < -1.2) pitch = -1.2;
   });
   function release() { if (!dragging) return; dragging = false; canvas.style.cursor = 'grab'; }
@@ -213,6 +319,22 @@
     else if (ev.key === 'ArrowDown') { pitch = Math.min(1.2, pitch + 0.2); ev.preventDefault(); }
     else if ((ev.key === 'Enter' || ev.key === ' ') && solved && queue.length === 0) { scrambleThenSolve(true); ev.preventDefault(); }
   });
+
+  // ---- principles: the chips under the cube, and the How-we-work tabs ----
+  if (faceBox) {
+    faceBox.addEventListener('click', function (ev) {
+      var b = ev.target.closest && ev.target.closest('.cube-face');
+      if (b) focusFace(parseInt(b.getAttribute('data-face'), 10));
+    });
+  }
+  if (faceMore) faceMore.addEventListener('click', function () {
+    var i = parseInt(faceMore.getAttribute('data-face'), 10);
+    document.dispatchEvent(new CustomEvent('hw:select', { detail: i }));
+  });
+  document.addEventListener('hw:picked', function (ev) { focusFace(ev.detail); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }, { threshold: 0 }).observe(canvas);
+  }
 
   // ---- boot ----
   if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);

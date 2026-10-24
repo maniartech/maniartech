@@ -21,6 +21,11 @@ composed here. Edit a section by editing its file. #}
                         <span class="fv-name">Complexity, solved.</span>
                         <span class="fv-desc">Twenty-seven years of turning tangled problems into simple, solid software.</span>
                     </figcaption>
+                    {# The six faces are the six principles below; this turns the cube to one. #}
+                    <div class="cube-faces" id="cubeFaces" role="group" aria-label="Turn the cube to a principle">
+                        {% for p in work.principles %}<button type="button" class="cube-face" data-face="{{ loop.index0 }}" data-title="{{ p.title }}" aria-pressed="false" title="{{ p.title }}"><span>0{{ loop.index }}</span></button>{% endfor %}
+                        <a class="cube-face-more" id="cubeFaceMore" href="#howShowcase" hidden>Read how we work &rarr;</a>
+                    </div>
                     {# Fallback for no-JS, mobile, and screen readers #}
                     <ul class="foundry-viz-fallback">
                         <li>Senior engineers who make hard problems look simple.</li>
@@ -32,6 +37,19 @@ composed here. Edit a section by editing its file. #}
         </div>
     </div>
 </header>
+
+{# Verifiable facts, in the first scroll. Every line here is already published elsewhere on the
+   site (footer, /how-we-work/, /security/); this surfaces it where a skeptical reader looks. #}
+<section class="ab-facts" aria-label="Company facts">
+    <div class="container">
+        <ul class="ab-facts-grid">
+            <li><strong>Maniar Technologies Private Limited</strong><span>Registered in Thane, Maharashtra, India</span></li>
+            <li><strong>Since 2010</strong><span>A small senior team that grows slowly, on purpose</span></li>
+            <li><strong>ISO 9001:2015 and ISO/IEC 27001:2022</strong><span>Certificates 123961/B/0001 and 123961/A/0001, audited by URS under UKAS. Verify with the registrar. <a href="/how-we-work/">How</a></span></li>
+            <li><strong>Public repositories</strong><span><a href="https://github.com/maniartech" target="_blank" rel="noopener">github.com/maniartech</a>, open to read and run</span></li>
+        </ul>
+    </div>
+</section>
 
 <section class="section-padding">
     <div class="container">
