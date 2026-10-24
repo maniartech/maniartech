@@ -15,6 +15,10 @@
 
 const BASE = (process.argv[2] || 'http://localhost:7000').replace(/\/+$/, '');
 const SEEDS = ['/'];
+// --launch: pre-launch gate. Promotes launch-only warnings (missing sitemap) to FAIL.
+const LAUNCH = process.argv.includes('--launch');
+// Pages that are deliberately noindex. Empty on purpose: add a path here only by decision.
+const NOINDEX_OK = new Set([]);
 
 // ---------------------------------------------------------------------------
 // Tunables (documented in README.md - change deliberately, not casually)
@@ -111,13 +115,14 @@ for (const [path, page] of seen) {
     if (!/^https:\/\//.test(canon)) F(`${id} canonical not absolute https: ${canon}`);
     if (canon.includes('localhost')) F(`${id} canonical points at localhost`);
     const canonPath = canon.replace(/^https?:\/\/[^/]+/, '');
-    if (canonPath !== path) W(`${id} canonical path differs: ${canonPath}`);
+    if (canonPath !== path) F(`${id} canonical path differs from page path: ${canonPath}`);
   }
 
   // -- robots / noindex awareness
   const robotsTag = (html.match(/<meta[^>]+name="robots"[^>]*>/i) || [])[0];
   const robots = robotsTag ? attr(robotsTag, 'content') : '';
-  if (/noindex/i.test(robots)) W(`${id} is NOINDEX (deliberate?)`);
+  const xRobots = page.headers?.get('x-robots-tag') || '';
+  if (/noindex/i.test(robots + ' ' + xRobots) && !NOINDEX_OK.has(path)) F(`${id} is NOINDEX and not in NOINDEX_OK`);
 
   // -- Open Graph + Twitter
   for (const req of ['og:title', 'og:description', 'og:url', 'og:type']) {
@@ -127,7 +132,7 @@ for (const [path, page] of seen) {
   if (!/name="twitter:card"/i.test(html)) W(`${id} missing twitter:card`);
 
   // -- JSON-LD validity
-  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+  for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { JSON.parse(m[1]); } catch (e) { F(`${id} INVALID JSON-LD: ${String(e).slice(0, 60)}`); }
   }
   if (!/application\/ld\+json/.test(html)) W(`${id} has no JSON-LD at all`);
@@ -172,7 +177,7 @@ for (const [path, page] of seen) {
   else P('robots.txt present and permissive');
 
   const sitemap = await fetchPage('/sitemap.xml');
-  if (sitemap.status !== 200) W('sitemap.xml missing (build-time generation is owned by Aamir)');
+  if (sitemap.status !== 200) (LAUNCH ? F : W)('sitemap.xml missing (build-time generation is owned by Aamir)');
   else {
     P('sitemap.xml present');
     const locs = [...sitemap.body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
@@ -642,6 +647,31 @@ for (const [path, page] of seen) {
 
       if (!sHits) P('/standards/ publication status, registry facts and artifact links are accurate');
     }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Home work stage: its status chips are a copy of each Foundry page's own
+// statusLine (the data lives once, on the project page). A reworded or
+// re-labelled project page must not leave Home stating the old status.
+// ---------------------------------------------------------------------------
+{
+  const home = seen.get('/');
+  if (home && home.status === 200) {
+    const panels = [...home.body.matchAll(/<div class="ws-panel[^"]*"[\s\S]*?<ul class="ws-chips"[^>]*>([\s\S]*?)<\/ul>[\s\S]*?<a href="([^"]+)" class="ws-primary"/g)];
+    if (!panels.length) F('/ has no work stage (ws-panel) - expected tabbed specimens above "What we build"');
+    let drift = 0;
+    for (const m of panels) {
+      const chips = [...m[1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((c) => decode(c[1]).trim());
+      const target = seen.get(m[2]) || await fetchPage(m[2]);
+      const line = (target.body.match(/<p class="fd-status">([\s\S]*?)<\/p>/) || [])[1];
+      if (!line) { F(`/ work stage links ${m[2]}, which has no fd-status line`); drift++; continue; }
+      if (decode(line).trim() !== chips.join(' | ')) {
+        F(`/ work stage chips for ${m[2]} drifted from its statusLine: "${chips.join(' | ')}" vs "${decode(line).trim()}"`);
+        drift++;
+      }
+    }
+    if (panels.length && !drift) P(`/ work stage: ${panels.length} tabs, status chips match each Foundry statusLine`);
   }
 }
 

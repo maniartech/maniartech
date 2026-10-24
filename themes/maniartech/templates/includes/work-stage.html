@@ -1,0 +1,119 @@
+{# Home > the work stage: a tabbed product panel in the first scroll.
+
+   DATA LIVES ONCE. The tabs are looped from `workStage` in site/home/index.md
+   frontmatter; the status chips there must equal each Foundry page's own
+   `statusLine` (scripts/seo/seo-check.mjs fails on drift). The specimen inside
+   each panel is bespoke to its content type - code for a language, a document
+   pair for a format, a real screenshot for a platform - and uses only material
+   already published on the matching Foundry page. #}
+{% set stage = pageContext.workStage %}
+{% if stage %}
+<section class="ws-section" id="work-stage" aria-labelledby="ws-title">
+    <div class="container">
+        <div class="ws-head">
+            <span class="mt-eyebrow">What we build</span>
+            <h2 id="ws-title" class="fw-600">Software, and the technology under it.</h2>
+        </div>
+
+        <div class="ws" data-stage>
+            <div class="ws-tabs" role="tablist" aria-label="ManiarTech projects">
+                {% for t in stage %}
+                <button type="button" role="tab" class="ws-tab{% if loop.first %} is-on{% endif %}"
+                        id="ws-tab-{{ t.key }}" aria-controls="ws-panel-{{ t.key }}"
+                        aria-selected="{% if loop.first %}true{% else %}false{% endif %}"{% if not loop.first %} tabindex="-1"{% endif %}>
+                    <span class="ws-num">0{{ loop.index }}</span>
+                    <span class="ws-name">{{ t.name }}</span>
+                    <span class="ws-bar" aria-hidden="true"></span>
+                </button>
+                {% endfor %}
+            </div>
+
+            {% for t in stage %}
+            <div class="ws-panel{% if loop.first %} is-on{% endif %}" role="tabpanel"
+                 id="ws-panel-{{ t.key }}" aria-labelledby="ws-tab-{{ t.key }}"{% if not loop.first %} hidden{% endif %}>
+                <div class="ws-specimen">
+                    {% if t.key == "processious" %}
+                    <figure class="ws-frame">
+                        <div class="ws-chrome" aria-hidden="true"><i></i><i></i><i></i><span>Sample management | Chemo Test Laboratory</span></div>
+                        <img src="{% assets "imgs/projects/chemo.png" %}" alt="Sample management screen of a client laboratory system built on Processious (demo data)" width="745" height="560" loading="lazy">
+                        <figcaption>Screenshot shows demo data.</figcaption>
+                    </figure>
+
+                    {% elif t.key == "internet-object" %}
+                    <div class="ws-pair">
+                        <div class="ws-code">
+                            <div class="ws-code-bar"><span>JSON</span><span class="ws-dim">keys repeat every record</span></div>
+<pre>[
+  {"name": "Alice", "age": 30},
+  {"name": "Bob",   "age": 25}
+]</pre>
+                        </div>
+                        <div class="ws-code ws-code-on">
+                            <div class="ws-code-bar"><span>Internet Object</span><span class="ws-dim">shape declared once</span></div>
+<pre><span class="k">name: string, age: int</span>
+<span class="c">---</span>
+<span class="s">~ Alice, 30</span>
+<span class="s">~ Bob, 25</span></pre>
+                        </div>
+                    </div>
+                    <div class="ws-bars" role="img" aria-label="Published benchmark at 100 generated user records: Internet Object 10,052 bytes versus JSON 19,807 bytes; 4,174 versus 5,749 tokens.">
+                        <div class="ws-bar-row"><span>Size</span><span class="ws-track"><i class="ws-fill-json" style="width:100%"></i></span><span class="ws-val">JSON 19,807 B</span></div>
+                        <div class="ws-bar-row"><span></span><span class="ws-track"><i class="ws-fill-io" style="width:50.75%"></i></span><span class="ws-val ws-on">IO 10,052 B | 49.25% smaller</span></div>
+                        <div class="ws-bar-row"><span>Tokens</span><span class="ws-track"><i class="ws-fill-json" style="width:100%"></i></span><span class="ws-val">JSON 5,749</span></div>
+                        <div class="ws-bar-row"><span></span><span class="ws-track"><i class="ws-fill-io" style="width:72.6%"></i></span><span class="ws-val ws-on">IO 4,174 | 27.40% fewer</span></div>
+                        <p class="ws-note">100 generated user records, cl100k_base. At one record the schema header can lose. Method and caveats on the project page.</p>
+                    </div>
+
+                    {% elif t.key == "uexl" %}
+                    <div class="ws-code ws-code-wide">
+                        <div class="ws-code-bar"><span>expressions</span><span class="ws-dim">the language itself</span></div>
+<pre><span class="c"># pipes instead of nested calls - stages read left to right</span>
+orders <span class="o">|filter:</span> $item.status == <span class="s">"shipped"</span> <span class="o">|map:</span> $item.total <span class="o">|reduce:</span> ($acc ?? 0) + $item
+
+<span class="c"># explicit, safe semantics</span>
+count <span class="o">??</span> 0               <span class="c"># falls back only on null or absent</span>
+user<span class="o">?.</span>address<span class="o">?.</span>city      <span class="c"># null, not a panic</span>
+
+<span class="c"># Excel-familiar forms for the people writing the rules</span>
+total &gt; 1000 <span class="o">?</span> <span class="s">"review"</span> : <span class="s">"auto-approve"</span></pre>
+                    </div>
+                    <p class="ws-note">Zero allocations on the benchmarked boolean and string hot paths. Pre-compile once; one-shot Eval allocates.</p>
+
+                    {% elif t.key == "tajmahal" %}
+                    <div class="ws-code ws-code-wide">
+                        <div class="ws-code-bar"><span>site/module.yaml</span><span class="ws-dim">routes the page you are reading</span></div>
+<pre><span class="k">name:</span> site
+
+<span class="k">pages:</span>
+  - home:  /
+  - about: /about/
+  - standards:    /standards/
+  - estimate:     /estimate/
+  - contact:      /contact/
+  - careers:      /careers/
+  - how-we-work:  /how-we-work/
+  - security:     /security/</pre>
+                    </div>
+                    <p class="ws-note">This site, and a client's, are built with it. It is not released.</p>
+                    {% endif %}
+                </div>
+
+                <div class="ws-meta">
+                    <span class="mt-eyebrow">{{ t.kind }}</span>
+                    <h3>{{ t.line }}</h3>
+                    <ul class="ws-chips" aria-label="Status">
+                        {% for c in t.chips %}<li>{{ c }}</li>{% endfor %}
+                    </ul>
+                    <div class="ws-links">
+                        <a href="{{ t.page }}" class="ws-primary">Read the project page <span aria-hidden="true">&rarr;</span></a>
+                        {% if t.verifyUrl %}<a href="{{ t.verifyUrl }}" {% if t.verifyExternal %}target="_blank" rel="noopener"{% endif %}>{{ t.verifyLabel }} <span aria-hidden="true">&nearr;</span></a>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <p class="ws-all"><a href="/foundry/">See everything we make <span aria-hidden="true">&rarr;</span></a></p>
+    </div>
+</section>
+{% endif %}

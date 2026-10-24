@@ -1,0 +1,121 @@
+/* ===========================================================================
+   Home > the work stage (templates/includes/work-stage.html, js/stage.js)
+
+   A tabbed panel that shows real specimens of what ManiarTech makes, in the
+   first scroll. Hairline cells, mono numerals and code panes do the work; the
+   only motion is the tab timer bar and a panel fade, both off under
+   reduced-motion. All small text stays at alpha >= .5 on #1a1a1a (AA).
+   =========================================================================== */
+.ws-section { padding: clamp(40px, 6vw, 84px) 0 var(--sp-section); background: #1a1a1a; }
+.ws-head { margin-bottom: clamp(20px, 3vw, 36px); }
+.ws-head h2 { font-size: var(--fs-h2); line-height: 1.14; text-wrap: balance; margin: 0; }
+
+.ws {
+  --ws-line: rgba(255, 255, 255, .12);
+  border: 1px solid var(--ws-line);
+  border-radius: 14px;
+  background: #1d1d1d;
+  overflow: hidden;
+}
+
+/* ---- Tabs ----------------------------------------------------------------- */
+.ws-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--ws-line); }
+.ws-tab {
+  position: relative; display: flex; align-items: baseline; gap: 10px;
+  padding: 16px 18px 18px; background: transparent; border: 0; border-right: 1px solid var(--ws-line);
+  color: rgba(255, 255, 255, .62); text-align: left; cursor: pointer; font: inherit;
+}
+.ws-tab:last-child { border-right: 0; }
+.ws-tab:hover { color: #fff; }
+.ws-tab:focus-visible { outline: 2px solid $main_color; outline-offset: -2px; }
+.ws-tab .ws-num { font-family: var(--mono); font-size: 12px; color: rgba(255, 255, 255, .5); }
+.ws-tab .ws-name { font-size: 15px; font-weight: 500; }
+.ws-tab.is-on { color: #fff; background: rgba(255, 255, 255, .03); }
+.ws-tab.is-on .ws-num { color: $main_color; }
+.ws-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: transparent; }
+.ws-bar::after { content: ""; display: block; height: 100%; width: 0; background: $main_color; }
+.ws.is-timed .ws-tab.is-on .ws-bar::after { width: 100%; transition: width var(--ws-dur, 8s) linear; }
+.ws:not(.is-timed) .ws-tab.is-on .ws-bar::after { width: 100%; }
+
+/* ---- Panels --------------------------------------------------------------- */
+.ws-panel { display: none; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); min-height: 460px; }
+.ws-panel.is-on { display: grid; animation: ws-in .35s ease both; }
+@keyframes ws-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.ws-specimen { padding: clamp(16px, 2.4vw, 28px); border-right: 1px solid var(--ws-line); min-width: 0; display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+.ws-meta { padding: clamp(18px, 2.6vw, 32px); display: flex; flex-direction: column; justify-content: center; gap: 14px; min-width: 0; }
+.ws-meta h3 { font-size: clamp(19px, 2vw, 24px); line-height: 1.25; margin: 0; text-wrap: balance; }
+.ws-meta .mt-eyebrow { margin: 0; }
+
+.ws-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ws-chips li {
+  font-family: var(--mono); font-size: 12px; line-height: 1; padding: 7px 10px;
+  border: 1px solid var(--ws-line); border-radius: 999px; color: rgba(255, 255, 255, .78);
+}
+.ws-links { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.ws-links a { color: rgba(255, 255, 255, .82); font-size: 15px; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .3); text-underline-offset: 4px; }
+.ws-links a:hover { color: #fff; text-decoration-color: $main_color; }
+.ws-links .ws-primary { color: $main_color; text-decoration: none; font-weight: 500; }
+
+/* ---- Specimens ------------------------------------------------------------ */
+.ws-frame { margin: 0; border: 1px solid var(--ws-line); border-radius: 10px; overflow: hidden; background: #111; }
+.ws-frame img { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; object-position: top left; }
+.ws-frame figcaption { padding: 8px 12px; font-size: 12px; color: rgba(255, 255, 255, .55); border-top: 1px solid var(--ws-line); }
+.ws-chrome { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--ws-line); background: #161616; }
+.ws-chrome i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .18); }
+.ws-chrome span { margin-left: 8px; font-family: var(--mono); font-size: 12px; color: rgba(255, 255, 255, .55); }
+
+.ws-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ws-code { border: 1px solid var(--ws-line); border-radius: 10px; background: #141414; min-width: 0; overflow: hidden; }
+.ws-code-on { border-color: rgba($main_color, .45); }
+.ws-code-bar { display: flex; justify-content: space-between; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--ws-line); font-family: var(--mono); font-size: 12px; color: rgba(255, 255, 255, .85); }
+.ws-code-bar .ws-dim { color: rgba(255, 255, 255, .5); }
+.ws-code pre { margin: 0; padding: 14px 14px 16px; font-family: var(--mono); font-size: 13px; line-height: 1.7; color: rgba(255, 255, 255, .85); background: transparent; border: 0; overflow-x: auto; white-space: pre; }
+.ws-code .c { color: rgba(255, 255, 255, .5); }
+.ws-code .k { color: #8fe3c4; }
+.ws-code .s { color: #f0c987; }
+.ws-code .o { color: $main_color; }
+
+.ws-bars { display: flex; flex-direction: column; gap: 8px; }
+.ws-bar-row { display: grid; grid-template-columns: 56px minmax(0, 1fr) minmax(0, 190px); align-items: center; gap: 12px; font-size: 12px; color: rgba(255, 255, 255, .6); }
+.ws-bar-row .ws-val { font-family: var(--mono); color: rgba(255, 255, 255, .65); }
+.ws-bar-row .ws-val.ws-on { color: $main_color; }
+.ws-track { height: 10px; border-radius: 3px; background: rgba(255, 255, 255, .06); overflow: hidden; }
+.ws-track i { display: block; height: 100%; border-radius: 3px; }
+.ws-fill-json { background: rgba(255, 255, 255, .3); }
+.ws-fill-io { background: $main_color; }
+.ws-note { margin: 0; font-size: 13px; line-height: 1.55; color: rgba(255, 255, 255, .6); }
+
+.ws-all { margin: 18px 0 0; text-align: right; }
+.ws-all a { color: rgba(255, 255, 255, .8); font-size: 15px; }
+.ws-all a:hover { color: $main_color; }
+
+/* ---- Small screens: stack, and let the tab row scroll --------------------- */
+@media (max-width: 860px) {
+  .ws-tabs { display: flex; overflow-x: auto; }
+  .ws-tab { flex: 0 0 auto; min-width: 150px; }
+  .ws-panel, .ws-panel.is-on { grid-template-columns: 1fr; }
+  .ws-specimen { border-right: 0; border-bottom: 1px solid var(--ws-line); }
+  .ws-pair { grid-template-columns: 1fr; }
+  .ws-bar-row { grid-template-columns: 48px minmax(0, 1fr); }
+  .ws-bar-row .ws-val { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-panel.is-on { animation: none; }
+  .ws.is-timed .ws-tab.is-on .ws-bar::after { transition: none; }
+}
+
+/* ---- Proof strip (Home, directly under the hero) -------------------------- */
+.ws-proof { background: #1a1a1a; border-top: 1px solid rgba(255, 255, 255, .1); }
+.ws-proof-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ws-proof-grid li { padding: clamp(16px, 2.2vw, 26px) clamp(14px, 2vw, 24px); border-right: 1px solid rgba(255, 255, 255, .1); display: flex; flex-direction: column; gap: 4px; }
+.ws-proof-grid li:last-child { border-right: 0; }
+.ws-proof-grid li:first-child { padding-left: 0; }
+.ws-proof-grid strong { font-size: clamp(15px, 1.5vw, 18px); color: #fff; font-weight: 600; }
+.ws-proof-grid span { font-size: 13px; line-height: 1.5; color: rgba(255, 255, 255, .62); }
+@media (max-width: 860px) {
+  .ws-proof-grid { grid-template-columns: 1fr 1fr; }
+  .ws-proof-grid li { border-bottom: 1px solid rgba(255, 255, 255, .1); }
+  .ws-proof-grid li:nth-child(2n) { border-right: 0; }
+  .ws-proof-grid li:first-child { padding-left: clamp(14px, 2vw, 24px); }
+}

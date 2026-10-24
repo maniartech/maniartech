@@ -72,6 +72,21 @@
 </div>
 </div><!-- /hero-screen -->
 
+<!-- ==================== 2b - Proof strip: claims already made lower on this page, surfaced ==================== -->
+<section class="ws-proof" aria-label="At a glance">
+    <div class="container">
+        <ul class="ws-proof-grid">
+            <li><strong>ISO 9001:2015 &amp; ISO/IEC 27001:2022</strong><span>Independently audited by URS under UKAS accreditation</span></li>
+            <li><strong>27 years</strong><span>Engineering software, led by the founder</span></li>
+            <li><strong>100% senior</strong><span>Senior engineers lead and review the work</span></li>
+            <li><strong>Since 2010</strong><span>A small team that grows slowly, on purpose</span></li>
+        </ul>
+    </div>
+</section>
+
+<!-- ==================== 2c - The work stage (tabbed specimens of what we make) ==================== -->
+{% include "includes/work-stage.html" %}
+
 <!-- ==================== 3 · Is this you? ==================== -->
 <section class="services section-padding">
     <div class="container">
@@ -145,94 +160,128 @@
         {# Expanding-panel stage: hover/tab a service to open it — its
         vignette (a small SVG "machine" embodying that service's metaphor) runs,
         and the proof line appears. Pure CSS state; first panel open at rest. #}
-        <div class="practice-stage">
+        <div class="practice-stage" data-practice>
 
-            <a class="svc-panel" href="/services/application-software-engineering/">
-                <div class="svc-viz svc-viz-build" aria-hidden="true">
-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
-                        <g class="bp-grid">
-                            <path d="M6 22 H126 M6 44 H126 M6 66 H126"/>
-                            <path d="M26 6 V82 M66 6 V82 M106 6 V82"/>
-                        </g>
-                        <path class="bp-path" d="M18 76 V40 H48 V24 H84 V40 H114 V76 Z"/>
-                        <path class="bp-path bp-door" d="M58 76 V60 H74 V76"/>
-                        <line class="bp-path bp-ant" x1="66" y1="24" x2="66" y2="12"/>
-                        <circle class="bp-tip" cx="66" cy="9" r="2.5"/>
-                    </svg>
+            {# Each panel is an <article>, not an <a>: it carries a real <button>, and a
+               button inside a link is invalid. The whole card stays clickable through
+               the title link's stretched ::after; controls sit above it (z-index).
+               Every vignette is ILLUSTRATIVE (labelled so) and rests in a readable
+               finished state with no JS and under reduced-motion. #}
+
+            <article class="svc-panel" data-vig="build">
+                <div class="svc-viz svc-viz-app" aria-hidden="true">
+                    <div class="bp-app" data-app style="--p:1">
+                        <div class="bp-layer bp-wireframe">
+                            <div class="ba-top"><i class="ba-logo"></i><span class="ba-bar ba-w40"></span><i class="ba-av"></i></div>
+                            <div class="ba-tools"><span class="ba-field"></span><span class="ba-btn"></span></div>
+                            <div class="ba-row"><span class="ba-bar ba-w20"></span><span class="ba-bar ba-w40"></span><span class="ba-chip"></span><span class="ba-bar ba-w20"></span></div>
+                            <div class="ba-row"><span class="ba-bar ba-w20"></span><span class="ba-bar ba-w40"></span><span class="ba-chip"></span><span class="ba-bar ba-w20"></span></div>
+                            <div class="ba-row"><span class="ba-bar ba-w20"></span><span class="ba-bar ba-w40"></span><span class="ba-chip"></span><span class="ba-bar ba-w20"></span></div>
+                        </div>
+                        <div class="bp-layer bp-finished">
+                            <div class="ba-top"><i class="ba-logo"></i><b class="ba-title">Orders</b><i class="ba-av">AM</i></div>
+                            <div class="ba-tools"><span class="ba-field">Search orders</span><span class="ba-btn">New order</span></div>
+                            <div class="ba-row"><span>#1042</span><span>Northwind Ltd</span><em class="ok">Shipped</em><span>1,240</span></div>
+                            <div class="ba-row"><span>#1043</span><span>Acme Foods</span><em class="wait">Packing</em><span>860</span></div>
+                            <div class="ba-row"><span>#1044</span><span>Lumen Labs</span><em class="ok">Shipped</em><span>2,975</span></div>
+                            <span class="ba-live">deployed</span>
+                        </div>
+                        <span class="bp-scrub" aria-hidden="true"></span>
+                    </div>
+                    <span class="svc-ill">illustration</span>
                 </div>
-                <div class="svc-head"><i class="svc-num">01</i><h3>Application &amp; Product Engineering</h3></div>
+                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>Production: shipped, with the decisions on record</span></p>
+                <div class="svc-head"><i class="svc-num">01</i><h3><a class="svc-link" href="/services/application-software-engineering/">Application &amp; Product Engineering</a></h3></div>
                 <p class="svc-tag">A bounded product, with the architecture written down.</p>
                 <p class="svc-fact">Built this way: Touchpoint, Shantee Homes</p>
                 <div class="svc-more">
-                    <p>From blueprint to production <em>once</em> — scoped straight, led and reviewed by senior engineers, with the consequential decisions recorded. The client platforms in our case studies were built exactly this way.</p>
-                    <span class="go">Explore →</span>
+                    <p>From blueprint to production <em>once</em> &mdash; scoped straight, led and reviewed by senior engineers, with the consequential decisions recorded. The client platforms in our case studies were built exactly this way.</p>
+                    <div class="svc-act">
+                        <label class="svc-range"><span>Blueprint</span>
+                            <input type="range" min="0" max="100" value="100" data-scrub aria-label="Slide from blueprint to production">
+                        <span>Production</span></label>
+                        <span class="go">Explore &rarr;</span>
+                    </div>
                 </div>
-            </a>
+            </article>
 
-            <a class="svc-panel" href="/services/modernization/">
-                <div class="svc-viz svc-viz-modern" aria-hidden="true">
-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
-                        <line class="md-base" x1="10" y1="76" x2="122" y2="76"/>
-                        <rect class="md-b md-b1" x="14" y="50" width="18" height="26" rx="3"/>
-                        <rect class="md-b md-b2" x="36" y="38" width="18" height="38" rx="3"/>
-                        <rect class="md-b md-b3" x="58" y="46" width="18" height="30" rx="3"/>
-                        <rect class="md-b md-b4" x="80" y="34" width="18" height="42" rx="3"/>
-                        <rect class="md-b md-b5" x="102" y="52" width="18" height="24" rx="3"/>
-                        <circle class="md-pulse" cx="116" cy="14" r="4"/>
-                        <text class="md-up" x="108" y="18" text-anchor="end">live</text>
+            <article class="svc-panel" data-vig="modern">
+                <div class="svc-viz" aria-hidden="true">
+                    <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
+                        <line class="md-rail" x1="6" y1="70" x2="234" y2="70"/>
+                        <rect class="md-env" data-env x="14" y="40" width="48" height="60" rx="7"/>
+                        <rect class="md-blk is-new" data-i="0" x="18"  y="46" width="40" height="48" rx="5"/>
+                        <rect class="md-blk is-new" data-i="1" x="74"  y="46" width="40" height="48" rx="5"/>
+                        <rect class="md-blk is-new" data-i="2" x="130" y="46" width="40" height="48" rx="5"/>
+                        <rect class="md-blk is-new" data-i="3" x="186" y="46" width="40" height="48" rx="5"/>
+                        <circle class="md-req" cx="0" cy="70" r="3.4" style="--d:0s"/>
+                        <circle class="md-req" cx="0" cy="70" r="3.4" style="--d:-1.2s"/>
+                        <circle class="md-req" cx="0" cy="70" r="3.4" style="--d:-2.4s"/>
                     </svg>
+                    <span class="svc-ill">illustration</span>
                 </div>
-                <div class="svc-head"><i class="svc-num">02</i><h3>Modernization &amp; Migration</h3></div>
-                <p class="svc-tag">Bring an aging system up to date — without a big-bang rewrite.</p>
+                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>4 of 4 seams replaced | still serving</span></p>
+                <div class="svc-head"><i class="svc-num">02</i><h3><a class="svc-link" href="/services/modernization/">Modernization &amp; Migration</a></h3></div>
+                <p class="svc-tag">Bring an aging system up to date &mdash; without a big-bang rewrite.</p>
                 <p class="svc-fact">RTL: modernized in production, no big-bang</p>
                 <div class="svc-more">
-                    <p>We replace the parts <em>while the system keeps serving</em> — one seam at a time, each step with a stated rollback envelope decided before the step is taken.</p>
-                    <span class="go">Explore →</span>
+                    <p>We replace the parts <em>while the system keeps serving</em> &mdash; one seam at a time, each step with a stated rollback envelope decided before the step is taken.</p>
+                    <div class="svc-act"><button type="button" class="svc-btn" data-act="rollback">Roll back a step</button><span class="go">Explore &rarr;</span></div>
                 </div>
-            </a>
+            </article>
 
-            <a class="svc-panel" href="/services/ai/">
-                <div class="svc-viz svc-viz-ai" aria-hidden="true">
-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
-                        <circle class="ai-d" cx="18"  cy="44" r="3" style="--sx:-4px;  --sy:-26px"/>
-                        <circle class="ai-d" cx="32"  cy="44" r="3" style="--sx:6px;   --sy:22px"/>
-                        <circle class="ai-d" cx="46"  cy="44" r="3" style="--sx:-10px; --sy:14px"/>
-                        <circle class="ai-d" cx="60"  cy="44" r="3" style="--sx:8px;   --sy:-18px"/>
-                        <circle class="ai-d" cx="74"  cy="44" r="3" style="--sx:-6px;  --sy:28px"/>
-                        <circle class="ai-d" cx="88"  cy="44" r="3" style="--sx:12px;  --sy:-12px"/>
-                        <circle class="ai-d" cx="102" cy="44" r="3" style="--sx:-8px;  --sy:-30px"/>
-                        <path class="ai-arrow" d="M108 44 h12 m-5 -5 l5 5 -5 5"/>
+            <article class="svc-panel" data-vig="ai" data-strict="on">
+                <div class="svc-viz" aria-hidden="true">
+                    <svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg">
+                        <line class="ai-gate" x1="118" y1="14" x2="118" y2="126"/>
+                        <path class="ai-lane ai-lane-ok" d="M122 45 H226"/>
+                        <path class="ai-lane ai-lane-esc" d="M122 100 H196"/>
+                        <circle class="ai-who" cx="212" cy="94" r="5"/><path class="ai-who" d="M203 112 q9 -14 18 0"/>
+                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:-34px;--d:0s"/>
+                        <circle class="ai-d ai-unsure" cx="8" cy="70" r="3.6" style="--sy:20px;--d:-.9s"/>
+                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:-12px;--d:-1.8s"/>
+                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:36px;--d:-2.7s"/>
+                        <circle class="ai-d ai-unsure" cx="8" cy="70" r="3.6" style="--sy:-26px;--d:-3.6s"/>
+                        <circle class="ai-d" cx="8" cy="70" r="3.6" style="--sy:8px;--d:-4.5s"/>
                     </svg>
+                    <span class="svc-ill">illustration</span>
                 </div>
-                <div class="svc-head"><i class="svc-num">03</i><h3>Applied AI Systems</h3></div>
+                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>Unsure answers go to a person, not to a customer</span></p>
+                <div class="svc-head"><i class="svc-num">03</i><h3><a class="svc-link" href="/services/ai/">Applied AI Systems</a></h3></div>
                 <p class="svc-tag">Probabilistic components placed where the answer can be checked.</p>
                 <p class="svc-fact">Our own products first: Documentor.AI, DocsRight</p>
                 <div class="svc-more">
-                    <p>Noise in, <em>decisions out</em> — with grounding, an evaluation set built from your own cases, and a stated escalation path. Often the finding is that a deterministic rule is the better engineering.</p>
-                    <span class="go">Explore →</span>
+                    <p>Noise in, <em>decisions out</em> &mdash; with grounding, an evaluation set built from your own cases, and a stated escalation path. Often the finding is that a deterministic rule is the better answer.</p>
+                    <div class="svc-act"><button type="button" class="svc-btn" data-act="strict" aria-pressed="true">Require a source: on</button><span class="go">Explore &rarr;</span></div>
                 </div>
-            </a>
+            </article>
 
-            <a class="svc-panel" href="/services/enterprise-software-engineering/">
-                <div class="svc-viz svc-viz-scale" aria-hidden="true">
-                    <svg viewBox="0 0 132 88" xmlns="http://www.w3.org/2000/svg">
-                        <line class="sc-line" x1="12" y1="22" x2="120" y2="22"/>
-                        <rect class="sc-b sc-b1" x="16"  y="52" width="12" height="24" rx="2"/>
-                        <rect class="sc-b sc-b2" x="33"  y="44" width="12" height="32" rx="2"/>
-                        <rect class="sc-b sc-b3" x="50"  y="56" width="12" height="20" rx="2"/>
-                        <rect class="sc-b sc-b4" x="67"  y="38" width="12" height="38" rx="2"/>
-                        <rect class="sc-b sc-b5" x="84"  y="48" width="12" height="28" rx="2"/>
-                        <rect class="sc-b sc-b6" x="101" y="32" width="12" height="44" rx="2"/>
-                    </svg>
+            <article class="svc-panel" data-vig="scale">
+                <div class="svc-viz svc-viz-chain" aria-hidden="true">
+                    <ol class="ch" data-chain>
+                        <li><span class="ch-n">1</span><span class="ch-t">Payroll run</span><span class="ch-v">12,400</span><code>4a1f</code></li>
+                        <li><span class="ch-n">2</span><span class="ch-t">Supplier INV-88</span><span class="ch-v">3,150</span><code>9c07</code></li>
+                        <li><span class="ch-n">3</span><span class="ch-t">Refund R-17</span><span class="ch-v">480</span><code>e22b</code></li>
+                        <li><span class="ch-n">4</span><span class="ch-t">Transfer T-402</span><span class="ch-v">9,000</span><code>51d3</code></li>
+                        <li><span class="ch-n">5</span><span class="ch-t">Payout P-9</span><span class="ch-v">1,250</span><code>b8a6</code></li>
+                    </ol>
+                    <span class="svc-ill">illustration of the principle</span>
                 </div>
-                <div class="svc-head"><i class="svc-num">04</i><h3>Enterprise Systems Engineering</h3></div>
+                <p class="svc-live"><span class="lv-dot"></span><span class="lv-text" data-live>5 of 5 entries verify</span></p>
+                <div class="svc-head"><i class="svc-num">04</i><h3><a class="svc-link" href="/services/enterprise-software-engineering/">Enterprise Systems Engineering</a></h3></div>
                 <p class="svc-tag">Work that crosses departments, and a record that survives an audit.</p>
                 <p class="svc-fact">Processious (in production), DocsRight, Tallery Gallery</p>
                 <div class="svc-more">
-                    <p>The load grows; <em>the line holds</em>. Engineered under our audited ISO 9001 / 27001 process — the same discipline keeping a client's operations running today.</p>
-                    <span class="go">Explore →</span>
+                    <p>Every entry is sealed to the one before it, so <em>an edit cannot hide</em>. Engineered under our audited ISO 9001 / 27001 process &mdash; the same discipline keeping a client's operations running today.</p>
+                    <div class="svc-act">
+                        <div class="svc-seg">
+                            <button type="button" class="svc-btn" data-act="alter">Alter an entry</button>
+                            <button type="button" class="svc-btn" data-act="restore">Restore</button>
+                        </div>
+                        <span class="go">Explore &rarr;</span>
+                    </div>
                 </div>
-            </a>
+            </article>
 
         </div>
     </div>
@@ -585,4 +634,6 @@
 {% block scripts_extra %}
 {% lib "js/gear-caption.js" %}
 {% lib "js/practice-stage.js" %}
+{% lib "js/practice-live.js" %}
+{% lib "js/stage.js" %}
 {% endblock %}
