@@ -39,6 +39,65 @@ context:
   # archive genuine depth at that point. Reminder tracked at CP-6M in METRICS-AND-CAPA.md.
   showPostDates: false
 
+  # Home > What we do: the four practices, as the visitor's own situation. THE single
+  # source for the practice picker (chips, drawing captions and the cards). `ask`
+  # completes the sentence "My business ...". Wording stays domain-neutral on purpose;
+  # only `example` / `exampleUrl` name a real engagement as proof. The longer
+  # situation/risk/decision copy lives on /services/ (services/services/index.md).
+  homePractices:
+    - key: systems
+      chip: "Work moves between people"
+      ask: "runs on handoffs between people"
+      name: "Enterprise Systems Engineering"
+      thesis: "A workflow is not automated until invalid transitions are impossible."
+      decisions:
+        - "Where state lives, and which transitions are legal"
+        - "Who may move a record, and who may not"
+        - "What evidence survives"
+      url: "/services/enterprise-software-engineering/"
+      example: "Example: an accredited laboratory, live today"
+      exampleUrl: "/case-studies/chemo/"
+      cta: "See a real example"
+    - key: product
+      chip: "We need a product"
+      ask: "needs a product of its own"
+      name: "Application and Product Engineering"
+      thesis: "Architecture accountability is the deliverable. The code carries it."
+      decisions:
+        - "Domain and system boundaries"
+        - "What the design is optimized for, and what that costs"
+        - "Who owns data and deployment after handover"
+      url: "/services/application-software-engineering/"
+      example: "Example: a property sales platform, live"
+      exampleUrl: "/case-studies/sales-navigator/"
+      cta: "See a real example"
+    - key: modernize
+      chip: "Our old system is aging"
+      ask: "runs on an old system we cannot stop"
+      name: "Modernization and Migration"
+      thesis: "Modernize against the old system's behaviour, not away from it."
+      decisions:
+        - "Where the seams are"
+        - "The rollback envelope for each stage"
+        - "Parity shown before anything is retired"
+      url: "/services/modernization/"
+      example: "Example: an operations system, in service since 2011"
+      exampleUrl: "/case-studies/rtl/"
+      cta: "See a real example"
+    - key: ai
+      chip: "We want to use AI"
+      ask: "wants to use AI where it must be right"
+      name: "Applied AI Systems"
+      thesis: "An answer without inspectable evidence is not ready to enter a workflow."
+      decisions:
+        - "Whether a model is the right tool at all"
+        - "What happens when confidence is low"
+        - "How behaviour is checked when a model changes"
+      url: "/services/ai/"
+      example: "Example: how we decide AI is the wrong tool"
+      exampleUrl: "/insights/"
+      cta: "See how we decide"
+
   # The Insights threads - THE single source of truth. The /insights/ page loops
   # this for the filter buttons, the four thread cards, and the label on every
   # index row. Adding or renaming a thread is a change HERE and nowhere else.

@@ -591,6 +591,41 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 .mt-shot { border-radius: 10px; overflow: hidden; img { display: block; width: 100%; height: auto; } }
 
+/* Desktop + phone pair (home "See it in action"). The desktop takes 86% of the
+   width; the phone (34%) overlaps its right side, rising to ~20% from the top
+   and overhanging 6% below (all shares of width). Depth comes from three
+   layers moving at different speeds on scroll (--p from chemo-duo.js, -1..1):
+   mint glow slowest and opposite, desktop slightly, phone the most. The mouse
+   (--mx, --my, -1..1, over the section row) adds the same kind of offset.
+   Reveal uses `translate`, parallax uses `transform`, so they never fight. */
+.mt-duo {
+  position: relative;
+  padding-bottom: 6%;
+  &::before {
+    content: ""; position: absolute; left: 8%; top: 6%; width: 70%; height: 70%;
+    background: radial-gradient(closest-side, rgba(20, 207, 147, .16), rgba(20, 207, 147, 0));
+    pointer-events: none;
+  }
+  img { position: relative; display: block; height: auto; }
+  .mt-duo__desk { width: 86%; }
+  .mt-duo__phone {
+    position: absolute; right: 0; bottom: 6%; width: 34%;
+    filter: drop-shadow(0 18px 30px rgba(0, 0, 0, .45));
+  }
+  &.is-armed {
+    &::before { transform: translate3d(calc(var(--p, 0) * 30px + var(--mx, 0) * 22px), calc(var(--p, 0) * 40px + var(--my, 0) * 16px), 0); }
+    .mt-duo__desk { transform: translate3d(calc(var(--mx, 0) * -7px), calc(var(--p, 0) * 18px + var(--my, 0) * -5px), 0); }
+    .mt-duo__phone { transform: translate3d(calc(var(--mx, 0) * -20px), calc(var(--p, 0) * -80px + var(--my, 0) * -14px), 0); }
+    img { transition: opacity .8s ease, translate .9s cubic-bezier(.2, .7, .2, 1); }
+    .mt-duo__phone { transition-delay: .25s; }
+  }
+  &.is-armed:not(.is-in) {
+    img { opacity: 0; }
+    .mt-duo__desk { translate: 0 24px; }
+    .mt-duo__phone { translate: 40px 40px; }
+  }
+}
+
 /* ===========================================================================
    Footer
    =========================================================================== */
@@ -852,6 +887,22 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .viz-hero .foundry-viz-fallback .fv-fallback-more { color: $main_color; font-weight: 600; border-style: dashed; }
 }
 
+/* /case-studies/ hero: "Made to fit" (fit-viz.js). Unlike the cube it stays on
+   mobile (it is light and wordless), so the fallback list is sr-only everywhere. */
+.viz-hero .foundry-viz.fit-fig canvas { height: clamp(360px, 40vw, 520px); cursor: grab; }
+.viz-hero .foundry-viz.fit-fig canvas:active { cursor: grabbing; }
+.viz-hero .fit-fig .foundry-viz-fallback {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .viz-hero .foundry-viz.fit-fig canvas { display: block; height: clamp(280px, 78vw, 400px); margin-top: 24px; }
+  .viz-hero .foundry-viz.fit-fig .foundry-viz-cap { display: block; }
+}
+
 /* Throughline (About) fallback: plain milestone list on mobile */
 @media (max-width: 991px) {
   .viz-hero .throughline-fig .foundry-viz-fallback li {
@@ -1070,68 +1121,99 @@ nav.navbar.blur { -webkit-backdrop-filter: none; backdrop-filter: none; }
 @media (prefers-reduced-motion: reduce) { .term-proof .tp-cursor { animation: none; } }
 .term-proof .term-cap { margin-top: 14px; color: rgba(255, 255, 255, .5); font-size: 13px; }
 
-/* ---- Home > What we do: expanding practice stage with living vignettes ----
-   Four panels; the open one widens, its SVG vignette runs, and the proof line
-   appears. State is pure CSS: hover/focus opens a panel; at rest (no hover or
-   focus anywhere in the stage) the first panel sits open.
+/* ---- Home > What we do: the practice picker --------------------------------
+   The visitor finishes "My business ..." with one of four situations; one set of
+   36 dots (canvas-free SVG, js/practice-dots.js) re-forms into that practice and
+   plays its own sequence. Domain-neutral on purpose: labels say what a thing IS
+   (record, module, screen, request), never an industry. Without JS (no .is-js)
+   the drawing, chips and pager are hidden and the four cards simply list. */
+.pz { --pz-line: rgba(255, 255, 255, .12); }
+.pz .pz-ask { margin: 0 0 14px; color: rgba(255, 255, 255, .8); font-weight: 400; font-size: clamp(16px, 1.5vw, 18px); line-height: 1.4; }
+.pz .pz-ask u { text-decoration: none; color: $main_color; font-weight: 500; border-bottom: 1px solid rgba($main_color, .6); }
+.pz:not(.is-js) .pz-ask, .pz:not(.is-js) .pz-chips, .pz:not(.is-js) .pz-left { display: none; }
 
-   NAMED `.practice-stage`, NOT `.svc-stage` (renamed 2026-08-31). The Services
-   rebuild introduced a SECOND, unrelated `.svc-stage` further down this file -
-   the method-stage card (display:block, bordered, padded). Same name, same
-   specificity, later in the file, so it won every tie and silently flattened
-   this row into four stacked full-width blocks on the live home page. Two
-   different components must never share a class name; keep these distinct. */
-.practice-stage { display: flex; gap: 16px; align-items: stretch; }
-.svc-panel {
-  flex: 1 1 0; min-width: 0; display: block;
-  padding: clamp(20px, 2.4vw, 30px);
-  background: $sub_bg; border: 1px solid rgba(255, 255, 255, .07); border-radius: 16px;
-  transition: flex-grow .55s cubic-bezier(.22, .9, .28, 1), border-color .35s ease, background .35s ease;
+.pz .pz-chips {
+  display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  margin: 0 calc(var(--bs-gutter-x, 24px) * -.5) 20px; padding: 2px calc(var(--bs-gutter-x, 24px) * .5) 10px;
 }
-.svc-panel:focus-visible { outline: none; box-shadow: 0 0 0 1px rgba($main_color, .6), 0 0 0 6px rgba($main_color, .12); }
-
-.svc-panel .svc-head { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; }
-.svc-panel .svc-num { font-style: normal; font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, .35); font-variant-numeric: tabular-nums; transition: color .35s ease; }
-.svc-panel h3 { color: rgba(255, 255, 255, .85); font-size: clamp(17px, 1.5vw, 20px); line-height: 1.25; margin: 0; transition: color .35s ease; }
-.svc-panel .svc-tag { margin: 10px 0 0; color: rgba(255, 255, 255, .55); font-size: 14px; line-height: 1.55; }
-.svc-panel .svc-fact {
-  margin: 9px 0 0; font-family: var(--mono); font-size: 10.5px; line-height: 1.6;
-  letter-spacing: .04em; color: rgba(255, 255, 255, .45);
+.pz .pz-chips::-webkit-scrollbar { display: none; }
+.pz .pz-chip {
+  flex: 0 0 auto; scroll-snap-align: center; min-height: 42px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid var(--pz-line); background: #222; color: rgba(255, 255, 255, .84);
+  font: inherit; font-size: 14px; cursor: pointer; transition: background .25s ease, color .25s ease, border-color .25s ease;
 }
-.svc-panel .svc-more { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .55s cubic-bezier(.22, .9, .28, 1), opacity .4s ease .1s; }
-.svc-panel .svc-more p { margin: 14px 0 0; color: rgba(255, 255, 255, .72); font-size: 14.5px; line-height: 1.6; }
-.svc-panel .svc-more em { color: $main_color; font-style: normal; font-weight: 600; }
-.svc-panel .svc-more .go { display: inline-block; margin-top: 14px; color: $main_color; font-size: 13.5px; font-weight: 600; }
+.pz .pz-chip:hover { border-color: rgba($main_color, .6); }
+.pz .pz-chip:focus-visible { outline: 2px solid $main_color; outline-offset: 2px; }
+.pz .pz-chip[aria-selected="true"] { background: $main_color; border-color: $main_color; color: #0d1f18; font-weight: 600; }
 
-/* vignette frame */
-.svc-viz { display: block; border-radius: 10px; background: rgba(255, 255, 255, .025); border: 1px solid rgba(255, 255, 255, .05); }
-.svc-viz svg { display: block; width: 100%; height: auto; }
-.svc-viz svg * { vector-effect: non-scaling-stroke; }
-
-/* -- open state (hover / keyboard focus / at-rest first panel) -- */
-@mixin svc-open {
-  flex-grow: 2.1;
-  border-color: rgba($main_color, .45);
-  .svc-num { color: $main_color; }
-  h3 { color: #fff; }
-  .svc-more { max-height: 230px; opacity: 1; }
+.pz .pz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 28px); align-items: stretch; }
+.pz .pz-left { display: flex; flex-direction: column; }
+.pz .pz-view {
+  position: relative; overflow: hidden; border: 1px solid var(--pz-line); border-radius: 18px;
+  flex: 1 1 auto; display: flex; align-items: center; padding: 8px 0 48px;
+  background: radial-gradient(120% 90% at 50% 0, #242424, #1b1b1b); perspective: 900px; touch-action: pan-y;
 }
-
-.svc-panel:hover, .svc-panel:focus-within { @include svc-open; }
-/* armed by js/practice-stage.js when the stage enters the viewport - the
-   expansion and the blueprint draw must play on screen, not during load.
-   Without JS the stage stays un-armed: panels rest equal, hover still opens. */
-.practice-stage.is-armed:not(:hover):not(:focus-within) .svc-panel:first-child { @include svc-open; }
-
-@media (prefers-reduced-motion: reduce) {
-  .svc-panel, .svc-panel .svc-more { transition: none; }
+.pz .pz-view svg { display: block; width: 100%; height: auto; transition: transform .25s ease-out; transform-style: preserve-3d; }
+.pz .pz-view svg * { vector-effect: non-scaling-stroke; }
+.pz .pz-dec { opacity: 0; transition: opacity .6s .5s; }
+.pz .pz-dec.on { opacity: 1; }
+.pz .pz-dec line, .pz .pz-dec rect, .pz .pz-dec path, .pz .pz-dec circle {
+  stroke: rgba(255, 255, 255, .3); fill: none; stroke-dasharray: 4 5; transition: stroke .3s ease, stroke-width .3s ease;
 }
+.pz .pz-dec line.fl { stroke: $main_color; stroke-dasharray: none; stroke-width: 2.5; }
+.pz .pz-dec line.am { stroke: #e8b86a; stroke-dasharray: none; stroke-width: 2.5; }
+.pz .pz-dec .slot { stroke-dasharray: 2 3; stroke: rgba(255, 255, 255, .18); }
+.pz .pz-dec text { fill: rgba(255, 255, 255, .62); font: var(--fs, 10px) var(--mono); stroke: none; transition: opacity .4s ease, fill .4s ease; }
+.pz .pz-dec text.hid { opacity: 0; }
+.pz .pz-dec text.am { fill: #e8b86a; }
+.pz .pz-dec text.mi { fill: $main_color; }
+.pz #pz-tag { transition: opacity .3s ease; }
+.pz #pz-tagr { fill: #0f1f19; stroke: $main_color; stroke-width: 1; }
+.pz #pz-tagt { fill: #fff; font: var(--fst, 10.5px) var(--mono); }
+.pz .pz-hint { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font: 11px var(--mono); color: rgba(255, 255, 255, .56); }
+.pz .pz-pager { position: absolute; left: 0; right: 0; bottom: 30px; display: flex; gap: 8px; justify-content: center; }
+.pz .pz-pager i { width: 22px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .18); transition: width .3s ease, background .3s ease; }
+.pz .pz-pager i.on { background: $main_color; width: 36px; }
 
-/* mobile: no accordion - four full cards, everything visible */
+.pz .pz-cards { display: flex; flex-direction: column; gap: 16px; }
+.pz .pz-card { border: 1px solid var(--pz-line); border-radius: 18px; padding: clamp(22px, 2.8vw, 32px); background: #1f1f1f; display: flex; flex-direction: column; gap: 16px; flex: 1 1 auto; }
+.pz.is-js .pz-card { display: none; }
+.pz.is-js .pz-card.on { display: flex; }
+.pz .pz-card > * { transition: opacity .35s ease, transform .35s ease; }
+.pz .pz-card.sw > * { opacity: 0; transform: translateY(8px); }
+.pz .pz-no { font: 12px var(--mono); color: $main_color; letter-spacing: .14em; }
+.pz .pz-card h3 { color: #fff; font-size: clamp(21px, 2.2vw, 24px); line-height: 1.2; margin: 8px 0 10px; font-weight: 600; }
+.pz .pz-th { margin: 0; color: rgba(255, 255, 255, .6); font-size: 14.5px; line-height: 1.55; }
+.pz .pz-card ul { list-style: none; padding: 0; margin: 0; }
+.pz .pz-foot { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 4px 14px; }
+.pz .pz-log {
+  flex: 1 1 auto; min-height: 104px; display: flex; flex-direction: column; padding: 10px 14px;
+  border: 1px dashed rgba(255, 255, 255, .16); border-radius: 12px; background: #1b1b1b; font: 12px/1.7 var(--mono);
+}
+.pz .pz-log-h { display: flex; justify-content: space-between; color: rgba(255, 255, 255, .5); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding-bottom: 6px; margin-bottom: 4px; border-bottom: 1px solid var(--pz-line); }
+.pz .pz-log-b div { color: rgba(255, 255, 255, .78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: pz-in .35s ease; }
+.pz .pz-log-b .mi { color: $main_color; }
+.pz .pz-log-b .am { color: #e8b86a; }
+@keyframes pz-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.pz:not(.is-js) .pz-log { display: none; }
+.pz .pz-card li { position: relative; padding: 9px 0 9px 18px; line-height: 1.45; border-top: 1px solid var(--pz-line); font-size: 14.5px; color: rgba(255, 255, 255, .84); }
+.pz .pz-card li::before { content: ""; position: absolute; left: 0; top: calc(9px + .725em - 3px); width: 6px; height: 6px; border-radius: 50%; background: $main_color; }
+.pz .pz-cta {
+  flex: 1 0 100%; display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 999px; margin-bottom: 8px;
+  background: $main_color; color: #0d1f18; font-weight: 600; text-decoration: none;
+}
+.pz .pz-cta:focus-visible, .pz .pz-more:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.pz .pz-ev { margin: 0; text-align: center; color: rgba(255, 255, 255, .56); font-size: 13px; }
+.pz .pz-more { text-align: center; color: $main_color; font-size: 13.5px; text-decoration: none; }
+.pz .pz-more:hover { text-decoration: underline; }
+.pz:not(.is-js) .pz-cards { display: grid; grid-template-columns: 1fr 1fr; }
 @media (max-width: 991px) {
-  .practice-stage { flex-direction: column; }
-  .svc-panel .svc-more { max-height: none; opacity: 1; }
-  .svc-panel h3 { color: #fff; }
+  .pz .pz-grid { grid-template-columns: 1fr; }
+  .pz:not(.is-js) .pz-cards { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pz .pz-chip, .pz .pz-view svg, .pz .pz-dec, .pz .pz-card > * { transition: none; }
+  .pz .pz-log-b div { animation: none; }
 }
 
 /* ---- Home hero: gear caption — the machine names itself ------------------ */
